@@ -76,7 +76,9 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
-                android:text="Entrar com Facebook" />
+                android:text="Entrar com Facebook"
+                android:textColor="#FFFFFF"
+                android:background="#0000FF" />
 
         </LinearLayout>
     </ScrollView>

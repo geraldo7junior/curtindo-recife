@@ -34,7 +34,8 @@
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:text="Título"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+         />
 
     <Button
         android:id="@+id/btnMapa"
@@ -44,6 +45,7 @@
         android:layout_below="@+id/ratingBar1"
         android:layout_marginTop="34dp"
         android:layout_toLeftOf="@+id/btnSimbora"
+        android:background="#FFFF00"
         android:text="Mapa" />
 
     <Button
