@@ -8,10 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaEventos$DummySectionFragment" >
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
     <RatingBar
         android:id="@+id/ratingBar1"
@@ -44,18 +41,18 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ratingBar1"
         android:layout_below="@+id/ratingBar1"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="34dp"
+        android:layout_toLeftOf="@+id/btnSimbora"
         android:text="Mapa" />
 
     <Button
         android:id="@+id/btnSimbora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/imageView1"
-        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/btnMapa"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
         android:text="Simbora!" />
 
 </RelativeLayout>
