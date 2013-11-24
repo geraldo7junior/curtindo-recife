@@ -43,7 +43,7 @@
             android:layout_height="75dp"
             android:layout_x="38dp"
             android:layout_y="235dp"
-            android:src="@drawable/azul" />
+            android:src="@drawable/shows" />
 
         <ImageButton
             android:id="@+id/btnEsportes"
@@ -51,7 +51,7 @@
             android:layout_height="75dp"
             android:layout_x="159dp"
             android:layout_y="235dp"
-            android:src="@drawable/azul" />
+            android:src="@drawable/esportes" />
 
         <TextView
             android:id="@+id/txtCinema"
@@ -68,7 +68,7 @@
             android:layout_height="75dp"
             android:layout_x="39dp"
             android:layout_y="122dp"
-            android:src="@drawable/azul" />
+            android:src="@drawable/cinema" />
 
         <ImageButton
             android:id="@+id/btnTeatro"
@@ -76,7 +76,7 @@
             android:layout_height="75dp"
             android:layout_x="152dp"
             android:layout_y="124dp"
-            android:src="@drawable/azul" />
+            android:src="@drawable/teatro" />
 
         <TextView
             android:id="@+id/txtTeatro"
