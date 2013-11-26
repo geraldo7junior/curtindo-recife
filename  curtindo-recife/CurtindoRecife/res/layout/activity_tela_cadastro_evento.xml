@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".TelaCadastroEvento" >
+
+    <EditText
+        android:id="@+id/txtNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtEndereco"
+        android:layout_below="@+id/txtTitulo"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="@string/nome"
+        android:inputType="textShortMessage" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtEndereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNome"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/endereco"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtNome"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="27dp"
+        android:text="@string/CadastroDeEvento"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtEndereco"
+        android:layout_below="@+id/txtEndereco"
+        android:ems="10"
+        android:hint="@string/data"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/txtHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtTitulo"
+        android:layout_below="@+id/txtData"
+        android:ems="10"
+        android:hint="@string/hora"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/txtDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtHora"
+        android:layout_below="@+id/txtHora"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="@string/descricao"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnCriar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtTitulo"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginLeft="55dp"
+        android:text="@string/criar"
+        android:textColor="#FFFFFF"
+        android:background="#EE0000" />
+
+</RelativeLayout>
