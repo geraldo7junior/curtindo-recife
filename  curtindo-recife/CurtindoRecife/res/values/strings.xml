@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CurtindoRecife</string>
+    <string name="app_name">Curtindo Recife</string>
     <string name="action_settings">Settings</string>
     <string name="email">E-mail:</string>
     <string name="senha">Senha</string>
@@ -10,15 +10,15 @@
     <string name="title_section2">Evento 2</string>
     <string name="title_section3">Evento 3</string>
     <string name="entrar">Entrar</string>
-    <string name="title_activity_tela_prrincipal">TelaPrrincipal</string>
-    <string name="title_activity_tela_agenda">TelaAgenda</string>
+    <string name="title_activity_tela_prrincipal">Tela Principal</string>
+    <string name="title_activity_tela_agenda">Agenda</string>
     <string name="hello_world">Hello world!</string>
     <string name="titulo">Título</string>
     <string name="mapa">Mapa</string>
     <string name="simbora">Simbora</string>
-    <string name="title_activity_tela_cadastro_evento">TelaCadastroEvento</string>
+    <string name="title_activity_tela_cadastro_evento">Cadastro de Evento</string>
     <string name="nome">Nome</string>
-    <string name="CadastroDeEvento">Cadastro de evento</string>
+    <string name="CadastroDeEvento">Cadastro de Evento</string>
     <string name="endereco">Endereco</string>
     <string name="descricao">Descricao</string>
     <string name="data">Data</string>

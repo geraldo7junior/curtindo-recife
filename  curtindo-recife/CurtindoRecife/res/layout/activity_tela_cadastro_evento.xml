@@ -13,11 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtEndereco"
+        android:layout_alignRight="@+id/txtEndereco"
         android:layout_below="@+id/txtTitulo"
         android:layout_marginTop="23dp"
+        android:drawableTop="#00000F"
         android:ems="10"
         android:hint="@string/nome"
-        android:inputType="textShortMessage" >
+        android:inputType="textShortMessage"
+        android:textSize="12sp" >
 
         <requestFocus />
     </EditText>
@@ -30,7 +33,8 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/endereco"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txtTitulo"
@@ -40,7 +44,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="27dp"
         android:text="@string/CadastroDeEvento"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:fontFamily="Adobe Caslon Pro" 
+        android:textColor="#FF0000"/>
 
     <EditText
         android:id="@+id/txtData"
@@ -48,41 +54,46 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtEndereco"
         android:layout_below="@+id/txtEndereco"
+        android:layout_toLeftOf="@+id/txtHora"
         android:ems="10"
         android:hint="@string/data"
-        android:inputType="date" />
+        android:inputType="date"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/txtHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtTitulo"
-        android:layout_below="@+id/txtData"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtEndereco"
         android:ems="10"
         android:hint="@string/hora"
-        android:inputType="time" />
+        android:inputType="time"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/txtDescricao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtHora"
-        android:layout_below="@+id/txtHora"
-        android:layout_marginTop="18dp"
+        android:layout_alignLeft="@+id/txtData"
+        android:layout_alignRight="@+id/txtTitulo"
+        android:layout_below="@+id/txtData"
+        android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="@string/descricao"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/btnCriar"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtTitulo"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginLeft="55dp"
+        android:layout_alignRight="@+id/txtDescricao"
+        android:layout_marginBottom="58dp"
+        android:background="#EE0000"
         android:text="@string/criar"
-        android:textColor="#FFFFFF"
-        android:background="#EE0000" />
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>
