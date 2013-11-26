@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 public class TelaPrincipal extends Activity implements android.view.View.OnClickListener {
 
 	Button btnLogin;
+	Button btnCadastarEvento;
 	ImageButton btnAgenda;
 	ImageButton btnCinema;
 	@Override
@@ -29,6 +30,8 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 	}
 	
 	public void navegacao(){
+		btnCadastarEvento = (Button)findViewById(R.id.btnCadastrarEvento);
+		btnCadastarEvento.setOnClickListener(this);
 		btnLogin = (Button)findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(this);
 		btnAgenda = (ImageButton)findViewById(R.id.btnAgenda);
@@ -51,6 +54,11 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 		
 		if(v.getId() == R.id.btnCinema){
 			Intent intent = new Intent(TelaPrincipal.this, TelaEventos.class);
+			startActivity(intent);
+		}
+		
+		if(v.getId() == R.id.btnCadastrarEvento){
+			Intent intent = new Intent(TelaPrincipal.this,TelaCadastroEvento.class);
 			startActivity(intent);
 		}
 		

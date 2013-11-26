@@ -35,6 +35,11 @@
             android:name="com.br.curtindorecife.TelaAgenda"
             android:label="@string/title_activity_tela_agenda" >
         </activity>
+        
+         <activity
+            android:name="com.br.curtindorecife.TelaCadastroEvento"
+            android:label="@string/title_activity_tela_cadastro_evento" >
+        </activity>
     </application>
 
 </manifest>
