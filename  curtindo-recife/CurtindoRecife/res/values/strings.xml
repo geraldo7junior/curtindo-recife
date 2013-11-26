@@ -13,5 +13,16 @@
     <string name="title_activity_tela_prrincipal">TelaPrrincipal</string>
     <string name="title_activity_tela_agenda">TelaAgenda</string>
     <string name="hello_world">Hello world!</string>
+    <string name="titulo">Título</string>
+    <string name="mapa">Mapa</string>
+    <string name="simbora">Simbora</string>
+    <string name="title_activity_tela_cadastro_evento">TelaCadastroEvento</string>
+    <string name="nome">Nome</string>
+    <string name="CadastroDeEvento">Cadastro de evento</string>
+    <string name="endereco">Endereco</string>
+    <string name="descricao">Descricao</string>
+    <string name="data">Data</string>
+    <string name="hora">Hora</string>
+    <string name="criar">Criar</string>
 
 </resources>
