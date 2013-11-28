@@ -24,5 +24,7 @@
     <string name="data">Data</string>
     <string name="hora">Hora</string>
     <string name="criar">Criar</string>
+    <string name="semCadastro">Ainda não é cadastrado?</string>
+    <string name="entrarFacebook">Entrar com Facebook</string>
 
 </resources>
