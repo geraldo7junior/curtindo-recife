@@ -31,56 +31,69 @@
 
     <!-- Login form -->
 
-    <ScrollView
+    <AbsoluteLayout
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <LinearLayout
-            style="@style/LoginFormContainer"
-            android:orientation="vertical" >
+        <Button
+            android:id="@+id/entrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="9dp"
+            android:layout_y="151dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/entrar" />
 
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_x="1dp"
+            android:layout_y="72dp"
+            android:ems="10"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/senha"
-                android:imeActionId="@+id/login"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_x="4dp"
+            android:layout_y="109dp"
+            android:ems="10"
+            android:hint="@string/senha"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <Button
-                android:id="@+id/entrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="@string/entrar" />
+        <Button
+            android:id="@+id/entrarFacebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="12dp"
+            android:layout_y="202dp"
+            android:background="#0000FF"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/entrarFacebook"
+            android:textColor="#FFFFFF" />
 
-            <Button
-                android:id="@+id/entrarFacebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="Entrar com Facebook"
-                android:textColor="#FFFFFF"
-                android:background="#0000FF" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="14dp"
+            android:layout_y="268dp"
+            android:text="@string/semCadastro"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </LinearLayout>
-    </ScrollView>
+    </AbsoluteLayout>
 
 </merge>
