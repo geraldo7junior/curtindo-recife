@@ -15,7 +15,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="titulo">Título</string>
     <string name="mapa">Mapa</string>
-    <string name="simbora">Simbora</string>
+    <string name="simbora">Simbora!</string>
     <string name="title_activity_tela_cadastro_evento">Cadastro de Evento</string>
     <string name="nome">Nome</string>
     <string name="CadastroDeEvento">Cadastro de Evento</string>
@@ -24,7 +24,9 @@
     <string name="data">Data</string>
     <string name="hora">Hora</string>
     <string name="criar">Criar</string>
+    <string name="title_activity_tela_eventos2">TelaEventos2</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_legal">Legal</string>
     <string name="semCadastro">Ainda não é cadastrado?</string>
     <string name="entrarFacebook">Entrar com Facebook</string>
-
 </resources>

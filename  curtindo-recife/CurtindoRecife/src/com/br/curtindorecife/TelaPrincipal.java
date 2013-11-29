@@ -15,6 +15,7 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 	Button btnCadastarEvento;
 	ImageButton btnAgenda;
 	ImageButton btnCinema;
+	ImageButton btnTeatro;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +39,8 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 		btnAgenda.setOnClickListener(this);
 		btnCinema = (ImageButton)findViewById(R.id.btnCinema);
 		btnCinema.setOnClickListener(this);
+		btnTeatro = (ImageButton)findViewById(R.id.btnTeatro);
+		btnTeatro.setOnClickListener(this);
 	}
 
 	@Override
@@ -59,6 +62,11 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 		
 		if(v.getId() == R.id.btnCadastrarEvento){
 			Intent intent = new Intent(TelaPrincipal.this,TelaCadastroEvento.class);
+			startActivity(intent);
+		}
+		
+		if(v.getId() == R.id.btnTeatro){
+			Intent intent = new Intent(TelaPrincipal.this,Legal.class);
 			startActivity(intent);
 		}
 		
