@@ -86,6 +86,9 @@ public class TelaLogin extends Activity implements android.view.View.OnClickList
 						if (v.getId()==R.id.btnEsqueciSenha){
 							Intent intent = new Intent(TelaLogin.this, TelaEsqueciSenha.class);
 							startActivity(intent);
+						}if(v.getId()==R.id.btnSemCadastro){
+							Intent intent = new Intent(TelaLogin.this, TelaCadastroUsuario.class);
+							startActivity(intent);
 						}
 					}
 				});

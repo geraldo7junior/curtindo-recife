@@ -3,7 +3,7 @@
 
     <string name="app_name">Curtindo Recife</string>
     <string name="action_settings">Settings</string>
-    <string name="email">E-mail:</string>
+    <string name="email">E-mail</string>
     <string name="senha">Senha</string>
     <string name="title_activity_tela_eventos">Eventos</string>
     <string name="title_section1">Evento 1</string>
@@ -37,5 +37,12 @@
     <string name="title_activity_tela_esqueci_senha">TelaEsqueciSenha</string>
     <string name="informeEmailCadastrado">Por favor informe o email do seu CurtindoRecife</string>
     <string name="recuperarSenha">Recuperar Senha</string>
+    <string name="title_activity_tela_cadastro_usuario">TelaCadastroUsuario</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="nome">Nome</string>
+    <string name="dataNascimento">Data de nascimento</string>
+    <string name="homem">Homem</string>
+    <string name="mulher">Mulher</string>
+    <string name="cadastrar">Cadastrar</string>
 
 </resources>

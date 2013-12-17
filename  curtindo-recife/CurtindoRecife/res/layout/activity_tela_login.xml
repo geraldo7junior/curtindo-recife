@@ -77,7 +77,7 @@
             android:id="@+id/entrarFacebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="12dp"
+            android:layout_x="14dp"
             android:layout_y="202dp"
             android:background="#0000FF"
             android:paddingLeft="32dp"
@@ -85,21 +85,21 @@
             android:text="@string/entrarFacebook"
             android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/textView1"
+        <Button
+            android:id="@+id/btnSemCadastro"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="14dp"
-            android:layout_y="268dp"
-            android:text="@string/semCadastro"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_x="12dp"
+            android:layout_y="252dp"
+            android:text="@string/semCadastro" />
 
         <Button
             android:id="@+id/btnEsqueciSenha"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
-            android:layout_x="16dp"
-            android:layout_y="297dp"
+            android:layout_x="14dp"
+            android:layout_y="313dp"
             android:text="@string/esqueciSenha" />
 
     </AbsoluteLayout>

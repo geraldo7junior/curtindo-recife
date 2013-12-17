@@ -51,6 +51,10 @@
             android:name="com.br.curtindorecife.TelaEsqueciSenha"
             android:label="@string/title_activity_tela_esqueci_senha" >
         </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaCadastroUsuario"
+            android:label="@string/title_activity_tela_cadastro_usuario" >
+        </activity>
     </application>
 
 </manifest>
