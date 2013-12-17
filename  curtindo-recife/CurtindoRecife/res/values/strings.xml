@@ -33,5 +33,9 @@
     <string name="menu_delete">Manepah</string>
     <string name="title_activity_tela_home">TelaHome</string>
     <string name="title_activity_teste2">Teste2</string>
+    <string name="esqueciSenha">Esqueci minha senha</string>
+    <string name="title_activity_tela_esqueci_senha">TelaEsqueciSenha</string>
+    <string name="informeEmailCadastrado">Por favor informe o email do seu CurtindoRecife</string>
+    <string name="recuperarSenha">Recuperar Senha</string>
 
 </resources>
