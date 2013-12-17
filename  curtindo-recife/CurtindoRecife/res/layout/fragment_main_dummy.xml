@@ -11,14 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaPrincipal" >
 
-    <ImageButton
-        android:id="@+id/btnAgenda"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="208dp"
-        android:layout_y="11dp"
-        android:src="@android:drawable/ic_menu_my_calendar" />
-
     <Button
         android:id="@+id/btnCadastrarEvento"
         android:layout_width="115dp"
@@ -44,73 +36,101 @@
         android:textColor="#FFFFFF" />
 
     <ImageButton
-        android:id="@+id/btnTeatro"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="118dp"
-        android:layout_y="130dp"
-        android:src="@drawable/teatro" />
-
-    <ImageButton
-        android:id="@+id/btnEsportes"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="221dp"
-        android:layout_y="134dp"
-        android:src="@drawable/esportes" />
-
-    <TextView
-        android:id="@+id/txtEsportes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="229dp"
-        android:layout_y="214dp"
-        android:text="Esportes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageButton
         android:id="@+id/btnShows"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_x="22dp"
-        android:layout_y="133dp"
+        android:layout_x="16dp"
+        android:layout_y="175dp"
         android:src="@drawable/shows" />
 
     <TextView
         android:id="@+id/txtShows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="38dp"
-        android:layout_y="217dp"
+        android:layout_x="32dp"
+        android:layout_y="267dp"
         android:text="Shows"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/btnTeatro"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_x="115dp"
+        android:layout_y="175dp"
+        android:src="@drawable/teatro" />
+
+    <ImageButton
+        android:id="@+id/btnEsportes"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_x="212dp"
+        android:layout_y="170dp"
+        android:src="@drawable/esportes" />
+
+    <TextView
+        android:id="@+id/txtEsportes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="219dp"
+        android:layout_y="267dp"
+        android:text="Esportes"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_x="16dp"
+        android:layout_y="320dp"
+        android:background="#0CC0F0"
+        android:text="Todos os Eventos"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/btnEsqueciSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="236dp"
-        android:layout_y="262dp"
+        android:layout_x="229dp"
+        android:layout_y="323dp"
         android:text="Outros"
         android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/btnAgenda"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_x="246dp"
+        android:layout_y="14dp"
+        android:src="@android:drawable/ic_menu_my_calendar" />
+
+    <Button
+        android:id="@+id/btnNight"
+        android:layout_width="80dp"
+        android:layout_height="32dp"
+        android:layout_x="219dp"
+        android:layout_y="110dp"
+        android:background="#1C1C1C"
+        android:text="Night"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnTop10"
+        android:layout_width="78dp"
+        android:layout_height="33dp"
+        android:layout_x="14dp"
+        android:layout_y="110dp"
+        android:background="#FFD700"
+        android:text="Top10"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/txtTeatro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="134dp"
-        android:layout_y="225dp"
+        android:layout_x="128dp"
+        android:layout_y="263dp"
         android:text="Teatro"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="116dp"
-        android:layout_height="wrap_content"
-        android:layout_x="20dp"
-        android:layout_y="266dp"
-        android:background="#0CC0F0"
-        android:text="Todos os Eventos"
-        android:textColor="#FFFFFF" />
 
 </AbsoluteLayout>
