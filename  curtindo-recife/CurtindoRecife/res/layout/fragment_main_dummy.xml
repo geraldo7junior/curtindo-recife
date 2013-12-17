@@ -12,96 +12,19 @@
     tools:context=".TelaPrincipal" >
 
     <ImageButton
-        android:id="@+id/btnShows"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="38dp"
-        android:layout_y="235dp"
-        android:src="@drawable/shows" />
-
-    <ImageButton
-        android:id="@+id/btnEsportes"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="159dp"
-        android:layout_y="235dp"
-        android:src="@drawable/esportes" />
-
-    <TextView
-        android:id="@+id/txtCinema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="40dp"
-        android:layout_y="201dp"
-        android:text="Cinema"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageButton
-        android:id="@+id/btnCinema"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="39dp"
-        android:layout_y="122dp"
-        android:src="@drawable/cinema" />
-
-    <ImageButton
-        android:id="@+id/btnTeatro"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="152dp"
-        android:layout_y="124dp"
-        android:src="@drawable/teatro" />
-
-    <TextView
-        android:id="@+id/txtTeatro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="159dp"
-        android:layout_y="197dp"
-        android:text="Teatro"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/txtEsportes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="161dp"
-        android:layout_y="315dp"
-        android:text="Esportes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/txtShows"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="46dp"
-        android:layout_y="312dp"
-        android:text="Shows"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageButton
         android:id="@+id/btnAgenda"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_x="47dp"
-        android:layout_y="370dp"
+        android:layout_x="208dp"
+        android:layout_y="11dp"
         android:src="@android:drawable/ic_menu_my_calendar" />
 
     <Button
-        android:id="@+id/btnEsqueciSenha"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_x="166dp"
-        android:layout_y="368dp"
-        android:text="Outros"
-        android:textSize="14sp" />
-
-    <Button
         android:id="@+id/btnCadastrarEvento"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_x="11dp"
-        android:layout_y="35dp"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_x="99dp"
+        android:layout_y="402dp"
         android:background="#FF0000"
         android:fontFamily="Segoe UI"
         android:paddingLeft="4dp"
@@ -114,10 +37,80 @@
         android:id="@+id/btnLogin"
         android:layout_width="100dp"
         android:layout_height="30dp"
-        android:layout_x="186dp"
-        android:layout_y="33dp"
+        android:layout_x="15dp"
+        android:layout_y="30dp"
         android:background="#0000FF"
         android:text="Login"
+        android:textColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/btnTeatro"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_x="118dp"
+        android:layout_y="130dp"
+        android:src="@drawable/teatro" />
+
+    <ImageButton
+        android:id="@+id/btnEsportes"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_x="221dp"
+        android:layout_y="134dp"
+        android:src="@drawable/esportes" />
+
+    <TextView
+        android:id="@+id/txtEsportes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="229dp"
+        android:layout_y="214dp"
+        android:text="Esportes"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/btnShows"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_x="22dp"
+        android:layout_y="133dp"
+        android:src="@drawable/shows" />
+
+    <TextView
+        android:id="@+id/txtShows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="38dp"
+        android:layout_y="217dp"
+        android:text="Shows"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btnEsqueciSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="236dp"
+        android:layout_y="262dp"
+        android:text="Outros"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtTeatro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="134dp"
+        android:layout_y="225dp"
+        android:text="Teatro"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_x="20dp"
+        android:layout_y="266dp"
+        android:background="#0CC0F0"
+        android:text="Todos os Eventos"
         android:textColor="#FFFFFF" />
 
 </AbsoluteLayout>

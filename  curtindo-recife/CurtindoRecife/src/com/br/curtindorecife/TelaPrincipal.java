@@ -162,7 +162,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		Button btnLogin;
 		Button btnCadastarEvento;
 		ImageButton btnAgenda;
-		ImageButton btnCinema;
+		ImageButton btnShows;
 		ImageButton btnTeatro;
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
@@ -183,8 +183,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
-			btnCinema = (ImageButton)rootView.findViewById(R.id.btnCinema);
-			btnCinema.setOnClickListener(this);
+			btnShows = (ImageButton)rootView.findViewById(R.id.btnShows);
+			btnShows.setOnClickListener(this);
 			btnTeatro = (ImageButton)rootView.findViewById(R.id.btnTeatro);
 			btnTeatro.setOnClickListener(this);
 			return rootView;
@@ -202,7 +202,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				startActivity(intent);
 			}
 			
-			if(v.getId() == R.id.btnCinema){
+			if(v.getId() == R.id.btnShows){
 				Intent intent = new Intent(getActivity(), TelaEventos.class);
 				startActivity(intent);
 			}
