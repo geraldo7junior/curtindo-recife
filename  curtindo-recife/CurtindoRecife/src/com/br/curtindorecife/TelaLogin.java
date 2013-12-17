@@ -1,6 +1,5 @@
 package com.br.curtindorecife;
 
-import android.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -21,7 +20,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class TelaLogin extends Activity implements android.view.View.OnClickListener {
+public class TelaLogin extends Activity{
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.

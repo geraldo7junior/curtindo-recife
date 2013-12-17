@@ -130,14 +130,14 @@ public class TelaEventos extends FragmentActivity {
 					R.layout.fragment_tela_eventos_dummy, container, false);
 			
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
-			btnSimbora.setOnClickListener(new OnClickListener() {
+			btnSimbora.setOnClickListener(this);/*new OnClickListener() {
 		          public void onClick(View v) {
 		        	  if(v.getId()==R.id.btnSimbora){
 		  				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
 		  				startActivity(intent);
 		  			}
 		          }
-		       });
+		       });*/
 			return rootView;
 		}
 		

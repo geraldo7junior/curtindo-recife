@@ -39,7 +39,6 @@
     <string name="recuperarSenha">Recuperar Senha</string>
     <string name="title_activity_tela_cadastro_usuario">TelaCadastroUsuario</string>
     <string name="cadastro">Cadastro</string>
-    <string name="nome">Nome</string>
     <string name="dataNascimento">Data de nascimento</string>
     <string name="homem">Homem</string>
     <string name="mulher">Mulher</string>
