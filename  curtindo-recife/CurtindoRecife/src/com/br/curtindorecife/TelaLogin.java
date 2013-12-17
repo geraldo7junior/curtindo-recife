@@ -1,9 +1,11 @@
 package com.br.curtindorecife;
 
+import android.R;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class TelaLogin extends Activity {
+public class TelaLogin extends Activity implements android.view.View.OnClickListener {
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -80,8 +82,11 @@ public class TelaLogin extends Activity {
 		findViewById(R.id.entrar).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
-					public void onClick(View view) {
-						attemptLogin();
+					public void onClick(View v) {
+						if (v.getId()==R.id.btnEsqueciSenha){
+							Intent intent = new Intent(TelaLogin.this, TelaEsqueciSenha.class);
+							startActivity(intent);
+						}
 					}
 				});
 	}
