@@ -34,6 +34,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	public void navegacao(){
 		btnCriar = (Button)findViewById(R.id.btnCriar);
+		btnCriar.setEnabled(false);
 		btnCriar.setOnClickListener(this);
 		
 	}
@@ -45,8 +46,8 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("Evento cadastrado com sucesso")
-			       .setTitle("Sucesso!");
+			builder.setMessage("É preciso realizar o login para curtir eventos.")
+			       .setTitle("Login");
 
 			// 3. Get the AlertDialog from create()
 			AlertDialog dialog = builder.create();

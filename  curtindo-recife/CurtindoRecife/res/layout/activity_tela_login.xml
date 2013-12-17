@@ -94,6 +94,15 @@
             android:text="@string/semCadastro"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="16dp"
+            android:layout_y="310dp"
+            android:text="Esqueci a senha"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </AbsoluteLayout>
 
 </merge>

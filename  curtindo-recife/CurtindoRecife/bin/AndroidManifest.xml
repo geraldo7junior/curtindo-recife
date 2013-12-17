@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo_recife"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -28,7 +28,7 @@
         </activity>
         <activity
             android:name="com.br.curtindorecife.TelaLogin"
-            android:label="@string/title_activity_tela_login"
+            android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
@@ -40,16 +40,12 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.br.curtindorecife.TelaEventos2"
-            android:label="@string/title_activity_tela_eventos2" >
+            android:name="com.br.curtindorecife.Teste2"
+            android:label="@string/title_activity_teste2" >
         </activity>
         <activity
             android:name="com.br.curtindorecife.MainActivity"
             android:label="@string/title_activity_main" >
-        </activity>
-        <activity
-            android:name="com.br.curtindorecife.Legal"
-            android:label="@string/title_activity_legal" >
         </activity>
     </application>
 

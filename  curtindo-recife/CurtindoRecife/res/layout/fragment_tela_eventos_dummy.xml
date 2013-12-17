@@ -74,12 +74,12 @@
 
     <Button
         android:id="@+id/btnSimbora"
-        android:layout_width="95dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="122dp"
         android:layout_y="384dp"
         android:background="#FF0000"
-        android:text="@string/simbora"
+        android:text="Simbora"
         android:textColor="#FFFFFF" />
 
     <Button
@@ -91,5 +91,13 @@
         android:layout_y="396dp"
         android:background="#FFFF00"
         android:text="@string/mapa" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_x="22dp"
+        android:layout_y="118dp"
+        android:src="@android:drawable/ic_menu_preferences" />
 
 </AbsoluteLayout>

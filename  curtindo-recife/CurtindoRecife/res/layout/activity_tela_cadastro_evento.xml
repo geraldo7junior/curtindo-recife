@@ -90,10 +90,48 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/txtDescricao"
-        android:layout_marginBottom="58dp"
+        android:layout_alignRight="@+id/checkBox2"
         android:background="#EE0000"
         android:text="@string/criar"
         android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnCriar"
+        android:text="Outros" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBox5"
+        android:layout_alignLeft="@+id/checkBox5"
+        android:text="Show" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBox3"
+        android:text="Cinema" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBox5"
+        android:layout_toRightOf="@+id/txtData"
+        android:text="Esportes" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBox1"
+        android:layout_toRightOf="@+id/txtData"
+        android:text="Teatro" />
 
 </RelativeLayout>

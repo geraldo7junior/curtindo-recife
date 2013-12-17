@@ -2,12 +2,15 @@ package com.br.curtindorecife;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class TelaPrincipal extends Activity implements android.view.View.OnClickListener {
 
@@ -16,6 +19,7 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 	ImageButton btnAgenda;
 	ImageButton btnCinema;
 	ImageButton btnTeatro;
+	ImageButton btnEsportes;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 		btnCinema.setOnClickListener(this);
 		btnTeatro = (ImageButton)findViewById(R.id.btnTeatro);
 		btnTeatro.setOnClickListener(this);
+		btnEsportes = (ImageButton)findViewById(R.id.btnEsportes);
+		btnEsportes.setOnClickListener(this);
 	}
 
 	@Override
@@ -65,10 +71,48 @@ public class TelaPrincipal extends Activity implements android.view.View.OnClick
 			startActivity(intent);
 		}
 		
-		if(v.getId() == R.id.btnTeatro){
-			Intent intent = new Intent(TelaPrincipal.this,Legal.class);
+		if(v.getId() == R.id.btnEsportes){
+			Intent intent = new Intent(TelaPrincipal.this,MainActivity.class);
 			startActivity(intent);
 		}
+		if(v.getId() == R.id.btnTeatro){
+				CharSequence[] charSequences = new CharSequence[]{"Sempre Compartilhar"};
+		        final boolean[] checados = new boolean[charSequences.length];
+
+		        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		        builder.setTitle("Compartilhar no Facebook?");
+		        builder.setMultiChoiceItems(charSequences, checados, new DialogInterface.OnMultiChoiceClickListener() {
+		            public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
+		                checados[arg1] = arg2;
+		            }
+		        });
+
+		        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface arg0, int arg1) {
+		                StringBuilder texto = new StringBuilder("Checados: ");
+		                for (boolean ch : checados) {
+		                    texto.append(ch).append("; ");
+		                }
+		            }
+		        });
+		        
+		        builder.setNegativeButton("Não", new DialogInterface.OnClickListener(){
+		        	public void onClick(DialogInterface arg0, int arg1) {
+		                StringBuilder texto = new StringBuilder("Checados: ");
+		                for (boolean ch : checados) {
+		                    texto.append(ch).append("; ");
+		                }
+		            }
+		        });
+
+		        AlertDialog alerta = builder.create();
+		        alerta.show();
+		        
+			// TODO Auto-generated method stub
+			
+			Intent intent = new Intent(TelaPrincipal.this,Teste2.class);
+			startActivity(intent);
+		}	
 		
 	}
 

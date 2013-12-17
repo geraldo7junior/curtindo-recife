@@ -1,9 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item 
+          android:icon="@android:drawable/ic_dialog_info"
+          android:title="@string/menu_delete"
+          android:showAsAction="ifRoom"/>
+
+    
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="Atualizar"/>
+    <item
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Equipe"/>
 
+    
 </menu>
+
+   
