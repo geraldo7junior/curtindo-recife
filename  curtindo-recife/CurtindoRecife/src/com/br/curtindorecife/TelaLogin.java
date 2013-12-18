@@ -12,7 +12,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,7 +22,7 @@ import android.widget.TextView;
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
-public class TelaLogin extends Activity{
+public class TelaLogin extends Activity implements OnClickListener{
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -48,7 +50,10 @@ public class TelaLogin extends Activity{
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
-
+	
+	Button btnEsqueciSenha;
+	Button btnSemCadastro;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +64,12 @@ public class TelaLogin extends Activity{
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
-
+		
+		btnSemCadastro = (Button)findViewById(R.id.btnSemCadastro);
+		btnSemCadastro.setOnClickListener(this);
+		btnEsqueciSenha = (Button)findViewById(R.id.btnEsqueciSenha);
+		btnEsqueciSenha.setOnClickListener(this);
+		
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -82,17 +92,22 @@ public class TelaLogin extends Activity{
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (v.getId()==R.id.btnEsqueciSenha){
-							Intent intent = new Intent(TelaLogin.this, TelaEsqueciSenha.class);
-							startActivity(intent);
-						}if(v.getId()==R.id.btnSemCadastro){
-							Intent intent = new Intent(TelaLogin.this, TelaCadastroUsuario.class);
-							startActivity(intent);
-						}
+						attemptLogin();
 					}
 				});
 	}
 
+	@Override
+	public void onClick(View v) {
+		if (v.getId()==R.id.btnEsqueciSenha){
+			Intent intent = new Intent(TelaLogin.this, TelaEsqueciSenha.class);
+			startActivity(intent);
+		}if(v.getId()==R.id.btnSemCadastro){
+			Intent intent = new Intent(TelaLogin.this, TelaCadastroUsuario.class);
+			startActivity(intent);
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
