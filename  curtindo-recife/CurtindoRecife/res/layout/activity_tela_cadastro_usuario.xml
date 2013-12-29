@@ -31,14 +31,14 @@
          android:id="@+id/checkBox1"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_below="@+id/editText1"
+         android:layout_below="@+id/cadastroSenhar"
          android:layout_marginLeft="20dp"
          android:layout_marginTop="19dp"
          android:layout_toRightOf="@+id/checkBox2"
          android:text="@string/homem" />
 
      <Button
-         android:id="@+id/btnSemCadastro"
+         android:id="@+id/btnCadastrar"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
@@ -70,7 +70,7 @@
      </EditText>
 
      <EditText
-         android:id="@+id/editText1"
+         android:id="@+id/cadastroSenhar"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_alignLeft="@+id/cadastroNascimento"
@@ -83,7 +83,7 @@
          android:id="@+id/cadastroEmail"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/editText1"
+         android:layout_above="@+id/cadastroSenhar"
          android:layout_alignLeft="@+id/cadastroNascimento"
          android:ems="10"
          android:hint="@string/email"
