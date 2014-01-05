@@ -1,9 +1,11 @@
 package com.br.curtindorecife;
 
+import persistencia.*;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -115,6 +117,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 		return true;
 	}
 
+	
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
@@ -163,13 +166,27 @@ public class TelaLogin extends Activity implements OnClickListener{
 			// form field with an error.
 			focusView.requestFocus();
 		} else {
+			
+			if(LoginBS.validarLogin(mEmail, mPassword)){
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
-		}
+			}
+			else{
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	
+				// 2. Chain together various setter methods to set the dialog characteristics
+				builder.setMessage("E-mail ou senha inválidos");
+	
+				// 3. Get the AlertDialog from create()
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				
+				}
+			}
 	}
 
 	/**
