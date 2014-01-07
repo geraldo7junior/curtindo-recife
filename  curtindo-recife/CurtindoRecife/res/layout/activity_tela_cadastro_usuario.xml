@@ -99,6 +99,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnCadastrar"
-        android:layout_alignRight="@+id/cadastroEmail" />
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
