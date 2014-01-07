@@ -18,79 +18,87 @@
         android:text="@string/cadastro"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-     <Button
-         android:id="@+id/btnCadastrar"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:layout_centerHorizontal="true"
-         android:layout_marginBottom="42dp"
-         android:text="@string/cadastrar" />
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:text="@string/cadastrar" />
 
-     <EditText
-         android:id="@+id/cadastroNome"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/cadastroNascimento"
-         android:layout_centerHorizontal="true"
-         android:ems="10"
-         android:hint="@string/nome"
-         android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/cadastroNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cadastroNascimento"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/nome"
+        android:inputType="textPersonName" />
 
-     <EditText
-         android:id="@+id/cadastroNascimento"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/cadastroEmail"
-         android:layout_alignLeft="@+id/cadastroNome"
-         android:ems="10"
-         android:hint="@string/dataNascimento"
-         android:inputType="date" >
+    <EditText
+        android:id="@+id/cadastroNascimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cadastroEmail"
+        android:layout_alignLeft="@+id/cadastroNome"
+        android:ems="10"
+        android:hint="@string/dataNascimento"
+        android:inputType="date" >
 
-         <requestFocus />
-     </EditText>
+        <requestFocus />
+    </EditText>
 
-     <EditText
-         android:id="@+id/cadastroSenhar"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/cadastroNascimento"
-         android:layout_centerVertical="true"
-         android:ems="10"
-         android:hint="@string/senha"
-         android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/cadastroSenhar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cadastroNascimento"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="@string/senha"
+        android:inputType="textPassword" />
 
-     <EditText
-         android:id="@+id/cadastroEmail"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/cadastroSenhar"
-         android:layout_alignLeft="@+id/cadastroNascimento"
-         android:ems="10"
-         android:hint="@string/email"
-         android:inputType="textEmailAddress" />
+    <EditText
+        android:id="@+id/cadastroEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cadastroSenhar"
+        android:layout_alignLeft="@+id/cadastroNascimento"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
 
-	<RadioGroup
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/cadastroSenhar"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="15dp"
-	    android:orientation="horizontal" >
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cadastroSenhar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
 
-	    <RadioButton
-	        android:id="@+id/rdbMulher"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="40dp"
-	        android:text="Mulher" />
+        <RadioButton
+            android:id="@+id/rdbMulher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="Mulher" />
 
-	    <RadioButton
-	        android:id="@+id/rdbHomem"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="40dp"
-	        android:text="Homem" />
-	</RadioGroup>
+        <RadioButton
+            android:id="@+id/rdbHomem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="Homem" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spCategorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnCadastrar"
+        android:layout_alignRight="@+id/cadastroEmail" />
 
 </RelativeLayout>

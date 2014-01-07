@@ -7,9 +7,11 @@ import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 
 public class TelaCadastroUsuario extends Activity implements OnClickListener {
 
@@ -21,10 +23,16 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	Button btnCadastrar;
 	RadioButton rdbHomem;
 	RadioButton rdbMulher;
+	Spinner spCategorias;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_cadastro_usuario);
+		
+		spCategorias = (Spinner) findViewById(R.id.spCategorias);
+		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
+		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spCategorias.setAdapter(ar);
 	}
 
 	@Override
