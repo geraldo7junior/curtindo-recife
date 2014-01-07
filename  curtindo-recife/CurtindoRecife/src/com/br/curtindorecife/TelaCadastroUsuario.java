@@ -39,7 +39,8 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		return true;
 	}
 	
-	public void cadastrar(){
+	public boolean cadastrar(){
+		boolean validar=true;
 		String nome=txtNome.getText().toString();
 		String email=txtEmail.getText().toString();
 		String dataDeNascimento=txtDataDeNascimento.getText().toString();
@@ -50,6 +51,31 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		System.out.println(usuario.getEmail());
 		System.out.println(usuario.getSenha());
 		
+		if(usuario.getSenha().length()<=4){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			// 2. Chain together various setter methods to set the dialog characteristics
+			builder.setMessage("A senha está curta. Ela deve possuir mais de 4 caracteres");
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			validar=false;
+		}
+		
+		if(!usuario.getEmail().contains("@")){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			// 2. Chain together various setter methods to set the dialog characteristics
+			builder.setMessage("Endereço de e-mail inválido.");
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			validar=false;
+		}
+		return validar;
+		
 		
 	}
 
@@ -58,17 +84,18 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		
 		if(v.getId()==R.id.btnCadastrar){
-			cadastrar();
+			if(cadastrar()){
 
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("Usuário Cadastrado com Sucesso")
-			       .setTitle("Cadastrado");
-
-			// 3. Get the AlertDialog from create()
-			AlertDialog dialog = builder.create();
-			dialog.show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	
+				// 2. Chain together various setter methods to set the dialog characteristics
+				builder.setMessage("Usuário Cadastrado com Sucesso")
+				       .setTitle("Cadastrado");
+	
+				// 3. Get the AlertDialog from create()
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			}
 		}
 		
 	}
