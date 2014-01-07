@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 public class TelaCadastroUsuario extends Activity implements OnClickListener {
 
@@ -18,7 +19,8 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	EditText txtEmail;
 	EditText txtSenha;
 	Button btnCadastrar;
-	
+	RadioButton rdbHomem;
+	RadioButton rdbMulher;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,6 +38,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		txtSenha=(EditText)findViewById(R.id.cadastroSenhar);
 		btnCadastrar=(Button) findViewById(R.id.btnCadastrar);
 		btnCadastrar.setOnClickListener(this);
+		rdbHomem=(RadioButton) findViewById(R.id.rdbHomem);
+		rdbHomem.setOnClickListener(this);
+		rdbMulher=(RadioButton) findViewById(R.id.rdbMulher);
+		rdbMulher.setOnClickListener(this);
 		return true;
 	}
 	
@@ -97,7 +103,32 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 				dialog.show();
 			}
 		}
+		if(v.getId()==R.id.rdbHomem){
+			opcoesRadioButton(rdbHomem);
+		}
+		if(v.getId()==R.id.rdbMulher){
+			opcoesRadioButton(rdbMulher);
+		}
 		
+		
+	}
+	
+	public void opcoesRadioButton(View view){
+		
+		boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.rdbHomem:
+	            if (checked)
+	                // Pirates are the best
+	            break;
+	        case R.id.rdbMulher:
+	            if (checked)
+	                // Ninjas rule
+	            break;
+	    }
+
 	}
 
 }

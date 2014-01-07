@@ -18,25 +18,6 @@
         android:text="@string/cadastro"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-     <CheckBox
-         android:id="@+id/checkBox2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBaseline="@+id/checkBox1"
-         android:layout_alignBottom="@+id/checkBox1"
-         android:layout_alignLeft="@+id/cadastroEmail"
-         android:text="@string/mulher" />
-
-     <CheckBox
-         android:id="@+id/checkBox1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/cadastroSenhar"
-         android:layout_marginLeft="20dp"
-         android:layout_marginTop="19dp"
-         android:layout_toRightOf="@+id/checkBox2"
-         android:text="@string/homem" />
-
      <Button
          android:id="@+id/btnCadastrar"
          android:layout_width="wrap_content"
@@ -88,5 +69,28 @@
          android:ems="10"
          android:hint="@string/email"
          android:inputType="textEmailAddress" />
+
+	<RadioGroup
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/cadastroSenhar"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="15dp"
+	    android:orientation="horizontal" >
+
+	    <RadioButton
+	        android:id="@+id/rdbMulher"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="40dp"
+	        android:text="Mulher" />
+
+	    <RadioButton
+	        android:id="@+id/rdbHomem"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="40dp"
+	        android:text="Homem" />
+	</RadioGroup>
 
 </RelativeLayout>
