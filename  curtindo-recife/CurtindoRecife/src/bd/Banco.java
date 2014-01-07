@@ -2,7 +2,7 @@ package bd;
 
 import java.sql.Date;
 import java.sql.Time;
-
+import android.database.Cursor;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -21,6 +21,8 @@ public class Banco extends Activity{
 		BancoDados.execSQL(sqlEvento);
 		} catch (Exception erro) {
 			// TODO: handle exception
+		}finally{
+			BancoDados.close();
 		}
 	}
 	@SuppressWarnings("deprecation")
@@ -28,10 +30,12 @@ public class Banco extends Activity{
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha) VALUE (nome='"+nome+"',dataNascimento='"+dataNascimento+"',email='"+email+"',senha='"+senha+"')";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha) VALUE ('"+nome+"','"+dataNascimento+"','"+email+"','"+senha+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
+		}finally{
+			BancoDados.close();
 		}
 	}
 	@SuppressWarnings("deprecation")
@@ -39,10 +43,12 @@ public class Banco extends Activity{
 		//o formato da data é (YYYY/MM/DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, data, hora, descricao) VALUE (nome='"+nome+"',endereco='"+endereco+"',data='"+data+"',hora='"+hora+"',descricao='"+descricao+"')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, data, hora, descricao) VALUE ('"+nome+"','"+endereco+"','"+data+"','"+hora+"','"+descricao+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
+		}finally{
+			BancoDados.close();
 		}
 	}
 }
