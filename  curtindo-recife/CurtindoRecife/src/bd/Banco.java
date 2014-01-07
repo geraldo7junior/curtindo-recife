@@ -15,7 +15,7 @@ public class Banco extends Activity{
 	public void CriarBanco() {
 		try {
 		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-		String sql = "CREATE TABLE IF NOT EXIST tabelaUsuarios (_id INTEGER, nome TEXT, dataNascimento DATE, email TEXT, senha TEXT)";
+		String sql = "CREATE TABLE IF NOT EXIST tabelaUsuarios (_id INTEGER, nome TEXT, dataNascimento DATE, email TEXT, senha TEXT, sexo INTEGER)";
 		BancoDados.execSQL(sql);
 		String sqlEvento = "CREATE TABLE IF NOT EXIST tabelaEventos (_id INTEGER, nome TEXT, endereco TEXT, data DATE, hora TIME, descricao TEXT)";
 		BancoDados.execSQL(sqlEvento);
@@ -26,11 +26,11 @@ public class Banco extends Activity{
 		}
 	}
 	@SuppressWarnings("deprecation")
-	public void Cadastrar(String nome, Date dataNascimento, String email, String senha){
+	public void Cadastrar(String nome, Date dataNascimento, String email, String senha, Integer sexo){
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha) VALUE ('"+nome+"','"+dataNascimento+"','"+email+"','"+senha+"')";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo) VALUE ('"+nome+"','"+dataNascimento+"','"+email+"','"+senha+"','"+sexo+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
