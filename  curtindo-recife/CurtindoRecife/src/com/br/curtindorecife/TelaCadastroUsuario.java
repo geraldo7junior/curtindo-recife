@@ -23,7 +23,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	Button btnCadastrar;
 	RadioButton rdbHomem;
 	RadioButton rdbMulher;
-	Spinner spCategorias;
+	Spinner spCategorias,spCategorias2,spCategorias3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,6 +33,12 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
 		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spCategorias.setAdapter(ar);
+		
+		spCategorias2 = (Spinner) findViewById(R.id.spCategorias2);
+		spCategorias2.setAdapter(ar);
+		
+		spCategorias3 = (Spinner) findViewById(R.id.spCategorias3);
+		spCategorias3.setAdapter(ar);
 	}
 
 	@Override
