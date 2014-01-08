@@ -14,12 +14,12 @@ public class ManipulaBD extends Activity{
 	Cursor cursor;
 	
 	@SuppressWarnings("deprecation")
-	public void Cadastrar(String nome, Date dataNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+	public void Cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		//Cadastra Usuário
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUE ('"+nome+"','"+dataNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUE ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
@@ -37,7 +37,7 @@ public class ManipulaBD extends Activity{
 			String sql = "INSERT INTO tabelaEventos (nome, endereco, data, hora, descricao, tipo) VALUE ('"+nome+"','"+endereco+"','"+data+"','"+hora+"','"+descricao+"',"+tipo+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
-			// TODO: handle exception
+			System.out.println(erro);
 		}finally{
 			BancoDados.close();
 		}
@@ -54,9 +54,10 @@ public class ManipulaBD extends Activity{
 				return false;
 			}
 		} catch (Exception erro) {
-			// TODO: handle exception
+			System.out.println(erro);
 			return false;
 		}finally{
+			System.out.println(checarBD());
 			BancoDados.close();
 			
 		}

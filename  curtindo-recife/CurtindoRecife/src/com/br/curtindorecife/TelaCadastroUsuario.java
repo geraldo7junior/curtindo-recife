@@ -1,9 +1,14 @@
 package com.br.curtindorecife;
 
+import java.sql.Date;
+
+import persistencia.ManipulaBD;
 import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,6 +64,26 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		return true;
 	}
 	
+	String NomeBanco = "CurtindoRecifeDB";
+	SQLiteDatabase BancoDados = null;
+	Cursor cursor;
+	
+	@SuppressWarnings("deprecation")
+	public void Cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		//Cadastra Usuário
+		//o formato da data é (YYYY-MM-DD)
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
+			BancoDados.execSQL(sql);
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			BancoDados.close();
+		}
+	}
+	
 	public boolean cadastrar(){
 		boolean validar=true;
 		String nome=txtNome.getText().toString();
@@ -70,7 +95,6 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		//UsuarioDAO.cadastrarUsuario(usuario);
 		System.out.println(usuario.getEmail());
 		System.out.println(usuario.getSenha());
-		
 		if(usuario.getSenha().length()<=4){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -94,8 +118,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 			dialog.show();
 			validar=false;
 		}
+		if(validar){
+		Cadastrar(nome, null, email, senha, null, null, null,null);
+		}
 		return validar;
-		
 		
 	}
 

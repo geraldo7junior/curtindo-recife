@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -50,10 +52,11 @@ public class TelaPrincipal extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-////////////////////////////////////////////////////////////////////////////////////////////		
-		/*Banco banco = new Banco();
-		banco.CriarBanco();
-*/		
+
+		CriarBanco();
+		checarBD();
+		
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -95,6 +98,47 @@ public class TelaPrincipal extends FragmentActivity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	String NomeBanco = "CurtindoRecifeDB";
+	SQLiteDatabase BancoDados = null;
+	
+	@SuppressWarnings("deprecation")
+	public void CriarBanco() {
+		try {
+		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+		String sql = "CREATE TABLE IF NOT EXISTS tabelaUsuarios (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento DATE, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
+		BancoDados.execSQL(sql);
+		String sqlEvento = "CREATE TABLE IF NOT EXISTS tabelaEventos (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, data DATE, hora TIME, descricao TEXT, tipo TEXT)";
+		BancoDados.execSQL(sqlEvento);
+		} catch (Exception erro) {
+			System.out.println(erro);
+		}finally{
+			BancoDados.close();
+		}
+	}
+	Cursor cursor;
+	
+	@SuppressWarnings("deprecation")
+	public boolean checarBD(){
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE,null);
+			String sql = "SELECT * FROM tabelaUsuarios";
+			cursor = BancoDados.rawQuery(sql, null);
+			if (cursor.getCount() != 0){
+				System.out.println("true");
+				return true;
+			}else{
+				System.out.println("false");
+				return false;
+			}
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return false;
+		}finally{
+			BancoDados.close();
+			
+		}
 	}
 
 	@Override
