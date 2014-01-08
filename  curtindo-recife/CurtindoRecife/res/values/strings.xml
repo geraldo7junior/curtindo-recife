@@ -42,5 +42,6 @@
     <string name="homem">Homem</string>
     <string name="mulher">Mulher</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name= "meus_eventos">Meus Eventos</string>
 
 </resources>

@@ -135,11 +135,9 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	    switch(view.getId()) {
 	        case R.id.rdbHomem:
 	            if (checked)
-	                // Pirates are the best
 	            break;
 	        case R.id.rdbMulher:
 	            if (checked)
-	                // Ninjas rule
 	            break;
 	    }
 

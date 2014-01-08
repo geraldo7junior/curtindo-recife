@@ -51,9 +51,9 @@ public class TelaPrincipal extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 ////////////////////////////////////////////////////////////////////////////////////////////		
-		Banco banco = new Banco();
+		/*Banco banco = new Banco();
 		banco.CriarBanco();
-		
+*/		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -132,8 +132,14 @@ public class TelaPrincipal extends FragmentActivity implements
 			// below) with the page number as its lone argument.
 			Fragment fragment = new DummySectionFragment();
 			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-			fragment.setArguments(args);
+			if(position==0){
+				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+				fragment.setArguments(args);
+			}
+			if(position==1){
+				fragment=new SectionFragment();
+			}
+			
 			return fragment;
 		}
 
@@ -227,10 +233,26 @@ public class TelaPrincipal extends FragmentActivity implements
 		
 	}
 	
-
+	public static class SectionFragment extends Fragment{
+		/**
+		 * The fragment argument representing the section number for this
+		 * fragment.
+		 */
 		
+		public static final String ARG_SECTION_NUMBER = "section_number";
 
-	
-	
+		public SectionFragment() {
+		}
+		
+		
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_meus_eventos,
+					container, false);
+			return rootView;
+		}	
+		
+	}
 
 }

@@ -7,7 +7,7 @@ public class Usuario {
 	
 	private String nome;
 	private String email;
-	private Date dataDeNascimento;
+	private String dataDeNascimento;
 	private String senha;
 	private String sexo;
 	private String eventoFavorito1;
@@ -26,10 +26,10 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getDataDeNascimento() {
+	public String getDataDeNascimento() {
 		return dataDeNascimento;
 	}
-	public void setDataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(String dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 	public String getSenha() {
