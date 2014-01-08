@@ -1,5 +1,7 @@
 package com.br.curtindorecife;
 
+import bd.Banco;
+
 import java.util.Locale;
 
 import android.app.ActionBar;
@@ -27,7 +29,8 @@ import android.widget.TextView;
 
 public class TelaPrincipal extends FragmentActivity implements
 		ActionBar.TabListener {
-
+		
+		
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -47,7 +50,10 @@ public class TelaPrincipal extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+////////////////////////////////////////////////////////////////////////////////////////////		
+		Banco banco = new Banco();
+		banco.CriarBanco();
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

@@ -1,11 +1,13 @@
 package dominio;
 
+import java.sql.Date;
+
 //classe que contém todos os atributos de um usuário
 public class Usuario {
 	
 	private String nome;
 	private String email;
-	private String dataDeNascimento;
+	private Date dataDeNascimento;
 	private String senha;
 	private String sexo;
 	private String eventoFavorito1;
@@ -24,10 +26,10 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getDataDeNascimento() {
+	public Date getDataDeNascimento() {
 		return dataDeNascimento;
 	}
-	public void setDataDeNascimento(String dataDeNascimento) {
+	public void setDataDeNascimento(Date dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 	public String getSenha() {
