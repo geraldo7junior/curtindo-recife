@@ -28,6 +28,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	Button btnCadastrar;
 	RadioButton rdbHomem;
 	RadioButton rdbMulher;
+	String sexo="";
 	Spinner spCategorias,spCategorias2,spCategorias3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +70,12 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	Cursor cursor;
 	
 	@SuppressWarnings("deprecation")
-	public void Cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+	public void Cadastrar(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		//Cadastra Usuário
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
@@ -90,6 +91,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		String email=txtEmail.getText().toString();
 		String dataDeNascimento=txtDataDeNascimento.getText().toString();
 		String senha=txtSenha.getText().toString();
+		String eventoFavorito1 = spCategorias.getSelectedItem().toString();
+		String eventoFavorito2 = spCategorias2.getSelectedItem().toString();
+		String eventoFavorito3 = spCategorias3.getSelectedItem().toString();
+		
 		
 		Usuario usuario= new Usuario(nome, email, senha, dataDeNascimento, null, null, null, null);
 		//UsuarioDAO.cadastrarUsuario(usuario);
@@ -119,7 +124,8 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 			validar=false;
 		}
 		if(validar){
-		Cadastrar(nome, null, email, senha, null, null, null,null);
+		Cadastrar(nome, dataDeNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2,eventoFavorito3);
+		System.out.println(eventoFavorito1);
 		}
 		return validar;
 		
@@ -145,9 +151,11 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		}
 		if(v.getId()==R.id.rdbHomem){
 			opcoesRadioButton(rdbHomem);
+			sexo="Homem";
 		}
 		if(v.getId()==R.id.rdbMulher){
 			opcoesRadioButton(rdbMulher);
+			sexo="Mulher";
 		}
 		
 		
