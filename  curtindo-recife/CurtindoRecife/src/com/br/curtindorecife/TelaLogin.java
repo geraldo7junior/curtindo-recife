@@ -246,18 +246,22 @@ public class TelaLogin extends Activity implements OnClickListener{
 					mPasswordView.setError("Senha inválida");
 					focusView = mPasswordView;
 					cancel = true;
-					
+					focusView.requestFocus();
 				}
 			}
 			else{
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				mEmailView.setError("Email não cadastrado");
+				focusView = mEmailView;
+				cancel = true;
+				focusView.requestFocus();
+				/*AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
-				// 2. Chain together various setter methods to set the dialog characteristics
-				builder.setMessage("Usuário não cadastrado");
+				//2. Chain together various setter methods to set the dialog characteristics
+				// builder.setMessage("Usuário não cadastrado");
 	
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
-				dialog.show();
+				dialog.show();*/
 				
 				}
 			}
