@@ -28,33 +28,10 @@
         android:text="@string/cadastrar" />
 
     <EditText
-        android:id="@+id/cadastroNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/cadastroNascimento"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:hint="@string/nome"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/cadastroNascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/cadastroEmail"
-        android:layout_alignLeft="@+id/cadastroNome"
-        android:ems="10"
-        android:hint="@string/dataNascimento"
-        android:inputType="date" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
         android:id="@+id/cadastroSenhar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cadastroNascimento"
+        android:layout_alignLeft="@+id/cadastroNome"
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="@string/senha"
@@ -65,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/cadastroSenhar"
-        android:layout_alignLeft="@+id/cadastroNascimento"
+        android:layout_alignLeft="@+id/cadastroNome"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress" />
@@ -115,5 +92,36 @@
         android:layout_height="100dp"
         android:layout_alignTop="@+id/spCategorias3"
         android:layout_toRightOf="@+id/spCategorias3" />
+
+    <EditText
+        android:id="@+id/cadastroNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:hint="@string/nome"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/cadastroSenhar"
+        android:layout_below="@+id/cadastroNome"
+        android:text="@string/btData" />
+
+    <TextView
+        android:id="@+id/txtNascimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btData"
+        android:layout_alignBottom="@+id/btData"
+        android:layout_alignLeft="@+id/cadastroEmail"
+        android:text="@string/txtData" />
 
 </RelativeLayout>

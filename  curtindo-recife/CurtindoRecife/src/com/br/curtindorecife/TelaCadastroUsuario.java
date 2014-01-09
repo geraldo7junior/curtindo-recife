@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import java.text.DateFormat;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,12 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import java.util.Calendar;
+
 
 public class TelaCadastroUsuario extends Activity implements OnClickListener {
 
 	
 	EditText txtNome;
-	EditText txtDataDeNascimento;
+	TextView txtDataDeNascimento;
 	EditText txtEmail;
 	EditText txtSenha;
 	Button btnCadastrar;
@@ -30,6 +34,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	RadioButton rdbMulher;
 	String sexo="";
 	Spinner spCategorias,spCategorias2,spCategorias3;
+	DateFormat format = DateFormat.getDateInstance();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +58,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_cadastro_usuario, menu);
 		
 		txtNome=(EditText) findViewById(R.id.cadastroNome);
-		txtDataDeNascimento=(EditText) findViewById(R.id.cadastroNascimento);
+		txtDataDeNascimento=(TextView) findViewById(R.id.txtNascimento);
 		txtEmail=(EditText)findViewById(R.id.cadastroEmail);
 		txtSenha=(EditText)findViewById(R.id.cadastroSenhar);
 		btnCadastrar=(Button) findViewById(R.id.btnCadastrar);
