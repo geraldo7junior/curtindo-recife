@@ -157,7 +157,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 		Cursor cursor;
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE '"+id+"' ";
+			String sql = "SELECT senha FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
 			cursor = BancoDados.rawQuery(sql, null);
 			cursor.moveToFirst();
 			return cursor.getString(cursor.getPosition());
@@ -175,7 +175,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 		Cursor cursor;
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT nome FROM tabelaUsuario WHERE _id LIKE '"+id+"' ";
+			String sql = "SELECT nome FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
 			cursor = BancoDados.rawQuery(sql, null);
 			cursor.moveToFirst();
 			return cursor.getString(cursor.getPosition());
