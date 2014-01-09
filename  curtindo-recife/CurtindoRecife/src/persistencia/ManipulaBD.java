@@ -15,6 +15,7 @@ public class ManipulaBD extends Activity{
 	
 	public Integer idUsuario(String email){
 		try {
+			
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 			String sql = "SELECT _id FROM tabelaUsuario WHERE email LIKE "+email+" ";
 			cursor = BancoDados.rawQuery(sql, null);

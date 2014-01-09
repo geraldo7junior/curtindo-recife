@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -126,7 +127,47 @@ public class TelaLogin extends Activity implements OnClickListener{
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
-
+////////////////////////////////////////////////////////////////////////////////////////
+	
+	public Integer idUsuario(String email){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT _id FROM tabelaUsuario WHERE email LIKE "+email+" ";
+			cursor = BancoDados.rawQuery(sql, null);
+			return cursor.getInt(1);
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
+	}
+	
+	public String senhaUsuario(Integer id){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE "+id+" ";
+			cursor = BancoDados.rawQuery(sql, null);
+			return cursor.getString(1);
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}	
+	}
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////	
 	public void attemptLogin() {
 		if (mAuthTask != null) {
 			return;
