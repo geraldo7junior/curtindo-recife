@@ -98,8 +98,9 @@ public class TelaLogin extends Activity implements OnClickListener{
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						attemptLogin();
 						System.out.println(idUsuario(mEmail));
+						attemptLogin();
+						
 					}
 				});
 	}
@@ -156,9 +157,28 @@ public class TelaLogin extends Activity implements OnClickListener{
 		Cursor cursor;
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE "+id+" ";
+			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE '"+id+"' ";
 			cursor = BancoDados.rawQuery(sql, null);
-			return cursor.getString(1);
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getPosition());
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}	
+	}
+	public String nomeUsuario(Integer id){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT nome FROM tabelaUsuario WHERE _id LIKE '"+id+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getPosition());
 			
 		} catch (Exception erro) {
 			System.out.println(erro);
@@ -214,19 +234,26 @@ public class TelaLogin extends Activity implements OnClickListener{
 			focusView.requestFocus();
 		} else {
 			
-			if(LoginBS.validarLogin(mEmail, mPassword)){
+			if(idUsuario(mEmail)!=null){
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-			showProgress(true);
-			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+				if(senhaUsuario(idUsuario(mEmail)).equals(mPassword)){
+					mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
+					showProgress(true);
+					mAuthTask = new UserLoginTask();
+					mAuthTask.execute((Void) null);
+				}else{
+					mPasswordView.setError("Senha inválida");
+					focusView = mPasswordView;
+					cancel = true;
+					
+				}
 			}
 			else{
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
 				// 2. Chain together various setter methods to set the dialog characteristics
-				builder.setMessage("E-mail ou senha inválidos");
+				builder.setMessage("Usuário não cadastrado");
 	
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
