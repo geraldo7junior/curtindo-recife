@@ -107,9 +107,9 @@ public class TelaPrincipal extends FragmentActivity implements
 	public void CriarBanco() {
 		try {
 		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-		String sql = "CREATE TABLE IF NOT EXISTS tabelaUsuarios (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento DATE, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
+		String sql = "CREATE TABLE IF NOT EXISTS tabelaUsuarios (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
 		BancoDados.execSQL(sql);
-		String sqlEvento = "CREATE TABLE IF NOT EXISTS tabelaEventos (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, data DATE, hora TIME, descricao TEXT, tipo TEXT)";
+		String sqlEvento = "CREATE TABLE IF NOT EXISTS tabelaEventos (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, data TEXT, hora TIME, descricao TEXT, tipo TEXT)";
 		BancoDados.execSQL(sqlEvento);
 		} catch (Exception erro) {
 			System.out.println(erro);
