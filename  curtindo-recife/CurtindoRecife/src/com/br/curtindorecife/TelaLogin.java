@@ -99,6 +99,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 					@Override
 					public void onClick(View v) {
 						attemptLogin();
+						System.out.println(idUsuario(mEmail));
 					}
 				});
 	}
@@ -135,9 +136,10 @@ public class TelaLogin extends Activity implements OnClickListener{
 		Cursor cursor;
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT _id FROM tabelaUsuario WHERE email LIKE "+email+" ";
+			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
 			cursor = BancoDados.rawQuery(sql, null);
-			return cursor.getInt(1);
+			cursor.moveToFirst();
+			return cursor.getInt(cursor.getPosition());
 			
 		} catch (Exception erro) {
 			System.out.println(erro);
