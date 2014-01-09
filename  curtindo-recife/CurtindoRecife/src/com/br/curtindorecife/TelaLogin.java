@@ -8,6 +8,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -125,11 +126,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
-	public void senhaUsuario(){
-		String NomeBanco = "CurtindoRecifeDB";
-		SQLiteDatabase BancoDados = null;
-		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-	}
+
 	public void attemptLogin() {
 		if (mAuthTask != null) {
 			return;

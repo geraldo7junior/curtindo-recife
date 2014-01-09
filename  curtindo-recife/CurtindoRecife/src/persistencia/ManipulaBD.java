@@ -13,6 +13,41 @@ public class ManipulaBD extends Activity{
 	SQLiteDatabase BancoDados = null;
 	Cursor cursor;
 	
+	public Integer idUsuario(String email){
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT _id FROM tabelaUsuario WHERE email LIKE "+email+" ";
+			cursor = BancoDados.rawQuery(sql, null);
+			return cursor.getInt(1);
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}
+		
+		
+	}
+	public String senhaUsuario(Integer id){
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE "+id+" ";
+			cursor = BancoDados.rawQuery(sql, null);
+			return cursor.getString(1);
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}
+		
+		
+		
+	}
+	
 	@SuppressWarnings("deprecation")
 	public void Cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		//Cadastra Usuário
