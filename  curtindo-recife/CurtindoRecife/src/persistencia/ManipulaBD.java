@@ -13,13 +13,14 @@ public class ManipulaBD extends Activity{
 	SQLiteDatabase BancoDados = null;
 	Cursor cursor;
 	
-	public Integer idUsuario(String email){
+	public Cursor eventosPorData(Date data){
+		// Retorna cursor contendo os eventos de uma data em específico
 		try {
-			
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT _id FROM tabelaUsuario WHERE email LIKE "+email+" ";
+			String sql = "SELECT * FROM tabelaUsuarios WHERE data LIKE '"+data+"'";
 			cursor = BancoDados.rawQuery(sql, null);
-			return cursor.getInt(1);
+			cursor.moveToFirst();
+			return cursor;
 			
 		} catch (Exception erro) {
 			System.out.println(erro);
@@ -27,30 +28,84 @@ public class ManipulaBD extends Activity{
 			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
 		}finally{
 			BancoDados.close();
-		}
-		
+		}	
 		
 	}
-	public String senhaUsuario(Integer id){
+	
+	public Cursor eventosPorTipo(String tipo){
+		// Retorna um objeto do tipo cursor com o conjunto de IDs dos eventos de um mesmo tipo
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT senha FROM tabelaUsuario WHERE _id LIKE "+id+" ";
+			String sql = "SELECT * FROM tabelaEventos WHERE tipo LIKE '"+tipo+"'";
 			cursor = BancoDados.rawQuery(sql, null);
-			return cursor.getString(1);
+			cursor.moveToFirst();
+			return cursor;
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
+		
+	}
+	
+
+	
+	public Integer idUsuario(String email){
+		
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getInt(cursor.getPosition());
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
+	}
+	
+	public String senhaUsuario(Integer id){
+		
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT senha FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getPosition());
 			
 		} catch (Exception erro) {
 			System.out.println(erro);
 			return null;
 		} finally {
 			BancoDados.close();
-		}
+		}	
+	}
+	public String nomeUsuario(Integer id){
 		
-		
-		
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT nome FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getPosition());
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}	
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void Cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+	public void cadastrar(String nome, Date dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		//Cadastra Usuário
 		//o formato da data é (YYYY-MM-DD)
 		try {
@@ -65,7 +120,7 @@ public class ManipulaBD extends Activity{
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void Cadastrar(String nome, String endereco, Date data, Time hora, String descricao, String tipo){
+	public void cadastrar(String nome, String endereco, Date data, Time hora, String descricao, String tipo){
 		// Cadastra evento
 		//o formato da data é (YYYY/MM/DD)
 		try {
@@ -78,24 +133,5 @@ public class ManipulaBD extends Activity{
 			BancoDados.close();
 		}
 	}
-	@SuppressWarnings("deprecation")
-	public boolean checarBD(){
-		try {
-			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE,null);
-			String sql = "SELECT * FROM tabelaUsuarios";
-			cursor = BancoDados.rawQuery(sql, null);
-			if (cursor.getCount() != 0){
-				return true;
-			}else{
-				return false;
-			}
-		} catch (Exception erro) {
-			System.out.println(erro);
-			return false;
-		}finally{
-			System.out.println(checarBD());
-			BancoDados.close();
-			
-		}
-	}
+	
 }
