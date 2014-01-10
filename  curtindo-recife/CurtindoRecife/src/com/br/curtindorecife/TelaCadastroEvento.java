@@ -9,17 +9,24 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 
 public class TelaCadastroEvento extends Activity implements OnClickListener {
 
 	Button btnCriar;
+	Spinner spCadastroEvento;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_cadastro_evento);
+		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
+		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spCadastroEvento =(Spinner) findViewById(R.id.spCadastroEvento);
+		spCadastroEvento.setAdapter(ar);
 		
 		navegacao();
 	}

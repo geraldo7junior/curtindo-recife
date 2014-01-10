@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/txtEndereco"
-        android:layout_alignRight="@+id/txtEndereco"
+        android:layout_alignRight="@+id/txtHora"
         android:layout_below="@+id/txtTitulo"
         android:layout_marginTop="23dp"
         android:drawableTop="#00000F"
@@ -29,8 +29,8 @@
         android:id="@+id/txtEndereco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtHora"
         android:layout_below="@+id/txtNome"
-        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/endereco"
         android:inputType="textPostalAddress"
@@ -43,95 +43,94 @@
         android:layout_alignLeft="@+id/txtNome"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="27dp"
+        android:fontFamily="Adobe Caslon Pro"
         android:text="@string/CadastroDeEvento"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:fontFamily="Adobe Caslon Pro" 
-        android:textColor="#FF0000"/>
-
-    <EditText
-        android:id="@+id/txtData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtEndereco"
-        android:layout_below="@+id/txtEndereco"
-        android:layout_toLeftOf="@+id/txtHora"
-        android:ems="10"
-        android:hint="@string/data"
-        android:inputType="date"
-        android:textSize="12sp" />
-
-    <EditText
-        android:id="@+id/txtHora"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/txtEndereco"
-        android:ems="10"
-        android:hint="@string/hora"
-        android:inputType="time"
-        android:textSize="12sp" />
-
-    <EditText
-        android:id="@+id/txtDescricao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtData"
-        android:layout_alignRight="@+id/txtTitulo"
-        android:layout_below="@+id/txtData"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:hint="@string/descricao"
-        android:inputType="textMultiLine"
-        android:maxLength="140"
-        android:textSize="12sp" />
+        android:textColor="#FF0000" />
 
     <Button
         android:id="@+id/btnCriar"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/checkBox2"
         android:background="#EE0000"
         android:text="@string/criar"
         android:textColor="#FFFFFF" />
 
-    <CheckBox
-        android:id="@+id/checkBox5"
+    <Spinner
+        android:id="@+id/spCadastroEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnCriar"
-        android:text="Outros" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtDescricao"
+        android:layout_marginTop="45dp" />
 
-    <CheckBox
-        android:id="@+id/checkBox3"
+    <EditText
+        android:id="@+id/txtHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox5"
-        android:layout_alignLeft="@+id/checkBox5"
-        android:text="Show" />
+        android:layout_alignBaseline="@+id/txtData"
+        android:layout_alignBottom="@+id/txtData"
+        android:layout_alignRight="@+id/spCadastroEvento"
+        android:ems="10"
+        android:hint="@string/hora"
+        android:inputType="time"
+        android:textSize="12sp" />
 
-    <CheckBox
-        android:id="@+id/checkBox1"
+    <EditText
+        android:id="@+id/txtNumero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox3"
-        android:text="Cinema" />
+        android:layout_alignLeft="@+id/txtEndereco"
+        android:layout_below="@+id/txtEndereco"
+        android:ems="10"
+        android:hint="@string/txtNumero"
+        android:textSize="12sp" />
 
-    <CheckBox
-        android:id="@+id/checkBox4"
+    <EditText
+        android:id="@+id/txtData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox5"
-        android:layout_toRightOf="@+id/txtData"
-        android:text="Esportes" />
+        android:layout_below="@+id/txtNumero"
+        android:layout_toLeftOf="@+id/txtPreco"
+        android:ems="10"
+        android:hint="@string/data"
+        android:inputType="date"
+        android:textSize="12sp" />
 
-    <CheckBox
-        android:id="@+id/checkBox2"
+    <EditText
+        android:id="@+id/txtPreco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBox1"
-        android:layout_alignBottom="@+id/checkBox1"
-        android:layout_toRightOf="@+id/txtData"
-        android:text="Teatro" />
+        android:layout_above="@+id/txtHora"
+        android:layout_toRightOf="@+id/txtNumero"
+        android:ems="10"
+        android:hint="@string/txtPreco"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/txtDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/txtHora"
+        android:layout_below="@+id/txtTelefone"
+        android:ems="10"
+        android:hint="@string/descricao"
+        android:inputType="textMultiLine"
+        android:maxLength="140"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/txtTelefone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtData"
+        android:layout_below="@+id/txtHora"
+        android:layout_toLeftOf="@+id/txtHora"
+        android:ems="10"
+        android:hint="@string/txtTelefone"
+        android:inputType="phone"
+        android:textSize="12sp" />
 
 </RelativeLayout>
