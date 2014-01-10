@@ -13,7 +13,7 @@ public class ManipulaBD extends Activity{
 	SQLiteDatabase BancoDados = null;
 	Cursor cursor;
 	
-	public Cursor eventosPorData(Date data){
+	public Cursor eventosPorData(String data){
 		// Retorna cursor contendo os eventos de uma data em específico
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
@@ -25,7 +25,7 @@ public class ManipulaBD extends Activity{
 		} catch (Exception erro) {
 			System.out.println(erro);
 			return null;
-			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+			
 		}finally{
 			BancoDados.close();
 		}	
@@ -70,7 +70,22 @@ public class ManipulaBD extends Activity{
 			BancoDados.close();
 		}	
 	}
-	
+public Cursor retornaUsuario(Integer id){
+		
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT * FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor;
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}	
+	}
 	public String senhaUsuario(Integer id){
 		
 		try {
@@ -110,7 +125,7 @@ public class ManipulaBD extends Activity{
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUE ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"',"+eventoFavorito3+")";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
@@ -120,12 +135,12 @@ public class ManipulaBD extends Activity{
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void cadastrar(String nome, String endereco, Date data, Time hora, String descricao, String tipo){
+	public void cadastrar(int idOwner, String nome, String endereco, int numero, String preco, String data, String hora, String telefone, String descricao, String tipo){
 		// Cadastra evento
-		//o formato da data é (YYYY/MM/DD)
+		
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, data, hora, descricao, tipo) VALUE ('"+nome+"','"+endereco+"','"+data+"','"+hora+"','"+descricao+"',"+tipo+"')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"',"+tipo+"','"+idOwner+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			System.out.println(erro);

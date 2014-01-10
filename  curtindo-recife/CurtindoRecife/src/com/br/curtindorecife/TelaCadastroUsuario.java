@@ -21,7 +21,6 @@ import android.widget.Spinner;
 
 public class TelaCadastroUsuario extends Activity implements OnClickListener {
 
-	
 	EditText txtNome;
 	EditText txtDataDeNascimento;
 	EditText txtEmail;

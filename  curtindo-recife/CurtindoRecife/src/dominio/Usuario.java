@@ -5,6 +5,7 @@ import java.sql.Date;
 //classe que contém todos os atributos de um usuário
 public class Usuario {
 	
+	private int idUsuario;
 	private String nome;
 	private String email;
 	private String dataDeNascimento;
@@ -14,6 +15,12 @@ public class Usuario {
 	private String eventoFavorito2;
 	private String eventoFavorito3;
 	
+	public int getId() {
+		return idUsuario;
+	}
+	public void setId(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
 	public String getNome() {
 		return nome;
 	}

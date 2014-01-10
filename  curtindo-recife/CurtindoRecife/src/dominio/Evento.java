@@ -13,6 +13,22 @@ public class Evento {
 	private String hora;
 	private String descricao;
 	private String tipoDeEvento;
+	private int idEvento;
+	private int idOwner; 
+	
+	
+	public int getIdOwner() {
+		return idOwner;
+	}
+	public void setIdOwner(int idOwner) {
+		this.idOwner = idOwner;
+	}
+	public int getIdEvento() {
+		return idEvento;
+	}
+	public void setIdEvento(int idEvento) {
+		this.idEvento = idEvento;
+	}
 	
 	
 	public String getNome() {
