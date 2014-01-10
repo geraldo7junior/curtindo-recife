@@ -1,8 +1,6 @@
 package com.br.curtindorecife;
 
-import java.sql.Date;
 
-import persistencia.ManipulaBD;
 import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,15 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import java.util.Calendar;
+
 
 
 public class TelaCadastroUsuario extends Activity implements OnClickListener {
 
 	
 	EditText txtNome;
-	TextView txtDataDeNascimento;
+	EditText txtDataDeNascimento;
 	EditText txtEmail;
 	EditText txtSenha;
 	Button btnCadastrar;
@@ -58,7 +55,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_cadastro_usuario, menu);
 		
 		txtNome=(EditText) findViewById(R.id.cadastroNome);
-		txtDataDeNascimento=(TextView) findViewById(R.id.txtNascimento);
+		txtDataDeNascimento=(EditText) findViewById(R.id.cadastroNascimento);
 		txtEmail=(EditText)findViewById(R.id.cadastroEmail);
 		txtSenha=(EditText)findViewById(R.id.cadastroSenhar);
 		btnCadastrar=(Button) findViewById(R.id.btnCadastrar);

@@ -107,21 +107,14 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/btData"
+    <EditText
+        android:id="@+id/cadastroNascimento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/cadastroSenhar"
+        android:layout_alignLeft="@+id/cadastroNome"
         android:layout_below="@+id/cadastroNome"
-        android:text="@string/btData" />
-
-    <TextView
-        android:id="@+id/txtNascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btData"
-        android:layout_alignBottom="@+id/btData"
-        android:layout_alignLeft="@+id/cadastroEmail"
-        android:text="@string/txtData" />
+        android:ems="10"
+        android:inputType="date"
+        android:hint="@string/dataNascimento" />
 
 </RelativeLayout>
