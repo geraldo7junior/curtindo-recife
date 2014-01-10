@@ -42,20 +42,6 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		navegacao();
 	}
 		
-	public void cadastrarEvento(){
-		String nome = txtNome.getText().toString();
-		String telefone = txtTelefone.getText().toString();
-		String preco = txtPreco.getText().toString();
-		String numero = txtNumero.getText().toString();
-		String hora = txtHora.getText().toString();
-		String endereco = txtEndereco.getText().toString();
-		String descricao = txtDescricao.getText().toString();
-		String data = txtData.getText().toString();
-		String tipo = spCadastroEvento.getSelectedItem().toString();
-		Integer idOwner = null;
-		
-		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo);
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -97,14 +83,30 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			BancoDados.close();
 		}
 	}
+	public void cadastrarEvento(){
+		String nome = txtNome.getText().toString();
+		String telefone = txtTelefone.getText().toString();
+		String preco = txtPreco.getText().toString();
+		String numero = txtNumero.getText().toString();
+		String hora = txtHora.getText().toString();
+		String endereco = txtEndereco.getText().toString();
+		String descricao = txtDescricao.getText().toString();
+		String data = txtData.getText().toString();
+		String tipo = spCadastroEvento.getSelectedItem().toString();
+		Integer idOwner = null;
+		
+		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo);
+	}
 	
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.btnCriar){
+			
+			cadastrarEvento();    /////////////////////_Aqui!/////////////////////////////////////////////
+			
+			
 			// 1. Instantiate an AlertDialog.Builder with its constructor
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			
-			cadastrarEvento();/////////////////////_Aqui!/////////////////////////////////////////////
 			
 			// 2. Chain together various setter methods to set the dialog characteristics
 			builder.setMessage("É preciso realizar o login para curtir eventos.")
