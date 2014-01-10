@@ -44,9 +44,10 @@
     <string name="cadastrar">Cadastrar</string>
     <string name= "meus_eventos">Meus Eventos</string>
     <string name="btData">Modificar</string>
-    <string name="txtData">Data de Nascimento</string>
+	<string name="txtData">Data de Nascimento</string>
     <string name="txtTelefone">Telefone</string>
     <string name="txtNumero">Nº</string>
     <string name="txtPreco">Preço</string>
+
 
 </resources>
