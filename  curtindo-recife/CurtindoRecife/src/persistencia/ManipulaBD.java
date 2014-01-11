@@ -74,7 +74,7 @@ public Cursor retornaUsuario(Integer id){
 		
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT * FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
+			String sql = "SELECT * FROM tabelaUsuarios WHERE _id LIKE '"+id+"'";
 			cursor = BancoDados.rawQuery(sql, null);
 			cursor.moveToFirst();
 			return cursor;
