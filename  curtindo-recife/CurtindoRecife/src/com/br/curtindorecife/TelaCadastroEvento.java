@@ -61,7 +61,6 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	public void navegacao(){
 		btnCriar = (Button)findViewById(R.id.btnCriar);
-		btnCriar.setEnabled(false);
 		btnCriar.setOnClickListener(this);
 		
 	}
@@ -75,7 +74,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"',"+tipo+"','"+idOwner+"')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			System.out.println(erro);
@@ -93,7 +92,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		String descricao = txtDescricao.getText().toString();
 		String data = txtData.getText().toString();
 		String tipo = spCadastroEvento.getSelectedItem().toString();
-		Integer idOwner = null;
+		Integer idOwner = 1;
 		
 		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo);
 	}
@@ -104,7 +103,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			
 			cadastrarEvento();    /////////////////////_Aqui!/////////////////////////////////////////////
 			
-			
+			/*
 			// 1. Instantiate an AlertDialog.Builder with its constructor
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
@@ -114,7 +113,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 
 			// 3. Get the AlertDialog from create()
 			AlertDialog dialog = builder.create();
-			dialog.show();
+			dialog.show();*/
 			Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
 			startActivity(intent);
 			
