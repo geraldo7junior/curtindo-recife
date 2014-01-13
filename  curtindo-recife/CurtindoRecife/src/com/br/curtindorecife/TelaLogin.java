@@ -1,5 +1,6 @@
 package com.br.curtindorecife;
 
+import dominio.Usuario;
 import bd.Banco;
 import persistencia.*;
 import android.animation.Animator;
@@ -240,6 +241,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 				if(senhaUsuario(idUsuario(mEmail)).equals(mPassword)){
 					mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 					showProgress(true);
+					Usuario.setId(idUsuario(mEmail));
 					mAuthTask = new UserLoginTask();
 					mAuthTask.execute((Void) null);
 				}else{

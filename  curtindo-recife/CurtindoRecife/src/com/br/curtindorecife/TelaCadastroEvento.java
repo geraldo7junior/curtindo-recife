@@ -1,11 +1,14 @@
 package com.br.curtindorecife;
 
 
+import persistencia.LoginBS;
+import dominio.*;
 import android.os.Bundle;
 import android.os.Message;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.View;
@@ -76,11 +79,31 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"')";
 			BancoDados.execSQL(sql);
+			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+Evento.getIdEvento()+"')";
+			BancoDados.execSQL(sqlMeusEventos);
 		} catch (Exception erro) {
 			System.out.println(erro);
 		}finally{
 			BancoDados.close();
 		}
+	}
+	public String nomeUsuario(Integer id){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT nome FROM tabelaUsuarios WHERE _id LIKE '"+id+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getPosition());
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+		} finally {
+			BancoDados.close();
+		}	
 	}
 	public void cadastrarEvento(){
 		String nome = txtNome.getText().toString();
@@ -92,7 +115,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		String descricao = txtDescricao.getText().toString();
 		String data = txtData.getText().toString();
 		String tipo = spCadastroEvento.getSelectedItem().toString();
-		Integer idOwner = 1;
+		Integer idOwner = Usuario.getId();
 		
 		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo);
 	}
@@ -103,20 +126,20 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			
 			cadastrarEvento();    /////////////////////_Aqui!/////////////////////////////////////////////
 			
-			/*
-			// 1. Instantiate an AlertDialog.Builder with its constructor
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			
-			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("É preciso realizar o login para curtir eventos.")
-			       .setTitle("Login");
-
-			// 3. Get the AlertDialog from create()
-			AlertDialog dialog = builder.create();
-			dialog.show();*/
-			Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-			startActivity(intent);
-			
+			if(Usuario.getId()!=0){
+				// 1. Instantiate an AlertDialog.Builder with its constructor
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				
+				// 2. Chain together various setter methods to set the dialog characteristics
+				builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
+				       .setTitle("Sucesso!");
+	
+				// 3. Get the AlertDialog from create()
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+				startActivity(intent);
+			}
 			
 		}
 		

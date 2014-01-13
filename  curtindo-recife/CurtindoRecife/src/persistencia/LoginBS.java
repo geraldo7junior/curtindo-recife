@@ -1,7 +1,7 @@
 package persistencia;
 
 public class LoginBS {
-	
+
 	public static boolean validarLogin(String email, String senha){
 		boolean validar=false;
 		//será mudado

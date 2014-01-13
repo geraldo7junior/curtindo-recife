@@ -13,7 +13,7 @@ public class Evento {
 	private String hora;
 	private String descricao;
 	private String tipoDeEvento;
-	private int idEvento;
+	private static int idEvento;
 	private int idOwner; 
 	
 	
@@ -23,11 +23,11 @@ public class Evento {
 	public void setIdOwner(int idOwner) {
 		this.idOwner = idOwner;
 	}
-	public int getIdEvento() {
+	public static int getIdEvento() {
 		return idEvento;
 	}
-	public void setIdEvento(int idEvento) {
-		this.idEvento = idEvento;
+	public static void setIdEvento(int idEvento) {
+		Evento.idEvento = idEvento;
 	}
 	
 	

@@ -107,6 +107,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 		String sql = "CREATE TABLE IF NOT EXISTS tabelaUsuarios (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
 		BancoDados.execSQL(sql);
+		Cadastrar("Admin", "12/12/1903", "admin@curtindorecife.br", "ADMIN", "indefinido", "", "", "");
 		String sqlEvento = "CREATE TABLE IF NOT EXISTS tabelaEventos (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER)";
 		BancoDados.execSQL(sqlEvento);
 		String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS tabelaMeusEventos (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
@@ -140,7 +141,32 @@ public class TelaPrincipal extends FragmentActivity implements
 			
 		}
 	}
-
+	
+	@SuppressWarnings("deprecation")
+	public void Cadastrar(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		//Cadastra ADMIN
+		//o formato da data é (YYYY-MM-DD)
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+				BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+				String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE admin@curtindorecife.br ";
+				cursor = BancoDados.rawQuery(sql, null);
+				cursor.moveToFirst();
+				if(cursor!=null){
+					String insert = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"')";
+					BancoDados.execSQL(insert);
+				}
+				
+		} catch (Exception erro) {
+				System.out.println(erro);
+				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+				BancoDados.close();
+		}
+	}
+	
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
