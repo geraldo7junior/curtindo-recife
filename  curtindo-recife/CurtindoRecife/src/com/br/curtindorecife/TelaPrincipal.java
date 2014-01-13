@@ -151,15 +151,14 @@ public class TelaPrincipal extends FragmentActivity implements
 		Cursor cursor;
 		try {
 				BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-				String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE admin@curtindorecife.br ";
+				String sql = "SELECT _id FROM tabelaUsuarios WHERE nome LIKE 'Admin'";
 				cursor = BancoDados.rawQuery(sql, null);
 				cursor.moveToFirst();
-				if(cursor!=null){
-					String insert = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"')";
-					BancoDados.execSQL(insert);
-				}
+				System.out.println(cursor.getInt(cursor.getPosition()));
 				
 		} catch (Exception erro) {
+				String insert = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"')";
+				BancoDados.execSQL(insert);
 				System.out.println(erro);
 				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
 		}finally{

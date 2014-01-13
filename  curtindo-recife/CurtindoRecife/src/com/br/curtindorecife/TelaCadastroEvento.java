@@ -74,11 +74,17 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	@SuppressWarnings("deprecation")
 	public void cadastrar(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo){
 		// Cadastra evento
-		
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;	
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"')";
 			BancoDados.execSQL(sql);
+			String sqlPesquisaMeusEventos = "SELECT _id FROM tabelaEventos WHERE nome LIKE '"+nome+"'";
+			cursor = BancoDados.rawQuery(sqlPesquisaMeusEventos, null);
+			cursor.moveToFirst();
+			Evento.setIdEvento(cursor.getInt(cursor.getPosition()));
 			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+Evento.getIdEvento()+"')";
 			BancoDados.execSQL(sqlMeusEventos);
 		} catch (Exception erro) {
@@ -124,13 +130,11 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if(v.getId() == R.id.btnCriar){
 			
-			cadastrarEvento();    /////////////////////_Aqui!/////////////////////////////////////////////
+			    /////////////////////_Aqui!/////////////////////////////////////////////
 			
 			if(Usuario.getId()!=0){
-				// 1. Instantiate an AlertDialog.Builder with its constructor
+				cadastrarEvento();
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				
-				// 2. Chain together various setter methods to set the dialog characteristics
 				builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
 				       .setTitle("Sucesso!");
 	
@@ -140,7 +144,17 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 				Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
 				startActivity(intent);
 			}
-			
+			else{
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setMessage("Você precisa estar logado para criar um evento :(")
+				       .setTitle("Que pena :(");
+	
+				// 3. Get the AlertDialog from create()
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				Intent intent = new Intent(TelaCadastroEvento.this, TelaLogin.class);
+				startActivity(intent);
+			}
 		}
 		
 	}
