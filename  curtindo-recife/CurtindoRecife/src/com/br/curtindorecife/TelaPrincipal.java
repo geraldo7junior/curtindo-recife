@@ -2,8 +2,11 @@ package com.br.curtindorecife;
 
 import bd.Banco;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
+import dominio.*;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
@@ -23,8 +26,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class TelaPrincipal extends FragmentActivity implements
@@ -317,10 +322,24 @@ public class TelaPrincipal extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_meus_eventos,
-					container, false);
-			return rootView;
-		}	
+			View rootView = inflater.inflate(R.layout.fragment_meus_eventos,container, false);
+			List EventoList = createEventos();
+	        ArrayAdapter ad = new CustomAdapter(this.getActivity(), R.layout.item, EventoList);
+	        ListView lv = (ListView) rootView.findViewById(R.id.listView1);
+	        lv.setAdapter(ad);
+	        return rootView;
+	    }
+	 
+	    private List createEventos(){
+	        List p = new ArrayList();
+	        p.add(new Evento("Rock in Rio", "12/11/2014", "22:00", R.drawable.logo_recife));
+	        p.add(new Evento("Maragandê", "12/13/2014", "22:00", R.drawable.ic_launcher));
+	        p.add(new Evento("Tihuana", "25/11/2014", "22:00", R.drawable.shows));
+	        
+	 
+	        return p;
+	 
+	    }
 		
 	}
 
