@@ -300,7 +300,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			}
 			
 			if(v.getId() == R.id.btnShows){
-				Intent intent = new Intent(getActivity(), TelaEventos.class);
+				Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 				startActivity(intent);
 			}
 			
