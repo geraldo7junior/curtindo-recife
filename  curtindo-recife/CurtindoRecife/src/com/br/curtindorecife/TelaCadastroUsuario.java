@@ -1,6 +1,7 @@
 package com.br.curtindorecife;
 
 
+import dominio.Mask;
 import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
@@ -46,6 +47,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		
 		spCategorias3 = (Spinner) findViewById(R.id.spCategorias3);
 		spCategorias3.setAdapter(ar);
+		
+		txtDataDeNascimento=(EditText) findViewById(R.id.cadastroNascimento);
+		txtDataDeNascimento.addTextChangedListener(Mask.insert("##/##/####", txtDataDeNascimento));
+		
 	}
 
 	@Override
@@ -54,7 +59,6 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_cadastro_usuario, menu);
 		
 		txtNome=(EditText) findViewById(R.id.cadastroNome);
-		txtDataDeNascimento=(EditText) findViewById(R.id.cadastroNascimento);
 		txtEmail=(EditText)findViewById(R.id.cadastroEmail);
 		txtSenha=(EditText)findViewById(R.id.cadastroSenhar);
 		btnCadastrar=(Button) findViewById(R.id.btnCadastrar);

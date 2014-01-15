@@ -92,12 +92,12 @@
         android:background="#FFFF00"
         android:text="@string/mapa" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
-        android:layout_x="22dp"
-        android:layout_y="118dp"
-        android:src="@android:drawable/ic_menu_preferences" />
+    <TextView
+        android:id="@+id/txtTelefoneEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="10dp"
+        android:layout_y="10dp"
+        android:text="TextView" />
 
 </AbsoluteLayout>

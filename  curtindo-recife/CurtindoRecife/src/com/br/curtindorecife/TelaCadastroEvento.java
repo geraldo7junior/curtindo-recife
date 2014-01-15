@@ -52,6 +52,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_cadastro_evento, menu);
 		txtNome=(EditText) findViewById(R.id.txtNome);
 		txtTelefone=(EditText) findViewById(R.id.txtTelefone);
+		txtTelefone.addTextChangedListener(Mask.insert("(##)####-####", txtTelefone));
 		txtPreco =(EditText) findViewById(R.id.txtPreco);
 		txtNumero =(EditText) findViewById(R.id.txtNumero);
 		txtHora =(EditText) findViewById(R.id.txtHora);
