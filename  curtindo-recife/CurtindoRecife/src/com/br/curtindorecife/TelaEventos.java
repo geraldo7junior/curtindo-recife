@@ -2,6 +2,8 @@ package com.br.curtindorecife;
 
 import java.util.Locale;
 
+import dominio.FragmentEventos;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -82,9 +84,9 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new DummySectionFragment();
+			Fragment fragment = new FragmentEventos();
 			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+			args.putInt(FragmentEventos.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -113,12 +115,12 @@ public class TelaEventos extends FragmentActivity {
 	/**
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
-	 */
+	 *//*
 	public static class DummySectionFragment extends Fragment implements OnClickListener {
-		/**
+		*//**
 		 * The fragment argument representing the section number for this
 		 * fragment.
-		 */
+		 *//*
 		Button btnSimbora;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -133,14 +135,14 @@ public class TelaEventos extends FragmentActivity {
 					R.layout.fragment_tela_eventos_dummy, container, false);
 			
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
-			btnSimbora.setOnClickListener(this);/*new OnClickListener() {
+			btnSimbora.setOnClickListener(this);new OnClickListener() {
 		          public void onClick(View v) {
 		        	  if(v.getId()==R.id.btnSimbora){
 		  				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
 		  				startActivity(intent);
 		  			}
 		          }
-		       });*/
+		       });
 			return rootView;
 		}
 		
@@ -156,6 +158,6 @@ public class TelaEventos extends FragmentActivity {
 		}
 	}
 	
-	
+	*/
 
 }
