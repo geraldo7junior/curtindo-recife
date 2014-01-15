@@ -99,7 +99,6 @@ public class TelaLogin extends Activity implements OnClickListener{
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						System.out.println(idUsuario(mEmail));
 						attemptLogin();
 						
 					}
@@ -242,8 +241,10 @@ public class TelaLogin extends Activity implements OnClickListener{
 					mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 					showProgress(true);
 					Usuario.setId(idUsuario(mEmail));
-					mAuthTask = new UserLoginTask();
-					mAuthTask.execute((Void) null);
+					/*mAuthTask = new UserLoginTask();
+					mAuthTask.execute((Void) null);*/
+					Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+					startActivity(intent);
 				}else{
 					mPasswordView.setError("Senha inválida");
 					focusView = mPasswordView;

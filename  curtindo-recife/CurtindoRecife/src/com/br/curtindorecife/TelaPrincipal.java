@@ -44,6 +44,13 @@ public class TelaPrincipal extends FragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
+	
+	public static ArrayList<String> nomes=new ArrayList<String>();
+	public static ArrayList<String> horas=new ArrayList<String>();
+	public static ArrayList<String> datas=new ArrayList<String>();
+	
+	public static int numEventos=0;
+	
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	
 	/**
@@ -55,11 +62,15 @@ public class TelaPrincipal extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		nomes.clear();
+		horas.clear();
+		datas.clear();
+		numEventos=0;
 		CriarBanco();
 		checarBD();
-		
-		
+		if(Usuario.getId()!=0){
+			getMeusEventos(Usuario.getId());
+		}
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -335,12 +346,44 @@ public class TelaPrincipal extends FragmentActivity implements
 	        p.add(new Evento("Rock in Rio", "12/11/2014", "22:00", R.drawable.logo_recife));
 	        p.add(new Evento("Maragandê", "12/13/2014", "22:00", R.drawable.ic_launcher));
 	        p.add(new Evento("Tihuana", "25/11/2014", "22:00", R.drawable.shows));
-	        
-	 
+	        for(int i=0;i<numEventos;i++){
+	        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), R.drawable.ic_launcher));
+	        }
 	        return p;
-	 
 	    }
+	    
 		
 	}
+	
+	public Integer getMeusEventos(int idUsuario){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT * FROM tabelaEventos WHERE idOwner LIKE '"+idUsuario+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			numEventos=(cursor.getCount());
+			cursor.moveToFirst();
+			for(int i=0;i<cursor.getCount();i++){
+				
+				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
+				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
+				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
+				if(i!=cursor.getCount()-1){
+					cursor.moveToNext();
+				}
+				
+			}
+			return cursor.getInt(cursor.getPosition());
+		} catch (Exception erro) {
+			System.out.println(erro);
+			return null;
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
+	}
+	
 
 }
