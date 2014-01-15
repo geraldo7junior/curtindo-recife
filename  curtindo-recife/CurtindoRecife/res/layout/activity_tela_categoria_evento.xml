@@ -25,4 +25,13 @@
         android:layout_marginTop="22dp" >
     </ListView>
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spCategoriaEvento"
+        android:layout_alignRight="@+id/spCategoriaEvento"
+        android:layout_marginRight="125dp"
+        android:src="@drawable/familia" />
+
 </RelativeLayout>

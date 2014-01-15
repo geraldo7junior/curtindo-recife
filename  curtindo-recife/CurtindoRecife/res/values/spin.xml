@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Categorias">
-        <item >Rock</item>
-        <item>Frevo</item>
-        <item>Samba</item>
-        <item>Sertanejo</item>
-        <item>Reggae</item>
-        <item>Pop</item>
-        <item>Dance</item>
+        <item >Show</item>
+        <item>Esporte</item>
+        <item>Teatro</item>
+        <item>Palestra</item>
+        <item>Encontro</item>
+        <item>Família</item>
+        <item>Night</item>
         
     </string-array>
     

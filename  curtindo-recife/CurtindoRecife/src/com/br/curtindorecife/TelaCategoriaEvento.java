@@ -28,13 +28,17 @@ public class TelaCategoriaEvento extends Activity {
         ListView lv = (ListView) findViewById(R.id.listaCategoriaEvento);
         lv.setAdapter(ad);
     }
-	
-
+	String eventoQue="familia";
+    String s=("R.drawable."+eventoQue);
+    
+    int imagem=Integer.parseInt(s);
+    
     private List createEventos(){
         List p = new ArrayList();
         p.add(new Evento("Rock in Rio", "12/11/2014", "22:00", R.drawable.logo_recife));
         p.add(new Evento("Maragandê", "12/13/2014", "22:00", R.drawable.ic_launcher));
-        p.add(new Evento("Evento 3", "25/11/2014", "22:00", R.drawable.shows));
+        p.add(new Evento("Familia", "25/11/2014", "22:00", R.drawable.familia));
+        
         
         /*for(int i=0;i<numEventos;i++){
         	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), R.drawable.ic_launcher));

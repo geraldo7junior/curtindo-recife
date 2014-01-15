@@ -52,6 +52,7 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         data.setText(Evento.getData());
         hora.setText(Evento.getHora());
         image.setBackgroundResource(Evento.getImage());
+        
         return convertView;
     }
  
