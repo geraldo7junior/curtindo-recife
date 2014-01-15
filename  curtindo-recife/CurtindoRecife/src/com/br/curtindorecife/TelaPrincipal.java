@@ -65,6 +65,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		nomes.clear();
 		horas.clear();
 		datas.clear();
+		imagens.clear();
 		numEventos=0;
 		CriarBanco();
 		checarBD();
@@ -348,6 +349,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	        p.add(new Evento("Tihuana", "25/11/2014", "22:00", R.drawable.shows));
 	        */
 	        for(int i=0;i<numEventos;i++){
+	        	System.out.println(imagens.get(i)+" Imagens no for da lista");
 	        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), imagens.get(i)));
 	        }
 	        return p;
@@ -371,7 +373,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
 				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
 				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
-				imagens.add(cursor.getInt(cursor.getColumnIndex("idImagem")));
+				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
 				System.out.println(cursor.getInt(cursor.getColumnIndex("idImagem")) + "Imagem ");
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
