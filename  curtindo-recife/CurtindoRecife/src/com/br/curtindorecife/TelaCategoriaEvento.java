@@ -28,10 +28,6 @@ public class TelaCategoriaEvento extends Activity {
         ListView lv = (ListView) findViewById(R.id.listaCategoriaEvento);
         lv.setAdapter(ad);
     }
-	String eventoQue="familia";
-    String s=("R.drawable."+eventoQue);
-    
-    int imagem=Integer.parseInt(s);
     
     private List createEventos(){
         List p = new ArrayList();

@@ -48,7 +48,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	public static ArrayList<String> nomes=new ArrayList<String>();
 	public static ArrayList<String> horas=new ArrayList<String>();
 	public static ArrayList<String> datas=new ArrayList<String>();
-	
+	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
 	public static int numEventos=0;
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
@@ -348,7 +348,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	        p.add(new Evento("Tihuana", "25/11/2014", "22:00", R.drawable.shows));
 	        */
 	        for(int i=0;i<numEventos;i++){
-	        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), R.drawable.ic_launcher));
+	        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), imagens.get(i)));
 	        }
 	        return p;
 	    }
@@ -371,6 +371,8 @@ public class TelaPrincipal extends FragmentActivity implements
 				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
 				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
 				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
+				imagens.add(cursor.getInt(cursor.getColumnIndex("idImagem")));
+				System.out.println(cursor.getInt(cursor.getColumnIndex("idImagem")) + "Imagem ");
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}

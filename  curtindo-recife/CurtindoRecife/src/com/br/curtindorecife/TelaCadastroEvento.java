@@ -72,14 +72,14 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 /////////////////////_cadastrar evento_//////////////////////////////	
 	@SuppressWarnings("deprecation")
-	public void cadastrar(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo){
+	public void cadastrar(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem){
 		// Cadastra evento
 		String NomeBanco = "CurtindoRecifeDB";
 		SQLiteDatabase BancoDados = null;
 		Cursor cursor;	
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner, idImagem, simboras) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"','"+imagem+"','0')";
 			BancoDados.execSQL(sql);
 			String sqlPesquisaMeusEventos = "SELECT _id FROM tabelaEventos WHERE nome LIKE '"+nome+"'";
 			cursor = BancoDados.rawQuery(sqlPesquisaMeusEventos, null);
@@ -123,7 +123,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		String tipo = spCadastroEvento.getSelectedItem().toString();
 		Integer idOwner = Usuario.getId();
 		
-		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo);
+		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, Evento.associeImagem(tipo));
 	}
 	
 	@Override
