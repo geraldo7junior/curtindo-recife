@@ -7,9 +7,13 @@ import dominio.CustomAdapter;
 import dominio.Evento;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -43,6 +47,19 @@ public class TelaCategoriaEvento extends Activity {
         ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);
         ListView lv = (ListView) findViewById(R.id.listaCategoriaEvento);
         lv.setAdapter(ad);
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = new Intent(TelaCategoriaEvento.this,TelaEventos.class);
+				int position=arg2;
+				System.out.println(position);
+				intent.putExtra("position", position);
+				startActivity(intent);
+			}
+			
+		});
     }
     
     private List createEventos(){

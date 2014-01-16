@@ -64,7 +64,9 @@ public class TelaEventos extends FragmentActivity {
 		imagens.clear();
 		numEventos=0;
 		getCategoriasEventos(Evento.getAtual());
-
+		Intent intent=getIntent();
+		int posicao=intent.getIntExtra("position", 0);
+		System.out.println(posicao+ " Posicao tela eventos");
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -95,6 +97,7 @@ public class TelaEventos extends FragmentActivity {
 			super(fm);
 		}
 
+		
 		@Override
 		public Fragment getItem(int position) {
 			// getItem is called to instantiate the fragment for the given page.
@@ -108,7 +111,7 @@ public class TelaEventos extends FragmentActivity {
 			fragment.setArguments(args);
 			return fragment;
 		}
-
+		
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
@@ -117,16 +120,7 @@ public class TelaEventos extends FragmentActivity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
-			switch (position) {
-			case 0:
-				return nomes.get(0);
-			case 1:
-				return nomes.get(1);
-			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
-			}
-			return null;
+			return nomes.get(position);
 		}
 	}
 
