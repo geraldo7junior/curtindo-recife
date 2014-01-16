@@ -1,12 +1,16 @@
 package com.br.curtindorecife;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
+import dominio.Evento;
 import dominio.FragmentEventos;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +32,11 @@ import android.widget.Toast;
 
 public class TelaEventos extends FragmentActivity {
 
+	static int numEventos;
+	public static ArrayList<String> nomes=new ArrayList<String>();
+	public static ArrayList<String> horas=new ArrayList<String>();
+	public static ArrayList<String> datas=new ArrayList<String>();
+	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -48,6 +57,13 @@ public class TelaEventos extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_eventos);
+		
+		nomes.clear();
+		horas.clear();
+		datas.clear();
+		imagens.clear();
+		numEventos=0;
+		getCategoriasEventos(Evento.getAtual());
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -84,7 +100,7 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new FragmentEventos("Nome", R.drawable.cinema, "Rua do Líbano", "35", "12/12/12", "12:00", "1234-1234", "É isso aí, vamo lá e vamo lá", "R$ 2,00");
+			Fragment fragment = new FragmentEventos(nomes.get(position), imagens.get(position), "Rua do Líbano", "35", datas.get(position), horas.get(position), "1234-1234", "É isso aí, vamo lá e vamo lá", "R$ 2,00");
 			//Fragment fragment = new FragmentEventos();
 			
 			Bundle args = new Bundle();
@@ -96,7 +112,7 @@ public class TelaEventos extends FragmentActivity {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return numEventos;
 		}
 
 		@Override
@@ -104,9 +120,9 @@ public class TelaEventos extends FragmentActivity {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return nomes.get(0);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
+				return nomes.get(1);
 			case 2:
 				return getString(R.string.title_section3).toUpperCase(l);
 			}
@@ -114,52 +130,34 @@ public class TelaEventos extends FragmentActivity {
 		}
 	}
 
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 *//*
-	public static class DummySectionFragment extends Fragment implements OnClickListener {
-		*//**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 *//*
-		Button btnSimbora;
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-			
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_tela_eventos_dummy, container, false);
-			
-			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
-			btnSimbora.setOnClickListener(this);new OnClickListener() {
-		          public void onClick(View v) {
-		        	  if(v.getId()==R.id.btnSimbora){
-		  				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
-		  				startActivity(intent);
-		  			}
-		          }
-		       });
-			return rootView;
-		}
-		
-		@Override
-		public void onClick(View v) {
-			
-			if(v.getId()==R.id.btnSimbora){
-				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
-				startActivity(intent);
+	public void getCategoriasEventos(String nomeEvento){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT * FROM tabelaEventos WHERE tipo LIKE '"+nomeEvento+"'";
+			cursor = BancoDados.rawQuery(sql, null);
+			numEventos=(cursor.getCount());
+			cursor.moveToFirst();
+			for(int i=0;i<cursor.getCount();i++){
+				
+				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
+				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
+				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
+				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
+				if(i!=cursor.getCount()-1){
+					cursor.moveToNext();
+				}
+				
 			}
-			// TODO Auto-generated method stub
 			
-		}
+		} catch (Exception erro) {
+			System.out.println(erro);
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
 	}
 	
-	*/
-
 }

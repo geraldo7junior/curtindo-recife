@@ -302,6 +302,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			}
 			
 			if(v.getId() == R.id.btnShows){
+				Evento.setAtual("Show");
 				Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 				startActivity(intent);
 			}
@@ -312,6 +313,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			}
 			
 			if(v.getId() == R.id.btnTeatro){
+				Evento.setAtual("Show");
 				Intent intent = new Intent(getActivity(),TelaEventos.class);
 				startActivity(intent);
 			}

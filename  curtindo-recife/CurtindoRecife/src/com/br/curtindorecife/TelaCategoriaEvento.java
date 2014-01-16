@@ -31,7 +31,7 @@ public class TelaCategoriaEvento extends Activity {
 		datas.clear();
 		imagens.clear();
 		numEventos=0;
-		String nomeEvento="Rock";
+		String nomeEvento="Show";
 		getCategoriasEventos(nomeEvento);
 		setContentView(R.layout.activity_tela_categoria_evento);
 		spCategoriaEvento = (Spinner) findViewById(R.id.spCategoriaEvento);

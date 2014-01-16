@@ -38,6 +38,7 @@ public class Evento {
 	private String tipoDeEvento;
 	private static int idEvento;
 	private int idOwner; 
+	private static String atual;
 	
 	 public Evento() {
 		 
@@ -142,6 +143,14 @@ public class Evento {
 		
 		
 		return imagem;
+	}
+
+	public static String getAtual() {
+		return atual;
+	}
+
+	public static void setAtual(String atual) {
+		Evento.atual = atual;
 	}
 	
 	
