@@ -7,6 +7,8 @@ import dominio.CustomAdapter;
 import dominio.Evento;
 import android.os.Bundle;
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -14,9 +16,23 @@ import android.widget.Spinner;
 
 public class TelaCategoriaEvento extends Activity {
 	Spinner spCategoriaEvento;
+	static int numEventos;
+	public static ArrayList<String> nomes=new ArrayList<String>();
+	public static ArrayList<String> horas=new ArrayList<String>();
+	public static ArrayList<String> datas=new ArrayList<String>();
+	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		nomes.clear();
+		horas.clear();
+		datas.clear();
+		imagens.clear();
+		numEventos=0;
+		String nomeEvento="Rock";
+		getCategoriasEventos(nomeEvento);
 		setContentView(R.layout.activity_tela_categoria_evento);
 		spCategoriaEvento = (Spinner) findViewById(R.id.spCategoriaEvento);
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
@@ -30,25 +46,50 @@ public class TelaCategoriaEvento extends Activity {
     }
     
     private List createEventos(){
-        List p = new ArrayList();
-        p.add(new Evento("Rock in Rio", "12/11/2014", "22:00", R.drawable.logo_recife));
-        p.add(new Evento("Maragandê", "12/13/2014", "22:00", R.drawable.ic_launcher));
-        p.add(new Evento("Familia", "25/11/2014", "22:00", R.drawable.familia));
-        
-        
-        /*for(int i=0;i<numEventos;i++){
-        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), R.drawable.ic_launcher));
-        }*/
+        List p = new ArrayList();  
+        for(int i=0;i<numEventos;i++){
+        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), imagens.get(i)));
+        }
+        System.out.println(numEventos);
         return p;
     }
     
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tela_categoria_evento, menu);
 		return true;
 	}
+	
+	public void getCategoriasEventos(String nomeEvento){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sql = "SELECT * FROM tabelaEventos WHERE tipo LIKE '"+nomeEvento+"' ";
+			cursor = BancoDados.rawQuery(sql, null);
+			numEventos=(cursor.getCount());
+			cursor.moveToFirst();
+			for(int i=0;i<cursor.getCount();i++){
+				
+				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
+				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
+				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
+				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
+				if(i!=cursor.getCount()-1){
+					cursor.moveToNext();
+				}
+				
+			}
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+			BancoDados.close();
+		}	
+	}
+	
 
 }
