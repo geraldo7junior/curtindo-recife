@@ -60,14 +60,13 @@ public class TelaCategoriaEvento extends Activity {
 		getMenuInflater().inflate(R.menu.tela_categoria_evento, menu);
 		return true;
 	}
-	
 	public void getCategoriasEventos(String nomeEvento){
 		String NomeBanco = "CurtindoRecifeDB";
 		SQLiteDatabase BancoDados = null;
 		Cursor cursor;
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT * FROM tabelaEventos WHERE tipo LIKE '"+nomeEvento+"' ";
+			String sql = "SELECT * FROM tabelaEventos WHERE tipo LIKE '"+nomeEvento+"'";
 			cursor = BancoDados.rawQuery(sql, null);
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();

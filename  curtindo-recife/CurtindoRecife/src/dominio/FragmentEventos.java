@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -64,9 +65,17 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
 			txtHora = (TextView) rootView.findViewById(R.id.txtHora);
 			txtPreco = (TextView) rootView.findViewById(R.id.txtPreco);
-			imgEvento = (ImageView) rootView.findViewById(R.id.AbsoluteLayout1);
+			imgEvento = (ImageView)rootView.findViewById(R.id.imgEvento);
 			txtData = (TextView) rootView.findViewById(R.id.txtData);
 			
+
+			txtEndereco.setText("Rua do Líbano"+", "+"205");
+			txtNomeEvento.setText("Meu Evento");
+			imgEvento.setBackgroundResource(R.drawable.meeting);
+			txtData.setText("12/12/1992");
+			txtHora.setText("12:40");
+			txtPreco.setText("R$ 12,00");
+			txtDescricao.setText("Muito bom!");
 			return rootView;
 		}
 		

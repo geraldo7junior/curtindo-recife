@@ -84,7 +84,9 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
+			//Fragment fragment = new FragmentEventos("Nome", R.drawable.cinema, "Rua do Líbano", "35", "12/12/12", "12:00", "1234-1234", "É isso aí, vamo lá e vamo lá", "R$ 2,00");
 			Fragment fragment = new FragmentEventos();
+			
 			Bundle args = new Bundle();
 			args.putInt(FragmentEventos.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
