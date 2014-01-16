@@ -6,6 +6,7 @@ import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.text.DateFormat;
@@ -152,6 +153,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
 				dialog.show();
+				
+				//4.Open new window
+				Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
+				startActivity(intent);
 			}
 		}
 		if(v.getId()==R.id.rdbHomem){

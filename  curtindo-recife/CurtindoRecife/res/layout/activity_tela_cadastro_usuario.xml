@@ -74,7 +74,7 @@
     <Spinner
         android:id="@+id/spCategorias3"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_alignLeft="@+id/textView1"
         android:layout_alignTop="@+id/radioGroup1"
         android:layout_marginTop="14dp" />
@@ -82,14 +82,14 @@
     <Spinner
         android:id="@+id/spCategorias2"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_alignTop="@+id/spCategorias3"
         android:layout_toLeftOf="@+id/spCategorias3" />
 
     <Spinner
         android:id="@+id/spCategorias"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_alignTop="@+id/spCategorias3"
         android:layout_toRightOf="@+id/spCategorias3" />
 
