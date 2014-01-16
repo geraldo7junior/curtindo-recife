@@ -31,6 +31,15 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		ImageView imgEvento;
 		TextView txtPreco;
 		
+		public String nomeEvento;
+		public String endereco;
+		public String numero;
+		public String data;
+		public String hora;
+		public String telefone;
+		public String descricao;
+		public String preco;
+		public int imagem;
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -39,14 +48,15 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		}
 		
 		public FragmentEventos(String nomeEvento, int imagem,String endereco, String numero, String data, String hora, String telefone, String descricao, String preco){
-			
-			txtEndereco.setText(endereco+", "+numero);
-			txtNomeEvento.setText(nomeEvento);
-			imgEvento.setBackgroundResource(imagem);
-			txtData.setText(data);
-			txtHora.setText(hora);
-			txtPreco.setText(preco);
-			txtDescricao.setText(descricao+" | Telefone: "+telefone);
+			this.nomeEvento=nomeEvento;
+			this.endereco=endereco;
+			this.imagem=imagem;
+			this.data=data;
+			this.numero=numero;
+			this.hora=hora;
+			this.telefone=telefone;
+			this.descricao=descricao;
+			this.preco=preco;
 		}
 		
 		
@@ -69,13 +79,13 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtData = (TextView) rootView.findViewById(R.id.txtData);
 			
 
-			txtEndereco.setText("Rua do Líbano"+", "+"205");
-			txtNomeEvento.setText("Meu Evento");
-			imgEvento.setBackgroundResource(R.drawable.meeting);
-			txtData.setText("12/12/1992");
-			txtHora.setText("12:40");
-			txtPreco.setText("R$ 12,00");
-			txtDescricao.setText("Muito bom!");
+			txtEndereco.setText(this.endereco+", "+this.numero);
+			txtNomeEvento.setText(this.nomeEvento);
+			imgEvento.setBackgroundResource(this.imagem);
+			txtData.setText(this.data);
+			txtHora.setText(this.hora);
+			txtPreco.setText(this.preco);
+			txtDescricao.setText(this.descricao);
 			return rootView;
 		}
 		
