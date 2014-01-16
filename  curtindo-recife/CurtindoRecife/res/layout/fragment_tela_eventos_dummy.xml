@@ -46,7 +46,7 @@
         android:text="Este Evento é especial pois ele tem isso, isso e aquilo" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="76dp"
@@ -55,21 +55,12 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtPreco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="214dp"
         android:layout_y="343dp"
         android:text="R$ 2,00"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/txtNascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="98dp"
-        android:layout_y="306dp"
-        android:text="Rua do Hospício, 250"
         android:textSize="16sp" />
 
     <Button
@@ -98,5 +89,23 @@
         android:layout_height="wrap_content"
         android:layout_x="10dp"
         android:layout_y="10dp" />
+
+    <TextView
+        android:id="@+id/txtEndereco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="95dp"
+        android:layout_y="297dp"
+        android:text="Rua do Hospício, 250"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="144dp"
+        android:layout_y="351dp"
+        android:textSize="16sp"
+        android:text="TextView" />
 
 </AbsoluteLayout>

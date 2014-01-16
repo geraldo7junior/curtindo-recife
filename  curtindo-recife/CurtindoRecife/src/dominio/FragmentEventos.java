@@ -2,6 +2,7 @@ package dominio;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.sax.TextElementListener;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,26 +25,47 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		TextView txtEndereco;
 		TextView txtData;
 		TextView txtHora;
+		TextView txtNumero;
 		TextView txtDescricao;
 		ImageView imgEvento;
+		TextView txtPreco;
+		
+		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public FragmentEventos() {
 			// TODO Auto-generated constructor stub
 		}
 		
-		public FragmentEventos(String nomeEvento, int imagem,String endereco, String numero, String data, String hora, String telefone, String descricao){
+		public FragmentEventos(String nomeEvento, int imagem,String endereco, String numero, String data, String hora, String telefone, String descricao, String preco){
 			
+			txtEndereco.setText(endereco+", "+numero);
+			txtNomeEvento.setText(nomeEvento);
+			imgEvento.setBackgroundResource(imagem);
+			txtData.setText(data);
+			txtHora.setText(hora);
+			txtPreco.setText(preco);
+			txtDescricao.setText(descricao+" | Telefone: "+telefone);
 		}
-
+		
+		
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_tela_eventos_dummy, container, false);
+			//_Relacionamento
 			
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
+			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
+			txtDescricao = (TextView) rootView.findViewById(R.id.textView1);
+			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
+			txtHora = (TextView) rootView.findViewById(R.id.txtHora);
+			txtPreco = (TextView) rootView.findViewById(R.id.txtPreco);
+			imgEvento = (ImageView) rootView.findViewById(R.id.AbsoluteLayout1);
+			txtData = (TextView) rootView.findViewById(R.id.txtData);
 			
 			return rootView;
 		}
