@@ -29,7 +29,7 @@ public class Evento {
 		return EVENTO_NIGHT;
 	}
 
-
+	private int id;
 	private int image;
 	private String nome;
 	private String data;
@@ -37,20 +37,39 @@ public class Evento {
 	private String descricao;
 	private String tipoDeEvento;
 	private static int idEvento;
-	private int idOwner; 
+	private int idOwner;
 	private static String atual;
+	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	private String telefone;
 	
 	 public Evento() {
 		 
 	 }
 	 
-	public Evento(String nome, String data, String hora, int image) {
+	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone) {
 	     this.data = data;
 	     this.hora = hora;
 	     this.nome = nome;
 	     this.image = image;
+	     this.id = idEvento;
+	     this.idOwner = idOwner;
+	     this.telefone = telefone;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int idEvento) {
+		this.id = idEvento;
+	}
 	public int getIdOwner() {
 		return idOwner;
 	}
