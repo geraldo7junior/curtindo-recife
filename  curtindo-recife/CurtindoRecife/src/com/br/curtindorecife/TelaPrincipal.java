@@ -315,17 +315,17 @@ public class TelaPrincipal extends FragmentActivity implements
 				txtEvento2.setText(usuario.getEventoFavorito2());
 				txtEvento3.setText(usuario.getEventoFavorito3());
 			}else{
-				imgEvento1 = Evento.associeImagem("Shows");
+				imgEvento1 = Evento.associeImagem("Show");
 				imgEvento2 = Evento.associeImagem("Teatro");
-				imgEvento3 = Evento.associeImagem("Esportes");
+				imgEvento3 = Evento.associeImagem("Esporte");
 				
 				btnShows.setImageResource(imgEvento1);
 				btnTeatro.setImageResource(imgEvento2);
 				btnEvento3.setImageResource(imgEvento3);
 			
-				txtEvento1.setText("Shows");
+				txtEvento1.setText("Show");
 				txtEvento2.setText("Teatro");
-				txtEvento3.setText("Esportes");
+				txtEvento3.setText("Esporte");
 			}
 			return rootView;
 		}	
@@ -357,15 +357,19 @@ public class TelaPrincipal extends FragmentActivity implements
 		}
 			
 		public void direcionarBtn(int idBtn){
+			boolean idCorreto = false;
 			if(Usuario.getId() == 0){
 				if(idBtn==R.id.btnEvento1){
 					Evento.setAtual("Show");
+					idCorreto = true;
 					
 				}else if(idBtn==R.id.btnEvento2){
 					Evento.setAtual("Teatro");
+					idCorreto = true;
 					
 				}else if (idBtn==R.id.btnEvento3){
 					Evento.setAtual("Esportes");
+					idCorreto = true;
 				}
 			}else{
 				Banco banco = new Banco(getActivity());
@@ -373,17 +377,22 @@ public class TelaPrincipal extends FragmentActivity implements
 				usuario = banco.getUsuario(Usuario.getId());
 			if(idBtn==R.id.btnEvento1){
 				Evento.setAtual(usuario.getEventoFavorito1());
+				idCorreto = true;
 				
 			}else if(idBtn==R.id.btnEvento2){
 				Evento.setAtual(usuario.getEventoFavorito2());
+				idCorreto = true;
 				
 			}else if (idBtn==R.id.btnEvento3){
 				Evento.setAtual(usuario.getEventoFavorito3());
+				idCorreto = true;
 			}
 				
 			}
+			if(idCorreto){
 			Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 			startActivity(intent);
+			}
 		}
 			
 			
