@@ -114,8 +114,42 @@ public class Banco{
 		}finally{
 			closeBd();
 		}
-		
 	}
+		
+	public Usuario getUsuario(int id){
+		
+		try {
+			openBd();
+			
+			String sql = "SELECT * from tabelaUsuarios WHERE _id LIKE '"+id+"'";
+			cursor = bancoDados.rawQuery(sql,null);
+			cursor.moveToFirst();
+			
+			Usuario usuario = new Usuario();
+			usuario.setSexo(cursor.getString(cursor.getColumnIndex("sexo")));
+			usuario.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+			usuario.setDataDeNascimento((cursor.getString(cursor.getColumnIndex("dataNascimento"))));
+			usuario.setEmail((cursor.getString(cursor.getColumnIndex("email"))));
+			usuario.setEventoFavorito1((cursor.getString(cursor.getColumnIndex("eventoFavorito1"))));
+			usuario.setEventoFavorito2((cursor.getString(cursor.getColumnIndex("eventoFavorito2"))));
+			usuario.setEventoFavorito3((cursor.getString(cursor.getColumnIndex("eventoFavorito3"))));
+			usuario.setSenha((cursor.getString(cursor.getColumnIndex("senha"))));
+			
+			System.out.println(usuario.getEventoFavorito1());
+			return usuario;
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		finally{
+			closeBd();
+		}
+		
+		return null;
+			
+	}
+		
+	
 
 	/*public void getTabelaUsuarios() {
 		String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};

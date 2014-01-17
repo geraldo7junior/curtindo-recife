@@ -41,7 +41,8 @@
         android:layout_height="75dp"
         android:layout_x="16dp"
         android:layout_y="175dp"
-        android:src="@drawable/shows" />
+        android:src="@drawable/shows"
+         />
 
     <TextView
         android:id="@+id/txtShows"

@@ -2,6 +2,7 @@ package com.br.curtindorecife;
 
 import bd.Banco;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -63,7 +64,6 @@ public class TelaPrincipal extends FragmentActivity implements
 		numEventos=0;
 		CriarBanco();
 		checarBD();
-		darSimbora();
 		if(Usuario.getId()!=0){
 			getMeusEventos(Usuario.getId());
 		}
@@ -180,25 +180,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	}
 	
 	
-	public void darSimbora() {
-		try {
-			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+11+"'";
-			cursor = BancoDados.rawQuery(sqlSimboras,null);
-			cursor.moveToFirst();
-			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
-			int newSimbora = oldSimbora + 1;
-			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+11+"'";
-
-			BancoDados.execSQL(sql);
-		} catch (Exception erro) {
-			// TODO: handle exception
-			System.out.println(erro);
-		}finally{
-			BancoDados.close();
-		}
-		
-	}
+	
 
 	
 	@Override
@@ -280,6 +262,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		ImageButton btnAgenda;
 		ImageButton btnShows;
 		ImageButton btnTeatro;
+		ImageButton btnEvento3;
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -303,6 +286,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnShows.setOnClickListener(this);
 			btnTeatro = (ImageButton)rootView.findViewById(R.id.btnTeatro);
 			btnTeatro.setOnClickListener(this);
+			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEsportes);
+			btnEvento3.setOnClickListener(this);
 			return rootView;
 		}	
 		
@@ -322,24 +307,48 @@ public class TelaPrincipal extends FragmentActivity implements
 				startActivity(intent);
 			}
 			
-			if(v.getId() == R.id.btnShows){
-				Evento.setAtual("Show");
-				Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
-				startActivity(intent);
-			}
-			
 			if(v.getId() == R.id.btnCadastrarEvento){
 				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
 				startActivity(intent);
 			}
+			direcionarBtn(v.getId());
 			
-			if(v.getId() == R.id.btnTeatro){
-				Evento.setAtual("Show");
-				Intent intent = new Intent(getActivity(),TelaEventos.class);
-				startActivity(intent);
-			}
+			
 			
 		}
+			
+		public void direcionarBtn(int idBtn){
+			if(Usuario.getId() == 0){
+				if(idBtn==R.id.btnShows){
+					Evento.setAtual("Show");
+					
+				}else if(idBtn==R.id.btnTeatro){
+					Evento.setAtual("Teatro");
+					
+				}else if (idBtn==R.id.btnEsportes){
+					Evento.setAtual("Esportes");
+				}
+			}else{
+				Banco banco = new Banco(getActivity());
+				Usuario usuario;
+				usuario = banco.getUsuario(Usuario.getId());
+			if(idBtn==R.id.btnShows){
+				Evento.setAtual(usuario.getEventoFavorito1());
+				
+			}else if(idBtn==R.id.btnTeatro){
+				Evento.setAtual(usuario.getEventoFavorito2());
+				
+			}else if (idBtn==R.id.btnEsportes){
+				Evento.setAtual(usuario.getEventoFavorito3());
+			}
+				
+			}
+			Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
+			startActivity(intent);
+		}
+			
+			
+		
 		
 	}
 	
