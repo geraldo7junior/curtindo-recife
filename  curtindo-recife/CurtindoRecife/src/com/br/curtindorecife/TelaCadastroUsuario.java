@@ -101,6 +101,23 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		String eventoFavorito2 = spCategorias2.getSelectedItem().toString();
 		String eventoFavorito3 = spCategorias3.getSelectedItem().toString();
 		
+		if(eventoFavorito1.equals(eventoFavorito2) || eventoFavorito1.equals(eventoFavorito3) || eventoFavorito2.equals(eventoFavorito3)){
+			eventoFavorito1 ="";
+			eventoFavorito2="";
+			eventoFavorito3="";
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+			// 2. Chain together various setter methods to set the dialog characteristics
+			builder.setMessage("Todos os eventos devem ser diferentes, escolha novamente");
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			validar = false;
+			
+			
+		}
+		
 		
 		Usuario usuario= new Usuario(nome, email, senha, dataDeNascimento, null, null, null, null);
 		//UsuarioDAO.cadastrarUsuario(usuario);
