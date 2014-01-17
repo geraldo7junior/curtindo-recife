@@ -1,5 +1,6 @@
 package dominio;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sax.TextElementListener;
@@ -69,9 +70,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			View rootView = inflater.inflate(
 					R.layout.fragment_tela_eventos_dummy, container, false);
 			//_Relacionamento
-			
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
+			
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.textView1);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
@@ -95,8 +96,28 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public void onClick(View v) {
 			
 			if(v.getId()==R.id.btnSimbora){
-				Banco banco = new Banco(getActivity());
-				banco.darSimbora(this.id);
+				if(Usuario.getId()==0){
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+					// 2. Chain together various setter methods to set the dialog characteristics
+					builder.setMessage("Para dar Simbora é preciso estar logado.");
+
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialog = builder.create();
+					dialog.show();
+				}else{
+					Banco banco = new Banco(getActivity());
+					banco.darSimbora(this.id);
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+					// 2. Chain together various setter methods to set the dialog characteristics
+					builder.setMessage("Simbora realizado com sucesso.");
+
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					
+					}
 				
 			}
 			// TODO Auto-generated method stub

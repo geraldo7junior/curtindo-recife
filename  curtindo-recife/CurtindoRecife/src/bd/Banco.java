@@ -1,6 +1,9 @@
 package bd;
 
 import java.util.ArrayList;
+
+import dominio.Evento;
+import dominio.Usuario;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -91,14 +94,20 @@ public class Banco{
 	public void darSimbora(int id) {
 		try {
 			openBd();
+			
 			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+id+"'";
 			cursor = bancoDados.rawQuery(sqlSimboras,null);
 			cursor.moveToFirst();
+			
 			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
 			int newSimbora = oldSimbora + 1;
-			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
 			
+			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
 			bancoDados.execSQL(sql);
+			
+			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
+			bancoDados.execSQL(sqlMeusEventos);
+			
 		} catch (Exception erro) {
 			// TODO: handle exception
 			System.out.println(erro);
