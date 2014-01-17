@@ -69,6 +69,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		numEventos=0;
 		CriarBanco();
 		checarBD();
+		darSimbora();
 		if(Usuario.getId()!=0){
 			getMeusEventos(Usuario.getId());
 		}
@@ -184,6 +185,28 @@ public class TelaPrincipal extends FragmentActivity implements
 		}
 	}
 	
+	
+	public void darSimbora() {
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+11+"'";
+			cursor = BancoDados.rawQuery(sqlSimboras,null);
+			cursor.moveToFirst();
+			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
+			int newSimbora = oldSimbora + 1;
+			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+11+"'";
+
+			BancoDados.execSQL(sql);
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			BancoDados.close();
+		}
+		
+	}
+
+	
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
@@ -292,9 +315,13 @@ public class TelaPrincipal extends FragmentActivity implements
 			@Override
 			public void onClick(View v) {
 				if(v.getId() == R.id.btnLogin){
-				Intent intent = new Intent(getActivity(), TelaLogin.class);
-				startActivity(intent);
-			}
+					/*if(btnLogin.getText().equals("Perfil")){
+						Intent intent = new Intent(getActivity(), TelaPerfilUsuario.class);
+					}else{*/
+						Intent intent = new Intent(getActivity(), TelaLogin.class);
+						startActivity(intent);
+					//}
+				}
 			
 			if(v.getId() == R.id.btnAgenda){
 				Intent intent = new Intent(getActivity(), TelaAgenda.class);
