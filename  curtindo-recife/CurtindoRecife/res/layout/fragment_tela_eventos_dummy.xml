@@ -72,13 +72,6 @@
         android:text="Rua do Hospício, 250"
         android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/imgEvento"
-        android:layout_width="190dp"
-        android:layout_height="130dp"
-        android:layout_x="68dp"
-        android:layout_y="32dp"/>
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="224dp"
@@ -100,9 +93,16 @@
         android:id="@+id/txtData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_x="124dp"
-        android:layout_y="12dp"
+        android:layout_x="42dp"
+        android:layout_y="16dp"
         android:text="TextView"
         android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imgEvento"
+        android:layout_width="190dp"
+        android:layout_height="130dp"
+        android:layout_x="74dp"
+        android:layout_y="42dp" />
 
 </AbsoluteLayout>

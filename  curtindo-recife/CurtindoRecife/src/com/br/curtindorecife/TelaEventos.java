@@ -33,10 +33,6 @@ import android.widget.Toast;
 public class TelaEventos extends FragmentActivity {
 
 	static int numEventos;
-	public static ArrayList<String> nomes=new ArrayList<String>();
-	public static ArrayList<String> horas=new ArrayList<String>();
-	public static ArrayList<String> datas=new ArrayList<String>();
-	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -58,10 +54,7 @@ public class TelaEventos extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_eventos);
 		
-		nomes.clear();
-		horas.clear();
-		datas.clear();
-		imagens.clear();
+		Evento.getListaEventos().clear();
 		numEventos=0;
 		getCategoriasEventos(Evento.getAtual());
 		Intent intent=getIntent();
@@ -126,7 +119,7 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new FragmentEventos(nomes.get(position), imagens.get(position), "Rua do Líbano", "35", datas.get(position), horas.get(position), "1234-1234", "É isso aí, vamo lá e vamo lá", "R$ 2,00");
+			Fragment fragment = new FragmentEventos(Evento.getListaEventos().get(position).getNome(), Evento.getListaEventos().get(position).getImage(), Evento.getListaEventos().get(position).getEndereco(), Evento.getListaEventos().get(position).getNumero(), Evento.getListaEventos().get(position).getData(), Evento.getListaEventos().get(position).getHora(), Evento.getListaEventos().get(position).getTelefone(), Evento.getListaEventos().get(position).getDescricao(), Evento.getListaEventos().get(position).getPreco());
 			//Fragment fragment = new FragmentEventos();
 			
 			Bundle args = new Bundle();
@@ -143,7 +136,7 @@ public class TelaEventos extends FragmentActivity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return nomes.get(position);
+			return Evento.getListaEventos().get(position).getNome();
 		}
 	}
 
@@ -157,12 +150,8 @@ public class TelaEventos extends FragmentActivity {
 			cursor = BancoDados.rawQuery(sql, null);
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
-			for(int i=0;i<cursor.getCount();i++){
-				
-				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
-				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
-				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
-				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
+			for(int i=0;i<cursor.getCount();i++){			
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}

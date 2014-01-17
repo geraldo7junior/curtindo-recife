@@ -21,26 +21,14 @@ import android.widget.Spinner;
 public class TelaCategoriaEvento extends Activity {
 	Spinner spCategoriaEvento;
 	static int numEventos;
-	public static ArrayList<String> nomes=new ArrayList<String>();
-	public static ArrayList<String> horas=new ArrayList<String>();
-	public static ArrayList<String> datas=new ArrayList<String>();
-	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		nomes.clear();
-		horas.clear();
-		datas.clear();
-		imagens.clear();
+		Evento.getListaEventos().clear();
 		numEventos=0;
-<<<<<<< .mine
-		String nomeEvento="Palestra";
-=======
-		String nomeEvento="Show";
->>>>>>> .r118
-		getCategoriasEventos(nomeEvento);
+		getCategoriasEventos(Evento.getAtual());
 		setContentView(R.layout.activity_tela_categoria_evento);
 		spCategoriaEvento = (Spinner) findViewById(R.id.spCategoriaEvento);
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
@@ -70,11 +58,7 @@ public class TelaCategoriaEvento extends Activity {
 	
     
     private List createEventos(){
-        List p = new ArrayList();  
-        for(int i=0;i<numEventos;i++){
-        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), imagens.get(i)));
-        }
-        System.out.println(numEventos);
+        List p = Evento.getListaEventos();  
         return p;
     }
     
@@ -94,12 +78,8 @@ public class TelaCategoriaEvento extends Activity {
 			cursor = BancoDados.rawQuery(sql, null);
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
-			for(int i=0;i<cursor.getCount();i++){
-				
-				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
-				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
-				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
-				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
+			for(int i=0;i<cursor.getCount();i++){			
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}

@@ -44,11 +44,6 @@ public class TelaPrincipal extends FragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	
-	public static ArrayList<String> nomes=new ArrayList<String>();
-	public static ArrayList<String> horas=new ArrayList<String>();
-	public static ArrayList<String> datas=new ArrayList<String>();
-	public static ArrayList<Integer> imagens=new ArrayList<Integer>();
 	public static int numEventos=0;
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
@@ -62,10 +57,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		nomes.clear();
-		horas.clear();
-		datas.clear();
-		imagens.clear();
+		Evento.getListaEventos().clear();
 		numEventos=0;
 		CriarBanco();
 		checarBD();
@@ -373,15 +365,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	    }
 	 
 	    private List createEventos(){
-	        List p = new ArrayList();
-	        /*p.add(new Evento("Rock in Rio", "12/11/2014", "22:00", R.drawable.logo_recife));
-	        p.add(new Evento("Maragandê", "12/13/2014", "22:00", R.drawable.ic_launcher));
-	        p.add(new Evento("Tihuana", "25/11/2014", "22:00", R.drawable.shows));
-	        */
-	        for(int i=0;i<numEventos;i++){
-	        	System.out.println(imagens.get(i)+" Imagens no for da lista");
-	        	p.add(new Evento(nomes.get(i), datas.get(i), horas.get(i), imagens.get(i)));
-	        }
+	        List p = Evento.getListaEventos();
 	        return p;
 	    }
 	    
@@ -398,13 +382,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			cursor = BancoDados.rawQuery(sql, null);
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
-			for(int i=0;i<cursor.getCount();i++){
-				
-				nomes.add((cursor.getString(cursor.getColumnIndex("nome"))));
-				datas.add((cursor.getString(cursor.getColumnIndex("data"))));
-				horas.add((cursor.getString(cursor.getColumnIndex("hora"))));
-				imagens.add((cursor.getInt(cursor.getColumnIndex("idImagem"))));
-				System.out.println(cursor.getInt(cursor.getColumnIndex("idImagem")) + "Imagem ");
+			for(int i=0;i<cursor.getCount();i++){			
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}

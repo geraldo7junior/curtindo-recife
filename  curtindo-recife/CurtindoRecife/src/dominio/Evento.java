@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.ArrayList;
+
 import com.br.curtindorecife.R;
 
 public class Evento {
@@ -12,6 +14,7 @@ public class Evento {
 	private static final String EVENTO_PALESTRA="Palestra";
 	private static final String EVENTO_ENCONTRO="Encontro";
 	private static final String EVENTO_NIGHT="Night";
+	private static ArrayList<Evento> listaEventos=new ArrayList<Evento>();
 	
 	public static String getEventoFamilia() {
 		return EVENTO_FAMILIA;
@@ -41,14 +44,14 @@ public class Evento {
 	private static String atual;
 	private int simboras;
 	private String preco;
-	private int numero;
+	private String numero;
 	private String endereco;
 	
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
 
@@ -82,7 +85,7 @@ public class Evento {
 		 
 	 }
 	 
-	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, int numero, String endereco) {
+	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, String numero, String endereco) {
 	     this.data = data;
 	     this.hora = hora;
 	     this.nome = nome;
@@ -93,7 +96,7 @@ public class Evento {
 	     this.simboras = simboras;
 	     this.preco = preco;
 	     this.numero = numero;
-	     this.endereco = endereco;
+	     this.setEndereco(endereco);
 	     this.descricao = descricao;
 	}
 	
@@ -203,6 +206,22 @@ public class Evento {
 
 	public static void setAtual(String atual) {
 		Evento.atual = atual;
+	}
+
+	public static ArrayList<Evento> getListaEventos() {
+		return listaEventos;
+	}
+
+	public static void addListaEventos(Evento evento) {
+		Evento.listaEventos.add(evento);
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 	
 	
