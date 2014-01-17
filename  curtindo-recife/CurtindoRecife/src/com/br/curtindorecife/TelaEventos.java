@@ -91,6 +91,29 @@ public class TelaEventos extends FragmentActivity {
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
+	String NomeBanco = "CurtindoRecifeDB";
+	SQLiteDatabase BancoDados = null;
+	Cursor cursor;
+	
+	public void darSimbora(int id) {
+		try {
+			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+id+"'";
+			cursor = BancoDados.rawQuery(sqlSimboras,null);
+			cursor.moveToFirst();
+			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
+			int newSimbora = oldSimbora + 1;
+			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
+
+			BancoDados.execSQL(sql);
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			BancoDados.close();
+		}
+		
+	}
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		public SectionsPagerAdapter(FragmentManager fm) {
