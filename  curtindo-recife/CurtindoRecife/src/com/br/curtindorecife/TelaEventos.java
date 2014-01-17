@@ -119,8 +119,7 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new FragmentEventos(Evento.getListaEventos().get(position).getNome(), Evento.getListaEventos().get(position).getImage(), Evento.getListaEventos().get(position).getEndereco(), Evento.getListaEventos().get(position).getNumero(), Evento.getListaEventos().get(position).getData(), Evento.getListaEventos().get(position).getHora(), Evento.getListaEventos().get(position).getTelefone(), Evento.getListaEventos().get(position).getDescricao(), Evento.getListaEventos().get(position).getPreco());
-			//Fragment fragment = new FragmentEventos();
+			Fragment fragment = new FragmentEventos(Evento.getListaEventos().get(position));
 			
 			Bundle args = new Bundle();
 			args.putInt(FragmentEventos.ARG_SECTION_NUMBER, position + 1);
@@ -154,8 +153,7 @@ public class TelaEventos extends FragmentActivity {
 				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
-				}
-				
+				}	
 			}
 			
 		} catch (Exception erro) {
@@ -165,5 +163,4 @@ public class TelaEventos extends FragmentActivity {
 			BancoDados.close();
 		}	
 	}
-	
 }

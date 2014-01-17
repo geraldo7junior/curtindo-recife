@@ -11,6 +11,7 @@ public class Banco{
 	
 	public  Banco(Context context){
 		this.context = context;
+		
 	}
 	
 	private final String nomeTabela1 = "tabelaUsuarios";
@@ -21,6 +22,7 @@ public class Banco{
 	private final Context context;
 	private BDhelper bdHelper;
 	private SQLiteDatabase bancoDados;
+	private Cursor cursor;
 	
 	
 	class BDhelper extends SQLiteOpenHelper{
@@ -33,13 +35,13 @@ public class Banco{
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 				//TABELA DE USUÁRIOS (tabelaUsuarios)
-				String sql = "CREATE TABLE "+nomeTabela1+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
+				String sql = "CREATE TABLE IF NOT EXISTS "+nomeTabela1+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
 				db.execSQL(sql);
 				//TABELA DE EVENTOS (tabelaEventos)
-				String sqlEvento = "CREATE TABLE "+nomeTabela2+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER)";
+				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+nomeTabela2+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER)";
 				db.execSQL(sqlEvento);
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
-				String sqlMeusEventos = "CREATE TABLE "+nomeTabela3+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
+				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+nomeTabela3+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
 				
 		}
@@ -60,42 +62,60 @@ public class Banco{
 	
 		}
 		
-		public BDhelper openBd(){
-			bdHelper= new BDhelper(context);
-			bancoDados = bdHelper.getWritableDatabase();
-			return this;
-		}
-		public void closeBd(){
-			bancoDados.close();
-		}
-		 
-		public void inserirUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
-			
-			ContentValues valores = new ContentValues();
-			
-			valores.put("nome", nome);
-			valores.put("dataNascimento", dataDeNascimento);
-			valores.put("email", email);
-			valores.put("senha", senha);
-			valores.put("sexo", sexo);
-			valores.put("eventoFavorito1", eventoFavorito1);
-			valores.put("eventoFavorito2", eventoFavorito2);
-			valores.put("eventoFavorito3", eventoFavorito3);
-			
-			bancoDados.insert(nomeTabela1, null, valores);	
-		}
-		
-	
-		/*public void getTabelaUsuarios() {
-			String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};
-			Cursor cursor = bancoDados.query(nomeTabela1, columns, null, null, null, null, null, null);
-			
-			ArrayList<String> result = new ArrayList<String>();
-			
-			for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext()){
-				
-			}
-		}*/
 		
 	}
+	public Banco openBd(){
+		bdHelper= new BDhelper(context);
+		bancoDados = bdHelper.getWritableDatabase();
+		return this;
+	}
+	public void closeBd(){
+		bancoDados.close();
+	}
+	 
+	public void inserirUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		
+		ContentValues valores = new ContentValues();
+		
+		valores.put("nome", nome);
+		valores.put("dataNascimento", dataDeNascimento);
+		valores.put("email", email);
+		valores.put("senha", senha);
+		valores.put("sexo", sexo);
+		valores.put("eventoFavorito1", eventoFavorito1);
+		valores.put("eventoFavorito2", eventoFavorito2);
+		valores.put("eventoFavorito3", eventoFavorito3);
+		
+		bancoDados.insert(nomeTabela1, null, valores);	
+	}
+	public void darSimbora(int id) {
+		try {
+			openBd();
+			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+id+"'";
+			cursor = bancoDados.rawQuery(sqlSimboras,null);
+			cursor.moveToFirst();
+			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
+			int newSimbora = oldSimbora + 1;
+			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
+			
+			bancoDados.execSQL(sql);
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			closeBd();
+		}
+		
+	}
+
+	/*public void getTabelaUsuarios() {
+		String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};
+		Cursor cursor = bancoDados.query(nomeTabela1, columns, null, null, null, null, null, null);
+		
+		ArrayList<String> result = new ArrayList<String>();
+		
+		for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext()){
+			
+		}
+	}*/
 }
