@@ -39,7 +39,35 @@ public class Evento {
 	private static int idEvento;
 	private int idOwner;
 	private static String atual;
+	private int simboras;
+	private String preco;
+	private int numero;
+	private String endereco;
 	
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getPreco() {
+		return preco;
+	}
+
+	public void setPreco(String preco) {
+		this.preco = preco;
+	}
+
+	public int getSimboras() {
+		return simboras;
+	}
+
+	public void setSimboras(int simbora) {
+		this.simboras = simbora;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -54,7 +82,7 @@ public class Evento {
 		 
 	 }
 	 
-	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone) {
+	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, int numero, String endereco) {
 	     this.data = data;
 	     this.hora = hora;
 	     this.nome = nome;
@@ -62,6 +90,11 @@ public class Evento {
 	     this.id = idEvento;
 	     this.idOwner = idOwner;
 	     this.telefone = telefone;
+	     this.simboras = simboras;
+	     this.preco = preco;
+	     this.numero = numero;
+	     this.endereco = endereco;
+	     this.descricao = descricao;
 	}
 	
 	public int getId() {
