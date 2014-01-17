@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.br.curtindorecife.R;
 
@@ -222,6 +223,30 @@ public class Evento {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	
+	public static ArrayList<Evento> ranking(){
+		ArrayList<Integer> listaSimboras=new ArrayList<Integer>();
+		ArrayList<Evento> listaOrdenada=new ArrayList<Evento>();
+		for(int i=0;i<listaEventos.size();i++){
+			listaSimboras.add(listaEventos.get(i).getSimboras());
+		}
+		
+		Collections.sort(listaSimboras);
+		Collections.reverse(listaSimboras);
+		for(int i=0;i<listaSimboras.size();i++){
+			for(int j=0;j<listaEventos.size();i++){
+				if((listaSimboras.get(i)==listaEventos.get(j).getSimboras())&&(!listaOrdenada.contains(listaEventos.get(j)))){
+					 listaOrdenada.add(listaEventos.get(j));
+					 break;
+				}
+			}
+		}
+		for (int i = 0; i < listaOrdenada.size(); i++) {
+			System.out.println(listaOrdenada.get(i).getNome()+" "+listaOrdenada.get(i).getSimboras());
+			
+		}
+		return listaOrdenada;
 	}
 	
 	

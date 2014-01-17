@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -55,7 +57,9 @@ public class TelaPrincipal extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,6 +70,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		checarBD();
 		if(Usuario.getId()!=0){
 			getMeusEventos(Usuario.getId());
+		
 		}
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -263,6 +268,10 @@ public class TelaPrincipal extends FragmentActivity implements
 		ImageButton btnShows;
 		ImageButton btnTeatro;
 		ImageButton btnEvento3;
+		Usuario usuario;
+		int imgEvento1, imgEvento2, imgEvento3;
+		TextView txtEvento1, txtEvento2, txtEvento3;
+		
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -275,19 +284,49 @@ public class TelaPrincipal extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
-			
+			txtEvento1 = (TextView)rootView.findViewById(R.id.txtEvento1);
+			txtEvento2 = (TextView)rootView.findViewById(R.id.txtEvento2);
+			txtEvento3 = (TextView)rootView.findViewById(R.id.txtEvento3);
 			btnCadastarEvento = (Button)rootView.findViewById(R.id.btnCadastrarEvento);
 			btnCadastarEvento.setOnClickListener(this);
 			btnLogin = (Button)rootView.findViewById(R.id.btnLogin);
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
-			btnShows = (ImageButton)rootView.findViewById(R.id.btnShows);
+			btnShows = (ImageButton)rootView.findViewById(R.id.btnEvento1);
 			btnShows.setOnClickListener(this);
-			btnTeatro = (ImageButton)rootView.findViewById(R.id.btnTeatro);
+			btnTeatro = (ImageButton)rootView.findViewById(R.id.btnEvento2);
 			btnTeatro.setOnClickListener(this);
-			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEsportes);
+			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
+			
+			if(Usuario.getId()!=0){
+				Banco banco = new Banco(getActivity());
+				usuario = banco.getUsuario(Usuario.getId());
+				imgEvento1 = Evento.associeImagem(usuario.getEventoFavorito1());
+				imgEvento2 = Evento.associeImagem(usuario.getEventoFavorito2());
+				imgEvento3 = Evento.associeImagem(usuario.getEventoFavorito3());
+				
+				btnShows.setImageResource(imgEvento1);
+				btnTeatro.setImageResource(imgEvento2);
+				btnEvento3.setImageResource(imgEvento3);
+				
+				txtEvento1.setText(usuario.getEventoFavorito1());
+				txtEvento2.setText(usuario.getEventoFavorito2());
+				txtEvento3.setText(usuario.getEventoFavorito3());
+			}else{
+				imgEvento1 = Evento.associeImagem("Shows");
+				imgEvento2 = Evento.associeImagem("Teatro");
+				imgEvento3 = Evento.associeImagem("Esportes");
+				
+				btnShows.setImageResource(imgEvento1);
+				btnTeatro.setImageResource(imgEvento2);
+				btnEvento3.setImageResource(imgEvento3);
+			
+				txtEvento1.setText("Shows");
+				txtEvento2.setText("Teatro");
+				txtEvento3.setText("Esportes");
+			}
 			return rootView;
 		}	
 		
@@ -319,26 +358,26 @@ public class TelaPrincipal extends FragmentActivity implements
 			
 		public void direcionarBtn(int idBtn){
 			if(Usuario.getId() == 0){
-				if(idBtn==R.id.btnShows){
+				if(idBtn==R.id.btnEvento1){
 					Evento.setAtual("Show");
 					
-				}else if(idBtn==R.id.btnTeatro){
+				}else if(idBtn==R.id.btnEvento2){
 					Evento.setAtual("Teatro");
 					
-				}else if (idBtn==R.id.btnEsportes){
+				}else if (idBtn==R.id.btnEvento3){
 					Evento.setAtual("Esportes");
 				}
 			}else{
 				Banco banco = new Banco(getActivity());
 				Usuario usuario;
 				usuario = banco.getUsuario(Usuario.getId());
-			if(idBtn==R.id.btnShows){
+			if(idBtn==R.id.btnEvento1){
 				Evento.setAtual(usuario.getEventoFavorito1());
 				
-			}else if(idBtn==R.id.btnTeatro){
+			}else if(idBtn==R.id.btnEvento2){
 				Evento.setAtual(usuario.getEventoFavorito2());
 				
-			}else if (idBtn==R.id.btnEsportes){
+			}else if (idBtn==R.id.btnEvento3){
 				Evento.setAtual(usuario.getEventoFavorito3());
 			}
 				
@@ -413,6 +452,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				}
 				
 			}
+			Evento.ranking();
 			return cursor.getInt(cursor.getPosition());
 		} catch (Exception erro) {
 			System.out.println(erro);

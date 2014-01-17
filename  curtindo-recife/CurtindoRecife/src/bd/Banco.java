@@ -70,6 +70,7 @@ public class Banco{
 	public Banco openBd(){
 		bdHelper= new BDhelper(context);
 		bancoDados = bdHelper.getWritableDatabase();
+		System.out.println(this+" "+"------------Open Bd--------");
 		return this;
 	}
 	public void closeBd(){

@@ -36,16 +36,15 @@
         android:textColor="#FFFFFF" />
 
     <ImageButton
-        android:id="@+id/btnShows"
+        android:id="@+id/btnEvento1"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="16dp"
         android:layout_y="175dp"
-        android:src="@drawable/shows"
          />
 
     <TextView
-        android:id="@+id/txtShows"
+        android:id="@+id/txtEvento1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="32dp"
@@ -54,23 +53,22 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ImageButton
-        android:id="@+id/btnTeatro"
+        android:id="@+id/btnEvento2"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="115dp"
-        android:layout_y="175dp"
-        android:src="@drawable/teatro" />
+        android:layout_y="175dp" />
 
     <ImageButton
-        android:id="@+id/btnEsportes"
+        android:id="@+id/btnEvento3"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="212dp"
         android:layout_y="170dp"
-        android:src="@drawable/esportes" />
+        />
 
     <TextView
-        android:id="@+id/txtEsportes"
+        android:id="@+id/txtEvento3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="219dp"
@@ -126,7 +124,7 @@
         android:textColor="#FFFFFF" />
 
     <TextView
-        android:id="@+id/txtTeatro"
+        android:id="@+id/txtEvento2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="128dp"

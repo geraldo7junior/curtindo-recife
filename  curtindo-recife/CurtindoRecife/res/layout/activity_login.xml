@@ -12,7 +12,7 @@
     tools:context=".TelaPrincipal" >
 
     <ImageButton
-        android:id="@+id/btnShows"
+        android:id="@+id/btnEvento1"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="38dp"
@@ -20,7 +20,7 @@
         android:src="@drawable/shows" />
 
     <ImageButton
-        android:id="@+id/btnEsportes"
+        android:id="@+id/btnEvento3"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="159dp"
@@ -45,7 +45,7 @@
         android:src="@drawable/cinema" />
 
     <ImageButton
-        android:id="@+id/btnTeatro"
+        android:id="@+id/btnEvento2"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="152dp"
@@ -53,7 +53,7 @@
         android:src="@drawable/teatro" />
 
     <TextView
-        android:id="@+id/txtTeatro"
+        android:id="@+id/txtEvento2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="159dp"
@@ -62,7 +62,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/txtEsportes"
+        android:id="@+id/txtEvento3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="161dp"
@@ -71,7 +71,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/txtShows"
+        android:id="@+id/txtEvento1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_x="46dp"
