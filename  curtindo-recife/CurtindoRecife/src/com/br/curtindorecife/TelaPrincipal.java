@@ -49,7 +49,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	 * intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	public static int numEventos=0;
+	//public static int numEventos=0;
 	
 	SectionsPagerAdapter mSectionsPagerAdapter;
 	
@@ -65,11 +65,12 @@ public class TelaPrincipal extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Evento.getListaEventos().clear();
-		numEventos=0;
+		//numEventos=0;
 		CriarBanco();
 		checarBD();
 		if(Usuario.getId()!=0){
-			getMeusEventos(Usuario.getId());
+			Banco banco = new Banco(this);
+			banco.setMeusEventos(Usuario.getId());
 		
 		}
 		// Set up the action bar.
@@ -415,7 +416,11 @@ public class TelaPrincipal extends FragmentActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
+			
 			View rootView = inflater.inflate(R.layout.fragment_meus_eventos,container, false);
+			
+			
+			
 			List EventoList = createEventos();
 	        ArrayAdapter ad = new CustomAdapter(this.getActivity(), R.layout.item, EventoList);
 	        ListView lv = (ListView) rootView.findViewById(R.id.listView1);
@@ -444,7 +449,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		
 	}
 	
-	public Integer getMeusEventos(int idUsuario){
+	/*public Integer getMeusEventos(int idUsuario){
 		String NomeBanco = "CurtindoRecifeDB";
 		SQLiteDatabase BancoDados = null;
 		Cursor cursor;
@@ -452,7 +457,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 			String sql = "SELECT * FROM tabelaEventos WHERE idOwner LIKE '"+idUsuario+"' ";
 			cursor = BancoDados.rawQuery(sql, null);
-			numEventos=(cursor.getCount());
+			//numEventos=(cursor.getCount());
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
 				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
@@ -471,6 +476,6 @@ public class TelaPrincipal extends FragmentActivity implements
 			BancoDados.close();
 		}	
 	}
-	
+*/	
 
 }

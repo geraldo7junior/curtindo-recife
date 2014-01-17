@@ -149,9 +149,64 @@ public class Banco{
 		return null;
 			
 	}
-		
 	
+	public void setMeusEventos(int idUsuario){
+		try {
+			openBd();
+			String sql = "SELECT * FROM tabelaMeusEventos WHERE idUsuario LIKE '"+idUsuario+"' ";
+			cursor = bancoDados.rawQuery(sql, null);
+			
+			cursor.moveToFirst();
+			System.out.println("getCount "+cursor.getCount());
+			for(int i=0;i<cursor.getCount();i++){			
+				Evento.addListaEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
+				System.out.println(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))).getNome());
 
+				if(i!=cursor.getCount()-1){
+					cursor.moveToNext();
+				}		
+							}
+			System.out.println("setMeusEventos "+Evento.getListaEventos().get(0).getNome());
+		} catch (Exception erro) {
+			System.out.println(erro);
+			
+		}finally{
+			closeBd();
+		}	
+	}
+	
+	public Evento retornaEvento(int idEvento){
+		try {
+			openBd();
+			String sql = "SELECT * FROM tabelaEventos WHERE _id LIKE '"+idEvento+"' ";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();
+			
+			Evento evento = new Evento();
+			evento.setData(cursor2.getString(cursor2.getColumnIndex("data")));
+			evento.setDescricao(cursor2.getString(cursor2.getColumnIndex("descricao")));
+			evento.setEndereco(cursor2.getString(cursor2.getColumnIndex("endereco")));
+			evento.setHora(cursor2.getString(cursor2.getColumnIndex("hora")));
+			evento.setId(cursor2.getInt(cursor2.getColumnIndex("_id")));
+			evento.setIdOwner(cursor2.getInt(cursor2.getColumnIndex("idOwner")));
+			evento.setImage(cursor2.getInt(cursor2.getColumnIndex("idImagem")));
+			evento.setNome(cursor2.getString(cursor2.getColumnIndex("nome")));
+			evento.setNumero(cursor2.getString(cursor2.getColumnIndex("numero")));
+			evento.setPreco(cursor2.getString(cursor2.getColumnIndex("preco")));
+			evento.setSimboras(cursor2.getInt(cursor2.getColumnIndex("simboras")));
+			evento.setTelefone(cursor2.getString(cursor2.getColumnIndex("telefone")));
+			evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
+			
+			return evento;
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			
+		}finally{
+			closeBd();
+		}	
+			return null;
+	}
 	/*public void getTabelaUsuarios() {
 		String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};
 		Cursor cursor = bancoDados.query(nomeTabela1, columns, null, null, null, null, null, null);

@@ -225,6 +225,7 @@ public class Evento {
 		this.endereco = endereco;
 	}
 	
+
 	public static ArrayList<Evento> ranking(){
 		ArrayList<Integer> listaSimboras=new ArrayList<Integer>();
 		ArrayList<Evento> listaOrdenada=new ArrayList<Evento>();
