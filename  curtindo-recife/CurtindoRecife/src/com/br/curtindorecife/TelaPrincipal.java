@@ -26,11 +26,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class TelaPrincipal extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -361,6 +363,19 @@ public class TelaPrincipal extends FragmentActivity implements
 	        ArrayAdapter ad = new CustomAdapter(this.getActivity(), R.layout.item, EventoList);
 	        ListView lv = (ListView) rootView.findViewById(R.id.listView1);
 	        lv.setAdapter(ad);
+	        lv.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+						long arg3) {
+					Intent intent = new Intent(getActivity(),TelaEventos.class);
+					int position=arg2;
+					System.out.println(position);
+					intent.putExtra("position", position);
+					startActivity(intent);
+				}
+				
+			});
 	        return rootView;
 	    }
 	 

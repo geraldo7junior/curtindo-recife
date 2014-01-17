@@ -54,9 +54,9 @@ public class TelaEventos extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_eventos);
 		
-		Evento.getListaEventos().clear();
-		numEventos=0;
-		getCategoriasEventos(Evento.getAtual());
+		//Evento.getListaEventos().clear();
+		numEventos=Evento.getListaEventos().size();
+		//getCategoriasEventos(Evento.getAtual());
 		Intent intent=getIntent();
 		int posicao=intent.getIntExtra("position", 0);
 		System.out.println(posicao+ " Posicao tela eventos");
