@@ -35,13 +35,19 @@ public class TelaCategoriaEvento extends Activity {
 		datas.clear();
 		imagens.clear();
 		numEventos=0;
+<<<<<<< .mine
+		String nomeEvento="Palestra";
+=======
 		String nomeEvento="Show";
+>>>>>>> .r118
 		getCategoriasEventos(nomeEvento);
 		setContentView(R.layout.activity_tela_categoria_evento);
 		spCategoriaEvento = (Spinner) findViewById(R.id.spCategoriaEvento);
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
 		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spCategoriaEvento.setAdapter(ar);
+		//String tipo=spCategoriaEvento.getOnItemSelectedListener().toString();
+		//System.out.println(tipo);
 		
 		List EventoList = createEventos();
         ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);
@@ -61,6 +67,7 @@ public class TelaCategoriaEvento extends Activity {
 			
 		});
     }
+	
     
     private List createEventos(){
         List p = new ArrayList();  
