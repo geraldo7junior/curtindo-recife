@@ -9,7 +9,7 @@
     tools:context=".TelaCadastroUsuario" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtCategoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -75,7 +75,7 @@
         android:id="@+id/spCategorias3"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/txtCategoria"
         android:layout_alignTop="@+id/radioGroup1"
         android:layout_marginTop="14dp" />
 
@@ -97,7 +97,7 @@
         android:id="@+id/cadastroNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/txtCategoria"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:ems="10"

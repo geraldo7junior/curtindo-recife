@@ -8,14 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaCategoriaEvento" >
 
-    <Spinner
-        android:id="@+id/spCategoriaEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp" />
-
+   
     <ListView
         android:id="@+id/listaCategoriaEvento"
         android:layout_width="match_parent"
@@ -25,13 +18,13 @@
         android:layout_marginTop="22dp" >
     </ListView>
 
-    <ImageView
-        android:id="@+id/imgEvento"
+    <TextView
+        android:id="@+id/txtCategoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spCategoriaEvento"
-        android:layout_alignRight="@+id/spCategoriaEvento"
-        android:layout_marginRight="125dp"
-        android:src="@drawable/familia" />
+        android:layout_alignTop="@+id/spCategoriaEvento"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" 
+        android:textSize="25dp"/>
 
 </RelativeLayout>

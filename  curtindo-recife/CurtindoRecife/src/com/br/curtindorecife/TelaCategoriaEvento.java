@@ -17,30 +17,32 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class TelaCategoriaEvento extends Activity {
-	Spinner spCategoriaEvento;
 	static int numEventos;
+	TextView txtCategoria;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Evento.getListaEventos().clear();
+		setContentView(R.layout.activity_tela_categoria_evento);
 		numEventos=0;
+		txtCategoria = (TextView)findViewById(R.id.txtCategoria);
 		if(Evento.getAtual().equals("Todos")){
 			getTodasCategorias();
+			txtCategoria.setText("Todos");
 		}
 		else{
-			getCategoriasEventos(Evento.getAtual());			
+			getCategoriasEventos(Evento.getAtual());
+			System.out.println(Evento.getAtual()+" Está aquiiiiiiiiiii !!!!!!! ");
+			txtCategoria.setText(Evento.getAtual());
+			
 		}
-		setContentView(R.layout.activity_tela_categoria_evento);
-		spCategoriaEvento = (Spinner) findViewById(R.id.spCategoriaEvento);
-		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
-		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		spCategoriaEvento.setAdapter(ar);
-		//String tipo=spCategoriaEvento.getOnItemSelectedListener().toString();
-		//System.out.println(tipo);
+
+		
 		
 		List EventoList = createEventos();
         ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);

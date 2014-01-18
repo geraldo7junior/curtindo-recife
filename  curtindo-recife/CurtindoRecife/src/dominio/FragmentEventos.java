@@ -77,7 +77,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			btnSimbora.setOnClickListener(this);
 			
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
-			txtDescricao = (TextView) rootView.findViewById(R.id.textView1);
+			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
 			txtHora = (TextView) rootView.findViewById(R.id.txtHora);
 			txtPreco = (TextView) rootView.findViewById(R.id.txtPreco);
