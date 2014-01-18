@@ -272,7 +272,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		Usuario usuario;
 		int imgEvento1, imgEvento2, imgEvento3;
 		TextView txtEvento1, txtEvento2, txtEvento3;
-		
+		Button btnTop10;
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -300,6 +300,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnTeatro.setOnClickListener(this);
 			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
+			btnTop10=(Button)rootView.findViewById(R.id.btnTop10);
+			btnTop10.setOnClickListener(this);
 			
 			if(Usuario.getId()!=0){
 				Banco banco = new Banco(getActivity());
@@ -349,6 +351,11 @@ public class TelaPrincipal extends FragmentActivity implements
 			
 			if(v.getId() == R.id.btnCadastrarEvento){
 				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
+				startActivity(intent);
+			}
+			if(v.getId()== R.id.btnTop10){
+				Evento.setAtual("Todos");
+				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
 			}
 			direcionarBtn(v.getId());

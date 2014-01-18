@@ -157,16 +157,12 @@ public class Banco{
 			cursor = bancoDados.rawQuery(sql, null);
 			
 			cursor.moveToFirst();
-			System.out.println("getCount "+cursor.getCount());
 			for(int i=0;i<cursor.getCount();i++){			
 				Evento.addListaEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
-				System.out.println(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))).getNome());
-
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}		
-							}
-			System.out.println("setMeusEventos "+Evento.getListaEventos().get(0).getNome());
+			}
 		} catch (Exception erro) {
 			System.out.println(erro);
 			

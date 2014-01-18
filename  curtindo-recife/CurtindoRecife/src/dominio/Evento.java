@@ -216,6 +216,10 @@ public class Evento {
 	public static void addListaEventos(Evento evento) {
 		Evento.listaEventos.add(evento);
 	}
+	public static void setListaEventos(ArrayList<Evento> listaEventos){
+		Evento.listaEventos.clear();
+		Evento.listaEventos=listaEventos;
+	}
 
 	public String getEndereco() {
 		return endereco;
@@ -229,24 +233,22 @@ public class Evento {
 	public static ArrayList<Evento> ranking(){
 		ArrayList<Integer> listaSimboras=new ArrayList<Integer>();
 		ArrayList<Evento> listaOrdenada=new ArrayList<Evento>();
-		for(int i=0;i<listaEventos.size();i++){
-			listaSimboras.add(listaEventos.get(i).getSimboras());
+		for(int k=0;k<listaEventos.size();k++){
+			listaSimboras.add(listaEventos.get(k).getSimboras());
+			System.out.println(listaSimboras.get(k));
 		}
-		
 		Collections.sort(listaSimboras);
 		Collections.reverse(listaSimboras);
 		for(int i=0;i<listaSimboras.size();i++){
-			for(int j=0;j<listaEventos.size();i++){
+			for(int j=0;j<listaEventos.size();j++){
 				if((listaSimboras.get(i)==listaEventos.get(j).getSimboras())&&(!listaOrdenada.contains(listaEventos.get(j)))){
 					 listaOrdenada.add(listaEventos.get(j));
+					 System.out.println("Adicionando "+listaEventos.get(j).getNome());
 					 break;
 				}
 			}
 		}
-		for (int i = 0; i < listaOrdenada.size(); i++) {
-			System.out.println(listaOrdenada.get(i).getNome()+" "+listaOrdenada.get(i).getSimboras());
-			
-		}
+		
 		return listaOrdenada;
 	}
 	
