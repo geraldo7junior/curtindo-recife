@@ -317,6 +317,8 @@ public class TelaPrincipal extends FragmentActivity implements
 				txtEvento1.setText(usuario.getEventoFavorito1());
 				txtEvento2.setText(usuario.getEventoFavorito2());
 				txtEvento3.setText(usuario.getEventoFavorito3());
+				
+				btnLogin.setText("Logout");
 			}else{
 				imgEvento1 = Evento.associeImagem("Show");
 				imgEvento2 = Evento.associeImagem("Teatro");
@@ -335,13 +337,18 @@ public class TelaPrincipal extends FragmentActivity implements
 		
 			@Override
 			public void onClick(View v) {
-				if(v.getId() == R.id.btnLogin){
+				if(v.getId() == R.id.btnLogin && Usuario.getId()==0){
 					/*if(btnLogin.getText().equals("Perfil")){
 						Intent intent = new Intent(getActivity(), TelaPerfilUsuario.class);
 					}else{*/
 						Intent intent = new Intent(getActivity(), TelaLogin.class);
 						startActivity(intent);
 					//}
+				}if(v.getId() == R.id.btnLogin && Usuario.getId()!=0){
+					Usuario.setId(0);
+					Intent intent = new Intent(getActivity(), TelaLogin.class);
+					startActivity(intent);
+					
 				}
 			
 			if(v.getId() == R.id.btnAgenda){
