@@ -46,12 +46,18 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         TextView nome = (TextView) convertView.findViewById(R.id.tv1);
         TextView data = (TextView) convertView.findViewById(R.id.tv2);
         TextView hora = (TextView) convertView.findViewById(R.id.tv3);
+        TextView tipo= (TextView) convertView.findViewById(R.id.tvTipoEvento);
+        TextView simboras=(TextView) convertView.findViewById(R.id.tvSimboras);
  
         //fill the view objects according values from Evento object
         nome.setText(Evento.getNome());
         data.setText(Evento.getData());
         hora.setText(Evento.getHora());
         image.setBackgroundResource(Evento.getImage());
+        if(Evento.getIdOwner()==Usuario.getId()){
+        	tipo.setText("Evento Criado");
+        }
+        simboras.setText(Evento.getSimboras()+" curtiram");     
         
         return convertView;
     }

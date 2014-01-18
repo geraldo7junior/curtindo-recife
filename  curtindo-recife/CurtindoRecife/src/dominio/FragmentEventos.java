@@ -2,6 +2,7 @@ package dominio;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.sax.TextElementListener;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import bd.Banco;
 import com.br.curtindorecife.R;
 import com.br.curtindorecife.TelaCadastroEvento;
+import com.br.curtindorecife.TelaPrincipal;
 
 public class FragmentEventos extends Fragment implements OnClickListener {
 		/**
@@ -42,7 +44,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public String preco;
 		public int imagem;
 		public int id;
-		
+		public int idOwner;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public FragmentEventos() {
@@ -60,6 +62,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.descricao=evento.getDescricao();
 			this.preco=evento.getPreco();
 			this.id = evento.getId();
+			this.idOwner=evento.getIdOwner();
 		}
 		
 		
@@ -89,6 +92,12 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtHora.setText(this.hora);
 			txtPreco.setText(this.preco);
 			txtDescricao.setText(this.descricao);
+			
+			if(this.idOwner==Usuario.getId()){
+				btnSimbora.setText("Evento Criado");
+				btnSimbora.setBackgroundColor(Color.BLUE);
+				btnSimbora.setEnabled(false);
+			}
 			return rootView;
 		}
 		
@@ -111,12 +120,14 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Simbora realizado com sucesso.");
+					builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!");
 
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
 					dialog.show();
 					
+					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+					startActivity(intent);
 					}
 				
 			}
