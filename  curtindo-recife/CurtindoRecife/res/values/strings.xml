@@ -49,5 +49,16 @@
     <string name="txtNumero">Nº</string>
     <string name="txtPreco">Preço</string>
     <string name="title_activity_tela_categoria_evento">TelaCategoriaEvento</string>
+    <string name="title_activity_tela_perfil_usuario">TelaPerfilUsuario</string>
+    <string name="eventoFavorito">Eventos Favoritos:</string>
+    <string name="evento">Evento</string>
+    <string name="mudarSenha">Mudar senha</string>
+    <string />
+    <string name="mudarEmail">Mudar e-mail</string>
+    <string name="senhaAntiga">Senha antiga:</string>
+    <string name="novaSenha">Nova senha:</string>
+    <string name="confirmarSenha">Confirmar senha:</string>
+    <string name="novoEmail">Novo e-mail</string>
+    <string name="editar">Editar</string>
 
 </resources>

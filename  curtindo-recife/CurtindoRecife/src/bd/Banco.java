@@ -159,20 +159,34 @@ public class Banco{
 		}
 		
 	}
-/////////////O MÉTODO EDITAR USUÁRIO//////////////////// 
-	public void editarUsuário(String email, String senha, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+//O método editarUsuario retorna (0)=tudo ok;(1)=email já é de outro usuário;(2)=senha incorreta;(3)senha nova errada/senhaNova1 != senhaNova2 ////////////////// 
+	public int editarUsuário(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		Usuario usuario = getUsuario(Usuario.getId());
+		int condicao =0;
 		if(checarEmailUsuario(email)){
 			
-			Usuario usuario = getUsuario(Usuario.getId());
-			
 			usuario.setEmail(email);
-			usuario.setSenha(senha);
 			usuario.setEventoFavorito1(eventoFavorito1);
 			usuario.setEventoFavorito2(eventoFavorito2);
 			usuario.setEventoFavorito3(eventoFavorito3);
 			
+			
+			if(usuario.getSenha().equals(senhaAntiga)){
+				if(!senhaNova1.equals(null)){
+					if(senhaNova1.equals(senhaNova2)){
+						usuario.setSenha(senhaNova1);
+						}else{
+							condicao = 3;
+						}
+				}			
+			}else{
+				condicao = 2;
+			}	
 			updateUsuário(usuario);
+		}else{
+			condicao = 1;
 		}
+		return condicao;
 	}
 	
 	public void darSimbora(int id) {
