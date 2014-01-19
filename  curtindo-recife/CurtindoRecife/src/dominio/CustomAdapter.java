@@ -57,6 +57,11 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         if(Evento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
         }
+        else{
+        	if(Evento.isCurtido()){
+        		tipo.setText("Evento Curtido");
+        	}
+        }
         simboras.setText(Evento.getSimboras()+" curtiram");     
         
         return convertView;

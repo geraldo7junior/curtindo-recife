@@ -45,6 +45,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public int imagem;
 		public int id;
 		public int idOwner;
+		public boolean curtido;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public FragmentEventos() {
@@ -63,6 +64,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.preco=evento.getPreco();
 			this.id = evento.getId();
 			this.idOwner=evento.getIdOwner();
+			this.curtido=evento.isCurtido();
 		}
 		
 		
@@ -95,6 +97,11 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			
 			if(this.idOwner==Usuario.getId()){
 				btnSimbora.setText("Evento Criado");
+				btnSimbora.setBackgroundColor(Color.BLUE);
+				btnSimbora.setEnabled(false);
+			}
+			if(this.curtido==true){
+				btnSimbora.setText("Evento Curtido");
 				btnSimbora.setBackgroundColor(Color.BLUE);
 				btnSimbora.setEnabled(false);
 			}

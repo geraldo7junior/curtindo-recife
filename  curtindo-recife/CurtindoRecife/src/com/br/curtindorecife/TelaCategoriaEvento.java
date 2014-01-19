@@ -5,6 +5,7 @@ import java.util.List;
 
 import dominio.CustomAdapter;
 import dominio.Evento;
+import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -95,7 +96,8 @@ public class TelaCategoriaEvento extends Activity {
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
-				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco")),false));
+				Evento.getListaEventos().get(i).setCurtido(eventoCurtido(Evento.getListaEventos().get(i)));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}
@@ -123,7 +125,8 @@ public class TelaCategoriaEvento extends Activity {
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
-				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco")), false));
+				Evento.getListaEventos().get(i).setCurtido(eventoCurtido(Evento.getListaEventos().get(i)));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}
@@ -138,6 +141,38 @@ public class TelaCategoriaEvento extends Activity {
 		}finally{
 			BancoDados.close();
 		}	
+	}
+	public boolean eventoCurtido(Evento evento){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		if(Usuario.getId()!=0){
+			try {
+				BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+				String sql = "SELECT idUsuario FROM tabelaMeusEventos WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
+				cursor = BancoDados.rawQuery(sql, null);
+				cursor.moveToFirst();
+				System.out.println(cursor.getInt(cursor.getColumnIndex("idUsuario"))+" ID USUÀRIO");
+				System.out.println("CRIADOR DO EVENTO "+evento.getIdOwner());
+				System.out.println("Nome do evento: "+evento.getNome());
+				if((Usuario.getId()!=evento.getIdOwner())){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			} catch (Exception erro) {
+				System.out.println(erro);
+				return false;
+				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+			}finally{
+				BancoDados.close();
+			}	
+		}
+		else{
+			return false;
+		}
 	}
 
 }

@@ -47,6 +47,7 @@ public class Evento {
 	private String preco;
 	private String numero;
 	private String endereco;
+	private boolean curtido=false;
 	
 	public String getNumero() {
 		return numero;
@@ -86,7 +87,7 @@ public class Evento {
 		 
 	 }
 	 
-	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, String numero, String endereco) {
+	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, String numero, String endereco, boolean curtido) {
 	     this.data = data;
 	     this.hora = hora;
 	     this.nome = nome;
@@ -99,6 +100,7 @@ public class Evento {
 	     this.numero = numero;
 	     this.setEndereco(endereco);
 	     this.descricao = descricao;
+	     this.curtido=curtido;
 	}
 	
 	public int getId() {
@@ -253,6 +255,14 @@ public class Evento {
 		}
 		
 		return listaOrdenada;
+	}
+
+	public boolean isCurtido() {
+		return curtido;
+	}
+
+	public void setCurtido(boolean curtido) {
+		this.curtido = curtido;
 	}
 	
 	

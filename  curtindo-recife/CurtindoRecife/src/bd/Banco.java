@@ -159,6 +159,7 @@ public class Banco{
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
 				Evento.addListaEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
+				Evento.getListaEventos().get(i).setCurtido(eventoCurtido(Evento.getListaEventos().get(i)));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}		
@@ -202,6 +203,36 @@ public class Banco{
 			closeBd();
 		}	
 			return null;
+	}
+	public boolean eventoCurtido(Evento evento){
+		
+		if(Usuario.getId()!=0){
+			try {
+				openBd();
+				String sql = "SELECT idUsuario FROM tabelaMeusEventos WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
+				Cursor cursor3 = bancoDados.rawQuery(sql, null);
+				cursor3.moveToFirst();
+				System.out.println(cursor3.getInt(cursor.getColumnIndex("idUsuario"))+" ID USUÀRIO");
+				System.out.println("CRIADOR DO EVENTO "+evento.getIdOwner());
+				System.out.println("Nome do evento: "+evento.getNome());
+				if((Usuario.getId()!=evento.getIdOwner())){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			} catch (Exception erro) {
+				System.out.println(erro);
+				return false;
+				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+			}finally{
+				closeBd();
+			}	
+		}
+		else{
+			return false;
+		}
 	}
 	/*public void getTabelaUsuarios() {
 		String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};
