@@ -242,7 +242,6 @@ public class Banco{
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
 				Evento.addListaEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
-				Evento.getListaEventos().get(i).setCurtido(eventoCurtido(Evento.getListaEventos().get(i)));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}		
@@ -276,7 +275,27 @@ public class Banco{
 			evento.setSimboras(cursor2.getInt(cursor2.getColumnIndex("simboras")));
 			evento.setTelefone(cursor2.getString(cursor2.getColumnIndex("telefone")));
 			evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
+			if(Usuario.getId()!=0){
+				try{
+					String sqlConsulta = "SELECT idUsuario FROM tabelaMeusEventos WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
+					Cursor cursor3 = bancoDados.rawQuery(sqlConsulta, null);
+					cursor3.moveToFirst();
+					System.out.println(cursor3.getInt(cursor3.getColumnIndex("idUsuario"))+" ID USUÀRIO");
+					System.out.println("CRIADOR DO EVENTO "+evento.getIdOwner());
+					System.out.println("Nome do evento: "+evento.getNome());
+					
+					if((Usuario.getId()!=evento.getIdOwner())){
+						evento.setCurtido(true);
+					}
+				}
+				catch (Exception erro) {
+						System.out.println(erro);
+				}
+				finally{
+					closeBd();
+				}
 			
+			}
 			return evento;
 			
 		} catch (Exception erro) {

@@ -44,7 +44,8 @@
         android:layout_y="384dp"
         android:background="#FF0000"
         android:text="Simbora"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:padding="3dp" />
 
     <Button
         android:id="@+id/btnMapa"
