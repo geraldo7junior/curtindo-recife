@@ -92,6 +92,89 @@ public class Banco{
 		
 		bancoDados.insert(nomeTabela1, null, valores);	
 	}
+///////////////MÉTODO UPDATE USUÁRIO///////////////
+	private void updateUsuário(Usuario usuario){
+		try {
+			openBd();
+			String sqlUpdate = "UPDATE tabelaUsuarios SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
+			bancoDados.execSQL(sqlUpdate);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally{
+			closeBd();
+		}
+		
+		
+	}
+/////MÉTODO idUsuário RETORNA O CURSOR COM AS INFORMAÇÕES DO(S) USUÁRIOS COM O EMAIL RECEBIDO COMO PARÂMETRO////////
+	public Integer idUsuario(String email){
+		try {
+			openBd();
+			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
+			cursor = bancoDados.rawQuery(sql, null);
+			cursor.moveToFirst();
+			return cursor.getInt(cursor.getPosition());
+			
+		} catch (Exception erro) {
+			System.out.println(erro);		
+		}finally{
+			closeBd();
+		}	
+		return null;
+	}
+//////O MÉTODO checarEmail RETORNA (TRUE) SE O EMAIL ESTIVER NA tabelaUsuarios///////
+	public Boolean checarEmail(String email){
+		try {
+			openBd();
+			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
+			Cursor cursorChecarEmail = bancoDados.rawQuery(sql, null);
+			Boolean resultado;
+			if(cursorChecarEmail.getCount()==0){
+				resultado = false;
+			}else{
+				resultado = true ;
+			}
+			return resultado;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
+			closeBd();
+		}
+		return null;
+	}
+/////////////////MÉTODO CRIADO PARA O MÉTODO editarUsuario...///////// 
+	
+	private Boolean checarEmailUsuario(String email){
+		Boolean resultado; 
+		if (checarEmail(email)){
+			if(idUsuario(email) == Usuario.getId()){
+				 resultado = true;
+			 }else{
+				 resultado = false;
+			 }
+			return resultado;
+		}else{
+			resultado = true;
+			return resultado;
+		}
+		
+	}
+/////////////O MÉTODO EDITAR USUÁRIO//////////////////// 
+	public void editarUsuário(String email, String senha, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		if(checarEmailUsuario(email)){
+			
+			Usuario usuario = getUsuario(Usuario.getId());
+			
+			usuario.setEmail(email);
+			usuario.setSenha(senha);
+			usuario.setEventoFavorito1(eventoFavorito1);
+			usuario.setEventoFavorito2(eventoFavorito2);
+			usuario.setEventoFavorito3(eventoFavorito3);
+			
+			updateUsuário(usuario);
+		}
+	}
+	
 	public void darSimbora(int id) {
 		try {
 			openBd();
@@ -116,7 +199,7 @@ public class Banco{
 			closeBd();
 		}
 	}
-		
+///////////////MÉTODO getUsuario FAZ PESQUISA NO BANCO E RETORNA (OBJETO) DO TIPO (Usuario)////////////////	
 	public Usuario getUsuario(int id){
 		
 		try {
