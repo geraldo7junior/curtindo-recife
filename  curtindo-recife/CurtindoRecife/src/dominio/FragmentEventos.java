@@ -84,7 +84,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtHora = (TextView) rootView.findViewById(R.id.txtHora);
 			txtPreco = (TextView) rootView.findViewById(R.id.txtPreco);
 			imgEvento = (ImageView)rootView.findViewById(R.id.imgEvento);
-			txtData = (TextView) rootView.findViewById(R.id.txtData);
+			txtData = (TextView) rootView.findViewById(R.id.txtCadastroData);
 			
 
 			txtEndereco.setText(this.endereco+", "+this.numero);

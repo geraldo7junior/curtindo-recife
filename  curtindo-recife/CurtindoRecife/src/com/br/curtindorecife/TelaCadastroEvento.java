@@ -58,7 +58,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		txtHora =(EditText) findViewById(R.id.txtHora);
 		txtEndereco =(EditText) findViewById(R.id.txtEndereco);
 		txtDescricao =(EditText) findViewById(R.id.txtDescricao);
-		txtData=(EditText) findViewById(R.id.txtData);
+		txtData=(EditText) findViewById(R.id.txtCadastroData);
 		
 		return true;
 	}
