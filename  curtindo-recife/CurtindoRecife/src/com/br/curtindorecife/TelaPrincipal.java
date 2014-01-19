@@ -318,7 +318,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				txtEvento2.setText(usuario.getEventoFavorito2());
 				txtEvento3.setText(usuario.getEventoFavorito3());
 				
-				btnLogin.setText("Logout");
+				btnLogin.setText("Perfil");
 			}else{
 				imgEvento1 = Evento.associeImagem("Show");
 				imgEvento2 = Evento.associeImagem("Teatro");
@@ -345,8 +345,8 @@ public class TelaPrincipal extends FragmentActivity implements
 						startActivity(intent);
 					//}
 				}if(v.getId() == R.id.btnLogin && Usuario.getId()!=0){
-					Usuario.setId(0);
-					Intent intent = new Intent(getActivity(), TelaLogin.class);
+					//Usuario.setId(0);
+					Intent intent = new Intent(getActivity(), TelaPerfilUsuario.class);
 					startActivity(intent);
 					
 				}

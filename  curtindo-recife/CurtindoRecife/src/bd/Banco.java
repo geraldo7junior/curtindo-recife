@@ -162,6 +162,7 @@ public class Banco{
 //O método editarUsuario retorna (0)=tudo ok;(1)=email já é de outro usuário;(2)=senha incorreta;(3)senha nova errada/senhaNova1 != senhaNova2 ////////////////// 
 	public int editarUsuário(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		Usuario usuario = getUsuario(Usuario.getId());
+		//Se tudo tiver ok
 		int condicao =0;
 		if(checarEmailUsuario(email)){
 			
@@ -176,14 +177,17 @@ public class Banco{
 					if(senhaNova1.equals(senhaNova2)){
 						usuario.setSenha(senhaNova1);
 						}else{
+							//Senhas novas não conferem
 							condicao = 3;
 						}
 				}			
 			}else{
+				//Errou a senha antiga
 				condicao = 2;
 			}	
 			updateUsuário(usuario);
 		}else{
+			//Email não cadastrado
 			condicao = 1;
 		}
 		return condicao;

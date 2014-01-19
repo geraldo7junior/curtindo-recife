@@ -59,6 +59,10 @@
             android:name="com.br.curtindorecife.TelaCategoriaEvento"
             android:label="@string/title_activity_tela_categoria_evento" >
         </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaPerfilUsuario"
+            android:label="@string/title_activity_tela_perfil_usuario" >
+        </activity>
     </application>
 
 </manifest>

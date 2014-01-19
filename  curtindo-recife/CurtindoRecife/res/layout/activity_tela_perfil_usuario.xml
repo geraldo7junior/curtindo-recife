@@ -118,7 +118,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/novaSenha"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12" />
+         />
 
     <TextView
         android:id="@+id/txtNovaSenha2"
@@ -129,7 +129,7 @@
         android:layout_marginTop="19dp"
         android:text="@string/confirmarSenha"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txtSenhaAntiga"
@@ -139,7 +139,7 @@
         android:layout_alignLeft="@+id/txtNovaSenha"
         android:text="@string/senhaAntiga"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txtNovoEmail"
@@ -149,7 +149,7 @@
         android:layout_alignBottom="@+id/txtboxEditarEmail"
         android:layout_alignRight="@+id/txtNovaSenha"
         android:text="@string/novoEmail"
-        android:textSize="12"
+        android:textSize="12sp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <EditText
@@ -172,15 +172,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnEditar"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#EE0000"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/txtboxNovasenha2"
+        android:background="#EE0000"
         android:text="@string/editar"
         android:textColor="#FFFFFF"
-        android:textSize="18"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnSair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnEditar"
+        android:layout_alignBottom="@+id/btnEditar"
+        android:layout_alignLeft="@+id/txtNovoEmail"
+        android:text="@string/sair" />
 
 </RelativeLayout>

@@ -53,12 +53,12 @@
     <string name="eventoFavorito">Eventos Favoritos:</string>
     <string name="evento">Evento</string>
     <string name="mudarSenha">Mudar senha</string>
-    <string />
     <string name="mudarEmail">Mudar e-mail</string>
     <string name="senhaAntiga">Senha antiga:</string>
     <string name="novaSenha">Nova senha:</string>
     <string name="confirmarSenha">Confirmar senha:</string>
     <string name="novoEmail">Novo e-mail</string>
     <string name="editar">Editar</string>
+    <string name="sair">Sair</string>
 
 </resources>
