@@ -31,9 +31,9 @@ public class TelaCategoriaEvento extends Activity {
 		setContentView(R.layout.activity_tela_categoria_evento);
 		numEventos=0;
 		txtCategoria = (TextView)findViewById(R.id.txtCategoria);
-		if(Evento.getAtual().equals("Todos")){
+		if(Evento.getAtual().equals("Top10")){
 			getTodasCategorias();
-			txtCategoria.setText("Todos");
+			txtCategoria.setText("Top10");
 		}
 		else{
 			getCategoriasEventos(Evento.getAtual());
@@ -67,7 +67,7 @@ public class TelaCategoriaEvento extends Activity {
     private List createEventos(){
     	
         List p;
-        if(Evento.getAtual().equals("Todos")){       	
+        if(Evento.getAtual().equals("Top10")){       	
         	Evento.setListaEventos(Evento.ranking());   
         	p=Evento.getListaEventos();
         }

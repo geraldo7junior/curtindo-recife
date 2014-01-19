@@ -240,6 +240,9 @@ public class Evento {
 		Collections.sort(listaSimboras);
 		Collections.reverse(listaSimboras);
 		for(int i=0;i<listaSimboras.size();i++){
+			if(i>9){
+				break;
+			}
 			for(int j=0;j<listaEventos.size();j++){
 				if((listaSimboras.get(i)==listaEventos.get(j).getSimboras())&&(!listaOrdenada.contains(listaEventos.get(j)))){
 					 listaOrdenada.add(listaEventos.get(j));

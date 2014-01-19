@@ -361,7 +361,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				startActivity(intent);
 			}
 			if(v.getId()== R.id.btnTop10){
-				Evento.setAtual("Todos");
+				Evento.setAtual("Top10");
 				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
 			}
