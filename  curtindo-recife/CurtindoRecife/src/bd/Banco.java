@@ -136,19 +136,19 @@ private Boolean deletar(Evento evento){
 ////////////////MÉTODO excluir, tira Simbora/ exclui da tabelaMeusEventos///////////////	
 		public Boolean excluir(Evento evento, int idUsuario){
 			
-			Boolean resultado;
-		
-			if(deletar(evento)){
-				resultado = true;
-				if(evento.getIdOwner()==idUsuario){
+			Boolean resultado=true;
+			if(evento.getIdOwner()!=idUsuario){
+				if(deletar(evento, idUsuario)){
+					resultado = true;
+				}
+			}
+			if(evento.getIdOwner()==idUsuario){
+					deletar(evento);
 					excluir(idUsuario,evento);
-				}else{
+			}else{
 					updateSimbora(evento.getId(), evento.getSimboras()-1);
 				}
-			}else{
-				resultado = false;
-			}
-			
+				
 		
 			return resultado;
 		}

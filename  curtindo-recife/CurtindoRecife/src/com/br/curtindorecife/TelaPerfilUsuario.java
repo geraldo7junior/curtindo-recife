@@ -75,7 +75,10 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		View focusView=null;
 		if(v.getId()==R.id.btnExcluir){
 			Banco banco = new Banco(this);
+			Evento.getListaEventos().clear();
+			banco.setMeusEventos(Usuario.getId());
 			for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+				System.out.println(Evento.getListaEventos().get(i).getNome()+ " Evento da lista de eventos a ser excluído");
 				banco.excluir(Evento.getListaEventos().get(i), Usuario.getId());	
 			}
 			banco.excluir(Usuario.getId());
