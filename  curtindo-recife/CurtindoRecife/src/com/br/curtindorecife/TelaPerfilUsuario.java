@@ -9,15 +9,14 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	TextView txtNomeUsuario;
-	TextView txtEventoFavorito1;
-	TextView txtEventoFavorito3;
-	TextView txtEventoFavorito2;
 	TextView txtEmail;
 	EditText txtboxEditarEmail;
 	EditText txtboxSenhaAntiga;
@@ -25,6 +24,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	EditText txtboxNovaSenha2;
 	Button btnEditar;
 	Button btnSair;
+	Spinner spCategoriaPerfil1,spCategoriaPerfil2, spCategoriaPerfil3;
 	public Usuario usuario;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +32,23 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		Banco banco=new Banco(this);
 		usuario=banco.getUsuario(Usuario.getId());
 		setContentView(R.layout.activity_tela_perfil_usuario);
+		spCategoriaPerfil1 = (Spinner) findViewById(R.id.spCategoriaPerfil1);
+		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
+		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spCategoriaPerfil1.setAdapter(ar);
+		spCategoriaPerfil2 = (Spinner)findViewById(R.id.spCategoriaPerfil2);
+		spCategoriaPerfil2.setAdapter(ar);
+		spCategoriaPerfil3 = (Spinner) findViewById(R.id.spCategoriaPerfil3);
+		spCategoriaPerfil3.setAdapter(ar);
 		txtNomeUsuario= (TextView) findViewById(R.id.txtNomeUsuario);
 		txtEmail= (TextView) findViewById(R.id.txtEmail);
-		txtEventoFavorito1= (TextView) findViewById(R.id.txtEventoFavorito1);
-		txtEventoFavorito2= (TextView) findViewById(R.id.txtEventoFavorito2);
-		txtEventoFavorito3= (TextView) findViewById(R.id.txtEventoFavorito3);
+		
 		
 		txtNomeUsuario.setText(usuario.getNome());
 		txtEmail.setText(usuario.getEmail());
-		txtEventoFavorito1.setText(usuario.getEventoFavorito1());
-		txtEventoFavorito2.setText(usuario.getEventoFavorito2());
-		txtEventoFavorito3.setText(usuario.getEventoFavorito3());
+		spCategoriaPerfil1.setSelection(ar.getPosition(usuario.getEventoFavorito1()));
+		spCategoriaPerfil2.setSelection(ar.getPosition(usuario.getEventoFavorito2()));
+		spCategoriaPerfil3.setSelection(ar.getPosition(usuario.getEventoFavorito3()));
 		
 		txtboxEditarEmail= (EditText) findViewById(R.id.txtboxEditarEmail);
 		txtboxSenhaAntiga= (EditText) findViewById(R.id.txtboxSenhaAntiga);
@@ -66,11 +72,13 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		View focusView=null;
 		if(v.getId()==R.id.btnSair){
 			Usuario.setId(0);
+			Intent intent=new Intent(this, TelaPrincipal.class);
+			startActivity(intent);
 		}
 		if(v.getId()==R.id.btnEditar){
 			if(txtboxEditarEmail.getText().toString().contains("@")){
 				Banco banco=new Banco(this);
-				int retorno=banco.editarUsuário(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), txtEventoFavorito1.getText().toString(), txtEventoFavorito2.getText().toString(), txtEventoFavorito3.getText().toString());
+				int retorno=banco.editarUsuário(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), spCategoriaPerfil1.getSelectedItem().toString(), spCategoriaPerfil2.getSelectedItem().toString(), spCategoriaPerfil3.getSelectedItem().toString());
 				if(retorno==0){
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	

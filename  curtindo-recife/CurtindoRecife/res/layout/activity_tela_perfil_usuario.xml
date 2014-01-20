@@ -35,49 +35,6 @@
         android:layout_centerHorizontal="true"
         android:text="@string/email" />
 
-    <TextView
-        android:id="@+id/txtEventoFavorito1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEventoFavorito"
-        android:layout_marginTop="17dp"
-        android:layout_toLeftOf="@+id/txtEventoFavorito"
-        android:text="@string/evento"
-
-></TextView>
-
-    <TextView
-        android:id="@+id/txtEventoFavorito2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtEventoFavorito1"
-        android:layout_alignBottom="@+id/txtEventoFavorito1"
-        android:layout_alignRight="@+id/txtEmail"
-        android:text="@string/evento"
-
-></TextView>
-
-    <TextView
-        android:id="@+id/txtEventoFavorito3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtEventoFavorito2"
-        android:layout_alignBottom="@+id/txtEventoFavorito2"
-        android:layout_toRightOf="@+id/txtEventoFavorito"
-        android:text="@string/evento"
-
-></TextView>
-
-    <TextView
-        android:id="@+id/txtMudarEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtMudarSenha"
-        android:layout_below="@+id/txtEventoFavorito2"
-        android:layout_marginTop="19dp"
-        android:text="@string/mudarEmail"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
         android:id="@+id/txtboxNovasenha2"
         android:layout_width="wrap_content"
@@ -117,16 +74,15 @@
         android:layout_below="@+id/txtboxSenhaAntiga"
         android:layout_marginTop="20dp"
         android:text="@string/novaSenha"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-         />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/txtNovaSenha2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtEventoFavorito1"
         android:layout_below="@+id/txtboxNovaSenha1"
         android:layout_marginTop="19dp"
+        android:layout_toLeftOf="@+id/txtEventoFavorito"
         android:text="@string/confirmarSenha"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp" />
@@ -140,26 +96,6 @@
         android:text="@string/senhaAntiga"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/txtNovoEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtboxEditarEmail"
-        android:layout_alignBottom="@+id/txtboxEditarEmail"
-        android:layout_alignRight="@+id/txtNovaSenha"
-        android:text="@string/novoEmail"
-        android:textSize="12sp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/txtboxEditarEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtMudarEmail"
-        android:layout_toRightOf="@+id/txtNovoEmail"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/txtMudarSenha"
@@ -191,5 +127,56 @@
         android:layout_alignBottom="@+id/btnEditar"
         android:layout_alignLeft="@+id/txtNovoEmail"
         android:text="@string/sair" />
+
+    <TextView
+        android:id="@+id/txtMudarEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtMudarSenha"
+        android:layout_below="@+id/txtEventoFavorito"
+        android:layout_marginTop="47dp"
+        android:text="@string/mudarEmail"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txtNovoEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtboxEditarEmail"
+        android:layout_alignBottom="@+id/txtboxEditarEmail"
+        android:layout_alignLeft="@+id/txtSenhaAntiga"
+        android:text="@string/novoEmail"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/txtboxEditarEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/txtboxSenhaAntiga"
+        android:layout_below="@+id/txtMudarEmail"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <Spinner
+        android:id="@+id/spCategoriaPerfil1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/txtNovoEmail"
+        android:layout_below="@+id/txtEventoFavorito" />
+
+    <Spinner
+        android:id="@+id/spCategoriaPerfil3"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/spCategoriaPerfil2"
+        android:layout_toRightOf="@+id/txtEventoFavorito" />
+
+    <Spinner
+        android:id="@+id/spCategoriaPerfil2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/txtEventoFavorito"
+        android:layout_toRightOf="@+id/spCategoriaPerfil1" />
 
 </RelativeLayout>
