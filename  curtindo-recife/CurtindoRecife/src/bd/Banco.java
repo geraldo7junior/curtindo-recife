@@ -157,7 +157,7 @@ private Boolean deletar(int idEvento, int idUsuario){
 		bancoDados.insert(tabelaUsuarios, null, valores);	
 	}
 ///////////////MÉTODO UPDATE USUÁRIO///////////////
-	private void updateUsuário(Usuario usuario){
+	private void updateUsuario(Usuario usuario){
 		try {
 			openBd();
 			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
@@ -224,36 +224,47 @@ private Boolean deletar(int idEvento, int idUsuario){
 		
 	}
 //O método editarUsuario retorna (0)=tudo ok;(1)=email já é de outro usuário;(2)=senha incorreta;(3)senha nova errada/senhaNova1 != senhaNova2 ////////////////// 
-	public int editarUsuário(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+	public int editarUsuario(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		
+		
 		Usuario usuario = getUsuario(Usuario.getId());
+		
 		//Se tudo tiver ok
 		int condicao =0;
-		if(checarEmailUsuario(email)){
+		
+		usuario.setEventoFavorito1(eventoFavorito1);
+		usuario.setEventoFavorito2(eventoFavorito2);
+		usuario.setEventoFavorito3(eventoFavorito3);
+		
+		if(checarEmailUsuario(email) && !(email.equals(""))){
 			
 			usuario.setEmail(email);
-			usuario.setEventoFavorito1(eventoFavorito1);
-			usuario.setEventoFavorito2(eventoFavorito2);
-			usuario.setEventoFavorito3(eventoFavorito3);
+					
+		}else{
+			//Email não cadastrado
+			condicao = 3;
 			
-			
+		}if(!senhaAntiga.equals("")){		
 			if(usuario.getSenha().equals(senhaAntiga)){
-				if(!senhaNova1.equals(null)){
+				if(!senhaNova1.equals("")){
 					if(senhaNova1.equals(senhaNova2)){
 						usuario.setSenha(senhaNova1);
+						if(email.equals("")){
+							condicao = 2;
+						}
 						}else{
 							//Senhas novas não conferem
-							condicao = 3;
+							condicao = 4;
 						}
 				}			
 			}else{
 				//Errou a senha antiga
-				condicao = 2;
-			}	
-			updateUsuário(usuario);
+				condicao = 5;
+			}
 		}else{
-			//Email não cadastrado
 			condicao = 1;
 		}
+		updateUsuario(usuario);
 		return condicao;
 	}
 	

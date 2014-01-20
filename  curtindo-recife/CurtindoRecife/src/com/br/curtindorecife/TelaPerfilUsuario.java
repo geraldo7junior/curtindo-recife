@@ -76,9 +76,9 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 			startActivity(intent);
 		}
 		if(v.getId()==R.id.btnEditar){
-			if(txtboxEditarEmail.getText().toString().contains("@")){
+			if(txtboxEditarEmail.getText().toString().contains("@") || txtboxEditarEmail.getText().toString().equals("") ){
 				Banco banco=new Banco(this);
-				int retorno=banco.editarUsuário(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), spCategoriaPerfil1.getSelectedItem().toString(), spCategoriaPerfil2.getSelectedItem().toString(), spCategoriaPerfil3.getSelectedItem().toString());
+				int retorno=banco.editarUsuario(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), spCategoriaPerfil1.getSelectedItem().toString(), spCategoriaPerfil2.getSelectedItem().toString(), spCategoriaPerfil3.getSelectedItem().toString());
 				if(retorno==0){
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
@@ -92,20 +92,52 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 					startActivity(intent);
 				}
 				if(retorno==1){
-					txtboxEditarEmail.setError("Email já cadastrado");
+					/*txtboxEditarEmail.setError("Email já cadastrado");
+					focusView=txtboxEditarEmail;
+					focusView.requestFocus();*/
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					
+					builder.setMessage("Campo e-mail e/ou eventos modificados com sucesso").setTitle("Campos alterados");
+	
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					Intent intent=new Intent(this, TelaPrincipal.class);
+					startActivity(intent);
+				}
+				if(retorno==2){
+					/*txtboxSenhaAntiga.setError("Senha incorreta");
+					focusView=txtboxSenhaAntiga;
+					focusView.requestFocus();*/
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					
+					builder.setMessage("Campo senha e/ou eventos modificados com sucesso").setTitle("Campos alterados");
+	
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					Intent intent=new Intent(this, TelaPrincipal.class);
+					startActivity(intent);
+				}
+				if(retorno==3){
+					/*txtboxNovaSenha1.setError("As senhas novas são diferentes");
+					focusView=txtboxNovaSenha1;
+					focusView.requestFocus();*/
+					txtboxEditarEmail.setError("Email já cadastrado ou inválido");
 					focusView=txtboxEditarEmail;
 					focusView.requestFocus();
 				}
-				if(retorno==2){
-					txtboxSenhaAntiga.setError("Senha incorreta");
-					focusView=txtboxSenhaAntiga;
-					focusView.requestFocus();
-				}
-				if(retorno==3){
+				if(retorno==4){
 					txtboxNovaSenha1.setError("As senhas novas são diferentes");
 					focusView=txtboxNovaSenha1;
 					focusView.requestFocus();
 				}
+				if(retorno==5){
+					txtboxSenhaAntiga.setError("Senha incorreta");
+					focusView=txtboxSenhaAntiga;
+					focusView.requestFocus();
+				}
+
 			}
 			else{
 				txtboxEditarEmail.setError("Email inválido");
