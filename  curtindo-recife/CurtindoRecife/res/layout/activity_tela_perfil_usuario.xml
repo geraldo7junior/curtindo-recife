@@ -114,10 +114,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/txtboxNovasenha2"
-        android:background="#EE0000"
+        android:background="#0000EE"
         android:text="@string/editar"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:padding="4dp" />
 
     <Button
         android:id="@+id/btnSair"
@@ -178,5 +179,16 @@
         android:layout_height="50dp"
         android:layout_below="@+id/txtEventoFavorito"
         android:layout_toRightOf="@+id/spCategoriaPerfil1" />
+
+    <Button
+        android:id="@+id/btnExcluir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnSair"
+        android:layout_alignBottom="@+id/btnSair"
+        android:layout_alignLeft="@+id/txtNomeUsuario"
+        android:background="#EE0000"
+        android:text="Excluir"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

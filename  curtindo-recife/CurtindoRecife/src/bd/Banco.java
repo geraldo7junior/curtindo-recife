@@ -92,12 +92,13 @@ public class Banco{
 		}		
 	}
 /////////////////Método deletar, deleta linha da tabelaMeusEventos...//////// 
-private Boolean deletar(int idEvento, int idUsuario){
+private Boolean deletar(Evento evento, int idUsuario){
 
 		try {
 			openBd();
-			String sqlExcluir ="DELETE FROM "+tabelaMeusEventos+" WHERE idEvento = '"+idEvento+"', idUsuario = '"+idUsuario+"'";
+			String sqlExcluir ="DELETE FROM "+tabelaMeusEventos+" WHERE idEvento = '"+evento.getId()+"' AND idUsuario = '"+idUsuario+"'";
 			bancoDados.execSQL(sqlExcluir);
+			
 			return true;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -122,11 +123,17 @@ private Boolean deletar(int idEvento, int idUsuario){
 			
 			Boolean resultado;
 		
-			if(deletar(evento.getId(), idUsuario)){
+			if(deletar(evento, idUsuario)){
 				resultado = true;
+				if(evento.getIdOwner()==idUsuario){
+					excluir(idUsuario,evento);
+				}else{
+					updateSimbora(evento.getId(), evento.getSimboras()-1);
+				}
 			}else{
 				resultado = false;
 			}
+			
 		
 			return resultado;
 		}
@@ -267,6 +274,33 @@ private Boolean deletar(int idEvento, int idUsuario){
 		updateUsuario(usuario);
 		return condicao;
 	}
+	public void updateSimbora(int idEvento, int newSimbora) {
+		try {
+			openBd();
+			String sql = "UPDATE "+tabelaEventos+" SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+idEvento+"'";
+			bancoDados.execSQL(sql);	
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			closeBd();
+		}
+	}
+	
+	private void updateSimboraMeusEventos(int idEvento, int newSimbora) {
+		try {
+			
+			String sql = "UPDATE "+tabelaEventos+" SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+idEvento+"'";
+			bancoDados.execSQL(sql);	
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			
+		}
+	}
 	
 	public void darSimbora(int id) {
 		try {
@@ -279,8 +313,7 @@ private Boolean deletar(int idEvento, int idUsuario){
 			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
 			int newSimbora = oldSimbora + 1;
 			
-			String sql = "UPDATE "+tabelaEventos+" SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
-			bancoDados.execSQL(sql);
+			updateSimboraMeusEventos(id,newSimbora);
 			
 			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
 			bancoDados.execSQL(sqlMeusEventos);

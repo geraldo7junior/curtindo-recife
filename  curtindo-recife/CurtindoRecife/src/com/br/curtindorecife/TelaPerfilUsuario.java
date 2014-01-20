@@ -1,5 +1,6 @@
 package com.br.curtindorecife;
 
+import dominio.Evento;
 import dominio.Usuario;
 import bd.Banco;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	EditText txtboxNovaSenha1;
 	EditText txtboxNovaSenha2;
 	Button btnEditar;
-	Button btnSair;
+	Button btnSair,btnExcluir;
 	Spinner spCategoriaPerfil1,spCategoriaPerfil2, spCategoriaPerfil3;
 	public Usuario usuario;
 	@Override
@@ -58,6 +59,8 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		btnEditar.setOnClickListener(this);
 		btnSair= (Button) findViewById(R.id.btnSair);
 		btnSair.setOnClickListener(this);
+		btnExcluir = (Button)findViewById(R.id.btnExcluir);
+		btnExcluir.setOnClickListener(this);
 		
 	}
 	@Override
@@ -70,6 +73,25 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		View focusView=null;
+		if(v.getId()==R.id.btnExcluir){
+			Banco banco = new Banco(this);
+			for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+				banco.excluir(Evento.getListaEventos().get(i), Usuario.getId());	
+			}
+			banco.excluir(Usuario.getId());
+			Usuario.setId(0);
+			Intent intent=new Intent(this, TelaPrincipal.class);
+			startActivity(intent);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			
+			builder.setMessage("Usuário excluído com sucesso").setTitle("Exclusão");
+
+			// 3. Get the AlertDialog from create()
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			
+		}
 		if(v.getId()==R.id.btnSair){
 			Usuario.setId(0);
 			Intent intent=new Intent(this, TelaPrincipal.class);
