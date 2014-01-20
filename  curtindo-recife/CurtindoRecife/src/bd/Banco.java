@@ -17,9 +17,9 @@ public class Banco{
 		
 	}
 	
-	private final String nomeTabela1 = "tabelaUsuarios";
-	private final String nomeTabela2 ="tabelaEventos";
-	private final String nomeTabela3 ="tabelaMeusEventos";
+	private final String tabelaUsuarios = "tabelaUsuarios";
+	private final String tabelaEventos ="tabelaEventos";
+	private final String tabelaMeusEventos ="tabelaMeusEventos";
 	private final String nomeBanco = "CurtindoRecifeDB";
 	private final int versaoBD = 1;
 	private final Context context;
@@ -38,13 +38,13 @@ public class Banco{
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 				//TABELA DE USUÁRIOS (tabelaUsuarios)
-				String sql = "CREATE TABLE IF NOT EXISTS "+nomeTabela1+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
+				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
 				db.execSQL(sql);
 				//TABELA DE EVENTOS (tabelaEventos)
-				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+nomeTabela2+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER)";
+				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER)";
 				db.execSQL(sqlEvento);
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
-				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+nomeTabela3+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
+				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
 				
 		}
@@ -52,13 +52,13 @@ public class Banco{
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			
-				String sql ="DROP TABLE IF EXISTS "+nomeTabela1;
+				String sql ="DROP TABLE IF EXISTS "+tabelaUsuarios;
 				db.execSQL(sql);
 				
-				String sql2 = "DROP TABLE IF EXISTS "+ nomeTabela2;
+				String sql2 = "DROP TABLE IF EXISTS "+ tabelaEventos;
 				db.execSQL(sql2);
 				
-				String sql3 = "DROP TABLE IF EXISTS "+ nomeTabela3;
+				String sql3 = "DROP TABLE IF EXISTS "+ tabelaMeusEventos;
 				db.execSQL(sql3);
 			
 				onCreate(db);
@@ -76,7 +76,71 @@ public class Banco{
 	public void closeBd(){
 		bancoDados.close();
 	}
-	 
+/////////////////Método deletar, deleta linha da tabela...//////// 
+	private Boolean deletar(int idObjeto, String nomeTabela){
+		
+		try {
+			openBd();
+			String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE _id = '"+idObjeto+"'";
+			bancoDados.execSQL(sqlExcluir);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}finally{
+			closeBd();			
+		}		
+	}
+/////////////////Método deletar, deleta linha da tabelaMeusEventos...//////// 
+private Boolean deletar(int idEvento, int idUsuario){
+
+		try {
+			openBd();
+			String sqlExcluir ="DELETE FROM "+tabelaMeusEventos+" WHERE idEvento = '"+idEvento+"', idUsuario = '"+idUsuario+"'";
+			bancoDados.execSQL(sqlExcluir);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}finally{
+			closeBd();			
+	}		
+	}
+////////////////O MÉTODO exclui o Usuario///////////////	
+	public Boolean excluir(int idUsuario){
+		Boolean resultado;
+		if(deletar(idUsuario, tabelaUsuarios)){
+			resultado = true;
+		}else{
+			resultado = false;
+		}
+		return resultado;
+	}
+	
+////////////////MÉTODO excluir, tira Simbora/ exclui da tabelaMeusEventos///////////////	
+		public Boolean excluir(Evento evento, int idUsuario){
+			
+			Boolean resultado;
+		
+			if(deletar(evento.getId(), idUsuario)){
+				resultado = true;
+			}else{
+				resultado = false;
+			}
+		
+			return resultado;
+		}
+////////////////MÉTODO excluirEvento///////////////	
+	public Boolean excluir(int idUsuario, Evento evento){
+		Boolean resultado = false;
+		if(evento.getIdOwner() == idUsuario){
+			if(deletar(evento.getId(), tabelaEventos)){
+				resultado = true;
+			}
+		}
+		return resultado;
+	}	
+	
 	public void inserirUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		
 		ContentValues valores = new ContentValues();
@@ -90,13 +154,13 @@ public class Banco{
 		valores.put("eventoFavorito2", eventoFavorito2);
 		valores.put("eventoFavorito3", eventoFavorito3);
 		
-		bancoDados.insert(nomeTabela1, null, valores);	
+		bancoDados.insert(tabelaUsuarios, null, valores);	
 	}
 ///////////////MÉTODO UPDATE USUÁRIO///////////////
 	private void updateUsuário(Usuario usuario){
 		try {
 			openBd();
-			String sqlUpdate = "UPDATE tabelaUsuarios SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
+			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
 			bancoDados.execSQL(sqlUpdate);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -110,7 +174,7 @@ public class Banco{
 	public Integer idUsuario(String email){
 		try {
 			openBd();
-			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
+			String sql = "SELECT _id FROM "+tabelaUsuarios+" WHERE email LIKE '"+email+"' ";
 			cursor = bancoDados.rawQuery(sql, null);
 			cursor.moveToFirst();
 			return cursor.getInt(cursor.getPosition());
@@ -126,7 +190,7 @@ public class Banco{
 	public Boolean checarEmail(String email){
 		try {
 			openBd();
-			String sql = "SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"' ";
+			String sql = "SELECT _id FROM "+tabelaUsuarios+" WHERE email LIKE '"+email+"' ";
 			Cursor cursorChecarEmail = bancoDados.rawQuery(sql, null);
 			Boolean resultado;
 			if(cursorChecarEmail.getCount()==0){
@@ -197,17 +261,17 @@ public class Banco{
 		try {
 			openBd();
 			
-			String sqlSimboras = "SELECT simboras FROM tabelaEventos WHERE _id LIKE '"+id+"'";
+			String sqlSimboras = "SELECT simboras FROM "+tabelaEventos+" WHERE _id LIKE '"+id+"'";
 			cursor = bancoDados.rawQuery(sqlSimboras,null);
 			cursor.moveToFirst();
 			
 			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
 			int newSimbora = oldSimbora + 1;
 			
-			String sql = "UPDATE tabelaEventos SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
+			String sql = "UPDATE "+tabelaEventos+" SET simboras = '"+newSimbora+"' WHERE _id LIKE '"+id+"'";
 			bancoDados.execSQL(sql);
 			
-			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
+			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
 			bancoDados.execSQL(sqlMeusEventos);
 			
 		} catch (Exception erro) {
@@ -223,7 +287,7 @@ public class Banco{
 		try {
 			openBd();
 			
-			String sql = "SELECT * from tabelaUsuarios WHERE _id LIKE '"+id+"'";
+			String sql = "SELECT * from "+tabelaUsuarios+" WHERE _id LIKE '"+id+"'";
 			cursor = bancoDados.rawQuery(sql,null);
 			cursor.moveToFirst();
 			
@@ -254,7 +318,7 @@ public class Banco{
 	public void setMeusEventos(int idUsuario){
 		try {
 			openBd();
-			String sql = "SELECT * FROM tabelaMeusEventos WHERE idUsuario LIKE '"+idUsuario+"' ";
+			String sql = "SELECT * FROM "+tabelaMeusEventos+" WHERE idUsuario LIKE '"+idUsuario+"' ";
 			cursor = bancoDados.rawQuery(sql, null);
 			
 			cursor.moveToFirst();
@@ -275,7 +339,7 @@ public class Banco{
 	public Evento retornaEvento(int idEvento){
 		try {
 			openBd();
-			String sql = "SELECT * FROM tabelaEventos WHERE _id LIKE '"+idEvento+"' ";
+			String sql = "SELECT * FROM "+tabelaEventos+" WHERE _id LIKE '"+idEvento+"' ";
 			Cursor cursor2 = bancoDados.rawQuery(sql, null);
 			cursor2.moveToFirst();
 			
@@ -295,7 +359,7 @@ public class Banco{
 			evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
 			if(Usuario.getId()!=0){
 				try{
-					String sqlConsulta = "SELECT idUsuario FROM tabelaMeusEventos WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
+					String sqlConsulta = "SELECT idUsuario FROM "+tabelaMeusEventos+" WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
 					Cursor cursor3 = bancoDados.rawQuery(sqlConsulta, null);
 					cursor3.moveToFirst();
 					System.out.println(cursor3.getInt(cursor3.getColumnIndex("idUsuario"))+" ID USUÀRIO");
@@ -329,7 +393,7 @@ public class Banco{
 		if(Usuario.getId()!=0){
 			try {
 				openBd();
-				String sql = "SELECT idUsuario FROM tabelaMeusEventos WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
+				String sql = "SELECT idUsuario FROM "+tabelaMeusEventos+" WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
 				Cursor cursor3 = bancoDados.rawQuery(sql, null);
 				cursor3.moveToFirst();
 				System.out.println(cursor3.getInt(cursor.getColumnIndex("idUsuario"))+" ID USUÀRIO");
