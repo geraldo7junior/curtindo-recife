@@ -107,6 +107,21 @@ private Boolean deletar(Evento evento, int idUsuario){
 			closeBd();			
 	}		
 	}
+private Boolean deletar(Evento evento){
+
+	try {
+		openBd();
+		String sqlExcluir ="DELETE FROM "+tabelaMeusEventos+" WHERE idEvento = '"+evento.getId()+"'";
+		bancoDados.execSQL(sqlExcluir);
+		
+		return true;
+	} catch (Exception e) {
+		System.out.println(e);
+		return false;
+	}finally{
+		closeBd();			
+}		
+}
 ////////////////O MÉTODO exclui o Usuario///////////////	
 	public Boolean excluir(int idUsuario){
 		Boolean resultado;
@@ -123,7 +138,7 @@ private Boolean deletar(Evento evento, int idUsuario){
 			
 			Boolean resultado;
 		
-			if(deletar(evento, idUsuario)){
+			if(deletar(evento)){
 				resultado = true;
 				if(evento.getIdOwner()==idUsuario){
 					excluir(idUsuario,evento);

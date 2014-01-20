@@ -122,7 +122,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	
 	@SuppressWarnings("deprecation")
 	public void CriarBanco() {
-		try {
+		try {			
 		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
 		String sql = "CREATE TABLE IF NOT EXISTS tabelaUsuarios (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
 		BancoDados.execSQL(sql);
