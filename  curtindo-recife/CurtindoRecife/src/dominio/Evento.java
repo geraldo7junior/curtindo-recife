@@ -101,6 +101,7 @@ public class Evento {
 	     this.setEndereco(endereco);
 	     this.descricao = descricao;
 	     this.curtido=curtido;
+	     this.tipoDeEvento=tipo;
 	}
 	
 	public int getId() {

@@ -36,7 +36,7 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
     public View getView(int position, View convertView, ViewGroup parent) {
  
         //get the Evento from position
-        Evento Evento = getItem(position);
+        Evento evento = getItem(position);
  
         // get a new View no matter recycling or ViewHolder FIXME
         convertView = inflater.inflate(resourceId, parent, false);
@@ -50,19 +50,20 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         TextView simboras=(TextView) convertView.findViewById(R.id.tvSimboras);
  
         //fill the view objects according values from Evento object
-        nome.setText(Evento.getNome());
-        data.setText(Evento.getData());
-        hora.setText(Evento.getHora());
-        image.setBackgroundResource(Evento.getImage());
-        if(Evento.getIdOwner()==Usuario.getId()){
+        nome.setText(evento.getNome());
+        data.setText(evento.getData());
+        hora.setText(evento.getHora());
+        System.out.println(evento.getTipoDeEvento()+" Tipo");
+        image.setBackgroundResource(Evento.associeImagem(evento.getTipoDeEvento()));
+        if(evento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
         }
         else{
-        	if(Evento.isCurtido()){
+        	if(evento.isCurtido()){
         		tipo.setText("Evento Curtido");
         	}
         }
-        simboras.setText(Evento.getSimboras()+" curtiram");     
+        simboras.setText(evento.getSimboras()+" curtiram");     
         
         return convertView;
     }

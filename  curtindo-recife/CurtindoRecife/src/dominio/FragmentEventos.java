@@ -46,6 +46,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public int id;
 		public int idOwner;
 		public boolean curtido;
+		public String tipo;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public FragmentEventos() {
@@ -55,7 +56,6 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public FragmentEventos(Evento evento){
 			this.nomeEvento= evento.getNome();
 			this.endereco=evento.getEndereco();
-			this.imagem=evento.getImage();
 			this.data=evento.getData();
 			this.numero=evento.getNumero();
 			this.hora=evento.getHora();
@@ -65,6 +65,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.id = evento.getId();
 			this.idOwner=evento.getIdOwner();
 			this.curtido=evento.isCurtido();
+			this.tipo=evento.getTipoDeEvento();
 		}
 		
 		
@@ -89,7 +90,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 
 			txtEndereco.setText(this.endereco+", "+this.numero);
 			txtNomeEvento.setText(this.nomeEvento);
-			imgEvento.setBackgroundResource(this.imagem);
+			imgEvento.setBackgroundResource(Evento.associeImagem(this.tipo));
 			txtData.setText(this.data);
 			txtHora.setText(this.hora);
 			txtPreco.setText(this.preco);
