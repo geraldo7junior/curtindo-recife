@@ -16,7 +16,23 @@ public class Evento {
 	private static final String EVENTO_ENCONTRO="Encontro";
 	private static final String EVENTO_NIGHT="Night";
 	private static ArrayList<Evento> listaEventos=new ArrayList<Evento>();
+	private static ArrayList<Evento> meusEventos = new ArrayList<Evento>();
 	
+	
+	
+	public static ArrayList<Evento> getMeusEventos() {
+		return meusEventos;
+	}
+
+	public static void setMeusEventos(ArrayList<Evento> meusEventos) {
+		Evento.meusEventos.clear();
+		Evento.meusEventos = meusEventos;
+	}
+	
+	public static void addMeusEventos(Evento evento){
+		Evento.meusEventos.add(evento);
+	}
+
 	public static String getEventoFamilia() {
 		return EVENTO_FAMILIA;
 	}

@@ -62,6 +62,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		txtData=(EditText) findViewById(R.id.txtCadastroData);
 		txtData.addTextChangedListener(Mask.insert("##/##/####", txtData));
 		
+		
 		return true;
 	}
 	
@@ -129,23 +130,30 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, Evento.associeImagem(tipo));
 	}
 	
+	
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.btnCriar){
 			
+		
 			    /////////////////////_Aqui!/////////////////////////////////////////////
 			
 			if(Usuario.getId()!=0){
-				cadastrarEvento();
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-				       .setTitle("Sucesso!");
-	
-				// 3. Get the AlertDialog from create()
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-				startActivity(intent);
+				
+				if (!txtNome.getText().toString().equals("")){
+					cadastrarEvento();
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
+					       .setTitle("Sucesso!");
+		
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+					startActivity(intent);
+				}else{txtNome.setError("Digite um nome.");}
+			
+				
 			}
 			else{
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);

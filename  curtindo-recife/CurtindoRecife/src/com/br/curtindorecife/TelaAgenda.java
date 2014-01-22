@@ -1,5 +1,6 @@
 package com.br.curtindorecife;
 
+import persistencia.Teste;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -10,6 +11,8 @@ public class TelaAgenda extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_agenda);
+		Teste.setMia(0);
+		System.out.println(Teste.getMia());
 	}
 
 	@Override
