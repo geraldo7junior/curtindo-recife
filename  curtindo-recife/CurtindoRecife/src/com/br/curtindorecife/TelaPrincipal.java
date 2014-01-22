@@ -67,6 +67,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		Evento.getListaEventos().clear();
 		//numEventos=0;
+		Evento.getMeusEventos().clear();
 		CriarBanco();
 		checarBD();
 		if(Usuario.getId()!=0){
@@ -449,7 +450,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	    }
 	 
 	    private List createEventos(){
-	        List p = Evento.getListaEventos();
+	        List p = Evento.getMeusEventos();
 	        return p;
 	    }
 	    
