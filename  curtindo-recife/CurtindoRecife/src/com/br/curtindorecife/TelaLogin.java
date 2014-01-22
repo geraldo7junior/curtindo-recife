@@ -248,6 +248,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 				}else{
 					mPasswordView.setError("Senha inválida");
 					focusView = mPasswordView;
+				
 					cancel = true;
 					
 				}
