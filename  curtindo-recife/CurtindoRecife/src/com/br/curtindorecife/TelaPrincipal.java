@@ -351,10 +351,12 @@ public class TelaPrincipal extends FragmentActivity implements
 			}
 			
 			if(v.getId() == R.id.btnCadastrarEvento){
+				Evento.setMeusEventosClickados(false);
 				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
 				startActivity(intent);
 			}
 			if(v.getId()== R.id.btnTop10){
+				Evento.setMeusEventosClickados(false);
 				Evento.setAtual("Top10");
 				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
@@ -399,8 +401,9 @@ public class TelaPrincipal extends FragmentActivity implements
 				
 			}
 			if(idCorreto){
-			Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
-			startActivity(intent);
+				Evento.setMeusEventosClickados(false);
+				Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
+				startActivity(intent);
 			}
 		}
 			
@@ -440,7 +443,7 @@ public class TelaPrincipal extends FragmentActivity implements
 						long arg3) {
 					Intent intent = new Intent(getActivity(),TelaEventos.class);
 					int position=arg2;
-					System.out.println(position);
+					Evento.setMeusEventosClickados(true);
 					intent.putExtra("position", position);
 					startActivity(intent);
 				}

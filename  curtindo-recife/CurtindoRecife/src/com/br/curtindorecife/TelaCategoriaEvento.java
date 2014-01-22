@@ -35,15 +35,19 @@ public class TelaCategoriaEvento extends Activity {
 		if(Evento.getAtual().equals("Top10")){
 			getTodasCategorias();
 			txtCategoria.setText("Top10");
+			/*for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+				System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
+			}*/
 		}
 		else{
 			getCategoriasEventos(Evento.getAtual());
-			System.out.println(Evento.getAtual()+" Está aquiiiiiiiiiii !!!!!!! ");
 			txtCategoria.setText(Evento.getAtual());
+			for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+				System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
+			}
 			
 		}
 
-		
 		
 		List EventoList = createEventos();
         ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);

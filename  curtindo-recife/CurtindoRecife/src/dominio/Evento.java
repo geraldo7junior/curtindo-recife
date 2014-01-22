@@ -17,8 +17,9 @@ public class Evento {
 	private static final String EVENTO_NIGHT="Night";
 	private static ArrayList<Evento> listaEventos=new ArrayList<Evento>();
 	private static ArrayList<Evento> meusEventos = new ArrayList<Evento>();
-	
-	
+	private static int idEvento;
+	private static String atual;
+	private static boolean meusEventosClickados=false;
 	
 	public static ArrayList<Evento> getMeusEventos() {
 		return meusEventos;
@@ -56,9 +57,9 @@ public class Evento {
 	private String hora;
 	private String descricao;
 	private String tipoDeEvento;
-	private static int idEvento;
+
 	private int idOwner;
-	private static String atual;
+
 	private int simboras;
 	private String preco;
 	private String numero;
@@ -280,6 +281,14 @@ public class Evento {
 
 	public void setCurtido(boolean curtido) {
 		this.curtido = curtido;
+	}
+
+	public static boolean isMeusEventosClickados() {
+		return meusEventosClickados;
+	}
+
+	public static void setMeusEventosClickados(boolean meusEventosClickados) {
+		Evento.meusEventosClickados = meusEventosClickados;
 	}
 	
 	

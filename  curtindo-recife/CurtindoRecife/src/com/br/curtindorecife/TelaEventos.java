@@ -56,11 +56,16 @@ public class TelaEventos extends FragmentActivity {
 		setContentView(R.layout.activity_tela_eventos);
 		
 		//Evento.getListaEventos().clear();
-		numEventos=Evento.getMeusEventos().size();
-		//getCategoriasEventos(Evento.getAtual());
+		if(Evento.isMeusEventosClickados()){
+			numEventos=Evento.getMeusEventos().size();
+		}
+		else{
+			getCategoriasEventos(Evento.getAtual());
+			numEventos=Evento.getListaEventos().size();		
+		}
+		
 		Intent intent=getIntent();
 		int posicao=intent.getIntExtra("position", 0);
-		System.out.println(posicao+ " Posicao tela eventos");
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -120,8 +125,14 @@ public class TelaEventos extends FragmentActivity {
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a DummySectionFragment (defined as a static inner class
 			// below) with the page number as its lone argument.
-			Fragment fragment = new FragmentEventos(Evento.getMeusEventos().get(position));
-			
+			Fragment fragment=null;
+			if(Evento.isMeusEventosClickados()){
+				fragment = new FragmentEventos(Evento.getMeusEventos().get(position));
+				
+			}
+			else{
+				fragment = new FragmentEventos(Evento.getListaEventos().get(position));
+			}
 			Bundle args = new Bundle();
 			args.putInt(FragmentEventos.ARG_SECTION_NUMBER, position + 1);
 			fragment.setArguments(args);
@@ -136,7 +147,12 @@ public class TelaEventos extends FragmentActivity {
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return Evento.getMeusEventos().get(position).getNome();
+			if(Evento.isMeusEventosClickados()){
+				return Evento.getMeusEventos().get(position).getNome();
+			}
+			else{
+				return Evento.getListaEventos().get(position).getNome();
+			}
 		}
 	}
 
@@ -151,8 +167,8 @@ public class TelaEventos extends FragmentActivity {
 			numEventos=(cursor.getCount());
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
-				Evento.addMeusEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco")), false));
-				Evento.getMeusEventos().get(i).setCurtido(eventoCurtido(Evento.getMeusEventos().get(i)));
+				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco")), false));
+				Evento.getListaEventos().get(i).setCurtido(eventoCurtido(Evento.getListaEventos().get(i)));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}	
