@@ -178,26 +178,26 @@ public class Evento {
 		int imagem=R.drawable.logo_recife;
 		
 		if(nomeEvento.equals(EVENTO_SHOW)){
-			imagem=R.drawable.shows;
+			imagem=R.drawable.imgshow;
 		}
 		
 		if(nomeEvento.equals(EVENTO_ESPORTES)){
-			imagem=R.drawable.esportes;
+			imagem=R.drawable.imgesportes;
 		}
 		if(nomeEvento.equals(EVENTO_TEATRO)){
-			imagem=R.drawable.teatro;
+			imagem=R.drawable.imgteatro;
 		}
 		if(nomeEvento.equals(EVENTO_FAMILIA)){
-			imagem=R.drawable.familia;
+			imagem=R.drawable.imgfamilia;
 		}
 		if(nomeEvento.equals(EVENTO_PALESTRA)){
-			imagem=R.drawable.palestra;
+			imagem=R.drawable.imgpalestra;
 		}
 		if(nomeEvento.equals(EVENTO_ENCONTRO)){
-			imagem=R.drawable.meeting;
+			imagem=R.drawable.imgencontro;
 		}
 		if(nomeEvento.equals(EVENTO_NIGHT)){
-			imagem=R.drawable.recife_at_night;
+			imagem=R.drawable.imgnight;
 		}
 		
 		

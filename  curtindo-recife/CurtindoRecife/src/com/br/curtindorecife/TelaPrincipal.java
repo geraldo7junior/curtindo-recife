@@ -264,8 +264,8 @@ public class TelaPrincipal extends FragmentActivity implements
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		Button btnLogin;
-		Button btnCadastarEvento;
+		ImageButton btnLogin;
+		ImageButton btnCadastarEvento;
 		ImageButton btnAgenda;
 		ImageButton btnShows;
 		ImageButton btnTeatro;
@@ -273,7 +273,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		Usuario usuario;
 		int imgEvento1, imgEvento2, imgEvento3;
 		TextView txtEvento1, txtEvento2, txtEvento3;
-		Button btnTop10;
+		ImageButton btnTop10;
 		
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -289,9 +289,9 @@ public class TelaPrincipal extends FragmentActivity implements
 			txtEvento1 = (TextView)rootView.findViewById(R.id.txtEvento1);
 			txtEvento2 = (TextView)rootView.findViewById(R.id.txtEvento2);
 			txtEvento3 = (TextView)rootView.findViewById(R.id.txtEvento3);
-			btnCadastarEvento = (Button)rootView.findViewById(R.id.btnCadastrarEvento);
+			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEvento);
 			btnCadastarEvento.setOnClickListener(this);
-			btnLogin = (Button)rootView.findViewById(R.id.btnLogin);
+			btnLogin = (ImageButton)rootView.findViewById(R.id.btnLogin);
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
@@ -301,7 +301,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnTeatro.setOnClickListener(this);
 			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
-			btnTop10=(Button)rootView.findViewById(R.id.btnTop10);
+			btnTop10=(ImageButton)rootView.findViewById(R.id.btnTop10);
 			btnTop10.setOnClickListener(this);
 			
 			if(Usuario.getId()!=0){
@@ -315,11 +315,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				btnTeatro.setImageResource(imgEvento2);
 				btnEvento3.setImageResource(imgEvento3);
 				
-				txtEvento1.setText(usuario.getEventoFavorito1());
-				txtEvento2.setText(usuario.getEventoFavorito2());
-				txtEvento3.setText(usuario.getEventoFavorito3());
-				
-				btnLogin.setText("Perfil");
+				//btnLogin.setText("Perfil");
 			}else{
 				imgEvento1 = Evento.associeImagem("Show");
 				imgEvento2 = Evento.associeImagem("Teatro");
@@ -328,10 +324,6 @@ public class TelaPrincipal extends FragmentActivity implements
 				btnShows.setImageResource(imgEvento1);
 				btnTeatro.setImageResource(imgEvento2);
 				btnEvento3.setImageResource(imgEvento3);
-			
-				txtEvento1.setText("Show");
-				txtEvento2.setText("Teatro");
-				txtEvento3.setText("Esporte");
 			}
 			return rootView;
 		}	

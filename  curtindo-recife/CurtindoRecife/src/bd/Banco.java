@@ -397,7 +397,6 @@ private Boolean deletar(Evento evento){
 	
 	public Evento retornaEvento(int idEvento){
 		try {
-			openBd();
 			String sql = "SELECT * FROM "+tabelaEventos+" WHERE _id LIKE '"+idEvento+"' ";
 			Cursor cursor2 = bancoDados.rawQuery(sql, null);
 			cursor2.moveToFirst();
@@ -432,9 +431,6 @@ private Boolean deletar(Evento evento){
 				catch (Exception erro) {
 						System.out.println(erro);
 				}
-				finally{
-					closeBd();
-				}
 			
 			}
 			return evento;
@@ -442,10 +438,8 @@ private Boolean deletar(Evento evento){
 		} catch (Exception erro) {
 			System.out.println(erro);
 			
-		}finally{
-			closeBd();
 		}	
-			return null;
+		return null;
 	}
 	public boolean eventoCurtido(Evento evento){
 		
