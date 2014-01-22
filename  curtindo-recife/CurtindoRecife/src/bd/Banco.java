@@ -382,7 +382,7 @@ private Boolean deletar(Evento evento){
 			
 			cursor.moveToFirst();
 			for(int i=0;i<cursor.getCount();i++){			
-				Evento.addListaEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
+				Evento.addMeusEventos(retornaEvento(cursor.getInt(cursor.getColumnIndex("idEvento"))));
 				if(i!=cursor.getCount()-1){
 					cursor.moveToNext();
 				}		
