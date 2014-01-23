@@ -296,6 +296,7 @@ public class Evento {
 		Evento.meusEventosClickados = meusEventosClickados;
 	}
 	public static ArrayList<Evento> listaNight(){
+		////tudo data
 		Calendar calendar=Calendar.getInstance();
 		Date date=new Date();
 	    DateFormat formato = new SimpleDateFormat("HH:mm");  
@@ -313,15 +314,16 @@ public class Evento {
 	    calendar.add(Calendar.DAY_OF_MONTH, 1);
 	    Date dataAmanha= calendar.getTime();
 	    String dataAmanhaConvertida=formatoData.format(dataAmanha);
-	    System.out.println(dataAmanha);
+	    System.out.println(dataAmanhaConvertida);
 		ArrayList<Evento> listaNight = new ArrayList<Evento>();
+		/////acaa aqui
 		for (int i = 0; i < Evento.getListaEventos().size(); i++) {
 			if(!Evento.getListaEventos().get(i).getData().equals("")){
 				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) || Evento.getListaEventos().get(i).getData().equals(dataAmanhaConvertida) ){
 					int hora = 99;
 					if(!Evento.getListaEventos().get(i).getHora().equals("")){
-					hora=Integer.parseInt(listaEventos.get(i).getHora().substring(0, 1));
-					System.out.println(hora);
+					hora=Integer.parseInt(listaEventos.get(i).getHora().substring(0, 2));
+					System.out.println(hora+ " Evento: "+listaEventos.get(i).getNome());
 					}else{
 						continue;
 					}

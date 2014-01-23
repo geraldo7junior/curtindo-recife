@@ -36,7 +36,8 @@ public class TelaCategoriaEvento extends Activity {
 			getTodasCategorias();
 			txtCategoria.setText("Top10");
 			/*for (int i = 0; i < Evento.getListaEventos().size(); i++) {
-				System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
+				System.out.println("
+ da categoria: "+Evento.getListaEventos().get(i).getNome());
 			}*/
 		}
 		if(Evento.getAtual().equals("Night")){

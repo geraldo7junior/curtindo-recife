@@ -60,7 +60,6 @@ public class TelaEventos extends FragmentActivity {
 			numEventos=Evento.getMeusEventos().size();
 		}
 		else{
-			getCategoriasEventos(Evento.getAtual());
 			numEventos=Evento.getListaEventos().size();		
 		}
 		

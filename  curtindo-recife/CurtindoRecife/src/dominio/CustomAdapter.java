@@ -53,7 +53,6 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         nome.setText(evento.getNome());
         data.setText(evento.getData());
         hora.setText(evento.getHora());
-        System.out.println(evento.getTipoDeEvento()+" Tipo");
         image.setBackgroundResource(Evento.associeImagem(evento.getTipoDeEvento()));
         if(evento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
