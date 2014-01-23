@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dominio.Evento;
 import dominio.Usuario;
+import android.R.bool;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -205,7 +206,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 	public void updateUsuario(Usuario usuario){
 		try {
 			openBd();
-			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"', '"+usuario.getMascates()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
+			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"', mascates = '"+usuario.getMascates()+"', ranking = '"+usuario.getRanking()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
 			bancoDados.execSQL(sqlUpdate);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -311,6 +312,13 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}
 		updateUsuario(usuario);
 		return condicao;
+	}
+	public Boolean updateEvento(Evento evento){
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}return null;
 	}
 	public void updateSimbora(int idEvento, int newSimbora) {
 		try {
