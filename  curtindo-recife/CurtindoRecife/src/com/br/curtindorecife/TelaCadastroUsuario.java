@@ -127,7 +127,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("A senha está curta. Ela deve possuir mais de 4 caracteres");
+			builder.setMessage("A senha deve ter no mínimo 5 caracteres.");
 
 			// 3. Get the AlertDialog from create()
 			AlertDialog dialog = builder.create();

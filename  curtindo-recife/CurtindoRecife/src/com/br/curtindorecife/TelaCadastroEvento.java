@@ -1,10 +1,16 @@
 package com.br.curtindorecife;
 
 import bd.Banco;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import persistencia.LoginBS;
 import dominio.*;
 import android.os.Bundle;
 import android.os.Message;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -19,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
 
+@SuppressLint("SimpleDateFormat")
 public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	EditText txtNome;
@@ -140,6 +147,26 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			
 			if(Usuario.getId()!=0){
 				
+
+				
+					try {
+						if (validaTodosCampos()){
+							cadastrarEvento();
+							AlertDialog.Builder builder = new AlertDialog.Builder(this);
+							builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
+							       .setTitle("Sucesso!");
+
+							// 3. Get the AlertDialog from create()
+							AlertDialog dialog = builder.create();
+							dialog.show();
+							Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+							startActivity(intent);
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				
+
 				if (!txtNome.getText().toString().equals("")){
 					
 					Banco banco = new Banco(this);
@@ -164,6 +191,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 					Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
 					startActivity(intent);
 				}else{txtNome.setError("Digite um nome.");}
+
 			
 				
 			}
@@ -181,5 +209,110 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		}
 		
 	}
+	//Métodos de validaçãok dos campos
+	
+	public boolean validaNome(){
+		
+		if (txtNome.getText().toString().equals("")){
+			txtNome.setError("Digite o nome.");
+			return false;
+		}
+		
+		return true;	
+		
+	}
+	
+	public boolean validaTelefone(){	
+		
+		if (txtTelefone.getText().toString().equals("")){
+			txtTelefone.setError("Digite um telefone.");
+			return false;
+		}
+		else if (txtTelefone.getText().toString().length()<10){
+			txtTelefone.setError("Telefone inválido.");
+			return false;
+		}
+		
+		return true;	
+		
+	}
+	
+	public boolean validaEndereco(){
+		
+		if (txtEndereco.getText().toString().equals("")){
+			txtEndereco.setError("Digite o endereco.");
+			return false;
+		}
+		else if (txtEndereco.getText().toString().length()<=4){
+			txtEndereco.setError("Endereço inválido.");
+			return false;
+		}
+		
+		return true;	
+		
+	}
+	
+	
+	
+	public boolean validaPreco(){	
+		
+		if(txtPreco.getText().toString().equals("")){		
+			
+			txtPreco.setError("Digite o valor.");
+			return false;
+		}
+		else{return true;}
+	}
+	
+	public boolean validaData() throws ParseException{
+		
+		Date dataHoje = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
+		Date data = new Date(format.parse(txtData.getText().toString()).getTime());
+		
+		if (data.after(dataHoje)){		
+			
+			return true;
+		}
+		else if (data.equals(dataHoje)){
+			return true;
+		}
+		txtData.setError("Data inválida.");
+		return false;
+	}
+	
+	public boolean validaHora(){
+		
 
+		if(txtHora.getText().toString().length()<5){		
+			txtHora.setError("Digite o horário.");
+			return false;
+		}
+		else{return true;}
+		
+		
+	}
+public boolean validaTodosCampos() throws ParseException{
+		
+		if(validaEndereco()&validaNome()&validaTelefone()&validaData()&validaHora()&validaPreco()){			
+			
+			return true;			
+		}else{
+			return false;
+		}
+		
+	}
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
