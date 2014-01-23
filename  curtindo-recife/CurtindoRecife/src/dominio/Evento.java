@@ -1,7 +1,12 @@
 package dominio;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 import com.br.curtindorecife.R;
 
@@ -290,6 +295,51 @@ public class Evento {
 	public static void setMeusEventosClickados(boolean meusEventosClickados) {
 		Evento.meusEventosClickados = meusEventosClickados;
 	}
-	
+	public static ArrayList<Evento> listaNight(){
+		Calendar calendar=Calendar.getInstance();
+		Date date=new Date();
+	    DateFormat formato = new SimpleDateFormat("HH:mm");  
+	    String horaConvertida = formato.format(date); 
+	    DateFormat formatoData=new SimpleDateFormat("dd/MM/yyyy");
+	    String dataConvertida=formatoData.format(date);
+	    System.out.println(horaConvertida+" Hora");
+	    System.out.println(dataConvertida+" Data");
+	    try {
+			calendar.setTime(formatoData.parse(dataConvertida));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	    calendar.add(Calendar.DAY_OF_MONTH, 1);
+	    Date dataAmanha= calendar.getTime();
+	    String dataAmanhaConvertida=formatoData.format(dataAmanha);
+	    System.out.println(dataAmanha);
+		ArrayList<Evento> listaNight = new ArrayList<Evento>();
+		for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+			if(!Evento.getListaEventos().get(i).getData().equals("")){
+				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) || Evento.getListaEventos().get(i).getData().equals(dataAmanhaConvertida) ){
+					int hora = 99;
+					if(!Evento.getListaEventos().get(i).getHora().equals("")){
+					hora=Integer.parseInt(listaEventos.get(i).getHora().substring(0, 1));
+					System.out.println(hora);
+					}else{
+						continue;
+					}
+					if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && hora>= 18){
+						listaNight.add(Evento.getListaEventos().get(i));	
+					}
+					if(Evento.getListaEventos().get(i).getData().equals(dataAmanhaConvertida) && (hora>=0 && hora<5)){
+						listaNight.add(Evento.getListaEventos().get(i));
+						
+					}
+					
+				}
+			}	
+			
+		}
+		return listaNight;
+		
+	}
+
 	
 }

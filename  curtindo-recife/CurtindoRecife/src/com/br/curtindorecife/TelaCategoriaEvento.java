@@ -39,6 +39,10 @@ public class TelaCategoriaEvento extends Activity {
 				System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
 			}*/
 		}
+		if(Evento.getAtual().equals("Night")){
+			getTodasCategorias();
+			txtCategoria.setText("Night");
+		}
 		else{
 			getCategoriasEventos(Evento.getAtual());
 			txtCategoria.setText(Evento.getAtual());
@@ -74,6 +78,10 @@ public class TelaCategoriaEvento extends Activity {
         List p;
         if(Evento.getAtual().equals("Top10")){       	
         	Evento.setListaEventos(Evento.ranking());   
+        	p=Evento.getListaEventos();
+        }
+        if(Evento.getAtual().equals("Night")){
+        	Evento.setListaEventos(Evento.listaNight());   
         	p=Evento.getListaEventos();
         }
         else{

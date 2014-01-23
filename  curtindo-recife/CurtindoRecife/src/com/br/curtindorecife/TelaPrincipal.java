@@ -275,7 +275,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		int imgEvento1, imgEvento2, imgEvento3;
 		TextView txtEvento1, txtEvento2, txtEvento3;
 		ImageButton btnTop10;
-		
+		ImageButton btnNight;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public DummySectionFragment() {
@@ -304,6 +304,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnEvento3.setOnClickListener(this);
 			btnTop10=(ImageButton)rootView.findViewById(R.id.btnTop10);
 			btnTop10.setOnClickListener(this);
+			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
+			btnNight.setOnClickListener(this);
 			
 			if(Usuario.getId()!=0){
 				Banco banco = new Banco(getActivity());
@@ -345,6 +347,12 @@ public class TelaPrincipal extends FragmentActivity implements
 					
 				}
 			
+			if(v.getId()== R.id.btnNight){
+					Evento.setMeusEventosClickados(false);
+					Evento.setAtual("Night");
+					Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
+					startActivity(intent);
+			}
 			if(v.getId() == R.id.btnAgenda){
 				Intent intent = new Intent(getActivity(), TelaAgenda.class);
 				startActivity(intent);
