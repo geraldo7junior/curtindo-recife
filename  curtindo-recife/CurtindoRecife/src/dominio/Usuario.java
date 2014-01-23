@@ -14,7 +14,22 @@ public class Usuario {
 	private String eventoFavorito1;
 	private String eventoFavorito2;
 	private String eventoFavorito3;
+	private int mascates;
+	private int ranking;
 	
+	
+	public int getRanking() {
+		return ranking;
+	}
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
+	public int getMascates() {
+		return mascates;
+	}
+	public void setMascates(int mascates) {
+		this.mascates = mascates;
+	}
 	public static int getId() {
 		return idUsuario;
 	}

@@ -38,10 +38,10 @@ public class Banco{
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 				//TABELA DE USUÁRIOS (tabelaUsuarios)
-				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT)";
+				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT, mascates INTEGER)";
 				db.execSQL(sql);
 				//TABELA DE EVENTOS (tabelaEventos)
-				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER)";
+				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
 				db.execSQL(sqlEvento);
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
@@ -163,6 +163,28 @@ private Boolean deletar(Evento evento){
 		return resultado;
 	}	
 	
+public void inserirEvento(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem, int prioridade){
+		
+		ContentValues valores = new ContentValues();
+		
+		valores.put("nome", nome);
+		valores.put("endereco", endereco);
+		valores.put("numero", numero);
+		valores.put("preco", preco);
+		valores.put("data", data);
+		valores.put("hora", hora);
+		valores.put("telefone", telefone);
+		valores.put("descricao", descricao);
+		valores.put("tipo", tipo);
+		valores.put("idOwner", idOwner);
+		valores.put("imagem", imagem);
+		valores.put("prioridade", prioridade);
+		valores.put("ranking", 0);
+
+		
+		bancoDados.insert(tabelaEventos, null, valores);	
+	}
+	
 	public void inserirUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
 		
 		ContentValues valores = new ContentValues();
@@ -175,14 +197,15 @@ private Boolean deletar(Evento evento){
 		valores.put("eventoFavorito1", eventoFavorito1);
 		valores.put("eventoFavorito2", eventoFavorito2);
 		valores.put("eventoFavorito3", eventoFavorito3);
+		valores.put("mascates", 100);
 		
 		bancoDados.insert(tabelaUsuarios, null, valores);	
 	}
 ///////////////MÉTODO UPDATE USUÁRIO///////////////
-	private void updateUsuario(Usuario usuario){
+	public void updateUsuario(Usuario usuario){
 		try {
 			openBd();
-			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
+			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"', '"+usuario.getMascates()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
 			bancoDados.execSQL(sqlUpdate);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -332,7 +355,8 @@ private Boolean deletar(Evento evento){
 			
 			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
 			bancoDados.execSQL(sqlMeusEventos);
-			
+			Usuario usuario = getUsuario(Usuario.getId());
+			usuario.setMascates(usuario.getMascates()+1);
 		} catch (Exception erro) {
 			// TODO: handle exception
 			System.out.println(erro);
@@ -359,8 +383,9 @@ private Boolean deletar(Evento evento){
 			usuario.setEventoFavorito2((cursor.getString(cursor.getColumnIndex("eventoFavorito2"))));
 			usuario.setEventoFavorito3((cursor.getString(cursor.getColumnIndex("eventoFavorito3"))));
 			usuario.setSenha((cursor.getString(cursor.getColumnIndex("senha"))));
+			usuario.setMascates(cursor.getColumnIndex("mascates"));
 			
-			System.out.println(usuario.getEventoFavorito1());
+			System.out.println(usuario.getMascates()+" Mascates");
 			return usuario;
 			
 		} catch (Exception e) {

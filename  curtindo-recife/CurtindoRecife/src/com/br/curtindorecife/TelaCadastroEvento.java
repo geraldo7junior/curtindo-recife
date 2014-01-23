@@ -1,6 +1,6 @@
 package com.br.curtindorecife;
 
-
+import bd.Banco;
 import persistencia.LoginBS;
 import dominio.*;
 import android.os.Bundle;
@@ -83,7 +83,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		Cursor cursor;	
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner, idImagem, simboras) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"','"+imagem+"','0')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner, idImagem, simboras, prioridade) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"','"+imagem+"','0', '0')";
 			BancoDados.execSQL(sql);
 			String sqlPesquisaMeusEventos = "SELECT _id FROM tabelaEventos WHERE nome LIKE '"+nome+"'";
 			cursor = BancoDados.rawQuery(sqlPesquisaMeusEventos, null);
@@ -136,12 +136,24 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		if(v.getId() == R.id.btnCriar){
 			
 		
-			    /////////////////////_Aqui!/////////////////////////////////////////////
+/////////////////////_Aqui!/////////////////////////////////////////////
 			
 			if(Usuario.getId()!=0){
 				
 				if (!txtNome.getText().toString().equals("")){
-					cadastrarEvento();
+					
+					Banco banco = new Banco(this);
+					Usuario usuario = banco.getUsuario(Usuario.getId());
+					
+					if(usuario.getMascates()>=50){
+						usuario.setMascates(usuario.getMascates()-50);
+						cadastrarEvento();
+						banco.updateUsuario(usuario);
+					}else{
+						AlertDialog.Builder builder = new AlertDialog.Builder(this);
+						builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
+						       .setTitle("Falha na criação do evento!");
+					}
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
 					       .setTitle("Sucesso!");
