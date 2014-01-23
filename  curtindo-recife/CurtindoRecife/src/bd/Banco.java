@@ -180,7 +180,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		valores.put("idOwner", idOwner);
 		valores.put("imagem", imagem);
 		valores.put("prioridade", prioridade);
-		valores.put("ranking", 0);
+		
 
 		
 		bancoDados.insert(tabelaEventos, null, valores);	
@@ -313,11 +313,15 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		updateUsuario(usuario);
 		return condicao;
 	}
-	public Boolean updateEvento(Evento evento){
+	public Boolean updatePrioridade(int idEvento, int prioridade){
 		try {
-			
+			openBd();
+			String sql = "UPDATE "+tabelaEventos+" SET prioridade ='"+prioridade+"' WHERE _id LIKE '"+idEvento+"'";
+			bancoDados.execSQL(sql);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}finally{
+			closeBd();
 		}return null;
 	}
 	public void updateSimbora(int idEvento, int newSimbora) {
@@ -391,7 +395,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			usuario.setEventoFavorito2((cursor.getString(cursor.getColumnIndex("eventoFavorito2"))));
 			usuario.setEventoFavorito3((cursor.getString(cursor.getColumnIndex("eventoFavorito3"))));
 			usuario.setSenha((cursor.getString(cursor.getColumnIndex("senha"))));
-			usuario.setMascates(cursor.getColumnIndex("mascates"));
+			usuario.setMascates(cursor.getInt(cursor.getColumnIndex("mascates")));
+			usuario.setRanking(cursor.getInt(cursor.getColumnIndex("ranking")));
 			
 			System.out.println(usuario.getMascates()+" Mascates");
 			return usuario;

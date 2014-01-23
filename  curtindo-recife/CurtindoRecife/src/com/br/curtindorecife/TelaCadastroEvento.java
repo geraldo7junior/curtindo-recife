@@ -83,14 +83,14 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 /////////////////////_cadastrar evento_//////////////////////////////	
 	@SuppressWarnings("deprecation")
-	public void cadastrar(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem){
+	public void cadastrar(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem, int prioridade){
 		// Cadastra evento
 		String NomeBanco = "CurtindoRecifeDB";
 		SQLiteDatabase BancoDados = null;
 		Cursor cursor;	
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner, idImagem, simboras, prioridade) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"','"+imagem+"','0', '0')";
+			String sql = "INSERT INTO tabelaEventos (nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, idOwner, idImagem, simboras, prioridade) VALUES ('"+nome+"','"+endereco+"','"+numero+"','"+preco+"','"+data+"','"+hora+"','"+telefone+"','"+descricao+"','"+tipo+"','"+idOwner+"','"+imagem+"','0', '"+prioridade+"')";
 			BancoDados.execSQL(sql);
 			String sqlPesquisaMeusEventos = "SELECT _id FROM tabelaEventos WHERE nome LIKE '"+nome+"'";
 			cursor = BancoDados.rawQuery(sqlPesquisaMeusEventos, null);
@@ -133,8 +133,8 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		String data = txtData.getText().toString();
 		String tipo = spCadastroEvento.getSelectedItem().toString();
 		Integer idOwner = Usuario.getId();
-		
-		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, Evento.associeImagem(tipo));
+		Integer prioridade = 4;
+		cadastrar(idOwner, nome, endereco, numero, preco, data, hora, telefone, descricao, tipo, Evento.associeImagem(tipo), prioridade);
 	}
 	
 	
@@ -146,67 +146,64 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 /////////////////////_Aqui!/////////////////////////////////////////////
 			
 			if(Usuario.getId()!=0){
-				
+						
+				//
+					try {if(Usuario.getId()!=0){
+						if (validaTodosCampos()){		
 
-				
-					try {
-						if (validaTodosCampos()){
-							cadastrarEvento();
-							AlertDialog.Builder builder = new AlertDialog.Builder(this);
-							builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-							       .setTitle("Sucesso!");
+								if (!txtNome.getText().toString().equals("")){
+									
+									Banco banco = new Banco(this);
+									Usuario usuario = banco.getUsuario(Usuario.getId());
+									
+									if(usuario.getMascates()>=50){
+										cadastrarEvento();
+										usuario.setMascates(usuario.getMascates()-50);
+										banco.updateUsuario(usuario);
+										
+										AlertDialog.Builder builder = new AlertDialog.Builder(this);
+										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
+										       .setTitle("Sucesso!");
+							
+										AlertDialog dialog = builder.create();
+										dialog.show();
+									}else{
+										AlertDialog.Builder builder = new AlertDialog.Builder(this);
+										builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
+										       .setTitle("Falha na criação do evento!");
+										AlertDialog dialog = builder.create();
+										dialog.show();
+									}
+									
+									// 3. Get the AlertDialog from create()
+									
+									Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+									startActivity(intent);
+								}
+								else{txtNome.setError("Digite um nome.");}
 
-							// 3. Get the AlertDialog from create()
-							AlertDialog dialog = builder.create();
-							dialog.show();
-							Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-							startActivity(intent);
-						}
+							
+								
+							}
+					}
+						else{
+								AlertDialog.Builder builder = new AlertDialog.Builder(this);
+								builder.setMessage("Você precisa estar logado para criar um evento :(")
+								       .setTitle("Que pena :(");
+
+								// 3. Get the AlertDialog from create()
+								AlertDialog dialog = builder.create();
+								dialog.show();
+								Intent intent = new Intent(TelaCadastroEvento.this, TelaLogin.class);
+								startActivity(intent);
+							}
 					} catch (ParseException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				
-
-				if (!txtNome.getText().toString().equals("")){
-					
-					Banco banco = new Banco(this);
-					Usuario usuario = banco.getUsuario(Usuario.getId());
-					
-					if(usuario.getMascates()>=50){
-						usuario.setMascates(usuario.getMascates()-50);
-						cadastrarEvento();
-						banco.updateUsuario(usuario);
-					}else{
-						AlertDialog.Builder builder = new AlertDialog.Builder(this);
-						builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
-						       .setTitle("Falha na criação do evento!");
-					}
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
-					builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-					       .setTitle("Sucesso!");
-		
-					// 3. Get the AlertDialog from create()
-					AlertDialog dialog = builder.create();
-					dialog.show();
-					Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-					startActivity(intent);
-				}else{txtNome.setError("Digite um nome.");}
-
-			
-				
+				}
 			}
-			else{
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage("Você precisa estar logado para criar um evento :(")
-				       .setTitle("Que pena :(");
-	
-				// 3. Get the AlertDialog from create()
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				Intent intent = new Intent(TelaCadastroEvento.this, TelaLogin.class);
-				startActivity(intent);
-			}
-		}
 		
 	}
 	//Métodos de validaçãok dos campos
@@ -216,9 +213,11 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		if (txtNome.getText().toString().equals("")){
 			txtNome.setError("Digite o nome.");
 			return false;
-		}
+		}else{
+			return true;
+			}
 		
-		return true;	
+			
 		
 	}
 	
@@ -231,10 +230,10 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		else if (txtTelefone.getText().toString().length()<10){
 			txtTelefone.setError("Telefone inválido.");
 			return false;
-		}
+		}else{
 		
 		return true;	
-		
+		}
 	}
 	
 	public boolean validaEndereco(){
@@ -246,10 +245,10 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		else if (txtEndereco.getText().toString().length()<=4){
 			txtEndereco.setError("Endereço inválido.");
 			return false;
-		}
+		}else{
 		
 		return true;	
-		
+		}
 	}
 	
 	
@@ -269,16 +268,22 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 		Date dataHoje = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
 		Date data = new Date(format.parse(txtData.getText().toString()).getTime());
-		
+		dataHoje.setHours(data.getHours());
+		dataHoje.setMinutes(data.getMinutes());
+		dataHoje.setSeconds(data.getSeconds());
+		System.out.println(data+" data");
+		System.out.println(dataHoje+" datahoje");
 		if (data.after(dataHoje)){		
+			return true;
+		}
+		else if (data.getDay()==(dataHoje.getDay())){
+			return true;
+		}else{
+			txtData.setError("Data inválida.");
+			return false;
+		
 			
-			return true;
 		}
-		else if (data.equals(dataHoje)){
-			return true;
-		}
-		txtData.setError("Data inválida.");
-		return false;
 	}
 	
 	public boolean validaHora(){
