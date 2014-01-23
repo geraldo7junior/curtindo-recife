@@ -342,7 +342,7 @@ public class TelaPrincipal extends FragmentActivity implements
 					//}
 				}if(v.getId() == R.id.btnLogin && Usuario.getId()!=0){
 					//Usuario.setId(0);
-					Intent intent = new Intent(getActivity(), TelaPerfilUsuario.class);
+					Intent intent = new Intent(getActivity(), TelaMostrarPerfil.class);
 					startActivity(intent);
 					
 				}

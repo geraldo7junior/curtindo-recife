@@ -107,27 +107,6 @@
         android:text="@string/mudarSenha"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/btnEditar"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/txtboxNovasenha2"
-        android:background="#0000EE"
-        android:text="@string/editar"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:padding="4dp" />
-
-    <Button
-        android:id="@+id/btnSair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnEditar"
-        android:layout_alignBottom="@+id/btnEditar"
-        android:layout_alignLeft="@+id/txtNovoEmail"
-        android:text="@string/sair" />
 
     <TextView
         android:id="@+id/txtMudarEmail"
@@ -184,11 +163,25 @@
         android:id="@+id/btnExcluir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSair"
-        android:layout_alignBottom="@+id/btnSair"
-        android:layout_alignLeft="@+id/txtNomeUsuario"
+        android:layout_alignBaseline="@+id/btnEditar"
+        android:layout_alignBottom="@+id/btnEditar"
+        android:layout_alignRight="@+id/txtNovaSenha2"
         android:background="#EE0000"
         android:text="Excluir"
         android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnEditar"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spCategoriaPerfil3"
+        android:layout_below="@+id/txtboxNovasenha2"
+        android:layout_marginTop="14dp"
+        android:background="#0000EE"
+        android:padding="4dp"
+        android:text="@string/editar"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
 </RelativeLayout>

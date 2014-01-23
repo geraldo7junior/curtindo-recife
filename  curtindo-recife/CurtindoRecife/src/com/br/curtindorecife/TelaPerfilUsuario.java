@@ -24,7 +24,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	EditText txtboxNovaSenha1;
 	EditText txtboxNovaSenha2;
 	Button btnEditar;
-	Button btnSair,btnExcluir;
+	Button btnExcluir;
 	Spinner spCategoriaPerfil1,spCategoriaPerfil2, spCategoriaPerfil3;
 	public Usuario usuario;
 	@Override
@@ -57,8 +57,6 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		txtboxNovaSenha2= (EditText) findViewById(R.id.txtboxNovasenha2);
 		btnEditar= (Button) findViewById(R.id.btnEditar);
 		btnEditar.setOnClickListener(this);
-		btnSair= (Button) findViewById(R.id.btnSair);
-		btnSair.setOnClickListener(this);
 		btnExcluir = (Button)findViewById(R.id.btnExcluir);
 		btnExcluir.setOnClickListener(this);
 		
@@ -94,11 +92,6 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 			AlertDialog dialog = builder.create();
 			dialog.show();
 			
-		}
-		if(v.getId()==R.id.btnSair){
-			Usuario.setId(0);
-			Intent intent=new Intent(this, TelaPrincipal.class);
-			startActivity(intent);
 		}
 		if(v.getId()==R.id.btnEditar){
 			if(txtboxEditarEmail.getText().toString().contains("@") || txtboxEditarEmail.getText().toString().equals("") ){
