@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+import android.widget.ArrayAdapter;
+
 import com.br.curtindorecife.R;
 
 public class Evento {
@@ -26,6 +28,17 @@ public class Evento {
 	private static String atual;
 	private static boolean meusEventosClickados=false;
 	
+	private static ArrayList<String> nomesEventosTelaPrincipal=new ArrayList<String>();
+	
+	public static ArrayList<String> getNomesEventosTelaPrincipal() {
+		return nomesEventosTelaPrincipal;
+	}
+
+	public static void setNomesEventosTelaPrincipal(
+			ArrayList<String> nomesEventosTelaPrincipal) {
+		Evento.nomesEventosTelaPrincipal = nomesEventosTelaPrincipal;
+	}
+
 	public static ArrayList<Evento> getMeusEventos() {
 		return meusEventos;
 	}
@@ -342,6 +355,19 @@ public class Evento {
 			
 		}
 		return listaNight;
+		
+	}
+	
+	public static void retorneListaNomesEventos(String eventoFavorito1,String eventoFavorito2,String eventoFavorito3, ArrayAdapter<CharSequence> ar){
+		nomesEventosTelaPrincipal.add(eventoFavorito1);
+		nomesEventosTelaPrincipal.add(eventoFavorito2);
+		nomesEventosTelaPrincipal.add(eventoFavorito3);
+		
+		for(int i=0;i< ar.getCount();i++){
+			if(!nomesEventosTelaPrincipal.contains(ar.getItem(i).toString())){
+				nomesEventosTelaPrincipal.add(ar.getItem(i).toString());
+			}
+		}
 		
 	}
 

@@ -78,6 +78,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			banco.setMeusEventos(Usuario.getId());
 		
 		}
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -284,11 +285,14 @@ public class TelaPrincipal extends FragmentActivity implements
 		ImageButton btnLogin;
 		ImageButton btnCadastarEvento;
 		ImageButton btnAgenda;
-		ImageButton btnShows;
-		ImageButton btnTeatro;
+		ImageButton btnEvento1;
+		ImageButton btnEvento2;
 		ImageButton btnEvento3;
+		ImageButton btnEvento4;
+		ImageButton btnEvento5;
+		ImageButton btnEvento6;
 		Usuario usuario;
-		int imgEvento1, imgEvento2, imgEvento3;
+		int imgEvento1, imgEvento2, imgEvento3,imgEvento4, imgEvento5, imgEvento6;
 		TextView txtEvento1, txtEvento2, txtEvento3;
 		ImageButton btnTop10;
 		ImageButton btnNight;
@@ -312,37 +316,64 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
-			btnShows = (ImageButton)rootView.findViewById(R.id.btnEvento1);
-			btnShows.setOnClickListener(this);
-			btnTeatro = (ImageButton)rootView.findViewById(R.id.btnEvento2);
-			btnTeatro.setOnClickListener(this);
+			btnEvento1 = (ImageButton)rootView.findViewById(R.id.btnEvento1);
+			btnEvento1.setOnClickListener(this);
+			btnEvento2 = (ImageButton)rootView.findViewById(R.id.btnEvento2);
+			btnEvento2.setOnClickListener(this);
 			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
+			btnEvento4 = (ImageButton)rootView.findViewById(R.id.btnEvento4);
+			btnEvento4.setOnClickListener(this);
+			btnEvento5 = (ImageButton)rootView.findViewById(R.id.btnEvento5);
+			btnEvento5.setOnClickListener(this);
+			btnEvento6 = (ImageButton)rootView.findViewById(R.id.btnEvento6);
+			btnEvento6.setOnClickListener(this);
 			btnTop10=(ImageButton)rootView.findViewById(R.id.btnTop10);
 			btnTop10.setOnClickListener(this);
 			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
 			btnNight.setOnClickListener(this);
+			ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
+			ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 			
 			if(Usuario.getId()!=0){
 				Banco banco = new Banco(getActivity());
 				usuario = banco.getUsuario(Usuario.getId());
-				imgEvento1 = Evento.associeImagem(usuario.getEventoFavorito1());
-				imgEvento2 = Evento.associeImagem(usuario.getEventoFavorito2());
-				imgEvento3 = Evento.associeImagem(usuario.getEventoFavorito3());
+				Evento.getNomesEventosTelaPrincipal().clear();
+				Evento.retorneListaNomesEventos(usuario.getEventoFavorito1(), usuario.getEventoFavorito2(), usuario.getEventoFavorito3(), ar);
+				imgEvento1 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(0));
+				imgEvento2 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(1));
+				imgEvento3 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(2));
+				imgEvento4 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(3));
+				imgEvento5 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(4));
+				imgEvento6 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(5));
 				
-				btnShows.setImageResource(imgEvento1);
-				btnTeatro.setImageResource(imgEvento2);
+				
+				btnEvento1.setImageResource(imgEvento1);
+				btnEvento2.setImageResource(imgEvento2);
 				btnEvento3.setImageResource(imgEvento3);
+				btnEvento4.setImageResource(imgEvento4);
+				btnEvento5.setImageResource(imgEvento5);
+				btnEvento6.setImageResource(imgEvento6);
 				
 				//btnLogin.setText("Perfil");
 			}else{
-				imgEvento1 = Evento.associeImagem("Show");
-				imgEvento2 = Evento.associeImagem("Teatro");
-				imgEvento3 = Evento.associeImagem("Esporte");
+				Evento.getNomesEventosTelaPrincipal().clear();
+				Evento.retorneListaNomesEventos("Show", "Teatro", "Esporte", ar);
+				imgEvento1 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(0));
+				imgEvento2 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(1));
+				imgEvento3 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(2));
+				imgEvento4 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(3));
+				imgEvento5 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(4));
+				imgEvento6 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(5));
 				
-				btnShows.setImageResource(imgEvento1);
-				btnTeatro.setImageResource(imgEvento2);
+				
+				btnEvento1.setImageResource(imgEvento1);
+				btnEvento2.setImageResource(imgEvento2);
 				btnEvento3.setImageResource(imgEvento3);
+				btnEvento4.setImageResource(imgEvento4);
+				btnEvento5.setImageResource(imgEvento5);
+				btnEvento6.setImageResource(imgEvento6);
+
 			}
 			return rootView;
 		}	
@@ -406,6 +437,19 @@ public class TelaPrincipal extends FragmentActivity implements
 					Evento.setAtual("Esportes");
 					idCorreto = true;
 				}
+				
+				if(idBtn==R.id.btnEvento4){
+					Evento.setAtual("Familia");
+					idCorreto = true;
+					
+				}else if(idBtn==R.id.btnEvento5){
+					Evento.setAtual("Encontro");
+					idCorreto = true;
+					
+				}else if (idBtn==R.id.btnEvento6){
+					Evento.setAtual("Palestra");
+					idCorreto = true;
+				}
 			}else{
 				Banco banco = new Banco(getActivity());
 				Usuario usuario;
@@ -422,6 +466,18 @@ public class TelaPrincipal extends FragmentActivity implements
 				Evento.setAtual(usuario.getEventoFavorito3());
 				idCorreto = true;
 			}
+			if(idBtn==R.id.btnEvento4){
+				Evento.setAtual(Evento.getNomesEventosTelaPrincipal().get(3));
+				idCorreto = true;
+				
+			}else if(idBtn==R.id.btnEvento5){
+				Evento.setAtual(Evento.getNomesEventosTelaPrincipal().get(4));
+				idCorreto = true;
+				
+			}else if (idBtn==R.id.btnEvento6){
+				Evento.setAtual(Evento.getNomesEventosTelaPrincipal().get(5));
+				idCorreto = true;
+				}
 				
 			}
 			if(idCorreto){
