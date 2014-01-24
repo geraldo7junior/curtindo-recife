@@ -6,6 +6,7 @@ import bd.Banco;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -27,6 +28,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	Button btnExcluir;
 	Spinner spCategoriaPerfil1,spCategoriaPerfil2, spCategoriaPerfil3;
 	public Usuario usuario;
+	DialogInterface.OnClickListener dialogClick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,6 +62,44 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		btnExcluir = (Button)findViewById(R.id.btnExcluir);
 		btnExcluir.setOnClickListener(this);
 		
+		dialogClick=new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(which==DialogInterface.BUTTON_POSITIVE){
+					
+					Banco banco = new Banco(TelaPerfilUsuario.this);
+					Evento.getMeusEventos().clear();
+					banco.setMeusEventos(Usuario.getId());
+					for (int i = 0; i < Evento.getMeusEventos().size(); i++) {
+						System.out.println(Evento.getMeusEventos().get(i).getNome()+ " Evento da lista de eventos a ser excluído");
+						banco.excluir(Evento.getMeusEventos().get(i), Usuario.getId());	
+					}
+					banco.excluir(Usuario.getId());
+					Usuario.setId(0);
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(TelaPerfilUsuario.this);
+					
+					builder.setMessage("Usuário excluído com sucesso").setTitle("Exclusão");
+
+					// 3. Get the AlertDialog from create()
+					AlertDialog dialogo = builder.create();
+					dialogo.show();
+					Intent intent=new Intent(TelaPerfilUsuario.this, TelaPrincipal.class);
+					startActivity(intent);
+
+				}
+				if(which==DialogInterface.BUTTON_NEGATIVE){
+					System.out.println("NEGATIVOOOOOOOO");
+				}
+				
+				System.out.println(which);
+				
+				
+			}
+		};
+		
+		
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,26 +112,11 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		View focusView=null;
 		if(v.getId()==R.id.btnExcluir){
-			Banco banco = new Banco(this);
-			Evento.getListaEventos().clear();
-			banco.setMeusEventos(Usuario.getId());
-			for (int i = 0; i < Evento.getListaEventos().size(); i++) {
-				System.out.println(Evento.getListaEventos().get(i).getNome()+ " Evento da lista de eventos a ser excluído");
-				banco.excluir(Evento.getListaEventos().get(i), Usuario.getId());	
-			}
-			banco.excluir(Usuario.getId());
-			Usuario.setId(0);
-			Intent intent=new Intent(this, TelaPrincipal.class);
-			startActivity(intent);
-			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
-			builder.setMessage("Usuário excluído com sucesso").setTitle("Exclusão");
-
-			// 3. Get the AlertDialog from create()
+			builder.setMessage("Tem certeza que irás excluir o perfil?").setTitle("Excluir").setPositiveButton("Sim", dialogClick).setNegativeButton("Não", dialogClick);
 			AlertDialog dialog = builder.create();
-			dialog.show();
-			
+			dialog.show();			
 		}
 		if(v.getId()==R.id.btnEditar){
 			if(txtboxEditarEmail.getText().toString().contains("@") || txtboxEditarEmail.getText().toString().equals("") ){

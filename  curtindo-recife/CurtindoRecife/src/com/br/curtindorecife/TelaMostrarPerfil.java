@@ -19,7 +19,7 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 	
 	TextView txtEmailPerfil, txtNomePerfil, txtEvento1Perfil, txtEvento2Perfil, txtEvento3Perfil, txtDataPerfil, txtMascates,
 	txtEventoDisponivel, txtSexoPerfil;
-	Button btnSair, btnEditar;
+	Button btnEditar;
 	
 
 	@Override
@@ -40,14 +40,16 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		Usuario usuario;
 		usuario=banco.getUsuario(Usuario.getId());
 		
+		int eventDisponiveis=usuario.getMascates()/50;
+		
 		txtNomePerfil.setText(usuario.getNome());
 		txtEmailPerfil.setText(usuario.getEmail());
 		txtEvento1Perfil.setText(usuario.getEventoFavorito1());
 		txtEvento2Perfil.setText(usuario.getEventoFavorito2());
 		txtEvento3Perfil.setText(usuario.getEventoFavorito3());
 		txtDataPerfil.setText(usuario.getDataDeNascimento());
-		txtMascates.setText("20");
-		txtEventoDisponivel.setText("2");
+		txtMascates.setText(Integer.toString(usuario.getMascates()));
+		txtEventoDisponivel.setText(Integer.toString(eventDisponiveis));
 		txtSexoPerfil.setText(usuario.getSexo());
 		
 		
@@ -59,8 +61,6 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		
 		 MenuInflater menuInflater = getMenuInflater();
 		 menuInflater.inflate(R.menu.tela_mostrar_perfil, menu); 
-		btnSair =(Button)findViewById(R.id.btnSairPerfil);
-		btnSair.setOnClickListener(this);
 		btnEditar = (Button)findViewById(R.id.btnEditarPerfil);
 		btnEditar.setOnClickListener(this);
 		return super.onCreateOptionsMenu(menu); 
@@ -84,11 +84,7 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.btnSairPerfil) {
-			Usuario.setId(0);
-			Intent intent = new Intent(TelaMostrarPerfil.this, TelaPrincipal.class);
-			startActivity(intent);
-		}if (v.getId()== R.id.btnEditarPerfil){
+		if (v.getId()== R.id.btnEditarPerfil){
 			Intent intent = new Intent(TelaMostrarPerfil.this, TelaPerfilUsuario.class);
 			startActivity(intent);
 		}

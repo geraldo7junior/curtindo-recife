@@ -102,26 +102,6 @@
         android:text="Eventos favoritos: "
         android:textSize="15dp" />
 
-    <Button
-        android:id="@+id/btnSairPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="22dp"
-        android:text="Sair" />
-
-    <Button
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSairPerfil"
-        android:layout_alignBottom="@+id/btnSairPerfil"
-        android:layout_alignRight="@+id/txtEvento3Perfil"
-        android:background="#EE0000"
-        android:text="Editar"
-        android:textColor="#EEEEEE" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -169,7 +149,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textView7"
-        android:layout_alignRight="@+id/txtEventoDisponivel"
+        android:layout_alignRight="@+id/txtSexoPerfil"
+        android:layout_toRightOf="@+id/txtEvento2Perfil"
         android:text="data" />
+
+    <Button
+        android:id="@+id/btnEditarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtEmailPerfil"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:background="#EE0000"
+        android:text="Editar"
+        android:textColor="#EEEEEE" />
     
 </RelativeLayout>

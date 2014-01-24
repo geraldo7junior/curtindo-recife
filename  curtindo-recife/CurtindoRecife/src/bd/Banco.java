@@ -198,7 +198,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		valores.put("eventoFavorito1", eventoFavorito1);
 		valores.put("eventoFavorito2", eventoFavorito2);
 		valores.put("eventoFavorito3", eventoFavorito3);
-		valores.put("mascates", 100);
+		valores.put("mascates", 150);
 		
 		bancoDados.insert(tabelaUsuarios, null, valores);	
 	}
@@ -367,8 +367,15 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			
 			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
 			bancoDados.execSQL(sqlMeusEventos);
-			Usuario usuario = getUsuario(Usuario.getId());
-			usuario.setMascates(usuario.getMascates()+1);
+			
+			Usuario usuarioQueCurtiu = getUsuario(Usuario.getId());
+			usuarioQueCurtiu.setMascates(usuarioQueCurtiu.getMascates()+1);
+			updateUsuario(usuarioQueCurtiu);
+			
+			/*Usuario usuarioQueCriou = getUsuario(retornaEvento(id).getIdOwner());
+			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()+5);
+			updateUsuario(usuarioQueCriou);*/
+			
 		} catch (Exception erro) {
 			// TODO: handle exception
 			System.out.println(erro);
@@ -509,14 +516,5 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			return false;
 		}
 	}
-	/*public void getTabelaUsuarios() {
-		String [] columns = {"nome", "dataNascimento", "email", "senha", "sexo", "eventoFavorito1", "eventoFavorito2", "eventoFavorito3"};
-		Cursor cursor = bancoDados.query(nomeTabela1, columns, null, null, null, null, null, null);
-		
-		ArrayList<String> result = new ArrayList<String>();
-		
-		for (cursor.moveToFirst(); !cursor.isAfterLast();cursor.moveToNext()){
-			
-		}
-	}*/
+	
 }
