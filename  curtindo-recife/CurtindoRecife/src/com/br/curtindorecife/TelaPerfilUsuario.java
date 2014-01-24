@@ -14,19 +14,20 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class TelaPerfilUsuario extends Activity implements OnClickListener {
-	TextView txtNomeUsuario;
-	TextView txtEmail;
-	EditText txtboxEditarEmail;
+
+	EditText txtboxEditarEmail, txtData;
 	EditText txtboxSenhaAntiga;
 	EditText txtboxNovaSenha1;
 	EditText txtboxNovaSenha2;
 	Button btnEditar;
 	Button btnExcluir;
 	Spinner spCategoriaPerfil1,spCategoriaPerfil2, spCategoriaPerfil3;
+	RadioButton rdbHomem, rdbMulher;
 	public Usuario usuario;
 	DialogInterface.OnClickListener dialogClick;
 	@Override
@@ -43,12 +44,15 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		spCategoriaPerfil2.setAdapter(ar);
 		spCategoriaPerfil3 = (Spinner) findViewById(R.id.spCategoriaPerfil3);
 		spCategoriaPerfil3.setAdapter(ar);
-		txtNomeUsuario= (TextView) findViewById(R.id.txtNomeUsuario);
-		txtEmail= (TextView) findViewById(R.id.txtEmail);
+		rdbHomem = (RadioButton) findViewById(R.id.rbHomem);
+		rdbHomem.setOnClickListener(this);
+		rdbMulher = (RadioButton) findViewById(R.id.rbMulher);
+		rdbMulher.setOnClickListener(this);
+		txtData = (EditText) findViewById(R.id.edtData);
 		
 		
-		txtNomeUsuario.setText(usuario.getNome());
-		txtEmail.setText(usuario.getEmail());
+		
+		
 		spCategoriaPerfil1.setSelection(ar.getPosition(usuario.getEventoFavorito1()));
 		spCategoriaPerfil2.setSelection(ar.getPosition(usuario.getEventoFavorito2()));
 		spCategoriaPerfil3.setSelection(ar.getPosition(usuario.getEventoFavorito3()));
@@ -61,6 +65,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		btnEditar.setOnClickListener(this);
 		btnExcluir = (Button)findViewById(R.id.btnExcluir);
 		btnExcluir.setOnClickListener(this);
+		
 		
 		dialogClick=new DialogInterface.OnClickListener() {
 			
@@ -107,10 +112,20 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		getMenuInflater().inflate(R.menu.tela_perfil_usuario, menu);
 		return true;
 	}
-
+	String sexo ="";
 	@Override
 	public void onClick(View v) {
+		
 		View focusView=null;
+		if(v.getId()==R.id.rbMulher){
+			opcoesRadioButton(rdbMulher);
+			sexo = "Mulher";
+		}if(v.getId()==R.id.rbHomem){
+			opcoesRadioButton(rdbHomem);
+			sexo = "Homem";
+		}
+		System.out.println(sexo);
+		
 		if(v.getId()==R.id.btnExcluir){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
@@ -119,9 +134,10 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 			dialog.show();			
 		}
 		if(v.getId()==R.id.btnEditar){
+			
 			if(txtboxEditarEmail.getText().toString().contains("@") || txtboxEditarEmail.getText().toString().equals("") ){
 				Banco banco=new Banco(this);
-				int retorno=banco.editarUsuario(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), spCategoriaPerfil1.getSelectedItem().toString(), spCategoriaPerfil2.getSelectedItem().toString(), spCategoriaPerfil3.getSelectedItem().toString());
+				int retorno=banco.editarUsuario(txtboxEditarEmail.getText().toString(),txtboxNovaSenha1.getText().toString(), txtboxNovaSenha2.getText().toString(), txtboxSenhaAntiga.getText().toString(), spCategoriaPerfil1.getSelectedItem().toString(), spCategoriaPerfil2.getSelectedItem().toString(), spCategoriaPerfil3.getSelectedItem().toString(),sexo,txtData.getText().toString());
 				if(retorno==0){
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
@@ -191,5 +207,22 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 		
 		
 	}
+	
+public void opcoesRadioButton(View view){
+		
+		boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.rbHomem:
+	            if (checked)
+	            break;
+	        case R.id.rbMulher:
+	            if (checked)
+	            break;
+	    }
+
+	}
+
 
 }

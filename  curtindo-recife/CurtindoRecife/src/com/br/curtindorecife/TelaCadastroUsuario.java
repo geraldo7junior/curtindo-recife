@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 
@@ -105,14 +106,18 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 			eventoFavorito1 ="";
 			eventoFavorito2="";
 			eventoFavorito3="";
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			/*AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 			// 2. Chain together various setter methods to set the dialog characteristics
 			builder.setMessage("Todos os eventos devem ser diferentes, escolha novamente");
 
 			// 3. Get the AlertDialog from create()
 			AlertDialog dialog = builder.create();
-			dialog.show();
+			
+			dialog.show();*/
+			Toast toast = Toast.makeText(getApplicationContext(), "Todos os eventos devem ser diferentes, escolha novamente",Toast.LENGTH_LONG );
+			toast.show();
+			System.out.println(toast.getDuration());
 			validar = false;
 			
 			

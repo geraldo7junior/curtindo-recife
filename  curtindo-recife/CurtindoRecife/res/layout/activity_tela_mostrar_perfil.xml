@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textView7"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/txtData"
         android:layout_marginTop="18dp"
         android:text="evento1" />
 
@@ -93,7 +93,7 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/txtData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView5"

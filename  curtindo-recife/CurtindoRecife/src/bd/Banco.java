@@ -272,7 +272,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		
 	}
 //O método editarUsuario retorna (0)=tudo ok;(1)=email já é de outro usuário;(2)=senha incorreta;(3)senha nova errada/senhaNova1 != senhaNova2 ////////////////// 
-	public int editarUsuario(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+	public int editarUsuario(String email, String senhaNova1, String senhaNova2, String senhaAntiga, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3,String sexo, String data){
 		
 		
 		Usuario usuario = getUsuario(Usuario.getId());
@@ -283,7 +283,12 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		usuario.setEventoFavorito1(eventoFavorito1);
 		usuario.setEventoFavorito2(eventoFavorito2);
 		usuario.setEventoFavorito3(eventoFavorito3);
-		
+		if(!sexo.equals("")){
+		usuario.setSexo(sexo);
+		}
+		if(!data.equals("")){
+			usuario.setDataDeNascimento(data);
+		}
 		if(checarEmailUsuario(email) && !(email.equals(""))){
 			
 			usuario.setEmail(email);
