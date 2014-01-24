@@ -3,6 +3,8 @@ package com.br.curtindorecife;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.br.curtindorecife.R.id;
+
 import dominio.CustomAdapter;
 import dominio.Evento;
 import dominio.Usuario;
@@ -12,6 +14,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -71,8 +75,41 @@ public class TelaCategoriaEvento extends Activity {
 			}
 			
 		});
-    }
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if(Usuario.getId()==0){
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main, menu);
+			
+			
+		}else{
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main_logado, menu);
+		}
+		return super.onCreateOptionsMenu(menu);
+	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	//Realizar um case pelo “Id” dos itens e logo em seguida mostrar uma mensagem ao usuário
+	  switch (item.getItemId())
+	  {     
+	   case id.Cadastrar:
+		   Intent intent = new Intent(this, TelaCadastroUsuario.class);
+		   startActivity(intent);
+	   break;
+	   
+	   case id.sairPontinhos:
+		   Usuario.setId(0);
+		   Intent intentSair = new Intent(this, TelaLogin.class);
+		   startActivity(intentSair);
+		   break;
+	  }
+	   //Retornar a classe pai
+	   return super.onOptionsItemSelected(item);
+	}
     
     private List createEventos(){
     	
@@ -92,12 +129,6 @@ public class TelaCategoriaEvento extends Activity {
         return p;
     }
     
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tela_categoria_evento, menu);
-		return true;
-	}
 	public void getCategoriasEventos(String nomeEvento){
 		String NomeBanco = "CurtindoRecifeDB";
 		SQLiteDatabase BancoDados = null;

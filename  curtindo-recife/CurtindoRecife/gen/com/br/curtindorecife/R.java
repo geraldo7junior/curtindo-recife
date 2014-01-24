@@ -53,7 +53,7 @@ public final class R {
     public static final class id {
         public static final int AbsoluteLayout1=0x7f090056;
         public static final int Cadastrar=0x7f09006d;
-        public static final int action_forgot_password=0x7f090070;
+        public static final int action_forgot_password=0x7f090071;
         public static final int action_settings=0x7f09006c;
         public static final int btnAgenda=0x7f090009;
         public static final int btnCadastrar=0x7f09001b;
@@ -95,8 +95,8 @@ public final class R {
         public static final int login_form=0x7f09002c;
         public static final int login_status=0x7f09002a;
         public static final int login_status_message=0x7f09002b;
-        public static final int menu_delete=0x7f09006e;
-        public static final int menu_edit=0x7f09006f;
+        public static final int menu_delete=0x7f09006f;
+        public static final int menu_edit=0x7f090070;
         public static final int pager=0x7f09000d;
         public static final int pager_title_strip=0x7f090029;
         public static final int password=0x7f09002e;
@@ -106,7 +106,7 @@ public final class R {
         public static final int rbMulher=0x7f090052;
         public static final int rdbHomem=0x7f090021;
         public static final int rdbMulher=0x7f090020;
-        public static final int sairPontinhos=0x7f090071;
+        public static final int sairPontinhos=0x7f09006e;
         public static final int section_label=0x7f090065;
         public static final int spCadastroEvento=0x7f090014;
         public static final int spCategoriaEvento=0x7f090027;
@@ -190,18 +190,19 @@ public final class R {
         public static final int legal=0x7f080000;
         public static final int login=0x7f080001;
         public static final int main=0x7f080002;
-        public static final int tela_agenda=0x7f080003;
-        public static final int tela_cadastro_evento=0x7f080004;
-        public static final int tela_cadastro_usuario=0x7f080005;
-        public static final int tela_categoria_evento=0x7f080006;
-        public static final int tela_esqueci_senha=0x7f080007;
-        public static final int tela_eventos=0x7f080008;
-        public static final int tela_eventos2=0x7f080009;
-        public static final int tela_login=0x7f08000a;
-        public static final int tela_mostrar_perfil=0x7f08000b;
-        public static final int tela_perfil_usuario=0x7f08000c;
-        public static final int tela_prrincipal=0x7f08000d;
-        public static final int teste2=0x7f08000e;
+        public static final int main_logado=0x7f080003;
+        public static final int tela_agenda=0x7f080004;
+        public static final int tela_cadastro_evento=0x7f080005;
+        public static final int tela_cadastro_usuario=0x7f080006;
+        public static final int tela_categoria_evento=0x7f080007;
+        public static final int tela_esqueci_senha=0x7f080008;
+        public static final int tela_eventos=0x7f080009;
+        public static final int tela_eventos2=0x7f08000a;
+        public static final int tela_login=0x7f08000b;
+        public static final int tela_mostrar_perfil=0x7f08000c;
+        public static final int tela_perfil_usuario=0x7f08000d;
+        public static final int tela_prrincipal=0x7f08000e;
+        public static final int teste2=0x7f08000f;
     }
     public static final class string {
         public static final int CadastroDeEvento=0x7f060011;

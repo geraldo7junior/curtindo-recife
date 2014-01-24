@@ -3,6 +3,8 @@ package com.br.curtindorecife;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import com.br.curtindorecife.R.id;
+
 import dominio.Evento;
 import dominio.FragmentEventos;
 import dominio.Usuario;
@@ -22,6 +24,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -80,11 +83,38 @@ public class TelaEventos extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tela_eventos, menu);
-		return true;
+		if(Usuario.getId()==0){
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main, menu);
+			
+			
+		}else{
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main_logado, menu);
+		}
+		return super.onCreateOptionsMenu(menu);
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	//Realizar um case pelo “Id” dos itens e logo em seguida mostrar uma mensagem ao usuário
+	  switch (item.getItemId())
+	  {     
+	   case id.Cadastrar:
+		   Intent intent = new Intent(this, TelaCadastroUsuario.class);
+		   startActivity(intent);
+	   break;
+	   
+	   case id.sairPontinhos:
+		   Usuario.setId(0);
+		   Intent intentSair = new Intent(this, TelaLogin.class);
+		   startActivity(intentSair);
+		   break;
+	  }
+	   //Retornar a classe pai
+	   return super.onOptionsItemSelected(item);
+	}
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.

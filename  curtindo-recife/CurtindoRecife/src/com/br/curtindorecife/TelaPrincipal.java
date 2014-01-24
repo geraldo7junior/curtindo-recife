@@ -117,8 +117,15 @@ public class TelaPrincipal extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater=getMenuInflater();
-		menuInflater.inflate(R.menu.main, menu);
+		if(Usuario.getId()==0){
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main, menu);
+			
+			
+		}else{
+			MenuInflater menuInflater=getMenuInflater();
+			menuInflater.inflate(R.menu.main_logado, menu);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -130,8 +137,14 @@ public class TelaPrincipal extends FragmentActivity implements
 	  {     
 	   case id.Cadastrar:
 		   Intent intent = new Intent(this, TelaCadastroUsuario.class);
-		   startActivity(intent);;
+		   startActivity(intent);
 	   break;
+	   
+	   case id.sairPontinhos:
+		   Usuario.setId(0);
+		   Intent intentSair = new Intent(this, TelaLogin.class);
+		   startActivity(intentSair);
+		   break;
 	  }
 	   //Retornar a classe pai
 	   return super.onOptionsItemSelected(item);
@@ -406,9 +419,24 @@ public class TelaPrincipal extends FragmentActivity implements
 			}
 			
 			if(v.getId() == R.id.btnCadastrarEvento){
-				Evento.setMeusEventosClickados(false);
-				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
-				startActivity(intent);
+				if(Usuario.getId()!=0){
+					Evento.setMeusEventosClickados(false);
+					Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
+					startActivity(intent);
+				}else{
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setMessage("Para criar evento você precesa estar cadastrado").setTitle("Não cadastrado");
+					AlertDialog dialog = builder.create();
+					/*try {
+						dialog.wait(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}*/
+					dialog.show();
+					Intent intent = new Intent(getActivity(),TelaLogin.class);
+					startActivity(intent);
+				}
 			}
 			if(v.getId()== R.id.btnTop10){
 				Evento.setMeusEventosClickados(false);
