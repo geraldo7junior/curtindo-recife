@@ -4,7 +4,7 @@ import java.sql.Date;
 
 //classe que contém todos os atributos de um usuário
 public class Usuario {
-	
+	private int idUnico;
 	private static int idUsuario;
 	private String nome;
 	private String email;
@@ -18,6 +18,12 @@ public class Usuario {
 	private int ranking;
 	
 	
+	public int getIdUnico() {
+		return idUnico;
+	}
+	public void setIdUnico(int idUnico) {
+		this.idUnico = idUnico;
+	}
 	public int getRanking() {
 		return ranking;
 	}

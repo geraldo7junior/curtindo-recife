@@ -83,7 +83,17 @@ public class Evento {
 	private String numero;
 	private String endereco;
 	private boolean curtido=false;
+	private int prioridade;
 	
+	
+	public int getPrioridade() {
+		return prioridade;
+	}
+
+	public void setPrioridade(int prioridade) {
+		this.prioridade = prioridade;
+	}
+
 	public String getNumero() {
 		return numero;
 	}

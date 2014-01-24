@@ -89,7 +89,7 @@ public class Banco{
 			System.out.println(e);
 			return false;
 		}finally{
-			closeBd();			
+			bancoDados.close();			
 		}		
 	}
 /////////////////Método deletar, deleta linha da tabelaMeusEventos...//////// 
@@ -105,7 +105,7 @@ private Boolean deletar(Evento evento, int idUsuario){
 			System.out.println(e);
 			return false;
 		}finally{
-			closeBd();			
+			bancoDados.close();			
 	}		
 	}
 private Boolean deletar(Evento evento){
@@ -120,7 +120,7 @@ private Boolean deletar(Evento evento){
 		System.out.println(e);
 		return false;
 	}finally{
-		closeBd();			
+		bancoDados.close();			
 }		
 }
 ////////////////O MÉTODO exclui o Usuario///////////////	
@@ -199,6 +199,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		valores.put("eventoFavorito2", eventoFavorito2);
 		valores.put("eventoFavorito3", eventoFavorito3);
 		valores.put("mascates", 150);
+		valores.put("ranking", 0);
+		
 		
 		bancoDados.insert(tabelaUsuarios, null, valores);	
 	}
@@ -206,12 +208,12 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 	public void updateUsuario(Usuario usuario){
 		try {
 			openBd();
-			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"', mascates = '"+usuario.getMascates()+"', ranking = '"+usuario.getRanking()+"' WHERE _id LIKE '"+Usuario.getId()+"'";
+			String sqlUpdate = "UPDATE "+tabelaUsuarios+" SET senha = '"+usuario.getSenha()+"', nome = '"+usuario.getNome()+"', email = '"+usuario.getEmail()+"', eventoFavorito1 = '"+usuario.getEventoFavorito1()+"', eventoFavorito2 = '"+usuario.getEventoFavorito2()+"', eventoFavorito3 = '"+usuario.getEventoFavorito3()+"', dataNascimento = '"+usuario.getDataDeNascimento()+"', sexo = '"+usuario.getSexo()+"', mascates = '"+usuario.getMascates()+"', ranking = '"+usuario.getRanking()+"' WHERE _id LIKE '"+usuario.getIdUnico()+"'";
 			bancoDados.execSQL(sqlUpdate);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally{
-			closeBd();
+			bancoDados.close();
 		}
 		
 		
@@ -228,7 +230,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		} catch (Exception erro) {
 			System.out.println(erro);		
 		}finally{
-			closeBd();
+			bancoDados.close();
 		}	
 		return null;
 	}
@@ -248,7 +250,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
-			closeBd();
+			bancoDados.close();
 		}
 		return null;
 	}
@@ -321,7 +323,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
-			closeBd();
+			bancoDados.close();
 		}return null;
 	}
 	public void updateSimbora(int idEvento, int newSimbora) {
@@ -334,8 +336,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			// TODO: handle exception
 			System.out.println(erro);
 		}finally{
-			closeBd();
-		}
+			bancoDados.close();
+			}
 	}
 	
 	private void updateSimboraMeusEventos(int idEvento, int newSimbora) {
@@ -367,20 +369,26 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			
 			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
 			bancoDados.execSQL(sqlMeusEventos);
+
+			System.out.println(Usuario.getId()+" Id antes");
+			
+			Usuario usuarioQueCriou = getUsuario(retornaEvento(id).getIdOwner());
+			System.out.println(usuarioQueCriou.getNome()+" Usuário que criou");
+			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()+5);
+			updateUsuario(usuarioQueCriou);
+			System.out.println(Usuario.getId()+" depois");
 			
 			Usuario usuarioQueCurtiu = getUsuario(Usuario.getId());
 			usuarioQueCurtiu.setMascates(usuarioQueCurtiu.getMascates()+1);
+			System.out.println(usuarioQueCurtiu.getNome()+" Usuário que curtiu");
 			updateUsuario(usuarioQueCurtiu);
 			
-			/*Usuario usuarioQueCriou = getUsuario(retornaEvento(id).getIdOwner());
-			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()+5);
-			updateUsuario(usuarioQueCriou);*/
 			
 		} catch (Exception erro) {
 			// TODO: handle exception
 			System.out.println(erro);
 		}finally{
-			closeBd();
+			bancoDados.close();
 		}
 	}
 ///////////////MÉTODO getUsuario FAZ PESQUISA NO BANCO E RETORNA (OBJETO) DO TIPO (Usuario)////////////////	
@@ -404,6 +412,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			usuario.setSenha((cursor.getString(cursor.getColumnIndex("senha"))));
 			usuario.setMascates(cursor.getInt(cursor.getColumnIndex("mascates")));
 			usuario.setRanking(cursor.getInt(cursor.getColumnIndex("ranking")));
+			usuario.setIdUnico(cursor.getInt(cursor.getColumnIndex("_id")));
 			
 			System.out.println(usuario.getMascates()+" Mascates");
 			return usuario;
@@ -412,7 +421,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			System.out.println(e);
 		}
 		finally{
-			closeBd();
+			bancoDados.close();
 		}
 		
 		return null;
@@ -436,7 +445,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			System.out.println(erro);
 			
 		}finally{
-			closeBd();
+			bancoDados.close();
 		}	
 	}
 	
@@ -460,6 +469,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			evento.setSimboras(cursor2.getInt(cursor2.getColumnIndex("simboras")));
 			evento.setTelefone(cursor2.getString(cursor2.getColumnIndex("telefone")));
 			evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
+			evento.setPrioridade(cursor2.getInt(cursor2.getColumnIndex("prioridade")));
+			
 			if(Usuario.getId()!=0){
 				try{
 					String sqlConsulta = "SELECT idUsuario FROM "+tabelaMeusEventos+" WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
@@ -509,7 +520,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 				return false;
 				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
 			}finally{
-				closeBd();
+				bancoDados.close();
 			}	
 		}
 		else{

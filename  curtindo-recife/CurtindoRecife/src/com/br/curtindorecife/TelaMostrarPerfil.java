@@ -42,7 +42,11 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		
 		int eventDisponiveis=usuario.getMascates()/50;
 		
-		txtNomePerfil.setText(usuario.getNome());
+		if(usuario.getNome().equals("Demis")|| usuario.getNome().equals("demis")){
+			txtNomePerfil.setText("Denis");
+		}else{
+			txtNomePerfil.setText(usuario.getNome());
+		}
 		txtEmailPerfil.setText(usuario.getEmail());
 		txtEvento1Perfil.setText(usuario.getEventoFavorito1());
 		txtEvento2Perfil.setText(usuario.getEventoFavorito2());
