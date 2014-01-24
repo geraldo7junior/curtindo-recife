@@ -81,7 +81,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		//o formato da data é (YYYY-MM-DD)
 		try {
 			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3, mascates, ranking) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"', '100','0')";
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3, mascates, ranking) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"', '150','0')";
 			BancoDados.execSQL(sql);
 		} catch (Exception erro) {
 			// TODO: handle exception
@@ -124,27 +124,16 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		System.out.println(usuario.getEmail());
 		System.out.println(usuario.getSenha());
 		if(usuario.getSenha().length()<=4){
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("A senha deve ter no mínimo 5 caracteres.");
-
-			// 3. Get the AlertDialog from create()
-			AlertDialog dialog = builder.create();
-			dialog.show();
+			txtSenha.setError("A senha deve possuir pelo menos 5 caracteres");
 			validar=false;
 		}
 		
 		if(!usuario.getEmail().contains("@")){
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-			// 2. Chain together various setter methods to set the dialog characteristics
-			builder.setMessage("Endereço de e-mail inválido.");
-
-			// 3. Get the AlertDialog from create()
-			AlertDialog dialog = builder.create();
-			dialog.show();
+			txtEmail.setError("E-mail inválido");
 			validar=false;
+		}
+		if(usuario.getDataDeNascimento().equals("")){
+			txtDataDeNascimento.setError("Campo obrigatório");
 		}
 		if(validar){
 		Cadastrar(nome, dataDeNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2,eventoFavorito3);
