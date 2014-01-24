@@ -1,11 +1,15 @@
 package com.br.curtindorecife;
 
+import com.br.curtindorecife.R.id;
+
 import bd.Banco;
 import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -52,13 +56,30 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tela_mostrar_perfil, menu);
+		
+		 MenuInflater menuInflater = getMenuInflater();
+		 menuInflater.inflate(R.menu.tela_mostrar_perfil, menu); 
 		btnSair =(Button)findViewById(R.id.btnSairPerfil);
 		btnSair.setOnClickListener(this);
 		btnEditar = (Button)findViewById(R.id.btnEditarPerfil);
 		btnEditar.setOnClickListener(this);
-		return true;
+		return super.onCreateOptionsMenu(menu); 
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	//Realizar um case pelo “Id” dos itens e logo em seguida mostrar uma mensagem ao usuário
+	  switch (item.getItemId())
+	  {     
+	   case id.sairPontinhos:
+		   Usuario.setId(0);
+		   Intent intent = new Intent(TelaMostrarPerfil.this, TelaPrincipal.class);
+		   startActivity(intent);;
+	   break;
+	  }
+	   //Retornar a classe pai
+	   return super.onOptionsItemSelected(item);
 	}
 
 	@Override

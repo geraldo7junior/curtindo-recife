@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.br.curtindorecife.R.id;
+
 import dominio.*;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -25,6 +27,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -113,12 +116,25 @@ public class TelaPrincipal extends FragmentActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		
-		return true;
+		MenuInflater menuInflater=getMenuInflater();
+		menuInflater.inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+	//Realizar um case pelo “Id” dos itens e logo em seguida mostrar uma mensagem ao usuário
+	  switch (item.getItemId())
+	  {     
+	   case id.Cadastrar:
+		   Intent intent = new Intent(this, TelaCadastroUsuario.class);
+		   startActivity(intent);;
+	   break;
+	  }
+	   //Retornar a classe pai
+	   return super.onOptionsItemSelected(item);
+	}
 	String NomeBanco = "CurtindoRecifeDB";
 	SQLiteDatabase BancoDados = null;
 	
@@ -467,34 +483,5 @@ public class TelaPrincipal extends FragmentActivity implements
 	    
 		
 	}
-	
-	/*public Integer getMeusEventos(int idUsuario){
-		String NomeBanco = "CurtindoRecifeDB";
-		SQLiteDatabase BancoDados = null;
-		Cursor cursor;
-		try {
-			BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
-			String sql = "SELECT * FROM tabelaEventos WHERE idOwner LIKE '"+idUsuario+"' ";
-			cursor = BancoDados.rawQuery(sql, null);
-			//numEventos=(cursor.getCount());
-			cursor.moveToFirst();
-			for(int i=0;i<cursor.getCount();i++){			
-				Evento.addListaEventos(new Evento(cursor.getString(cursor.getColumnIndex("nome")),cursor.getString(cursor.getColumnIndex("data")),cursor.getString(cursor.getColumnIndex("hora")),cursor.getInt(cursor.getColumnIndex("idImagem")),cursor.getInt(cursor.getColumnIndex("_id")),cursor.getInt(cursor.getColumnIndex("idOwner")),cursor.getString(cursor.getColumnIndex("descricao")),cursor.getString(cursor.getColumnIndex("tipo")),cursor.getString(cursor.getColumnIndex("telefone")),cursor.getInt(cursor.getColumnIndex("simboras")),cursor.getString(cursor.getColumnIndex("preco")),cursor.getString(cursor.getColumnIndex("numero")),cursor.getString(cursor.getColumnIndex("endereco"))));
-				if(i!=cursor.getCount()-1){
-					cursor.moveToNext();
-				}
-				
-			}
-			Evento.ranking();
-			return cursor.getInt(cursor.getPosition());
-		} catch (Exception erro) {
-			System.out.println(erro);
-			return null;
-			// retorna 0 caso o email não seja encontrado ou algum erro no banco.
-		}finally{
-			BancoDados.close();
-		}	
-	}
-*/	
 
 }

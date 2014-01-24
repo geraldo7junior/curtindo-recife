@@ -13,6 +13,7 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -39,6 +40,8 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	Button btnCriar;
 	Spinner spCadastroEvento;
+	DialogInterface dialog;
+	android.content.DialogInterface.OnClickListener dialogClick;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -167,18 +170,27 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 							
 										AlertDialog dialog = builder.create();
 										dialog.show();
+										Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+										startActivity(intent);
 									}else{
+										dialogClick =new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface arg0, int arg1) {
+												Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+												startActivity(intent);
+											}
+										};
 										AlertDialog.Builder builder = new AlertDialog.Builder(this);
 										builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
-										       .setTitle("Falha na criação do evento!");
+										       .setTitle("Falha na criação do evento!").setPositiveButton("OK", dialogClick);
 										AlertDialog dialog = builder.create();
 										dialog.show();
 									}
 									
 									// 3. Get the AlertDialog from create()
 									
-									Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-									startActivity(intent);
+									
 								}
 								else{txtNome.setError("Digite um nome.");}
 
