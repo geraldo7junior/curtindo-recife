@@ -6,6 +6,7 @@ import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,6 +35,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	String sexo="";
 	Spinner spCategorias,spCategorias2,spCategorias3;
 	DateFormat format = DateFormat.getDateInstance();
+	android.content.DialogInterface.OnClickListener dialogClick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -159,15 +161,22 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	
 				// 2. Chain together various setter methods to set the dialog characteristics
 				builder.setMessage("Usuário Cadastrado com Sucesso")
-				       .setTitle("Cadastrado");
+				       .setTitle("Cadastrado").setPositiveButton("OK", dialogClick);
 	
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
 				dialog.show();
-				
+				dialogClick=new android.content.DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						
+						Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
+						startActivity(intent);
+					}
+				};
 				//4.Open new window
-				Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
-				startActivity(intent);
+				
 			}
 		}
 		if(v.getId()==R.id.rdbHomem){

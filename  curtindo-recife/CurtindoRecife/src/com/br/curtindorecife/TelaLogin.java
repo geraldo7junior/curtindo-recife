@@ -8,6 +8,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -57,6 +58,8 @@ public class TelaLogin extends Activity implements OnClickListener{
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	
+	android.content.DialogInterface.OnClickListener dialogClick;
 	
 	Button btnEsqueciSenha;
 	Button btnSemCadastro;
@@ -257,11 +260,17 @@ public class TelaLogin extends Activity implements OnClickListener{
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
 				// 2. Chain together various setter methods to set the dialog characteristics
-				builder.setMessage("Usuário não cadastrado");
+				builder.setMessage("Usuário não cadastrado").setPositiveButton("OK", dialogClick);
 	
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
 				dialog.show();
+				dialogClick=new android.content.DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				};
 				
 				}
 			}

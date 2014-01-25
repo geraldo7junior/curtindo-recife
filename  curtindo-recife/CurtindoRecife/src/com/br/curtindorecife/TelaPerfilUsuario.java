@@ -30,6 +30,7 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 	RadioButton rdbHomem, rdbMulher;
 	public Usuario usuario;
 	DialogInterface.OnClickListener dialogClick;
+	DialogInterface.OnClickListener passarClick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,12 +95,16 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 					startActivity(intent);
 
 				}
-				if(which==DialogInterface.BUTTON_NEGATIVE){
-					System.out.println("NEGATIVOOOOOOOO");
-				}
 				
-				System.out.println(which);
 				
+			}
+		};
+		passarClick=new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent intent=new Intent(TelaPerfilUsuario.this, TelaPrincipal.class);
+				startActivity(intent);
 				
 			}
 		};
@@ -141,14 +146,11 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 				if(retorno==0){
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
-					builder.setMessage("Todos os campos foram alterados com sucesso").setTitle("Campos alterados");
+					builder.setMessage("Todos os campos foram alterados com sucesso").setTitle("Campos alterados").setPositiveButton("OK", passarClick);
 	
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
 					dialog.show();
-					
-					Intent intent=new Intent(this, TelaPrincipal.class);
-					startActivity(intent);
 				}
 				if(retorno==1){
 					/*txtboxEditarEmail.setError("Email já cadastrado");
@@ -156,13 +158,11 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 					focusView.requestFocus();*/
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					
-					builder.setMessage("Campo e-mail e/ou eventos modificados com sucesso").setTitle("Campos alterados");
+					builder.setMessage("Campo e-mail e/ou eventos modificados com sucesso").setTitle("Campos alterados").setPositiveButton("OK", passarClick);
 	
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
 					dialog.show();
-					Intent intent=new Intent(this, TelaPrincipal.class);
-					startActivity(intent);
 				}
 				if(retorno==2){
 					/*txtboxSenhaAntiga.setError("Senha incorreta");
@@ -170,13 +170,11 @@ public class TelaPerfilUsuario extends Activity implements OnClickListener {
 					focusView.requestFocus();*/
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					
-					builder.setMessage("Campo senha e/ou eventos modificados com sucesso").setTitle("Campos alterados");
+					builder.setMessage("Campo senha e/ou eventos modificados com sucesso").setTitle("Campos alterados").setPositiveButton("OK", passarClick);
 	
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
 					dialog.show();
-					Intent intent=new Intent(this, TelaPrincipal.class);
-					startActivity(intent);
 				}
 				if(retorno==3){
 					/*txtboxNovaSenha1.setError("As senhas novas são diferentes");

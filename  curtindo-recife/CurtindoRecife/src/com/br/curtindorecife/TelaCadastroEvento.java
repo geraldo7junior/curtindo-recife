@@ -166,12 +166,18 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 										
 										AlertDialog.Builder builder = new AlertDialog.Builder(this);
 										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-										       .setTitle("Sucesso!");
+										       .setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
 							
 										AlertDialog dialog = builder.create();
 										dialog.show();
-										Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-										startActivity(intent);
+										dialogClick =new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface arg0, int arg1) {
+												Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+												startActivity(intent);
+											}
+										};
 									}else{
 										dialogClick =new DialogInterface.OnClickListener() {
 											
@@ -206,8 +212,15 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
 								dialog.show();
-								Intent intent = new Intent(TelaCadastroEvento.this, TelaLogin.class);
-								startActivity(intent);
+								dialogClick =new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface arg0, int arg1) {
+										Intent intent = new Intent(TelaCadastroEvento.this, TelaLogin.class);
+										startActivity(intent);
+									}
+								};
+								
 							}
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block

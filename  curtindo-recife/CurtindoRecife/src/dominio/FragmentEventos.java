@@ -1,6 +1,7 @@
 package dominio;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public int idOwner;
 		public boolean curtido;
 		public String tipo;
+		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public FragmentEventos() {
@@ -109,15 +111,26 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			return rootView;
 		}
 		
+		
+		
 		@Override
 		public void onClick(View v) {
+			dialogClick = new android.content.DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+					startActivity(intent);
+					
+				}
+			};
 			
 			if(v.getId()==R.id.btnSimbora){
 				if(Usuario.getId()==0){
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Para dar Simbora é preciso estar logado.");
+					builder.setMessage("Para dar Simbora é preciso estar logado.").setPositiveButton("OK", dialogClick);
 
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
@@ -128,14 +141,13 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!");
+					builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
 
 					// 3. Get the AlertDialog from create()
 					AlertDialog dialog = builder.create();
 					dialog.show();
 					
-					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
-					startActivity(intent);
+					
 					}
 				
 			}

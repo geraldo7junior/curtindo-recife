@@ -345,6 +345,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnTop10.setOnClickListener(this);
 			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
 			btnNight.setOnClickListener(this);
+			
+			
 			ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
 			ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 			
@@ -424,8 +426,17 @@ public class TelaPrincipal extends FragmentActivity implements
 					Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
 					startActivity(intent);
 				}else{
+					DialogInterface.OnClickListener dialogClick = new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent intent = new Intent(getActivity(),TelaLogin.class);
+							startActivity(intent);
+							
+						}
+					};
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Para criar evento você precesa estar cadastrado").setTitle("Não cadastrado");
+					builder.setMessage("Para criar evento você precesa estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
 					AlertDialog dialog = builder.create();
 					/*try {
 						dialog.wait(5000);
@@ -434,8 +445,7 @@ public class TelaPrincipal extends FragmentActivity implements
 						e.printStackTrace();
 					}*/
 					dialog.show();
-					Intent intent = new Intent(getActivity(),TelaLogin.class);
-					startActivity(intent);
+					
 				}
 			}
 			if(v.getId()== R.id.btnTop10){
