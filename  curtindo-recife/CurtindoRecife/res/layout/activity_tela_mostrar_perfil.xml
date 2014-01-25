@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/imgEvento3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
         android:layout_alignTop="@+id/imgEvento1"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@+id/btnEditarPerfil"
@@ -47,8 +47,8 @@
 
     <ImageView
         android:id="@+id/imgEvento2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
         android:layout_alignRight="@+id/txtNomePerfil"
         android:layout_alignTop="@+id/imgEvento3"
         android:src="@drawable/imgencontro_50x50" />
@@ -108,23 +108,23 @@
         android:layout_marginBottom="14dp"
         android:src="@drawable/mascates" />
 
-    <TextView
-        android:id="@+id/txtMascate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_marginBottom="15dp"
-        android:layout_toLeftOf="@+id/txtNomePerfil"
-        android:text="valor" />
-
     <ImageView
         android:id="@+id/imgEvento1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
         android:layout_above="@+id/imageView1"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
         android:layout_marginLeft="36dp"
         android:src="@drawable/imgencontro_50x50" />
+
+    <TextView
+        android:id="@+id/txtMascate"
+        android:layout_width="70dip"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginBottom="14dp"
+        android:layout_toLeftOf="@+id/txtEventoDisponivel"
+        android:text="valor" />
 
 </RelativeLayout>
