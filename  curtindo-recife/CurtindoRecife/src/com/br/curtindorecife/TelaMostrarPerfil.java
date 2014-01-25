@@ -3,23 +3,27 @@ package com.br.curtindorecife;
 import com.br.curtindorecife.R.id;
 
 import bd.Banco;
+import dominio.Evento;
 import dominio.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TelaMostrarPerfil extends Activity implements OnClickListener {
 	
-	TextView txtEmailPerfil, txtNomePerfil, txtEvento1Perfil, txtEvento2Perfil, txtEvento3Perfil, txtDataPerfil, txtMascates,
+	TextView txtEmailPerfil, txtNomePerfil, txtDataPerfil, txtMascates,
 	txtEventoDisponivel, txtSexoPerfil;
 	Button btnEditar;
+	ImageView imgEvento1,imgEvento2,imgEvento3;
 	
 
 	@Override
@@ -28,13 +32,13 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_tela_mostrar_perfil);
 		txtEmailPerfil =(TextView) findViewById(R.id.txtEmailPerfil);
 		txtNomePerfil = (TextView) findViewById(R.id.txtNomePerfil);
-		txtEvento1Perfil = (TextView) findViewById(R.id.txtEvento1Perfil);
-		txtEvento2Perfil = (TextView) findViewById(R.id.txtEvento2Perfil);
-		txtEvento3Perfil = (TextView) findViewById(R.id.txtEvento3Perfil);
 		txtDataPerfil = (TextView) findViewById(R.id.txtDataPerfil);
 		txtMascates = (TextView) findViewById(R.id.txtMascate);
 		txtEventoDisponivel = (TextView) findViewById(R.id.txtEventoDisponivel);
 		txtSexoPerfil = (TextView) findViewById(R.id.txtSexoPerfil);
+		imgEvento1 = (ImageView) findViewById(R.id.imgEvento1);
+		imgEvento2 = (ImageView) findViewById(R.id.imgEvento2);
+		imgEvento3 = (ImageView) findViewById(R.id.imgEvento3);
 		
 		Banco banco=new Banco(this);
 		Usuario usuario;
@@ -42,23 +46,25 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		
 		int eventDisponiveis=usuario.getMascates()/50;
 		
-		if(usuario.getNome().equals("Demis")|| usuario.getNome().equals("demis")){
+		if(usuario.getNome().toUpperCase().equals("DEMIS")){
 			txtNomePerfil.setText("Denis");
 		}else{
 			txtNomePerfil.setText(usuario.getNome());
 		}
 		txtEmailPerfil.setText(usuario.getEmail());
-		txtEvento1Perfil.setText(usuario.getEventoFavorito1());
-		txtEvento2Perfil.setText(usuario.getEventoFavorito2());
-		txtEvento3Perfil.setText(usuario.getEventoFavorito3());
 		txtDataPerfil.setText(usuario.getDataDeNascimento());
 		txtMascates.setText(Integer.toString(usuario.getMascates()));
 		txtEventoDisponivel.setText(Integer.toString(eventDisponiveis));
 		txtSexoPerfil.setText(usuario.getSexo());
+		imgEvento1.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito1())));
+		imgEvento2.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito2())));
+		imgEvento3.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito3())));
 		
 		
 		
 	}
+	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

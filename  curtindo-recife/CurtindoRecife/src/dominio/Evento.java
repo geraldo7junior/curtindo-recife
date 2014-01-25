@@ -248,6 +248,30 @@ public class Evento {
 		
 		return imagem;
 	}
+	
+	public static int associeImagemPerfil(String nomeEvento){
+		int imagem=R.drawable.logo_recife;
+		
+		if(nomeEvento.equals(EVENTO_SHOW)){
+			imagem=R.drawable.imgshow_50x50;
+		}
+		if(nomeEvento.equals(EVENTO_ENCONTRO)){
+			imagem=R.drawable.imgencontro_50x50;
+		}
+		if(nomeEvento.equals(EVENTO_PALESTRA)){
+			imagem=R.drawable.imgpalestra_50x50;
+		}
+		if(nomeEvento.equals(EVENTO_ESPORTES)){
+			imagem=R.drawable.imgesportes_50x50;
+		}
+		if(nomeEvento.equals(EVENTO_TEATRO)){
+			imagem=R.drawable.imgteatro_50x50;
+		}
+		if(nomeEvento.equals(EVENTO_FAMILIA)){
+			imagem=R.drawable.imgfamilia_50x50;
+		}
+		return imagem;
+	}
 
 	public static String getAtual() {
 		return atual;

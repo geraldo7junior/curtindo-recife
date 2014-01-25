@@ -29,33 +29,6 @@
         android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/txtEvento2Perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtEvento1Perfil"
-        android:layout_centerHorizontal="true"
-        android:text="evento2" />
-
-    <TextView
-        android:id="@+id/txtEvento3Perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtEvento2Perfil"
-        android:layout_alignBottom="@+id/txtEvento2Perfil"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:text="evento3" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/txtEvento1Perfil"
-        android:layout_marginTop="37dp"
-        android:text="Data de Nascimento:" />
-
-    <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,25 +45,6 @@
         android:layout_below="@+id/textView7"
         android:layout_marginTop="40dp"
         android:text="Eventos disponíveis: " />
-
-    <TextView
-        android:id="@+id/txtEvento1Perfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView7"
-        android:layout_below="@+id/txtData"
-        android:layout_marginTop="18dp"
-        android:text="evento1" />
-
-    <TextView
-        android:id="@+id/txtSexoPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignRight="@+id/txtEvento3Perfil"
-        android:layout_marginRight="18dp"
-        android:text="TextView" />
 
     <TextView
         android:id="@+id/txtData"
@@ -144,15 +98,6 @@
         android:layout_toRightOf="@+id/textView9"
         android:text="valor" />
 
-    <TextView
-        android:id="@+id/txtDataPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView7"
-        android:layout_alignRight="@+id/txtSexoPerfil"
-        android:layout_toRightOf="@+id/txtEvento2Perfil"
-        android:text="data" />
-
     <Button
         android:id="@+id/btnEditarPerfil"
         android:layout_width="wrap_content"
@@ -163,5 +108,55 @@
         android:background="#EE0000"
         android:text="Editar"
         android:textColor="#EEEEEE" />
-    
+
+    <TextView
+        android:id="@+id/txtSexoPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView9"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtDataPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView7"
+        android:layout_alignRight="@+id/textView2"
+        android:text="data" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_centerVertical="true"
+        android:text="Data de Nascimento:" />
+
+    <ImageView
+        android:id="@+id/imgEvento1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtData"
+        android:layout_toLeftOf="@+id/txtMascate"
+        android:src="@drawable/imgencontro_50x50" />
+
+    <ImageView
+        android:id="@+id/imgEvento2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgEvento1"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/imgencontro_50x50" />
+
+    <ImageView
+        android:id="@+id/imgEvento3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtSexoPerfil"
+        android:layout_alignTop="@+id/imgEvento2"
+        android:layout_marginLeft="24dp"
+        android:src="@drawable/imgencontro_50x50" />
+
 </RelativeLayout>
