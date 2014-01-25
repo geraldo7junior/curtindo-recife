@@ -23,7 +23,7 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 	TextView txtEmailPerfil, txtNomePerfil, txtDataPerfil, txtMascates,
 	txtEventoDisponivel, txtSexoPerfil;
 	Button btnEditar;
-	ImageView imgEvento1,imgEvento2,imgEvento3;
+	ImageView imgEvento1,imgEvento2,imgEvento3, imgSexo;
 	
 
 	@Override
@@ -35,10 +35,10 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		txtDataPerfil = (TextView) findViewById(R.id.txtDataPerfil);
 		txtMascates = (TextView) findViewById(R.id.txtMascate);
 		txtEventoDisponivel = (TextView) findViewById(R.id.txtEventoDisponivel);
-		txtSexoPerfil = (TextView) findViewById(R.id.txtSexoPerfil);
 		imgEvento1 = (ImageView) findViewById(R.id.imgEvento1);
 		imgEvento2 = (ImageView) findViewById(R.id.imgEvento2);
 		imgEvento3 = (ImageView) findViewById(R.id.imgEvento3);
+		imgSexo=(ImageView) findViewById(R.id.imgSexo);
 		
 		Banco banco=new Banco(this);
 		Usuario usuario;
@@ -53,12 +53,18 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 		}
 		txtEmailPerfil.setText(usuario.getEmail());
 		txtDataPerfil.setText(usuario.getDataDeNascimento());
-		txtMascates.setText(Integer.toString(usuario.getMascates()));
+		txtMascates.setText("x "+Integer.toString(usuario.getMascates()));
 		txtEventoDisponivel.setText(Integer.toString(eventDisponiveis));
-		txtSexoPerfil.setText(usuario.getSexo());
 		imgEvento1.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito1())));
 		imgEvento2.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito2())));
 		imgEvento3.setImageDrawable(getResources().getDrawable(Evento.associeImagemPerfil(usuario.getEventoFavorito3())));
+		if(usuario.getSexo().equals("Homem")){
+			imgSexo.setBackgroundResource(R.drawable.usuario_homem);
+		}
+		else{
+			imgSexo.setBackgroundResource(R.drawable.usuario_mulher);
+			
+		}
 		
 		
 		
