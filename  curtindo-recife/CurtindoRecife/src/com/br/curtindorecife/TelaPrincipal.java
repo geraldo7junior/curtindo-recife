@@ -436,7 +436,7 @@ public class TelaPrincipal extends FragmentActivity implements
 						}
 					};
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Para criar evento você precisa estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
+					builder.setMessage("Para criar um evento é necessário estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
 					AlertDialog dialog = builder.create();
 
 					dialog.show();
