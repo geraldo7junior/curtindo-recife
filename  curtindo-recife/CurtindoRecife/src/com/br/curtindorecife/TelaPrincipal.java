@@ -436,8 +436,14 @@ public class TelaPrincipal extends FragmentActivity implements
 						}
 					};
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Para criar evento você precesa estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
+					builder.setMessage("Para criar evento você precisa estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
 					AlertDialog dialog = builder.create();
+
+					dialog.show();
+					/*try
+					{	dialog.notify();
+						
+=======
 					try {
 						Thread.sleep(10000);
 						dialog.show();
@@ -448,12 +454,15 @@ public class TelaPrincipal extends FragmentActivity implements
 						e.printStackTrace();
 					}
 					/*try {
+>>>>>>> .r183
 						dialog.wait(5000);
+						Thread thread = new Thread();
+						thread.
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}*/
-					dialog.show();
+					
 					
 				}
 			}
