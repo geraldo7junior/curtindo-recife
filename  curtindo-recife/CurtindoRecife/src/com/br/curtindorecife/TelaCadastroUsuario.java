@@ -156,7 +156,10 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		
 		if(v.getId()==R.id.btnCadastrar){
 			if(cadastrar()){
-
+				///////problema do clique duplo///
+				Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
+				startActivity(intent);
+				
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
 				// 2. Chain together various setter methods to set the dialog characteristics
@@ -171,8 +174,8 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						
-						Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
-						startActivity(intent);
+						/*Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
+						startActivity(intent);*/
 					}
 				};
 				//4.Open new window
