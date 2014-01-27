@@ -35,7 +35,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	String sexo="";
 	Spinner spCategorias,spCategorias2,spCategorias3;
 	DateFormat format = DateFormat.getDateInstance();
-	android.content.DialogInterface.OnClickListener dialogClick;
+	DialogInterface.OnClickListener dialogClick;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -153,12 +153,17 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
-		if(v.getId()==R.id.btnCadastrar){
-			if(cadastrar()){
-				///////problema do clique duplo///
+		dialogClick=new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
 				Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
 				startActivity(intent);
+			}
+		};
+		if(v.getId()==R.id.btnCadastrar){
+			if(cadastrar()){
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	
@@ -169,15 +174,7 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 				// 3. Get the AlertDialog from create()
 				AlertDialog dialog = builder.create();
 				dialog.show();
-				dialogClick=new android.content.DialogInterface.OnClickListener() {
 					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						
-						/*Intent intent = new Intent(TelaCadastroUsuario.this, TelaLogin.class);
-						startActivity(intent);*/
-					}
-				};
 				//4.Open new window
 				
 			}

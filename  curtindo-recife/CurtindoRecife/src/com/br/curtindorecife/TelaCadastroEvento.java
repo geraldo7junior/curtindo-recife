@@ -155,6 +155,14 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 						if (validaTodosCampos()){		
 
 								if (!txtNome.getText().toString().equals("")){
+									dialogClick =new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface arg0, int arg1) {
+											Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+											startActivity(intent);
+										}
+									};
 									
 									Banco banco = new Banco(this);
 									Usuario usuario = banco.getUsuario(Usuario.getId());
@@ -170,14 +178,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 							
 										AlertDialog dialog = builder.create();
 										dialog.show();
-										dialogClick =new DialogInterface.OnClickListener() {
-											
-											@Override
-											public void onClick(DialogInterface arg0, int arg1) {
-												Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-												startActivity(intent);
-											}
-										};
+										
 									}else{
 										dialogClick =new DialogInterface.OnClickListener() {
 											
