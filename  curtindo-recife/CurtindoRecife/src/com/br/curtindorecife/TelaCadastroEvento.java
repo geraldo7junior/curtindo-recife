@@ -166,7 +166,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 									
 									Banco banco = new Banco(this);
 									Usuario usuario = banco.getUsuario(Usuario.getId());
-									
+									if(usuario.getIdUnico()!=1){
 									if(usuario.getMascates()>=50){
 										cadastrarEvento();
 										usuario.setMascates(usuario.getMascates()-50);
@@ -191,6 +191,15 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 										AlertDialog.Builder builder = new AlertDialog.Builder(this);
 										builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
 										       .setTitle("Falha na criação do evento!").setPositiveButton("OK", dialogClick);
+										AlertDialog dialog = builder.create();
+										dialog.show();
+									}
+									}else{
+										cadastrarEvento();
+										AlertDialog.Builder builder = new AlertDialog.Builder(this);
+										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
+										       .setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+							
 										AlertDialog dialog = builder.create();
 										dialog.show();
 									}

@@ -416,6 +416,8 @@ public class TelaPrincipal extends FragmentActivity implements
 					startActivity(intent);
 			}
 			if(v.getId() == R.id.btnAgenda){
+				Evento.setMeusEventosClickados(false);
+				Evento.setAtual("Agenda");
 				Intent intent = new Intent(getActivity(), TelaAgenda.class);
 				startActivity(intent);
 			}
@@ -549,7 +551,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			
 			List EventoList = createEventos();
 	        ArrayAdapter ad = new CustomAdapter(this.getActivity(), R.layout.item, EventoList);
-	        ListView lv = (ListView) rootView.findViewById(R.id.listView1);
+	        ListView lv = (ListView) rootView.findViewById(R.id.listEventoData);
 	        lv.setAdapter(ad);
 	        lv.setOnItemClickListener(new OnItemClickListener() {
 

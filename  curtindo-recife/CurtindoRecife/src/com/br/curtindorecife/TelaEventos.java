@@ -7,6 +7,8 @@ import com.br.curtindorecife.R.id;
 
 import dominio.Evento;
 import dominio.FragmentEventos;
+import dominio.FragmentListaEventos;
+import dominio.Mensagem;
 import dominio.Usuario;
 
 import android.app.AlertDialog;
@@ -37,6 +39,9 @@ import android.widget.Toast;
 public class TelaEventos extends FragmentActivity {
 
 	static int numEventos;
+	String data;
+	int posicao;
+	ArrayList<String> listaDatas = new ArrayList<String>();
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -57,17 +62,33 @@ public class TelaEventos extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_eventos);
-		
+		System.out.println(Evento.getAtual());
 		//Evento.getListaEventos().clear();
 		if(Evento.isMeusEventosClickados()){
 			numEventos=Evento.getMeusEventos().size();
+			Intent intent=getIntent();
+			posicao=intent.getIntExtra("position", 0);
+			System.out.println("entrou no if de meus eventos");
+		}
+		else
+			if(Evento.getAtual().equals("Agenda")){
+			Intent intent = new Intent();
+			data = intent.getStringExtra("extra");
+			numEventos = Mensagem.dias;
+
+			System.out.println("entrou no if de datas");
+			System.out.println(numEventos+" Num eventos");
+			for (int i = 0; i < numEventos; i++) {
+				listaDatas.add(i+1 + data.substring(2,-1));
+			}
+			
 		}
 		else{
 			numEventos=Evento.getListaEventos().size();		
+			Intent intent=getIntent();
+			System.out.println("entrou no if de outros");
+			posicao=intent.getIntExtra("position", 0);
 		}
-		
-		Intent intent=getIntent();
-		int posicao=intent.getIntExtra("position", 0);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -76,7 +97,10 @@ public class TelaEventos extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-		mViewPager.setCurrentItem(posicao);
+		if(!Evento.getAtual().equals("Agenda")){
+			mViewPager.setCurrentItem(posicao);
+		}
+		
 		
 		
 	}
@@ -159,6 +183,9 @@ public class TelaEventos extends FragmentActivity {
 				fragment = new FragmentEventos(Evento.getMeusEventos().get(position));
 				
 			}
+			else if(Evento.getAtual().equals("Agenda")){
+				fragment = new FragmentListaEventos(listaDatas.get(position));
+			}
 			else{
 				fragment = new FragmentEventos(Evento.getListaEventos().get(position));
 			}
@@ -178,6 +205,9 @@ public class TelaEventos extends FragmentActivity {
 		public CharSequence getPageTitle(int position) {
 			if(Evento.isMeusEventosClickados()){
 				return Evento.getMeusEventos().get(position).getNome();
+			}
+			else if(Evento.getAtual().equals("Agenda")){
+				return (position+"/"+data.substring(3,5));
 			}
 			else{
 				return Evento.getListaEventos().get(position).getNome();

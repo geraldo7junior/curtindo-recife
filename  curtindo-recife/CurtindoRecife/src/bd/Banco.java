@@ -502,6 +502,51 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}	
 		return null;
 	}
+	private Evento setEvento(Cursor cursor2){
+		Evento evento = new Evento();
+		evento.setData(cursor2.getString(cursor2.getColumnIndex("data")));
+		evento.setDescricao(cursor2.getString(cursor2.getColumnIndex("descricao")));
+		evento.setEndereco(cursor2.getString(cursor2.getColumnIndex("endereco")));
+		evento.setHora(cursor2.getString(cursor2.getColumnIndex("hora")));
+		evento.setId(cursor2.getInt(cursor2.getColumnIndex("_id")));
+		evento.setIdOwner(cursor2.getInt(cursor2.getColumnIndex("idOwner")));
+		evento.setImage(cursor2.getInt(cursor2.getColumnIndex("idImagem")));
+		evento.setNome(cursor2.getString(cursor2.getColumnIndex("nome")));
+		evento.setNumero(cursor2.getString(cursor2.getColumnIndex("numero")));
+		evento.setPreco(cursor2.getString(cursor2.getColumnIndex("preco")));
+		evento.setSimboras(cursor2.getInt(cursor2.getColumnIndex("simboras")));
+		evento.setTelefone(cursor2.getString(cursor2.getColumnIndex("telefone")));
+		evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
+		evento.setPrioridade(cursor2.getInt(cursor2.getColumnIndex("prioridade")));
+		return evento;
+	}
+	
+	public ArrayList<Evento> ListarEventoPorData(String data){
+		try { openBd();
+			String sql = "SELECT * FROM "+tabelaEventos+" WHERE data LIKE '"+data+"' ";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();			
+			ArrayList<Evento> listaEventosData = new ArrayList<Evento>();
+			if (cursor2.getCount()!=0){
+			for(int i=0;i<cursor2.getCount();i++){			
+				
+				listaEventosData.add(setEvento(cursor2));
+				
+				if(i!=cursor2.getCount()-1){
+					cursor2.moveToNext();
+				}
+			
+			}
+			}
+			return listaEventosData;
+		} catch (Exception erro) {
+			erro.printStackTrace();
+			
+		}finally{
+			closeBd();
+		}return null;
+		
+	}
 	public boolean eventoCurtido(Evento evento){
 		
 		if(Usuario.getId()!=0){

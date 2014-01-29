@@ -13,6 +13,7 @@ public class Mensagem extends AlertDialog implements android.content.DialogInter
 	private Class<?> telaQueVai;
 	private String mensagen;
 	private String tituloMensagem;
+	public static int dias;
 	android.content.DialogInterface.OnClickListener dialogClick;
 	
 	
@@ -57,7 +58,7 @@ public class Mensagem extends AlertDialog implements android.content.DialogInter
 	public void onClick(DialogInterface dialog, int which) {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(getTelaAtual(), getTelaQueVai());
-		
+		getTelaAtual().startActivity(intent);
 	}
 	private void mensagemDeAlerta(String mensagem, String tituloMensagem, Context telaAtual){
 		AlertDialog.Builder builder = new AlertDialog.Builder(telaAtual);

@@ -27,9 +27,16 @@ public class Evento {
 	private static int idEvento;
 	private static String atual;
 	private static boolean meusEventosClickados=false;
-	
+	private static String dia="";
 	private static ArrayList<String> nomesEventosTelaPrincipal=new ArrayList<String>();
 	
+	public static String getDia() {
+		return dia;
+	}
+
+	public static void setDia(String dia) {
+		Evento.dia = dia;
+	}
 	public static ArrayList<String> getNomesEventosTelaPrincipal() {
 		return nomesEventosTelaPrincipal;
 	}
@@ -404,6 +411,8 @@ public class Evento {
 		}
 		
 	}
+
+	
 
 	
 }
