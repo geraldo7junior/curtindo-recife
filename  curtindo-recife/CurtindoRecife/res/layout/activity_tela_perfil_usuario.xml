@@ -2,193 +2,210 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/curtindo_back_dois"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaPerfilUsuario" >
 
-    <EditText
-        android:id="@+id/txtboxEditarEmail"
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    <ScrollView
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+      
+        <TextView
+        android:id="@+id/txtEventoFavorito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtboxSenhaAntiga"
-        android:layout_below="@+id/txtMudarEmail"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="21dp"
+        android:text="@string/eventoFavorito" />
 
-    <Spinner
-        android:id="@+id/spCategoriaPerfil3"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/spCategoriaPerfil2"
-        android:layout_toRightOf="@+id/txtEventoFavorito" />
-
-    <Button
-        android:id="@+id/btnEditar"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+    
+<LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/spCategoriaPerfil2"
-        android:background="#0000EE"
-        android:padding="4dp"
-        android:text="@string/editar"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btnExcluir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnEditar"
-        android:layout_alignBottom="@+id/btnEditar"
-        android:layout_alignRight="@+id/txtMudarEmail"
-        android:background="#EE0000"
-        android:text="Excluir"
-        android:textColor="#FFFFFF" />
+        android:gravity="center" >
 
     <Spinner
         android:id="@+id/spCategoriaPerfil1"
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/spCategoriaPerfil2"
-        android:layout_toLeftOf="@+id/txtEventoFavorito" />
+        android:layout_height="50dp" />
 
     <Spinner
         android:id="@+id/spCategoriaPerfil2"
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/txtEventoFavorito"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="50dp" />
+    
+    <Spinner
+        android:id="@+id/spCategoriaPerfil3"
+        android:layout_width="100dp"
+        android:layout_height="50dp"/>
 
-    <TextView
-        android:id="@+id/txtEventoFavorito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:text="@string/eventoFavorito" />
+      </LinearLayout>
 
     <TextView
         android:id="@+id/txtMudarEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/spCategoriaPerfil1"
-        android:layout_below="@+id/spCategoriaPerfil1"
         android:layout_marginTop="24dp"
         android:text="@string/mudarEmail"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/txtSenhaAntiga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtNovoEmail"
-        android:layout_below="@+id/txtboxEditarEmail"
-        android:text="@string/senhaAntiga"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/txtNovaSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtSenhaAntiga"
-        android:layout_toLeftOf="@+id/txtboxEditarEmail"
-        android:text="@string/novaSenha"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
+    
+    <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+        <TextView
         android:id="@+id/txtNovoEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtboxEditarEmail"
-        android:layout_alignBottom="@+id/txtboxEditarEmail"
-        android:layout_alignParentLeft="true"
         android:text="@string/novoEmail"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp" />
 
-    <EditText
+<EditText
+        android:id="@+id/txtboxEditarEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+<TextView
+        android:id="@+id/txtSenhaAntiga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/senhaAntiga"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="12sp" />
+
+<EditText
         android:id="@+id/txtboxSenhaAntiga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtSenhaAntiga"
-        android:layout_alignBottom="@+id/txtSenhaAntiga"
-        android:layout_alignParentRight="true"
+      android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:ems="10"
         android:inputType="textPassword" />
 
-    <EditText
+<TextView
+        android:id="@+id/txtNovaSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/novaSenha"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+<EditText
         android:id="@+id/txtboxNovaSenha1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNovaSenha"
-        android:layout_alignBottom="@+id/txtNovaSenha"
-        android:layout_alignLeft="@+id/txtboxSenhaAntiga"
+       android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:ems="10"
         android:inputType="textPassword" />
 
-    <TextView
+<TextView
         android:id="@+id/txtNovaSenha2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtNovaSenha"
-        android:layout_toLeftOf="@+id/txtEventoFavorito"
         android:text="@string/confirmarSenha"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp" />
 
-    <EditText
+<EditText
         android:id="@+id/txtboxNovasenha2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNovaSenha2"
-        android:layout_alignBottom="@+id/txtNovaSenha2"
-        android:layout_alignLeft="@+id/txtboxNovaSenha1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:ems="10"
         android:inputType="textPassword" >
 
         <requestFocus />
     </EditText>
 
+<TextView
+        android:id="@+id/txtNovaSenha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmarSenha"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="12sp" />
+
+<EditText
+        android:id="@+id/txtboxNovasenha2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:ems="10"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
+
+<TextView
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data de nascimento: "
+        android:textSize="12sp" />
+
+<EditText
+        android:id="@+id/edtData"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:ems="10"
+        android:inputType="date" />
+    
+        
+</LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
     <RadioButton
         android:id="@+id/rbMulher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnExcluir"
-        android:layout_alignRight="@+id/btnExcluir"
-        android:layout_marginBottom="14dp"
         android:text="Mulher" />
 
     <RadioButton
         android:id="@+id/rbHomem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/rbMulher"
-        android:layout_alignBottom="@+id/rbMulher"
-        android:layout_alignRight="@+id/btnEditar"
         android:text="Homem" />
-
-    <EditText
-        android:id="@+id/edtData"
-        android:layout_width="wrap_content"
+      </LinearLayout>
+      
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtboxNovasenha2"
-        android:layout_below="@+id/txtboxNovasenha2"
-        android:ems="10"
-        android:inputType="date" />
-
-    <TextView
-        android:id="@+id/txtData"
+        android:gravity="center" >
+    
+    <Button
+        android:id="@+id/btnEditar"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/edtData"
-        android:layout_alignBottom="@+id/edtData"
-        android:layout_alignRight="@+id/txtSenhaAntiga"
-        android:text="Data de nascimento: "
-        android:textSize="12sp" />
+        android:layout_height="30dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/editarback"
+        android:padding="4dp" />
+
+    <Button
+        android:id="@+id/btnExcluir"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/excluirback" />
+     </LinearLayout>
+    
+ </LinearLayout>
+ </ScrollView>
+  </LinearLayout>
+
 
 </RelativeLayout>

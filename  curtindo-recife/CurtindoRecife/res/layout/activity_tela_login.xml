@@ -30,28 +30,30 @@
     </LinearLayout>
 
     <!-- Login form -->
-
-    <AbsoluteLayout
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <Button
-            android:id="@+id/entrar"
+        
+        <LinearLayout 
+            android:id="@+id/login_form"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/curtindo_back_dois"
+    android:orientation="vertical" >
+        
+            <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="9dp"
-            android:layout_y="151dp"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:text="@string/entrar" />
+            android:fontFamily="Adobe Caslon Pro"
+             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Login"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FF0000" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_x="1dp"
-            android:layout_y="72dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
@@ -62,8 +64,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_x="4dp"
-            android:layout_y="109dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="@string/senha"
             android:imeActionId="@+id/login"
@@ -72,36 +73,51 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true" />
+        
+            <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/entrar"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/entrarback"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="70dp"
+            android:textColor="#FFFFFF" />   
 
         <Button
             android:id="@+id/entrarFacebook"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="14dp"
-            android:layout_y="202dp"
-            android:background="#0000FF"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/faceback"
             android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:text="@string/entrarFacebook"
+            android:paddingRight="32dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEsqueciSenha"
+            android:layout_width="200dp"
+            android:layout_height="29dp"
+            android:background="#EE0000"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/esqueciSenha"
             android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnSemCadastro"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="197dp"
-            android:layout_height="wrap_content"
-            android:layout_x="12dp"
-            android:layout_y="252dp"
-            android:text="@string/semCadastro" />
-
-        <Button
-            android:id="@+id/btnEsqueciSenha"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_x="14dp"
-            android:layout_y="300dp"
-            android:text="@string/esqueciSenha" />
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="35dp"
+            android:background="@drawable/cadastrarback" />
 
-    </AbsoluteLayout>
+    </LinearLayout>
 
 </merge>

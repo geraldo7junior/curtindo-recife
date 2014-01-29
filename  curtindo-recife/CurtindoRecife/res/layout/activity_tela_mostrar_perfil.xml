@@ -2,129 +2,163 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/curtindo_back_dois"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaMostrarPerfil" >
-
-    <Button
-        android:id="@+id/btnEditarPerfil"
-        android:layout_width="110dip"
+    
+     <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+          <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txtEmailPerfil"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:background="#EE0000"
-        android:text="Editar"
-        android:textColor="#EEEEEE" />
+        android:gravity="center" >
 
-    <ImageView
-        android:id="@+id/imgEvento3"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:layout_alignTop="@+id/imgEvento1"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/btnEditarPerfil"
-        android:src="@drawable/imgencontro_50x50" />
+              <ImageView
+                  android:id="@+id/imgSexo"
+                  android:layout_width="70dip"
+                  android:layout_marginTop="10dip"
+                  android:layout_height="70dip"
+                 />
 
-    <TextView
+          <LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+         
+          <TextView
         android:id="@+id/txtNomePerfil"
         android:layout_width="110dip"
+        android:layout_marginTop="10dp"
+         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/btnEditarPerfil"
-        android:layout_alignTop="@+id/imgSexo"
         android:text="Nome"
         android:textSize="25dp" />
 
     <TextView
         android:id="@+id/txtEmailPerfil"
         android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtData"
-        android:layout_below="@+id/txtNomePerfil"
         android:text="email" />
+    
+     <TextView
+        android:id="@+id/txtDataPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="data" />
 
+    
+         </LinearLayout>
+         
+         </LinearLayout>
+
+   <TextView
+        android:id="@+id/txtData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Eventos favoritos: "
+        android:textSize="15dp" />
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/imgEvento1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+         android:layout_marginTop="10dp"
+         android:layout_marginRight="30dp"
+        android:src="@drawable/imgencontro_50x50" />
+    
     <ImageView
         android:id="@+id/imgEvento2"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:layout_alignRight="@+id/txtNomePerfil"
-        android:layout_alignTop="@+id/imgEvento3"
+        android:layout_marginRight="30dp"
+         android:layout_marginTop="10dp"
         android:src="@drawable/imgencontro_50x50" />
+    
+     <ImageView
+        android:id="@+id/imgEvento3"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+         android:layout_marginTop="10dp"
+        android:src="@drawable/imgencontro_50x50" />
+     
+     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgSexo"
-        android:layout_width="70dip"
-        android:layout_height="70dip"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/imgEvento1"
-        android:layout_marginTop="33dp"
-        />
+    
 
-    <TextView
-        android:id="@+id/txtData"
-        android:layout_width="wrap_content"
+   
+
+    
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imgSexo"
-        android:layout_below="@+id/txtDataPerfil"
-        android:layout_marginTop="32dp"
-        android:text="Eventos favoritos: "
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/txtEventoDisponivel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView9"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/textView9"
-        android:text="valor" />
-
-    <TextView
-        android:id="@+id/txtDataPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgSexo"
-        android:layout_alignLeft="@+id/txtEmailPerfil"
-        android:text="data" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnEditarPerfil"
-        android:layout_alignRight="@+id/txtData"
-        android:layout_marginBottom="27dp"
-        android:text="Eventos disponíveis: " />
+        android:gravity="center" >
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="40dip"
         android:layout_height="54dip"
-        android:layout_above="@+id/textView9"
-        android:layout_alignLeft="@+id/txtData"
-        android:layout_marginBottom="14dp"
+        android:layout_marginTop="15dp"
+         android:layout_marginRight="10dp"
         android:src="@drawable/mascates" />
-
-    <ImageView
-        android:id="@+id/imgEvento1"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:layout_above="@+id/imageView1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
-        android:layout_marginLeft="36dp"
-        android:src="@drawable/imgencontro_50x50" />
+    
 
     <TextView
         android:id="@+id/txtMascate"
         android:layout_width="70dip"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_marginBottom="14dp"
-        android:layout_toLeftOf="@+id/txtEventoDisponivel"
+        android:layout_marginTop="15dp"
         android:text="valor" />
+     </LinearLayout>
+     
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+     
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+         android:layout_marginRight="10dp"
+        android:text="Eventos disponíveis: " />
+    
+    <TextView
+        android:id="@+id/txtEventoDisponivel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="valor" />
+    
+    </LinearLayout>
+    
+    
+
+    <Button
+        android:id="@+id/btnEditarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="30dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/editarback" />
+    
+    </LinearLayout>
 
 </RelativeLayout>
