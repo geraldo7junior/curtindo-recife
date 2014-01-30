@@ -72,14 +72,16 @@ public class TelaEventos extends FragmentActivity {
 		}
 		else
 			if(Evento.getAtual().equals("Agenda")){
-			Intent intent = new Intent();
+			Intent intent = getIntent();
 			data = intent.getStringExtra("extra");
 			numEventos = Mensagem.dias;
 
 			System.out.println("entrou no if de datas");
+			System.out.println(data);
 			System.out.println(numEventos+" Num eventos");
 			for (int i = 0; i < numEventos; i++) {
-				listaDatas.add(i+1 + data.substring(2,-1));
+				listaDatas.add(i+1 + data.substring(2,10));
+				System.out.println(listaDatas.get(i));
 			}
 			
 		}
@@ -99,6 +101,9 @@ public class TelaEventos extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		if(!Evento.getAtual().equals("Agenda")){
 			mViewPager.setCurrentItem(posicao);
+		}
+		if(Evento.getAtual().equals("Agenda")){
+			mViewPager.setCurrentItem(Integer.parseInt(data.substring(0, 2))-1);
 		}
 		
 		
@@ -207,7 +212,7 @@ public class TelaEventos extends FragmentActivity {
 				return Evento.getMeusEventos().get(position).getNome();
 			}
 			else if(Evento.getAtual().equals("Agenda")){
-				return (position+"/"+data.substring(3,5));
+				return ((position+1)+"/"+data.substring(3,5));
 			}
 			else{
 				return Evento.getListaEventos().get(position).getNome();

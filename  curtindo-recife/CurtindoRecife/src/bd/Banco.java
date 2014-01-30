@@ -522,21 +522,22 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 	}
 	
 	public ArrayList<Evento> ListarEventoPorData(String data){
-		try { openBd();
+		try { 
+			openBd();
 			String sql = "SELECT * FROM "+tabelaEventos+" WHERE data LIKE '"+data+"' ";
 			Cursor cursor2 = bancoDados.rawQuery(sql, null);
 			cursor2.moveToFirst();			
 			ArrayList<Evento> listaEventosData = new ArrayList<Evento>();
 			if (cursor2.getCount()!=0){
-			for(int i=0;i<cursor2.getCount();i++){			
+				for(int i=0;i<cursor2.getCount();i++){			
+					
+					listaEventosData.add(setEvento(cursor2));
+					System.out.println(listaEventosData.get(i).getNome());
+					if(i!=cursor2.getCount()-1){
+						cursor2.moveToNext();
+					}
 				
-				listaEventosData.add(setEvento(cursor2));
-				
-				if(i!=cursor2.getCount()-1){
-					cursor2.moveToNext();
 				}
-			
-			}
 			}
 			return listaEventosData;
 		} catch (Exception erro) {

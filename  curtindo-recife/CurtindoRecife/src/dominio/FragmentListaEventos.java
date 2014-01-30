@@ -24,14 +24,15 @@ public class FragmentListaEventos extends Fragment {
 		this.data = data;
 	}
 	
-	Banco banco = new Banco(getActivity());
-	ArrayList<Evento> listaEventosData = banco.ListarEventoPorData(data);
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(
 				R.layout.fragment_lista_eventos, container, false);
+		Banco banco = new Banco(getActivity());
+		ArrayList<Evento> listaEventosData = banco.ListarEventoPorData(data);
 		
 		List EventoList = listaEventosData;
 		
