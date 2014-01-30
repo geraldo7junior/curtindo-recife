@@ -532,7 +532,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 				for(int i=0;i<cursor2.getCount();i++){			
 					
 					listaEventosData.add(setEvento(cursor2));
-					System.out.println(listaEventosData.get(i).getNome());
+					listaEventosData.get(i).setCurtido(eventoCurtido(listaEventosData.get(i)));
+					System.out.println(listaEventosData.get(i).getNome()+" Eventos do listar DAta");
 					if(i!=cursor2.getCount()-1){
 						cursor2.moveToNext();
 					}
@@ -552,11 +553,12 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		
 		if(Usuario.getId()!=0){
 			try {
-				openBd();
 				String sql = "SELECT idUsuario FROM "+tabelaMeusEventos+" WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+Usuario.getId()+"'";
 				Cursor cursor3 = bancoDados.rawQuery(sql, null);
 				cursor3.moveToFirst();
-				System.out.println(cursor3.getInt(cursor.getColumnIndex("idUsuario"))+" ID USUÀRIO");
+				System.out.println(evento.getNome()+" Nome evento evento curtido");
+				System.out.println(cursor3.getCount());
+				System.out.println(cursor3.getInt(cursor3.getColumnIndex("idUsuario"))+" ID USUÀRIO");
 				System.out.println("CRIADOR DO EVENTO "+evento.getIdOwner());
 				System.out.println("Nome do evento: "+evento.getNome());
 				if((Usuario.getId()!=evento.getIdOwner())){
@@ -569,10 +571,8 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			} catch (Exception erro) {
 				System.out.println(erro);
 				return false;
+			}
 				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
-			}finally{
-				bancoDados.close();
-			}	
 		}
 		else{
 			return false;
