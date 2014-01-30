@@ -111,12 +111,12 @@ public class TelaEventos extends FragmentActivity {
 		if(!Evento.getAtual().equals("Agenda")){
 			mViewPager.setCurrentItem(posicao);
 		}
-		if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
+		if(Evento.getAtual().equals("Agenda")){
 			mViewPager.setCurrentItem(Integer.parseInt(data.substring(0, 2))-1);
 		}
-		if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
+		/*if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
 			mViewPager.setCurrentItem(posicao);
-		}
+		}*/
 		
 		
 	}
@@ -204,10 +204,10 @@ public class TelaEventos extends FragmentActivity {
 				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
 					fragment = new FragmentListaEventos(listaDatas.get(position));
 				}
-				else
+				/*else
 				 if(Evento.getAtual().equals("Agenda")&& Mensagem.clickData==true){
 						fragment = new FragmentEventos(Mensagem.listaData.get(position));
-					}
+					}*/
 				else{
 					fragment = new FragmentEventos(Evento.getListaEventos().get(position));
 				}

@@ -16,15 +16,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Spinner;
 
 public class FragmentListaEventos extends Fragment {
 	
 	String data;
 	ArrayList<Evento> listaEventosData;
+	Spinner spCategoriaData;
 	public FragmentListaEventos(String data){
 		this.data = data;
 	}
@@ -36,6 +39,11 @@ public class FragmentListaEventos extends Fragment {
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(
 				R.layout.fragment_lista_eventos, container, false);
+		spCategoriaData = (Spinner) rootView.findViewById(R.id.spCategoriaData);
+		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
+		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+		spCategoriaData.setAdapter(ar);
+		
 		Banco banco = new Banco(getActivity());
 		listaEventosData = banco.ListarEventoPorData(data);
 		
@@ -49,10 +57,10 @@ public class FragmentListaEventos extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intent = new Intent(getActivity(),TelaEventos.class);
+				Intent intent = new Intent(getActivity(),TelaEventosData.class);
 				int position=arg2;
 				System.out.println(position);
-				Mensagem.clickData=true;
+				//Mensagem.clickData=true;
 				Mensagem.listaData.clear();
 				Mensagem.listaData=listaEventosData;
 				intent.putExtra("position", position);
