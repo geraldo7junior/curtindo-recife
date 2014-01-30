@@ -71,7 +71,7 @@ public class TelaEventos extends FragmentActivity {
 			System.out.println("entrou no if de meus eventos");
 		}
 		else
-			if(Evento.getAtual().equals("Agenda")){
+			if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
 			Intent intent = getIntent();
 			data = intent.getStringExtra("extra");
 			numEventos = Mensagem.dias;
@@ -85,12 +85,21 @@ public class TelaEventos extends FragmentActivity {
 			}
 			
 		}
-		else{
-			numEventos=Evento.getListaEventos().size();		
-			Intent intent=getIntent();
-			System.out.println("entrou no if de outros");
-			posicao=intent.getIntExtra("position", 0);
-		}
+			else{
+				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
+					numEventos=Mensagem.listaData.size();
+					Intent intent=getIntent();
+					posicao=intent.getIntExtra("position", 0);
+				}
+				else{
+					numEventos=Evento.getListaEventos().size();		
+					Intent intent=getIntent();
+					System.out.println("entrou no if de outros");
+					posicao=intent.getIntExtra("position", 0);
+				}
+			}
+		
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -102,10 +111,12 @@ public class TelaEventos extends FragmentActivity {
 		if(!Evento.getAtual().equals("Agenda")){
 			mViewPager.setCurrentItem(posicao);
 		}
-		if(Evento.getAtual().equals("Agenda")){
+		if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
 			mViewPager.setCurrentItem(Integer.parseInt(data.substring(0, 2))-1);
 		}
-		
+		if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
+			mViewPager.setCurrentItem(posicao);
+		}
 		
 		
 	}
@@ -188,11 +199,18 @@ public class TelaEventos extends FragmentActivity {
 				fragment = new FragmentEventos(Evento.getMeusEventos().get(position));
 				
 			}
-			else if(Evento.getAtual().equals("Agenda")){
-				fragment = new FragmentListaEventos(listaDatas.get(position));
-			}
-			else{
-				fragment = new FragmentEventos(Evento.getListaEventos().get(position));
+			else{ 
+				
+				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
+					fragment = new FragmentListaEventos(listaDatas.get(position));
+				}
+				else
+				 if(Evento.getAtual().equals("Agenda")&& Mensagem.clickData==true){
+						fragment = new FragmentEventos(Mensagem.listaData.get(position));
+					}
+				else{
+					fragment = new FragmentEventos(Evento.getListaEventos().get(position));
+				}
 			}
 			Bundle args = new Bundle();
 			args.putInt(FragmentEventos.ARG_SECTION_NUMBER, position + 1);
@@ -211,11 +229,17 @@ public class TelaEventos extends FragmentActivity {
 			if(Evento.isMeusEventosClickados()){
 				return Evento.getMeusEventos().get(position).getNome();
 			}
-			else if(Evento.getAtual().equals("Agenda")){
-				return ((position+1)+"/"+data.substring(3,5));
-			}
-			else{
-				return Evento.getListaEventos().get(position).getNome();
+			else{ 
+				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
+					return ((position+1)+"/"+data.substring(3,5));
+				}
+				else
+				 if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
+						return (Mensagem.listaData.get(position).getNome());
+				}
+				else{
+					return Evento.getListaEventos().get(position).getNome();
+				}
 			}
 		}
 	}

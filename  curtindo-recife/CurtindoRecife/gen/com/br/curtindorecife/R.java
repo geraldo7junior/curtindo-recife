@@ -92,10 +92,10 @@ public final class R {
         public static final int btnEvento6=0x7f09005c;
         public static final int btnExcluir=0x7f090052;
         public static final int btnLogin=0x7f09000c;
-        public static final int btnMapa=0x7f090062;
+        public static final int btnMapa=0x7f090063;
         public static final int btnNight=0x7f090058;
         public static final int btnSemCadastro=0x7f090032;
-        public static final int btnSimbora=0x7f090063;
+        public static final int btnSimbora=0x7f090064;
         public static final int btnTop10=0x7f090057;
         public static final int cadastroEmail=0x7f09001e;
         public static final int cadastroNascimento=0x7f090024;
@@ -109,7 +109,7 @@ public final class R {
         public static final int horizontalScrollView1=0x7f090059;
         public static final int image=0x7f090065;
         public static final int imageView1=0x7f09003b;
-        public static final int imgEvento=0x7f09005e;
+        public static final int imgEvento=0x7f09005f;
         public static final int imgEvento1=0x7f090038;
         public static final int imgEvento2=0x7f090039;
         public static final int imgEvento3=0x7f09003a;
@@ -127,14 +127,14 @@ public final class R {
         public static final int pager_title_strip=0x7f09002a;
         public static final int password=0x7f09002e;
         public static final int radioGroup1=0x7f09001f;
-        public static final int ratingBar1=0x7f090060;
+        public static final int ratingBar1=0x7f090061;
         public static final int rbHomem=0x7f090050;
         public static final int rbMulher=0x7f09004f;
         public static final int rdbHomem=0x7f090021;
         public static final int rdbMulher=0x7f090020;
         public static final int sairPontinhos=0x7f09006d;
         public static final int scrollView1=0x7f090040;
-        public static final int section_label=0x7f090064;
+        public static final int section_label=0x7f09005e;
         public static final int spCadastroEvento=0x7f090014;
         public static final int spCategoriaPerfil1=0x7f090042;
         public static final int spCategoriaPerfil2=0x7f090043;
@@ -178,9 +178,9 @@ public final class R {
         public static final int txtPreco=0x7f090018;
         public static final int txtSenhaAntiga=0x7f090048;
         public static final int txtTelefone=0x7f090019;
-        public static final int txtTelefoneEvento=0x7f090061;
+        public static final int txtTelefoneEvento=0x7f090062;
         public static final int txtTitulo=0x7f090013;
-        public static final int txtTituloEvento=0x7f09005f;
+        public static final int txtTituloEvento=0x7f090060;
         public static final int txtboxEditarEmail=0x7f090047;
         public static final int txtboxNovaSenha1=0x7f09004b;
         public static final int txtboxNovasenha2=0x7f09004d;
@@ -195,17 +195,19 @@ public final class R {
         public static final int activity_tela_categoria_evento=0x7f030005;
         public static final int activity_tela_esqueci_senha=0x7f030006;
         public static final int activity_tela_eventos=0x7f030007;
-        public static final int activity_tela_login=0x7f030008;
-        public static final int activity_tela_mostrar_perfil=0x7f030009;
-        public static final int activity_tela_perfil_usuario=0x7f03000a;
-        public static final int activity_tela_prrincipal=0x7f03000b;
-        public static final int activity_teste2=0x7f03000c;
-        public static final int fragment_lista_eventos=0x7f03000d;
-        public static final int fragment_main_dummy=0x7f03000e;
-        public static final int fragment_meus_eventos=0x7f03000f;
-        public static final int fragment_tela_eventos_dummy=0x7f030010;
-        public static final int fragment_tela_prrincipal_dummy=0x7f030011;
-        public static final int item=0x7f030012;
+        public static final int activity_tela_eventos_data=0x7f030008;
+        public static final int activity_tela_login=0x7f030009;
+        public static final int activity_tela_mostrar_perfil=0x7f03000a;
+        public static final int activity_tela_perfil_usuario=0x7f03000b;
+        public static final int activity_tela_prrincipal=0x7f03000c;
+        public static final int activity_teste2=0x7f03000d;
+        public static final int fragment_lista_eventos=0x7f03000e;
+        public static final int fragment_main_dummy=0x7f03000f;
+        public static final int fragment_meus_eventos=0x7f030010;
+        public static final int fragment_tela_eventos_data_dummy=0x7f030011;
+        public static final int fragment_tela_eventos_dummy=0x7f030012;
+        public static final int fragment_tela_prrincipal_dummy=0x7f030013;
+        public static final int item=0x7f030014;
     }
     public static final class menu {
         public static final int legal=0x7f080000;
@@ -219,18 +221,19 @@ public final class R {
         public static final int tela_esqueci_senha=0x7f080008;
         public static final int tela_eventos=0x7f080009;
         public static final int tela_eventos2=0x7f08000a;
-        public static final int tela_login=0x7f08000b;
-        public static final int tela_mostrar_perfil=0x7f08000c;
-        public static final int tela_perfil_usuario=0x7f08000d;
-        public static final int tela_prrincipal=0x7f08000e;
-        public static final int teste2=0x7f08000f;
+        public static final int tela_eventos_data=0x7f08000b;
+        public static final int tela_login=0x7f08000c;
+        public static final int tela_mostrar_perfil=0x7f08000d;
+        public static final int tela_perfil_usuario=0x7f08000e;
+        public static final int tela_prrincipal=0x7f08000f;
+        public static final int teste2=0x7f080010;
     }
     public static final class string {
         public static final int CadastroDeEvento=0x7f060011;
-        public static final int action_forgot_password=0x7f060041;
+        public static final int action_forgot_password=0x7f060042;
         public static final int action_settings=0x7f060001;
-        public static final int action_sign_in_register=0x7f06003f;
-        public static final int action_sign_in_short=0x7f060040;
+        public static final int action_sign_in_register=0x7f060040;
+        public static final int action_sign_in_short=0x7f060041;
         public static final int app_name=0x7f060000;
         public static final int btData=0x7f06002a;
         public static final int cadastrar=0x7f060028;
@@ -245,10 +248,10 @@ public final class R {
         public static final int endereco=0x7f060012;
         public static final int entrar=0x7f060008;
         public static final int entrarFacebook=0x7f06001b;
-        public static final int error_field_required=0x7f060046;
-        public static final int error_incorrect_password=0x7f060045;
-        public static final int error_invalid_email=0x7f060043;
-        public static final int error_invalid_password=0x7f060044;
+        public static final int error_field_required=0x7f060047;
+        public static final int error_incorrect_password=0x7f060046;
+        public static final int error_invalid_email=0x7f060044;
+        public static final int error_invalid_password=0x7f060045;
         public static final int esqueciSenha=0x7f06001f;
         public static final int evento=0x7f060032;
         public static final int eventoFavorito=0x7f060031;
@@ -256,7 +259,7 @@ public final class R {
         public static final int homem=0x7f060026;
         public static final int hora=0x7f060015;
         public static final int informeEmailCadastrado=0x7f060021;
-        public static final int login_progress_signing_in=0x7f060042;
+        public static final int login_progress_signing_in=0x7f060043;
         public static final int mapa=0x7f06000d;
         public static final int menu_delete=0x7f06001c;
         public static final int meus_eventos=0x7f060029;
@@ -268,8 +271,8 @@ public final class R {
         public static final int novoEmail=0x7f060038;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f06003d;
-        public static final int prompt_password=0x7f06003e;
+        public static final int prompt_email=0x7f06003e;
+        public static final int prompt_password=0x7f06003f;
         public static final int recuperarSenha=0x7f060022;
         public static final int sair=0x7f06003a;
         public static final int semCadastro=0x7f06001a;
@@ -285,8 +288,9 @@ public final class R {
         public static final int title_activity_tela_esqueci_senha=0x7f060020;
         public static final int title_activity_tela_eventos=0x7f060004;
         public static final int title_activity_tela_eventos2=0x7f060017;
+        public static final int title_activity_tela_eventos_data=0x7f06003c;
         public static final int title_activity_tela_home=0x7f06001d;
-        public static final int title_activity_tela_login=0x7f06003c;
+        public static final int title_activity_tela_login=0x7f06003d;
         public static final int title_activity_tela_mostrar_perfil=0x7f06003b;
         public static final int title_activity_tela_perfil_usuario=0x7f060030;
         public static final int title_activity_tela_prrincipal=0x7f060009;

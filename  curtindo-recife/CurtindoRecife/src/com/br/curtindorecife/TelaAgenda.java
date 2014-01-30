@@ -65,6 +65,9 @@ public class TelaAgenda extends Activity {
 			@Override
 			public void onSelectedDayChange(CalendarView cal, int arg1, int arg2,
 					int arg3) {
+
+				
+				Mensagem.clickData=false;
 				System.out.println(arg3+"/"+(arg2+1)+"/"+arg1);
 				String dia, mes;
 				if(arg3<10){

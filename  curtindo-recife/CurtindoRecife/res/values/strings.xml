@@ -61,5 +61,6 @@
     <string name="editar">Editar</string>
     <string name="sair">Sair</string>
     <string name="title_activity_tela_mostrar_perfil">TelaMostrarPerfil</string>
+    <string name="title_activity_tela_eventos_data">TelaEventosData</string>
 
 </resources>

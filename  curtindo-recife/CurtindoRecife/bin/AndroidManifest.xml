@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.br.curtindorecife.TelaPrincipal"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,60 +24,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaEventos"
-            android:label="@string/title_activity_tela_eventos" >
+            android:label="@string/title_activity_tela_eventos"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaLogin"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaAgenda"
-            android:label="@string/title_activity_tela_agenda" >
+            android:label="@string/title_activity_tela_agenda"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaCadastroEvento"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.Teste2"
-            android:label="@string/title_activity_teste2" >
+            android:label="@string/title_activity_teste2"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaEsqueciSenha"
-            android:label="@string/title_activity_tela_esqueci_senha" >
+            android:label="@string/title_activity_tela_esqueci_senha"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaCadastroUsuario"
-            android:label="@string/title_activity_tela_cadastro_usuario" >
+            android:label="@string/title_activity_tela_cadastro_usuario"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaCategoriaEvento"
-            android:label="@string/title_activity_tela_categoria_evento" >
+            android:label="@string/title_activity_tela_categoria_evento"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaPerfilUsuario"
-            android:label="@string/title_activity_tela_perfil_usuario" >
+            android:label="@string/title_activity_tela_perfil_usuario"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name="com.br.curtindorecife.TelaMostrarPerfil"
-            android:label="@string/title_activity_tela_mostrar_perfil" >
+            android:label="@string/title_activity_tela_mostrar_perfil"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaEventosData"
+            android:label="@string/title_activity_tela_eventos_data" >
         </activity>
     </application>
 

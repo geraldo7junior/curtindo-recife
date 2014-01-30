@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.ArrayList;
+
 import com.br.curtindorecife.TelaCadastroEvento;
 import com.br.curtindorecife.TelaPrincipal;
 
@@ -14,6 +16,8 @@ public class Mensagem extends AlertDialog implements android.content.DialogInter
 	private String mensagen;
 	private String tituloMensagem;
 	public static int dias;
+	public static boolean clickData=false;
+	public static ArrayList<Evento>listaData=new ArrayList<Evento>();
 	android.content.DialogInterface.OnClickListener dialogClick;
 	
 	
