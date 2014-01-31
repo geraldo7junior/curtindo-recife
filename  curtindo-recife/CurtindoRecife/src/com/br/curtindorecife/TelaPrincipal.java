@@ -103,6 +103,7 @@ public class TelaPrincipal extends FragmentActivity implements
 					}
 				});
 
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -113,6 +114,7 @@ public class TelaPrincipal extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		mViewPager.setCurrentItem(1);
 	}
 
 	@Override
@@ -257,10 +259,15 @@ public class TelaPrincipal extends FragmentActivity implements
 			Fragment fragment = new DummySectionFragment();
 			Bundle args = new Bundle();
 			if(position==0){
-				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-				fragment.setArguments(args);
+				fragment=new FragmentEstabelecimentosPrincipal();
+				
 			}
 			if(position==1){
+				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+				fragment.setArguments(args);
+				
+			}
+			if(position==2){
 				fragment=new SectionFragment();
 			}
 			
@@ -270,7 +277,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -278,8 +285,10 @@ public class TelaPrincipal extends FragmentActivity implements
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return ("Menu").toUpperCase(l);
+				return ("Locais").toUpperCase(l);
 			case 1:
+				return ("Menu").toUpperCase(l);
+			case 2:
 				return ("Meus Eventos").toUpperCase(l);
 			}
 			return null;
@@ -323,15 +332,15 @@ public class TelaPrincipal extends FragmentActivity implements
 			txtEvento1 = (TextView)rootView.findViewById(R.id.txtEvento1);
 			txtEvento2 = (TextView)rootView.findViewById(R.id.txtEvento2);
 			txtEvento3 = (TextView)rootView.findViewById(R.id.txtEvento3);
-			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEvento);
+			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEstabelecimento);
 			btnCadastarEvento.setOnClickListener(this);
 			btnLogin = (ImageButton)rootView.findViewById(R.id.btnLogin);
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
-			btnEvento1 = (ImageButton)rootView.findViewById(R.id.btnEvento1);
+			btnEvento1 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento1);
 			btnEvento1.setOnClickListener(this);
-			btnEvento2 = (ImageButton)rootView.findViewById(R.id.btnEvento2);
+			btnEvento2 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento2);
 			btnEvento2.setOnClickListener(this);
 			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
@@ -343,7 +352,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnEvento6.setOnClickListener(this);
 			btnTop10=(ImageButton)rootView.findViewById(R.id.btnTop10);
 			btnTop10.setOnClickListener(this);
-			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
+			btnNight=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimentos);
 			btnNight.setOnClickListener(this);
 			
 			
@@ -409,7 +418,7 @@ public class TelaPrincipal extends FragmentActivity implements
 					
 				}
 			
-			if(v.getId()== R.id.btnNight){
+			if(v.getId()== R.id.btnNightEstabelecimentos){
 					Evento.setMeusEventosClickados(false);
 					Evento.setAtual("Night");
 					Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
@@ -422,7 +431,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				startActivity(intent);
 			}
 			
-			if(v.getId() == R.id.btnCadastrarEvento){
+			if(v.getId() == R.id.btnCadastrarEstabelecimento){
 				if(Usuario.getId()!=0){
 					Evento.setMeusEventosClickados(false);
 					Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
@@ -462,11 +471,11 @@ public class TelaPrincipal extends FragmentActivity implements
 		public void direcionarBtn(int idBtn){
 			boolean idCorreto = false;
 			if(Usuario.getId() == 0){
-				if(idBtn==R.id.btnEvento1){
+				if(idBtn==R.id.btnEstabelecimento1){
 					Evento.setAtual("Show");
 					idCorreto = true;
 					
-				}else if(idBtn==R.id.btnEvento2){
+				}else if(idBtn==R.id.btnEstabelecimento2){
 					Evento.setAtual("Teatro");
 					idCorreto = true;
 					
@@ -491,11 +500,11 @@ public class TelaPrincipal extends FragmentActivity implements
 				Banco banco = new Banco(getActivity());
 				Usuario usuario;
 				usuario = banco.getUsuario(Usuario.getId());
-			if(idBtn==R.id.btnEvento1){
+			if(idBtn==R.id.btnEstabelecimento1){
 				Evento.setAtual(usuario.getEventoFavorito1());
 				idCorreto = true;
 				
-			}else if(idBtn==R.id.btnEvento2){
+			}else if(idBtn==R.id.btnEstabelecimento2){
 				Evento.setAtual(usuario.getEventoFavorito2());
 				idCorreto = true;
 				

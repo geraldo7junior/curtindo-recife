@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/curtindo_back"
-    tools:context=".TelaPrincipal"
+    tools:context=".FragmentEstabelecimentosPrincipal"
     android:orientation="vertical" >
     
     <LinearLayout
@@ -37,8 +37,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center" >
-    
-    <ImageButton
+        
+          <ImageButton
         android:id="@+id/btnTop10"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="100dp"
@@ -81,25 +81,25 @@
                     android:layout_height="150dp"
                     android:src="@drawable/imgteatro" />
                 <ImageButton
-                    android:id="@+id/btnEvento3"
+                    android:id="@+id/btnEstabelecimento3"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/imgesportes" />
                 <ImageButton
-                    android:id="@+id/btnEvento4"
+                    android:id="@+id/btnEstabelecimento4"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/imgshow" />
                 <ImageButton
-                    android:id="@+id/btnEvento5"
+                    android:id="@+id/btnEstabelecimento5"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/imgteatro" />
                 <ImageButton
-                    android:id="@+id/btnEvento6"
+                    android:id="@+id/btnEstabelecimento6"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"

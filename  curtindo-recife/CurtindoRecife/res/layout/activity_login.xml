@@ -12,7 +12,7 @@
     tools:context=".TelaPrincipal" >
 
     <ImageButton
-        android:id="@+id/btnEvento1"
+        android:id="@+id/btnEstabelecimento1"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="38dp"
@@ -45,7 +45,7 @@
         android:src="@drawable/cinema" />
 
     <ImageButton
-        android:id="@+id/btnEvento2"
+        android:id="@+id/btnEstabelecimento2"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_x="152dp"
@@ -97,7 +97,7 @@
         android:textSize="14sp" />
 
     <Button
-        android:id="@+id/btnCadastrarEvento"
+        android:id="@+id/btnCadastrarEstabelecimento"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_x="11dp"
