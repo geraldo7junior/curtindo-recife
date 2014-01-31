@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorias2">
+        <item>Todos</item>
+        <item >Show</item>
+        <item>Esporte</item>
+        <item>Teatro</item>
+        <item>Palestra</item>
+        <item>Encontro</item>
+        <item>Familia</item>
+        
+    </string-array>
+    
+</resources>

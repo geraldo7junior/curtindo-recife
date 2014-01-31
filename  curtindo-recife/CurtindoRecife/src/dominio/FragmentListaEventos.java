@@ -45,7 +45,7 @@ public class FragmentListaEventos extends Fragment {
 				R.layout.fragment_lista_eventos, container, false);
 		
 		spCategoriaData = (Spinner) rootView.findViewById(R.id.spCategoriaData);
-		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
+		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias2,android.R.layout.simple_list_item_1);
 		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spCategoriaData.setAdapter(ar);
 		System.out.println(position+" POSITION");
@@ -77,7 +77,10 @@ public class FragmentListaEventos extends Fragment {
 		}
 		
 		Banco banco = new Banco(getActivity());
-		if(spCategoriaData.getSelectedItem().toString().equals(spCategoriaData.getItemAtPosition(position).toString())){
+		if(spCategoriaData.getSelectedItem().toString().equals("Todos")){
+			listaEventosData = banco.ListarEventoPorData(data);
+		}
+		else if(spCategoriaData.getSelectedItem().toString().equals(spCategoriaData.getItemAtPosition(position).toString())){
 			listaEventosData = banco.ListarEventoPorData(data,spCategoriaData.getItemAtPosition(position).toString());
 		}
 		
