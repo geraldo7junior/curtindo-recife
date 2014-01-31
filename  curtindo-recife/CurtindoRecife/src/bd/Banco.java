@@ -549,6 +549,35 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}return null;
 		
 	}
+	
+	public ArrayList<Evento> ListarEventoPorData(String data,String tipo){
+		try { 
+			openBd();
+			String sql = "SELECT * FROM "+tabelaEventos+" WHERE data LIKE '"+data+"' AND tipo LIKE '"+tipo+"'";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();			
+			ArrayList<Evento> listaEventosData = new ArrayList<Evento>();
+			if (cursor2.getCount()!=0){
+				for(int i=0;i<cursor2.getCount();i++){			
+					
+					listaEventosData.add(setEvento(cursor2));
+					listaEventosData.get(i).setCurtido(eventoCurtido(listaEventosData.get(i)));
+					System.out.println(listaEventosData.get(i).getNome()+" Eventos do listar DAta");
+					if(i!=cursor2.getCount()-1){
+						cursor2.moveToNext();
+					}
+				
+				}
+			}
+			return listaEventosData;
+		} catch (Exception erro) {
+			erro.printStackTrace();
+			
+		}finally{
+			closeBd();
+		}return null;
+		
+	}
 	public boolean eventoCurtido(Evento evento){
 		
 		if(Usuario.getId()!=0){
