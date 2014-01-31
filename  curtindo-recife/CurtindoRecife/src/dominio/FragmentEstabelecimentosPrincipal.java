@@ -32,10 +32,8 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 	ImageButton btnEstabelecimento2;
 	ImageButton btnEstabelecimento3;
 	ImageButton btnEstabelecimento4;
-	ImageButton btnEstabelecimento5;
-	ImageButton btnEstabelecimento6;
 	Usuario usuario;
-	int imgEstabelecimento1, imgEstabelecimento2, imgEstabelecimento3,imgEstabelecimento4, imgEstabelecimento5, imgEstabelecimento6;
+	int imgEstabelecimento1, imgEstabelecimento2, imgEstabelecimento3,imgEstabelecimento4;
 	ImageButton btnTop10;
 	ImageButton btnNight;
 	public static final String ARG_SECTION_NUMBER = "section_number";
@@ -61,10 +59,6 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		btnEstabelecimento3.setOnClickListener(this);
 		btnEstabelecimento4 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento4);
 		btnEstabelecimento4.setOnClickListener(this);
-		btnEstabelecimento5 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento5);
-		btnEstabelecimento5.setOnClickListener(this);
-		btnEstabelecimento6 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento6);
-		btnEstabelecimento6.setOnClickListener(this);
 		btnNight=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimentos);
 		btnNight.setOnClickListener(this);
 		
@@ -80,16 +74,13 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			imgEstabelecimento2 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(1));
 			imgEstabelecimento3 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(2));
 			imgEstabelecimento4 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(3));
-			imgEstabelecimento5 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(4));
-			imgEstabelecimento6 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(5));
+
 			
 			
 			btnEstabelecimento1.setImageResource(imgEstabelecimento1);
 			btnEstabelecimento2.setImageResource(imgEstabelecimento2);
 			btnEstabelecimento3.setImageResource(imgEstabelecimento3);
 			btnEstabelecimento4.setImageResource(imgEstabelecimento4);
-			btnEstabelecimento5.setImageResource(imgEstabelecimento5);
-			btnEstabelecimento6.setImageResource(imgEstabelecimento6);
 			
 			//btnLogin.setText("Perfil");
 		/*}*//*else{

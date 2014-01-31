@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.ArrayList;
+
 import android.database.Cursor;
 
 public class Estabelecimento {
@@ -8,16 +10,16 @@ public class Estabelecimento {
 	}
 	
 	public Estabelecimento(Cursor cursor){
-		setId(cursor.getInt(cursor.getColumnIndex("id")));
+		setId(cursor.getInt(cursor.getColumnIndex("_id")));
 		setIdOwner(cursor.getInt(cursor.getColumnIndex("idOwner")));
-		setImage(cursor.getInt(cursor.getColumnIndex("image")));
+		setImage(cursor.getInt(cursor.getColumnIndex("idImagem")));
 		setNome(cursor.getString(cursor.getColumnIndex("nome")));
 		setData(cursor.getString(cursor.getColumnIndex("data")));
 		setHoraInicio(cursor.getString(cursor.getColumnIndex("horaInicio")));
 		setHoraTermino(cursor.getString(cursor.getColumnIndex("horaTermino")));
 		setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
 		setTipo(cursor.getString(cursor.getColumnIndex("tipo")));
-		setCnpj(cursor.getString(cursor.getColumnIndex("cnpj")));
+		setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
 		setSimboras(cursor.getInt(cursor.getColumnIndex("simboras")));
 		setPreco(cursor.getString(cursor.getColumnIndex("preco")));
 		setNumero(cursor.getString(cursor.getColumnIndex("numero")));
@@ -60,12 +62,25 @@ public class Estabelecimento {
 	private String numero;
 	private String endereco;
 	private int prioridade;
+	private String telefone;
 	private static String atual;
+	private static ArrayList<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
 	
 	
 	
 	
 	
+	
+	
+	public static ArrayList<Estabelecimento> getListaEstabelecimento() {
+		return listaEstabelecimento;
+	}
+
+	public static void setListaEstabelecimento(
+			ArrayList<Estabelecimento> listaEstabelecimento) {
+		Estabelecimento.listaEstabelecimento = listaEstabelecimento;
+	}
+
 	public static String getAtual() {
 		return atual;
 	}
@@ -171,6 +186,14 @@ public class Estabelecimento {
 	}
 	public void setPrioridade(int prioridade) {
 		this.prioridade = prioridade;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	
 	

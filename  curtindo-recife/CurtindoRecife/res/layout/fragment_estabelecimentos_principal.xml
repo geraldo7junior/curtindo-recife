@@ -92,18 +92,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:src="@drawable/imgshow" />
-                <ImageButton
-                    android:id="@+id/btnEstabelecimento5"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/imgteatro" />
-                <ImageButton
-                    android:id="@+id/btnEstabelecimento6"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/imgesportes" />
+                
             </LinearLayout>
         </HorizontalScrollView>
 

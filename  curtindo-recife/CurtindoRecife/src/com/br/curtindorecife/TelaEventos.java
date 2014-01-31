@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import com.br.curtindorecife.R.id;
 
+import dominio.Estabelecimento;
 import dominio.Evento;
 import dominio.FragmentEventos;
 import dominio.FragmentListaEventos;
@@ -71,32 +72,38 @@ public class TelaEventos extends FragmentActivity {
 			System.out.println("entrou no if de meus eventos");
 		}
 		else
-			if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
-			Intent intent = getIntent();
-			data = intent.getStringExtra("extra");
-			numEventos = Mensagem.dias;
-
-			System.out.println("entrou no if de datas");
-			System.out.println(data);
-			System.out.println(numEventos+" Num eventos");
-			for (int i = 0; i < numEventos; i++) {
-				listaDatas.add(i+1 + data.substring(2,10));
-				System.out.println(listaDatas.get(i));
-			}
-			
-		}
-			else{
-				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
-					numEventos=Mensagem.listaData.size();
-					Intent intent=getIntent();
-					posicao=intent.getIntExtra("position", 0);
+			if(!Evento.getAtual().equals("")){
+				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
+					Intent intent = getIntent();
+					data = intent.getStringExtra("extra");
+					numEventos = Mensagem.dias;
+		
+					System.out.println("entrou no if de datas");
+					System.out.println(data);
+					System.out.println(numEventos+" Num eventos");
+					for (int i = 0; i < numEventos; i++) {
+						listaDatas.add(i+1 + data.substring(2,10));
+						System.out.println(listaDatas.get(i));
+					}
+					
 				}
 				else{
-					numEventos=Evento.getListaEventos().size();		
-					Intent intent=getIntent();
-					System.out.println("entrou no if de outros");
-					posicao=intent.getIntExtra("position", 0);
+					if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==true){
+						numEventos=Mensagem.listaData.size();
+						Intent intent=getIntent();
+						posicao=intent.getIntExtra("position", 0);
+					}
+					else{
+						numEventos=Evento.getListaEventos().size();		
+						Intent intent=getIntent();
+						System.out.println("entrou no if de outros");
+						posicao=intent.getIntExtra("position", 0);
+					}
 				}
+			}else{
+				numEventos = Estabelecimento.getListaEstabelecimento().size();
+				Intent intent=getIntent();
+				posicao=intent.getIntExtra("position", 0);
 			}
 		
 		
@@ -200,7 +207,7 @@ public class TelaEventos extends FragmentActivity {
 				
 			}
 			else{ 
-				
+				if(!Evento.getAtual().equals("")){
 				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
 					fragment = new FragmentListaEventos(listaDatas.get(position));
 				}
@@ -210,6 +217,9 @@ public class TelaEventos extends FragmentActivity {
 					}*/
 				else{
 					fragment = new FragmentEventos(Evento.getListaEventos().get(position));
+				}
+				}else{
+					fragment = new FragmentEventos(Estabelecimento.getListaEstabelecimento().get(position));
 				}
 			}
 			Bundle args = new Bundle();
@@ -229,7 +239,9 @@ public class TelaEventos extends FragmentActivity {
 			if(Evento.isMeusEventosClickados()){
 				return Evento.getMeusEventos().get(position).getNome();
 			}
+			
 			else{ 
+				if(!Evento.getAtual().equals("")){
 				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
 					return ((position+1)+"/"+data.substring(3,5));
 				}
@@ -240,6 +252,9 @@ public class TelaEventos extends FragmentActivity {
 				else{
 					return Evento.getListaEventos().get(position).getNome();
 				}
+			}else{
+				return Estabelecimento.getListaEstabelecimento().get(position).getNome();
+			}
 			}
 		}
 	}

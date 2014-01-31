@@ -70,6 +70,20 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.tipo=evento.getTipoDeEvento();
 		}
 		
+		public FragmentEventos(Estabelecimento estabelecimento){
+			this.endereco = estabelecimento.getEndereco();
+			this.data = "";
+			this.nomeEvento = estabelecimento.getNome();
+			this.numero = estabelecimento.getNumero();
+			this.hora = "";
+			this.telefone = estabelecimento.getTelefone();
+			this.descricao = estabelecimento.getDescricao();
+			this.preco="";
+			this.id = estabelecimento.getId();
+			this.idOwner = estabelecimento.getIdOwner();
+			this.tipo= estabelecimento.getTipo();
+		}
+		
 		
 		
 		@Override

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
  
-public class CustomAdapter extends ArrayAdapter<Evento> {
+public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> {
  
     /*
      * Used to instantiate layout XML file into its corresponding View objects
@@ -26,7 +26,7 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
      */
     private final int resourceId;
  
-    public CustomAdapter(Context context, int resource, List<Evento> objects) {
+    public CustomAdapterEstabelecimento(Context context, int resource, List<Estabelecimento> objects) {
         super(context, resource, objects);
         this.inflater = LayoutInflater.from(context);
         this.resourceId = resource;
@@ -50,14 +50,14 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         
         
         //get the Evento from position
-        Evento evento = getItem(position);
+        Estabelecimento estabelecimento = getItem(position);
  
         //fill the view objects according values from Evento object
-        nome.setText(evento.getNome());
-        data.setText(evento.getData());
-        hora.setText(evento.getHora());
-        image.setBackgroundResource(Evento.associeImagem(evento.getTipoDeEvento()));
-        if(evento.getIdOwner()==Usuario.getId()){
+        nome.setText(estabelecimento.getNome());
+        data.setText(estabelecimento.getData());
+        hora.setText(estabelecimento.getEndereco());
+        image.setBackgroundResource(Evento.associeImagem("Show"));
+        /*if(estabelecimento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
         }
         else{
@@ -65,7 +65,7 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         		tipo.setText("Evento Curtido");
         	}
         }
-        simboras.setText(evento.getSimboras()+" curtiram");     
+        simboras.setText(evento.getSimboras()+" curtiram");    */ 
         
         return convertView;
     }

@@ -8,6 +8,7 @@ import bd.Banco;
 import com.br.curtindorecife.R.id;
 
 import dominio.CustomAdapter;
+import dominio.CustomAdapterEstabelecimento;
 import dominio.Estabelecimento;
 import dominio.Evento;
 import dominio.Usuario;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 public class TelaCategoriaEvento extends Activity {
 	static int numEventos;
 	TextView txtCategoria;
+	ListView lv;
 	
 	
 	@Override
@@ -60,15 +62,22 @@ public class TelaCategoriaEvento extends Activity {
 				}
 			
 			}
+			List EventoList = createEventos();
+	        ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);
+	        lv = (ListView) findViewById(R.id.listaCategoriaEvento);
+	        lv.setAdapter(ad);
+	      
 		}else{
+			List EventoList = createEventos();
+	        ArrayAdapter ad = new CustomAdapterEstabelecimento(TelaCategoriaEvento.this, R.layout.item, EventoList);
+	        lv = (ListView) findViewById(R.id.listaCategoriaEvento);
+	        lv.setAdapter(ad);
 			
 			txtCategoria.setText(Estabelecimento.getAtual());
 		}
 		
-		List EventoList = createEventos();
-        ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);
-        ListView lv = (ListView) findViewById(R.id.listaCategoriaEvento);
-        lv.setAdapter(ad);
+		
+		
         lv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -139,6 +148,7 @@ public class TelaCategoriaEvento extends Activity {
         else{
         	Banco banco =new Banco(this);
         	p=banco.getListaEstabelecimentos(Estabelecimento.getAtual());
+        	Estabelecimento.setListaEstabelecimento(banco.getListaEstabelecimentos(Estabelecimento.getAtual()));
         	
         }
         return p;
