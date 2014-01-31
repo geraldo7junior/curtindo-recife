@@ -73,11 +73,12 @@ public class TelaPrincipal extends FragmentActivity implements
 		Evento.getMeusEventos().clear();
 		CriarBanco();
 		checarBD();
+		CadastrarEstabelecimento();
 		if(Usuario.getId()!=0){
 			Banco banco = new Banco(this);
 			banco.setMeusEventos(Usuario.getId());
-		
 		}
+		
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -165,6 +166,8 @@ public class TelaPrincipal extends FragmentActivity implements
 		BancoDados.execSQL(sqlEvento);
 		String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS tabelaMeusEventos (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 		BancoDados.execSQL(sqlMeusEventos);
+		String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS tabelaEstabelecimentos (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+		BancoDados.execSQL(sqlEstabelecimentos);
 		} catch (Exception erro) {
 			System.out.println(erro);
 		}finally{
@@ -212,6 +215,35 @@ public class TelaPrincipal extends FragmentActivity implements
 		} catch (Exception erro) {
 				String insert = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"')";
 				BancoDados.execSQL(insert);
+				System.out.println(erro);
+				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
+		}finally{
+				BancoDados.close();
+		}
+	}
+	
+	
+	
+	
+	public void CadastrarEstabelecimento(){
+		String NomeBanco = "CurtindoRecifeDB";
+		SQLiteDatabase BancoDados = null;
+		Cursor cursor;
+		try {
+				BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
+				String sql = "SELECT _id FROM tabelaEstabelecimentos WHERE nome LIKE 'Bar da curva'";
+				cursor = BancoDados.rawQuery(sql, null);
+				cursor.moveToFirst();
+				System.out.println(cursor.getInt(cursor.getPosition()));
+				
+		} catch (Exception erro) {
+				Banco banco= new Banco(this);
+				
+				banco.inserirEstabelecimento(1, "Bar da Curva", "R. D. Manuel de Medeiros", "S/N", "", "02/02/2014", "09:00", "20:00", "(81)2323-4545", "é um bar bom", "Bar", 1231323, 4);
+				banco.inserirEstabelecimento(1, "RU", "R. D. Manuel de Medeiros", "S/N", "", "02/02/2014", "11:00", "20:00", "(81)2323-4545", "é um RU bom", "Restaurante", 1231323, 4);
+				banco.inserirEstabelecimento(1, "Senzala", "R. D. Manuel de Medeiros", "S/N", "", "02/02/2014", "18:00", "23:00", "(81)2323-4545", "é uma casa de shows boa", "Casa de Show", 1231323, 4);
+				banco.inserirEstabelecimento(1, "LoL Boat", "R. D. Manuel de Medeiros", "S/N", "", "02/02/2014", "09:00", "20:00", "(81)2323-4545", "é uma boate boa", "Boate", 1231323, 4);
+				
 				System.out.println(erro);
 				// retorna 0 caso o email não seja encontrado ou algum erro no banco.
 		}finally{
@@ -332,15 +364,15 @@ public class TelaPrincipal extends FragmentActivity implements
 			txtEvento1 = (TextView)rootView.findViewById(R.id.txtEvento1);
 			txtEvento2 = (TextView)rootView.findViewById(R.id.txtEvento2);
 			txtEvento3 = (TextView)rootView.findViewById(R.id.txtEvento3);
-			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEstabelecimento);
+			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEvento);
 			btnCadastarEvento.setOnClickListener(this);
 			btnLogin = (ImageButton)rootView.findViewById(R.id.btnLogin);
 			btnLogin.setOnClickListener(this);
 			btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
 			btnAgenda.setOnClickListener(this);
-			btnEvento1 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento1);
+			btnEvento1 = (ImageButton)rootView.findViewById(R.id.btnEvento1);
 			btnEvento1.setOnClickListener(this);
-			btnEvento2 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento2);
+			btnEvento2 = (ImageButton)rootView.findViewById(R.id.btnEvento2);
 			btnEvento2.setOnClickListener(this);
 			btnEvento3 = (ImageButton)rootView.findViewById(R.id.btnEvento3);
 			btnEvento3.setOnClickListener(this);
@@ -352,7 +384,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnEvento6.setOnClickListener(this);
 			btnTop10=(ImageButton)rootView.findViewById(R.id.btnTop10);
 			btnTop10.setOnClickListener(this);
-			btnNight=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimentos);
+			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
 			btnNight.setOnClickListener(this);
 			
 			
@@ -418,7 +450,7 @@ public class TelaPrincipal extends FragmentActivity implements
 					
 				}
 			
-			if(v.getId()== R.id.btnNightEstabelecimentos){
+			if(v.getId()== R.id.btnNight){
 					Evento.setMeusEventosClickados(false);
 					Evento.setAtual("Night");
 					Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
@@ -431,7 +463,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				startActivity(intent);
 			}
 			
-			if(v.getId() == R.id.btnCadastrarEstabelecimento){
+			if(v.getId() == R.id.btnCadastrarEvento){
 				if(Usuario.getId()!=0){
 					Evento.setMeusEventosClickados(false);
 					Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
@@ -471,11 +503,11 @@ public class TelaPrincipal extends FragmentActivity implements
 		public void direcionarBtn(int idBtn){
 			boolean idCorreto = false;
 			if(Usuario.getId() == 0){
-				if(idBtn==R.id.btnEstabelecimento1){
+				if(idBtn==R.id.btnEvento1){
 					Evento.setAtual("Show");
 					idCorreto = true;
 					
-				}else if(idBtn==R.id.btnEstabelecimento2){
+				}else if(idBtn==R.id.btnEvento2){
 					Evento.setAtual("Teatro");
 					idCorreto = true;
 					
@@ -527,6 +559,7 @@ public class TelaPrincipal extends FragmentActivity implements
 				
 			}
 			if(idCorreto){
+				Estabelecimento.setAtual("");
 				Evento.setMeusEventosClickados(false);
 				Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 				startActivity(intent);

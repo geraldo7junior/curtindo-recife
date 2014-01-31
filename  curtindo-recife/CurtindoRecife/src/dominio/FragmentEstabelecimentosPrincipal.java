@@ -184,30 +184,24 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		boolean idCorreto = false;
 		/*if(Usuario.getId() == 0){*/
 			if(idBtn==R.id.btnEstabelecimento1){
-				Evento.setAtual("Show");
+				Estabelecimento.setAtual("Bar");
 				idCorreto = true;
 				
 			}else if(idBtn==R.id.btnEstabelecimento2){
-				Evento.setAtual("Teatro");
+				Estabelecimento.setAtual("Restaurante");
 				idCorreto = true;
 				
 			}else if (idBtn==R.id.btnEstabelecimento3){
-				Evento.setAtual("Esportes");
+				Estabelecimento.setAtual("Casa de show");
 				idCorreto = true;
 			}
 			
-			if(idBtn==R.id.btnEstabelecimento4){
-				Evento.setAtual("Familia");
-				idCorreto = true;
-				
-			}else if(idBtn==R.id.btnEstabelecimento5){
-				Evento.setAtual("Encontro");
-				idCorreto = true;
-				
-			}else if (idBtn==R.id.btnEstabelecimento6){
-				Evento.setAtual("Palestra");
+			else if(idBtn==R.id.btnEstabelecimento4){
+				Estabelecimento.setAtual("Boate");
 				idCorreto = true;
 			}
+				
+			
 		/*}else{
 			Banco banco = new Banco(getActivity());
 			Usuario usuario;
@@ -239,6 +233,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			
 		}*/
 		if(idCorreto){
+			Evento.setAtual("");
 			Evento.setMeusEventosClickados(false);
 			Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 			startActivity(intent);

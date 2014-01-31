@@ -3,9 +3,12 @@ package com.br.curtindorecife;
 import java.util.ArrayList;
 import java.util.List;
 
+import bd.Banco;
+
 import com.br.curtindorecife.R.id;
 
 import dominio.CustomAdapter;
+import dominio.Estabelecimento;
 import dominio.Evento;
 import dominio.Usuario;
 import android.os.Bundle;
@@ -44,19 +47,23 @@ public class TelaCategoriaEvento extends Activity {
  da categoria: "+Evento.getListaEventos().get(i).getNome());
 			}*/
 		}
-		if(Evento.getAtual().equals("Night")){
-			getTodasCategorias();
-			txtCategoria.setText("Night");
-		}
-		else{
-			getCategoriasEventos(Evento.getAtual());
-			txtCategoria.setText(Evento.getAtual());
-			for (int i = 0; i < Evento.getListaEventos().size(); i++) {
-				System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
+		if(!Evento.getAtual().equals("")){
+			if(Evento.getAtual().equals("Night")){
+				getTodasCategorias();
+				txtCategoria.setText("Night");
 			}
+			else{
+				getCategoriasEventos(Evento.getAtual());
+				txtCategoria.setText(Evento.getAtual());
+				for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+					System.out.println("Evnto da categoria: "+Evento.getListaEventos().get(i).getNome());
+				}
 			
+			}
+		}else{
+			
+			txtCategoria.setText(Estabelecimento.getAtual());
 		}
-
 		
 		List EventoList = createEventos();
         ArrayAdapter ad = new CustomAdapter(TelaCategoriaEvento.this, R.layout.item, EventoList);
@@ -114,17 +121,25 @@ public class TelaCategoriaEvento extends Activity {
     private List createEventos(){
     	
         List p;
-        if(Evento.getAtual().equals("Top10")){       	
-        	Evento.setListaEventos(Evento.ranking());   
-        	p=Evento.getListaEventos();
-        }
-        if(Evento.getAtual().equals("Night")){
-        	Evento.setListaEventos(Evento.listaNight());   
-        	p=Evento.getListaEventos();
+        if(!Evento.getAtual().equals("")){
+	        if(Evento.getAtual().equals("Top10")){       	
+	        	Evento.setListaEventos(Evento.ranking());   
+	        	p=Evento.getListaEventos();
+	        }
+	        if(Evento.getAtual().equals("Night")){
+	        	Evento.setListaEventos(Evento.listaNight());   
+	        	p=Evento.getListaEventos();
+	        }
+	        else{
+	        	
+	        	p=Evento.getListaEventos();  
+	            
+	        }
         }
         else{
-        	p=Evento.getListaEventos();  
-            
+        	Banco banco =new Banco(this);
+        	p=banco.getListaEstabelecimentos(Estabelecimento.getAtual());
+        	
         }
         return p;
     }

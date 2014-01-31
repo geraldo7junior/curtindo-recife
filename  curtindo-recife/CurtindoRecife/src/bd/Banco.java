@@ -209,13 +209,22 @@ public void inserirEstabelecimento(int idOwner,String nome, String endereco, Str
 		valores.put("descricao", descricao);
 		valores.put("tipo", tipo);
 		valores.put("idOwner", idOwner);
-		valores.put("imagem", imagem);
+		valores.put("idImagem", imagem);
 		valores.put("prioridade", prioridade);
 		
 
-		
-		bancoDados.insert(tabelaEstabelecimentos, null, valores);	
-	}	
+		try{
+			openBd();
+			bancoDados.insert(tabelaEstabelecimentos, null, valores);	
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			closeBd();
+		}
+		}	
 public void inserirEvento(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem, int prioridade){
 		
 		ContentValues valores = new ContentValues();

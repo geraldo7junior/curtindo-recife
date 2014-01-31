@@ -26,6 +26,22 @@ public class Estabelecimento {
 		setRanking(cursor.getInt(cursor.getColumnIndex("ranking")));
 	}
 	
+	public Estabelecimento(int idOwner,String nome, String endereco, String numero, String preco, String data, String horaInicio,String horaTermino, String telefone, String descricao, String tipo, int imagem, int prioridade){
+		setIdOwner(idOwner);
+		setNome(nome);
+		setData(data);
+		setHoraInicio(horaInicio);
+		setHoraTermino(horaTermino);
+		setDescricao(descricao);
+		setTipo(tipo);
+		setPreco(preco);
+		setNumero(numero);
+		setEndereco(endereco);
+		setPrioridade(prioridade);
+		setRanking(0);
+		setSimboras(0);
+	}
+	
 	private int ranking;
 	private int id;
 	private int image;
@@ -44,8 +60,20 @@ public class Estabelecimento {
 	private String numero;
 	private String endereco;
 	private int prioridade;
+	private static String atual;
 	
 	
+	
+	
+	
+	public static String getAtual() {
+		return atual;
+	}
+
+	public static void setAtual(String atual) {
+		Estabelecimento.atual = atual;
+	}
+
 	public int getRanking() {
 		return ranking;
 	}
