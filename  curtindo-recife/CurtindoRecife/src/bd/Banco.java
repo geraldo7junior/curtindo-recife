@@ -2,6 +2,7 @@ package bd;
 
 import java.util.ArrayList;
 
+import dominio.Estabelecimento;
 import dominio.Evento;
 import dominio.Usuario;
 import android.R.bool;
@@ -18,6 +19,7 @@ public class Banco{
 		
 	}
 	
+	private final String tabelaEstabelecimentos="tabelaEstabelecimentos";
 	private final String tabelaUsuarios = "tabelaUsuarios";
 	private final String tabelaEventos ="tabelaEventos";
 	private final String tabelaMeusEventos ="tabelaMeusEventos";
@@ -47,7 +49,9 @@ public class Banco{
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
-				
+				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
+				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+				db.execSQL(sqlEstabelecimentos);
 		}
 
 		@Override
@@ -61,7 +65,9 @@ public class Banco{
 				
 				String sql3 = "DROP TABLE IF EXISTS "+ tabelaMeusEventos;
 				db.execSQL(sql3);
-			
+				
+				String sql4 = "DROP TABLE IF EXISTS "+ tabelaEstabelecimentos;
+				db.execSQL(sql4);
 				onCreate(db);
 	
 		}
@@ -77,6 +83,30 @@ public class Banco{
 	public void closeBd(){
 		bancoDados.close();
 	}
+	
+	//////////////////////DELETA TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////////////////////////////
+	public void deletarEstabelecimento(int idOwner){
+		deletar(tabelaEstabelecimentos,idOwner);
+	}
+	///////////////////DELETA UM ESTABELECIMENTO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+	public void deletarEstabelecimento(Estabelecimento estabelecimento){
+		deletar(estabelecimento.getId(), tabelaEstabelecimentos);
+	}
+/////////////////Método deletar, deleta linha da tabela...//////// 
+private Boolean deletar(String nomeTabela,int idOwner){
+
+	try {
+		openBd();
+		String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE idOwner = '"+idOwner+"'";
+		bancoDados.execSQL(sqlExcluir);
+		return true;
+		} catch (Exception e) {
+		System.out.println(e);
+		return false;
+		}finally{
+		bancoDados.close();			
+	}		
+}
 /////////////////Método deletar, deleta linha da tabela...//////// 
 	private Boolean deletar(int idObjeto, String nomeTabela){
 		
@@ -164,6 +194,28 @@ private Boolean deletar(Evento evento){
 		return resultado;
 	}	
 	
+public void inserirEstabelecimento(int idOwner,String nome, String endereco, String numero, String preco, String data, String horaInicio,String horaTermino, String telefone, String descricao, String tipo, int imagem, int prioridade){
+		
+		ContentValues valores = new ContentValues();
+		
+		valores.put("nome", nome);
+		valores.put("endereco", endereco);
+		valores.put("numero", numero);
+		valores.put("preco", preco);
+		valores.put("data", data);
+		valores.put("horaInicio", horaInicio);
+		valores.put("horaTermino", horaTermino);
+		valores.put("telefone", telefone);
+		valores.put("descricao", descricao);
+		valores.put("tipo", tipo);
+		valores.put("idOwner", idOwner);
+		valores.put("imagem", imagem);
+		valores.put("prioridade", prioridade);
+		
+
+		
+		bancoDados.insert(tabelaEstabelecimentos, null, valores);	
+	}	
 public void inserirEvento(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem, int prioridade){
 		
 		ContentValues valores = new ContentValues();
@@ -521,6 +573,109 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		return evento;
 	}
 	
+	public void updateEstabelecimento(Estabelecimento estabelecimento) {
+		try {
+			openBd();
+			String sql = "UPDATE "+tabelaEstabelecimentos+" SET idOwner = '"+estabelecimento.getIdOwner()+"', image = '"+estabelecimento.getImage()+"'," +
+					"nome = '"+estabelecimento.getNome()+"', data = '"+estabelecimento.getData()+"', horaInicio = '"+estabelecimento.getHoraInicio()+"'," +
+					" horaTermino = '"+estabelecimento.getHoraTermino()+"', descricao = '"+estabelecimento.getDescricao()+"'," +
+					" tipo = '"+estabelecimento.getTipo()+"', cnpj = '"+estabelecimento.getCnpj()+"', simboras = '"+estabelecimento.getSimboras()+"'," +
+					" preco = '"+estabelecimento.getPreco()+"', numero = '"+estabelecimento.getNumero()+"', endereco = '"+estabelecimento.getEndereco()+"'," +
+					" prioridade = '"+estabelecimento.getPrioridade()+"', ranking = '"+estabelecimento.getRanking()+"' WHERE _id LIKE '"+estabelecimento.getId()+"'";
+			bancoDados.execSQL(sql);	
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			bancoDados.close();
+			}
+	}
+	
+	///RETORNA UMA LISTA COM TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////
+		public ArrayList<Estabelecimento> getListaEstabelecimentos(int idOwner){
+			try { 
+				openBd();
+				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE idOwner LIKE '"+idOwner+"' ";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+						listaEstabelecimentos.add(estabelecimento);					
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEstabelecimentos;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				closeBd();
+			}return null;
+			
+		}
+	
+	///RETORNA UMA LISTA COM TODOS OS ESTABELECIMENTOS DE UM TIPO/////////
+	public ArrayList<Estabelecimento> getListaEstabelecimentos(String tipo){
+		try { 
+			openBd();
+			String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE tipo LIKE '"+tipo+"' ";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();			
+			ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+			if (cursor2.getCount()!=0){
+				for(int i=0;i<cursor2.getCount();i++){			
+					Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+					listaEstabelecimentos.add(estabelecimento);					
+					if(i!=cursor2.getCount()-1){
+						cursor2.moveToNext();
+					}
+				
+				}
+			}
+			return listaEstabelecimentos;
+		} catch (Exception erro) {
+			erro.printStackTrace();
+			
+		}finally{
+			closeBd();
+		}return null;
+		
+	}
+	
+	///RETORNA UMA LISTA COM TODOS OS ESTABELECIMENTOS DE UM TIPO E DATA ESPECÍFICOS/////////
+		public ArrayList<Estabelecimento> getListaEstabelecimentos(String tipo, String data){
+			try { 
+				openBd();
+				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE tipo LIKE '"+tipo+"' AND data LIKE '"+data+"'";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+						listaEstabelecimentos.add(estabelecimento);					
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEstabelecimentos;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				closeBd();
+			}return null;
+			
+		}
+	
 	public ArrayList<Evento> ListarEventoPorData(String data){
 		try { 
 			openBd();
@@ -578,6 +733,36 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}return null;
 		
 	}
+	
+	public ArrayList<Evento> ListarEventoPorDataHora(String data, String hora,String tipo){
+		try { 
+			openBd();
+			String sql = "SELECT * FROM "+tabelaEventos+" WHERE data LIKE '"+data+"' AND tipo LIKE '"+tipo+"' AND hora LIKE '"+hora+"'";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();			
+			ArrayList<Evento> listaEventosData = new ArrayList<Evento>();
+			if (cursor2.getCount()!=0){
+				for(int i=0;i<cursor2.getCount();i++){			
+					
+					listaEventosData.add(setEvento(cursor2));
+					listaEventosData.get(i).setCurtido(eventoCurtido(listaEventosData.get(i)));
+					System.out.println(listaEventosData.get(i).getNome()+" Eventos do listar DAta");
+					if(i!=cursor2.getCount()-1){
+						cursor2.moveToNext();
+					}
+				
+				}
+			}
+			return listaEventosData;
+		} catch (Exception erro) {
+			erro.printStackTrace();
+			
+		}finally{
+			closeBd();
+		}return null;
+		
+	}
+	
 	public boolean eventoCurtido(Evento evento){
 		
 		if(Usuario.getId()!=0){
