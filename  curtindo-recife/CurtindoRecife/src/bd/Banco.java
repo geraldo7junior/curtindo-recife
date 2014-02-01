@@ -57,7 +57,7 @@ public class Banco{
 				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
 				db.execSQL(sqlEstabelecimentos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
-				String sqlMeusEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEstabelecimentos+" (_id INTEGER PRIMARY KEY, idEstabelecimento, idUsuario)";
+				String sqlMeusEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEstabelecimentos+" (_id INTEGER PRIMARY KEY, idEstabelecimento INTEGER, idUsuario INTEGER)";
 				db.execSQL(sqlMeusEstabelecimentos);
 		}
 
@@ -141,7 +141,7 @@ public class Banco{
 		deletar(tabelaMeusEstabelecimentos, "idEstabelecimento", ""+estabelecimento.getId());
 	}
 	public void deletarMeusEstabelecimentos(Estabelecimento estabelecimento,Usuario usuario){
-		deletar(tabelaMeusEstabelecimentos, "idEstabelecimento","idUsuario", ""+estabelecimento.getId(),""+usuario.getIdUnico());
+		deletar(tabelaMeusEstabelecimentos, "idEstabelecimento","idUsuario", Integer.toString(estabelecimento.getId()),Integer.toString(usuario.getIdUnico()));
 	}
 	public void deletarMeusEstabelecimentos(Usuario usuario){
 		deletar(tabelaMeusEstabelecimentos, "idUsuario", ""+usuario.getIdUnico());
@@ -183,7 +183,7 @@ private Boolean deletar(String nomeTabela, String colunaDaTabela1, String coluna
 
 try {
 	openBd();
-	System.out.println(valorColuna1+" "+valorColuna2+" Colunas do método deletar");
+	System.out.println("DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela1+" = '"+valorColuna1+"' AND "+colunaDaTabela2+" = '"+valorColuna2+"'");
 	String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela1+" = '"+valorColuna1+"' AND "+colunaDaTabela2+" = '"+valorColuna2+"'";
 	bancoDados.execSQL(sqlExcluir);
 	return true;
