@@ -14,7 +14,7 @@
         android:gravity="center" >
         
         <ImageButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnLoginEstabelecimento"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
@@ -24,7 +24,7 @@
         
         
         <ImageButton
-        android:id="@+id/btnAgenda"
+        android:id="@+id/btnAgendaEstabelecimento"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:gravity="center" >
         
           <ImageButton
-        android:id="@+id/btnTop10"
+        android:id="@+id/btnTop10Estabelecimento"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:src="@drawable/btntop10" />
     
     <ImageButton
-        android:id="@+id/btnNightEstabelecimentos"
+        android:id="@+id/btnNightEstabelecimento"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="100dp"
         android:layout_height="40dp"
@@ -109,7 +109,7 @@
         android:layout_width="90dp"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/cadastrarevento" />
+        android:src="@drawable/criarback" />
     
   
 

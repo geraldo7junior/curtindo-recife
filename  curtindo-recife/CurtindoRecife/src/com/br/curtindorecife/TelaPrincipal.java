@@ -333,6 +333,10 @@ public class TelaPrincipal extends FragmentActivity implements
 	 * A dummy fragment representing a section of the app, but that simply
 	 * displays dummy text.
 	 */
+	///
+	/////
+	//FRAGMENTO DA TELA PRINCIPAL
+	//////
 	public static class DummySectionFragment extends Fragment implements OnClickListener {
 		/**
 		 * The fragment argument representing the section number for this
@@ -576,6 +580,11 @@ public class TelaPrincipal extends FragmentActivity implements
 		
 	}
 	
+	
+	///
+		/////
+		//FRAGMENTO DA TELA MEUS EVENTOS
+		//////
 	public static class SectionFragment extends Fragment{
 		/**
 		 * The fragment argument representing the section number for this
@@ -597,6 +606,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			
 			
 			List EventoList = createEventos();
+			//PRA TELA ESTABELECIMENTOS, TROCAR O CUSTOMADAPTER POR CUSTOMADAPTERESTABELECIMENTO
 	        ArrayAdapter ad = new CustomAdapter(this.getActivity(), R.layout.item, EventoList);
 	        ListView lv = (ListView) rootView.findViewById(R.id.listEventoData);
 	        lv.setAdapter(ad);
@@ -617,6 +627,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	    }
 	 
 	    private List createEventos(){
+	    	//PARA ESTABELECIMENTOS, A LISTA P RECEBERÁ A LSITA  MEUS ESTABELECIMENTOS
 	        List p = Evento.getMeusEventos();
 	        return p;
 	    }

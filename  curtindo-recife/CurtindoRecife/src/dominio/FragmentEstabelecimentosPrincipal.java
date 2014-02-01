@@ -27,15 +27,15 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 	 * fragment.
 	 */
 	ImageButton btnCadastrarEstabelecimento;
-	ImageButton btnAgenda;
+	ImageButton btnAgendaEstabelecimento;
 	ImageButton btnEstabelecimento1;
 	ImageButton btnEstabelecimento2;
 	ImageButton btnEstabelecimento3;
 	ImageButton btnEstabelecimento4;
 	Usuario usuario;
 	int imgEstabelecimento1, imgEstabelecimento2, imgEstabelecimento3,imgEstabelecimento4;
-	ImageButton btnTop10;
-	ImageButton btnNight;
+	ImageButton btnTop10Estabelecimento;
+	ImageButton btnNightEstabelecimento;
 	public static final String ARG_SECTION_NUMBER = "section_number";
 
 	public FragmentEstabelecimentosPrincipal() {
@@ -49,8 +49,8 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 				container, false);
 		btnCadastrarEstabelecimento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEstabelecimento);
 		btnCadastrarEstabelecimento.setOnClickListener(this);
-		btnAgenda = (ImageButton)rootView.findViewById(R.id.btnAgenda);
-		btnAgenda.setOnClickListener(this);
+		btnAgendaEstabelecimento = (ImageButton)rootView.findViewById(R.id.btnAgendaEstabelecimento);
+		btnAgendaEstabelecimento.setOnClickListener(this);
 		btnEstabelecimento1 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento1);
 		btnEstabelecimento1.setOnClickListener(this);
 		btnEstabelecimento2 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento2);
@@ -59,8 +59,8 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		btnEstabelecimento3.setOnClickListener(this);
 		btnEstabelecimento4 = (ImageButton)rootView.findViewById(R.id.btnEstabelecimento4);
 		btnEstabelecimento4.setOnClickListener(this);
-		btnNight=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimentos);
-		btnNight.setOnClickListener(this);
+		btnNightEstabelecimento=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimento);
+		btnNightEstabelecimento.setOnClickListener(this);
 		
 		
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
@@ -122,13 +122,13 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 				
 			}
 		
-		if(v.getId()== R.id.btnNightEstabelecimentos){
+		if(v.getId()== R.id.btnNightEstabelecimento){
 				Evento.setMeusEventosClickados(false);
 				Evento.setAtual("Night");
 				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
 		}
-		if(v.getId() == R.id.btnAgenda){
+		if(v.getId() == R.id.btnAgendaEstabelecimento){
 			Evento.setMeusEventosClickados(false);
 			Evento.setAtual("Agenda");
 			Intent intent = new Intent(getActivity(), TelaAgenda.class);
@@ -160,7 +160,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 				dialog.show();
 			}
 		}
-		if(v.getId()== R.id.btnTop10){
+		if(v.getId()== R.id.btnTop10Estabelecimento){
 			Evento.setMeusEventosClickados(false);
 			Evento.setAtual("Top10");
 			Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
