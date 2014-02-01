@@ -137,7 +137,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			if(this.curtido==true){
 				btnSimbora.setText("Desistir");
 				btnSimbora.setBackgroundColor(Color.BLUE);
-				btnSimbora.setEnabled(true);
+				btnSimbora.setEnabled(false);
 			}
 			return rootView;
 		}
@@ -156,7 +156,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				}
 			};
 			
-			if(v.getId()==R.id.btnSimbora & !btnSimbora.getText().equals("Desistir")){
+			if(v.getId()==R.id.btnSimbora){
 				
 					if(Usuario.getId()==0){
 						
@@ -196,7 +196,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 						}
 				
 			}
-			if(v.getId()==R.id.btnSimbora & btnSimbora.getText().equals("Desistir")){
+			/*if(v.getId()==R.id.btnSimbora & btnSimbora.getText().equals("Desistir")){
 				Banco banco = new Banco(getActivity());
 				Usuario usuario = banco.getUsuario(Usuario.getId());
 				if(getEhEvento()){
@@ -217,7 +217,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					dialog.show();
 				}
 				
-			}
+			}*/
 			// TODO Auto-generated method stub
 			
 		}
