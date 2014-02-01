@@ -82,7 +82,12 @@ public class TelaEventos extends FragmentActivity {
 					System.out.println(data);
 					System.out.println(numEventos+" Num eventos");
 					for (int i = 0; i < numEventos; i++) {
-						listaDatas.add(i+1 + data.substring(2,10));
+						if(i<10){
+							listaDatas.add("0"+(i+1) + data.substring(2,10));
+						}else{
+							listaDatas.add(i+1 + data.substring(2,10));
+							
+						}
 						System.out.println(listaDatas.get(i));
 					}
 					
@@ -208,16 +213,16 @@ public class TelaEventos extends FragmentActivity {
 			}
 			else{ 
 				if(!Evento.getAtual().equals("")){
-				if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
-					fragment = new FragmentListaEventos(listaDatas.get(position));
-				}
-				/*else
-				 if(Evento.getAtual().equals("Agenda")&& Mensagem.clickData==true){
-						fragment = new FragmentEventos(Mensagem.listaData.get(position));
-					}*/
-				else{
-					fragment = new FragmentEventos(Evento.getListaEventos().get(position));
-				}
+					if(Evento.getAtual().equals("Agenda")&&Mensagem.clickData==false){
+						fragment = new FragmentListaEventos(listaDatas.get(position));
+					}
+					/*else
+					 if(Evento.getAtual().equals("Agenda")&& Mensagem.clickData==true){
+							fragment = new FragmentEventos(Mensagem.listaData.get(position));
+						}*/
+					else{
+						fragment = new FragmentEventos(Evento.getListaEventos().get(position));
+					}
 				}else{
 					fragment = new FragmentEventos(Estabelecimento.getListaEstabelecimento().get(position));
 				}

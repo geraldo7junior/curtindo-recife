@@ -182,15 +182,16 @@ private Boolean deletar(String nomeTabela,int idOwner){
 private Boolean deletar(String nomeTabela, String colunaDaTabela1, String colunaDaTabela2, String valorColuna1,String valorColuna2){
 
 try {
-openBd();
-String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela1+" = '"+valorColuna1+"' AND "+colunaDaTabela2+" = '"+valorColuna2+"'";
-bancoDados.execSQL(sqlExcluir);
-return true;
-} catch (Exception e) {
-System.out.println(e);
-return false;
-}finally{
-closeBd();			
+	openBd();
+	System.out.println(valorColuna1+" "+valorColuna2+" Colunas do método deletar");
+	String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela1+" = '"+valorColuna1+"' AND "+colunaDaTabela2+" = '"+valorColuna2+"'";
+	bancoDados.execSQL(sqlExcluir);
+	return true;
+	} catch (Exception e) {
+	System.out.println(e);
+	return false;
+	}finally{
+	closeBd();				
 }		
 }
 	
