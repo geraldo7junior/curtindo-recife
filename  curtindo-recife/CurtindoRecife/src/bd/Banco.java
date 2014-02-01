@@ -45,7 +45,7 @@ public class Banco{
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 				//TABELA DE USUÁRIOS (tabelaUsuarios)
-				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT, mascates INTEGER)";
+				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT, mascates INTEGER, ranking INTEGER)";
 				db.execSQL(sql);
 				//TABELA DE EVENTOS (tabelaEventos)
 				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
@@ -54,7 +54,7 @@ public class Banco{
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
-				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
 				db.execSQL(sqlEstabelecimentos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
 				String sqlMeusEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEstabelecimentos+" (_id INTEGER PRIMARY KEY, idEstabelecimento, idUsuario)";
@@ -691,7 +691,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			return usuario;
 			
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		finally{
 			bancoDados.close();
@@ -814,10 +814,10 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 	public void updateEstabelecimento(Estabelecimento estabelecimento) {
 		try {
 			openBd();
-			String sql = "UPDATE "+tabelaEstabelecimentos+" SET idOwner = '"+estabelecimento.getIdOwner()+"', image = '"+estabelecimento.getImage()+"'," +
+			String sql = "UPDATE "+tabelaEstabelecimentos+" SET idOwner = '"+estabelecimento.getIdOwner()+"', idImagem = '"+estabelecimento.getImage()+"'," +
 					"nome = '"+estabelecimento.getNome()+"', data = '"+estabelecimento.getData()+"', horaInicio = '"+estabelecimento.getHoraInicio()+"'," +
 					" horaTermino = '"+estabelecimento.getHoraTermino()+"', descricao = '"+estabelecimento.getDescricao()+"'," +
-					" tipo = '"+estabelecimento.getTipo()+"', cnpj = '"+estabelecimento.getCnpj()+"', simboras = '"+estabelecimento.getSimboras()+"'," +
+					" tipo = '"+estabelecimento.getTipo()+"', simboras = '"+estabelecimento.getSimboras()+"'," +
 					" preco = '"+estabelecimento.getPreco()+"', numero = '"+estabelecimento.getNumero()+"', endereco = '"+estabelecimento.getEndereco()+"'," +
 					" prioridade = '"+estabelecimento.getPrioridade()+"', ranking = '"+estabelecimento.getRanking()+"' WHERE _id LIKE '"+estabelecimento.getId()+"'";
 			bancoDados.execSQL(sql);	

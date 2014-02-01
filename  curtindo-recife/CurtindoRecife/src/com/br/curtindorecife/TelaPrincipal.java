@@ -70,6 +70,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		Banco banco = new Banco(this);
 		banco.criarBanco();
+		Cadastrar("Admin", "12/12/1903", "admin@curtindorecife.br", "ADMIN", "indefinido", "Show", "Teatro", "Esporte");
 		Evento.getListaEventos().clear();
 		//numEventos=0;
 		Evento.getMeusEventos().clear();
@@ -533,11 +534,14 @@ public class TelaPrincipal extends FragmentActivity implements
 				Banco banco = new Banco(getActivity());
 				Usuario usuario;
 				usuario = banco.getUsuario(Usuario.getId());
-			if(idBtn==R.id.btnEstabelecimento1){
+				for(int i=0;i< Evento.getNomesEventosTelaPrincipal().size();i++){
+					System.out.println(Evento.getNomesEventosTelaPrincipal().get(i));
+					}
+			if(idBtn==R.id.btnEvento1){
 				Evento.setAtual(usuario.getEventoFavorito1());
 				idCorreto = true;
 				
-			}else if(idBtn==R.id.btnEstabelecimento2){
+			}else if(idBtn==R.id.btnEvento2){
 				Evento.setAtual(usuario.getEventoFavorito2());
 				idCorreto = true;
 				

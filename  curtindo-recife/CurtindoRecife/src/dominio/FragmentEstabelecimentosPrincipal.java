@@ -69,8 +69,9 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		/*if(Usuario.getId()!=0){*/
 			Banco banco = new Banco(getActivity());
 			usuario = banco.getUsuario(Usuario.getId());
-			Evento.getNomesEventosTelaPrincipal().clear();
-			Evento.retorneListaNomesEventos("Show", "Teatro", "Esporte", ar);imgEstabelecimento1 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(0));
+			//Evento.getNomesEventosTelaPrincipal().clear();
+			/*Evento.retorneListaNomesEventos("Show", "Teatro", "Esporte", ar);
+			imgEstabelecimento1 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(0));
 			imgEstabelecimento2 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(1));
 			imgEstabelecimento3 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(2));
 			imgEstabelecimento4 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(3));
@@ -80,7 +81,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			btnEstabelecimento1.setImageResource(imgEstabelecimento1);
 			btnEstabelecimento2.setImageResource(imgEstabelecimento2);
 			btnEstabelecimento3.setImageResource(imgEstabelecimento3);
-			btnEstabelecimento4.setImageResource(imgEstabelecimento4);
+			btnEstabelecimento4.setImageResource(imgEstabelecimento4);*/
 			
 			//btnLogin.setText("Perfil");
 		/*}*//*else{

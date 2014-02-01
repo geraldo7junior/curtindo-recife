@@ -66,23 +66,7 @@ public class Estabelecimento {
 	private int prioridade;
 	private String telefone;
 	private static String atual;
-<<<<<<< .mine
-	private String telefone;
-=======
 	private static ArrayList<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
->>>>>>> .r200
-	
-	
-	
-	
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
 	
 	
 	public static ArrayList<Estabelecimento> getListaEstabelecimento() {

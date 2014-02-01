@@ -51,7 +51,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public String tipo;
 		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
-
+		Estabelecimento estabelecimento;
 		public Boolean getEhEvento() {
 			return ehEvento;
 		}
@@ -79,9 +79,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.tipo=evento.getTipoDeEvento();
 			setEhEvento(true);
 		}
-		
-<<<<<<< .mine
 		public FragmentEventos(Estabelecimento estabelecimento){
+			this.estabelecimento=estabelecimento;
 			this.nomeEvento= estabelecimento.getNome();
 			this.endereco=estabelecimento.getEndereco();
 			this.data=estabelecimento.getData();
@@ -92,37 +91,22 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.preco=estabelecimento.getPreco();
 			this.id = estabelecimento.getId();
 			this.idOwner=estabelecimento.getIdOwner();
-			if (Usuario.getId()!=0){
-				Banco banco = new Banco(getActivity());
-				Usuario usuario = banco.getUsuario(Usuario.getId());
-				this.curtido = banco.curtido(estabelecimento, usuario);
-			}
 			this.tipo=estabelecimento.getTipo();
 			setEhEvento(false);
 		}
-=======
-		public FragmentEventos(Estabelecimento estabelecimento){
-			this.endereco = estabelecimento.getEndereco();
-			this.data = "";
-			this.nomeEvento = estabelecimento.getNome();
-			this.numero = estabelecimento.getNumero();
-			this.hora = "";
-			this.telefone = estabelecimento.getTelefone();
-			this.descricao = estabelecimento.getDescricao();
-			this.preco="";
-			this.id = estabelecimento.getId();
-			this.idOwner = estabelecimento.getIdOwner();
-			this.tipo= estabelecimento.getTipo();
-		}
->>>>>>> .r200
-		
-		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_tela_eventos_dummy, container, false);
 			//_Relacionamento
+			if(!ehEvento){
+			if (Usuario.getId()!=0){
+					Banco banco = new Banco(getActivity());
+					Usuario usuario = banco.getUsuario(Usuario.getId());
+					this.curtido = banco.curtido(estabelecimento, usuario);
+				}
+			}
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
 			
@@ -142,6 +126,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtHora.setText(this.hora);
 			txtPreco.setText(this.preco);
 			txtDescricao.setText(this.descricao);
+			
+			
 			
 			if(this.idOwner==Usuario.getId()){
 				btnSimbora.setText("Evento Criado");
