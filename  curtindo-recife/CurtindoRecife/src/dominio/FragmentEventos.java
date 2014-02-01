@@ -35,6 +35,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		ImageView imgEvento;
 		TextView txtPreco;
 		
+		private Boolean ehEvento;
 		public String nomeEvento;
 		public String endereco;
 		public String numero;
@@ -50,6 +51,14 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public String tipo;
 		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
+
+		public Boolean getEhEvento() {
+			return ehEvento;
+		}
+
+		public void setEhEvento(Boolean ehEvento) {
+			this.ehEvento = ehEvento;
+		}
 
 		public FragmentEventos() {
 			// TODO Auto-generated constructor stub
@@ -68,8 +77,30 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.idOwner=evento.getIdOwner();
 			this.curtido=evento.isCurtido();
 			this.tipo=evento.getTipoDeEvento();
+			setEhEvento(true);
 		}
 		
+<<<<<<< .mine
+		public FragmentEventos(Estabelecimento estabelecimento){
+			this.nomeEvento= estabelecimento.getNome();
+			this.endereco=estabelecimento.getEndereco();
+			this.data=estabelecimento.getData();
+			this.numero=estabelecimento.getNumero();
+			this.hora=estabelecimento.getHoraInicio();
+			this.telefone=estabelecimento.getTelefone();
+			this.descricao=estabelecimento.getDescricao();
+			this.preco=estabelecimento.getPreco();
+			this.id = estabelecimento.getId();
+			this.idOwner=estabelecimento.getIdOwner();
+			if (Usuario.getId()!=0){
+				Banco banco = new Banco(getActivity());
+				Usuario usuario = banco.getUsuario(Usuario.getId());
+				this.curtido = banco.curtido(estabelecimento, usuario);
+			}
+			this.tipo=estabelecimento.getTipo();
+			setEhEvento(false);
+		}
+=======
 		public FragmentEventos(Estabelecimento estabelecimento){
 			this.endereco = estabelecimento.getEndereco();
 			this.data = "";
@@ -83,7 +114,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.idOwner = estabelecimento.getIdOwner();
 			this.tipo= estabelecimento.getTipo();
 		}
-		
+>>>>>>> .r200
 		
 		
 		@Override
@@ -118,9 +149,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				btnSimbora.setEnabled(false);
 			}
 			if(this.curtido==true){
-				btnSimbora.setText("Evento Curtido");
+				btnSimbora.setText("Desistir");
 				btnSimbora.setBackgroundColor(Color.BLUE);
-				btnSimbora.setEnabled(false);
+				btnSimbora.setEnabled(true);
 			}
 			return rootView;
 		}
@@ -139,30 +170,66 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				}
 			};
 			
-			if(v.getId()==R.id.btnSimbora){
-				if(Usuario.getId()==0){
+			if(v.getId()==R.id.btnSimbora & !btnSimbora.getText().equals("Desistir")){
+				
+					if(Usuario.getId()==0){
+						
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	
+						// 2. Chain together various setter methods to set the dialog characteristics
+						builder.setMessage("Para dar Simbora é preciso estar logado.").setPositiveButton("OK", dialogClick);
+	
+						// 3. Get the AlertDialog from create()
+						AlertDialog dialog = builder.create();
+						dialog.show();
+					}else{
+						
+							if(getEhEvento()){
+								Banco banco = new Banco(getActivity());
+								banco.darSimbora(this.id);
+								AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			
+								// 2. Chain together various setter methods to set the dialog characteristics
+								builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+			
+								// 3. Get the AlertDialog from create()
+								AlertDialog dialog = builder.create();
+								dialog.show();
+							}else{
+								Banco banco = new Banco(getActivity());
+								Estabelecimento estabelecimento = banco.retornaEstabelecimento(this.id);
+								Usuario usuario = banco.getUsuario(Usuario.getId());
+								banco.darSimbora(estabelecimento, usuario);
+								
+								AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+								builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+								AlertDialog dialog = builder.create();
+								dialog.show();
+								}
+							
+						}
+				
+			}
+			if(v.getId()==R.id.btnSimbora & btnSimbora.getText().equals("Desistir")){
+				Banco banco = new Banco(getActivity());
+				Usuario usuario = banco.getUsuario(Usuario.getId());
+				if(getEhEvento()){
+					Evento evento = banco.retornaEvento(this.id);
+					banco.tirarSimbora(evento, usuario);
+					
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Para dar Simbora é preciso estar logado.").setPositiveButton("OK", dialogClick);
-
-					// 3. Get the AlertDialog from create()
+					builder.setMessage("Você desistiu de ir ao evento").setTitle("Desistência").setPositiveButton("OK", dialogClick);
 					AlertDialog dialog = builder.create();
 					dialog.show();
 				}else{
-					Banco banco = new Banco(getActivity());
-					banco.darSimbora(this.id);
+					Estabelecimento estabelecimento = banco.retornaEstabelecimento(this.id);
+					banco.tirarSimbora(estabelecimento, usuario);
+					
 					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-					// 2. Chain together various setter methods to set the dialog characteristics
-					builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
-
-					// 3. Get the AlertDialog from create()
+					builder.setMessage("Você desistiu de ir ao Estabelecimento").setTitle("Desistência").setPositiveButton("OK", dialogClick);
 					AlertDialog dialog = builder.create();
 					dialog.show();
-					
-					
-					}
+				}
 				
 			}
 			// TODO Auto-generated method stub

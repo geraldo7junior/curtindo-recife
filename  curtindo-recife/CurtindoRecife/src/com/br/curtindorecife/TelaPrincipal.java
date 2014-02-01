@@ -68,14 +68,15 @@ public class TelaPrincipal extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Banco banco = new Banco(this);
+		banco.criarBanco();
 		Evento.getListaEventos().clear();
 		//numEventos=0;
 		Evento.getMeusEventos().clear();
-		CriarBanco();
+		/*CriarBanco();*/
 		checarBD();
 		CadastrarEstabelecimento();
 		if(Usuario.getId()!=0){
-			Banco banco = new Banco(this);
 			banco.setMeusEventos(Usuario.getId());
 		}
 		
@@ -155,7 +156,7 @@ public class TelaPrincipal extends FragmentActivity implements
 	String NomeBanco = "CurtindoRecifeDB";
 	SQLiteDatabase BancoDados = null;
 	
-	@SuppressWarnings("deprecation")
+	/*@SuppressWarnings("deprecation")
 	public void CriarBanco() {
 		try {			
 		BancoDados = openOrCreateDatabase(NomeBanco, MODE_WORLD_READABLE, null);
@@ -173,7 +174,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		}finally{
 			BancoDados.close();
 		}
-	}
+	}*/
 	Cursor cursor;
 	
 	@SuppressWarnings("deprecation")

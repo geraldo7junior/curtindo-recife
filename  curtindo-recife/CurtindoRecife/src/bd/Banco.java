@@ -6,6 +6,7 @@ import dominio.Estabelecimento;
 import dominio.Evento;
 import dominio.Usuario;
 import android.R.bool;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,12 +20,13 @@ public class Banco{
 		
 	}
 	
+	private final String tabelaMeusEstabelecimentos="tabelaMeusEstabelecimentos";
 	private final String tabelaEstabelecimentos="tabelaEstabelecimentos";
 	private final String tabelaUsuarios = "tabelaUsuarios";
 	private final String tabelaEventos ="tabelaEventos";
 	private final String tabelaMeusEventos ="tabelaMeusEventos";
 	private final String nomeBanco = "CurtindoRecifeDB";
-	private final int versaoBD = 1;
+	private static int versaoBD = 1;
 	private final Context context;
 	private BDhelper bdHelper;
 	private SQLiteDatabase bancoDados;
@@ -37,7 +39,9 @@ public class Banco{
 			super(context, nomeBanco, null, versaoBD);
 			// TODO Auto-generated constructor stb
 		}
-
+		
+		
+		
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 				//TABELA DE USUÁRIOS (tabelaUsuarios)
@@ -50,10 +54,14 @@ public class Banco{
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
-				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
 				db.execSQL(sqlEstabelecimentos);
+				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
+				String sqlMeusEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEstabelecimentos+" (_id INTEGER PRIMARY KEY, idEstabelecimento, idUsuario)";
+				db.execSQL(sqlMeusEstabelecimentos);
 		}
 
+		
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			
@@ -68,12 +76,44 @@ public class Banco{
 				
 				String sql4 = "DROP TABLE IF EXISTS "+ tabelaEstabelecimentos;
 				db.execSQL(sql4);
+				
+				String sql5 = "DROP TABLE IF EXISTS "+ tabelaMeusEstabelecimentos;
+				db.execSQL(sql5);
 				onCreate(db);
 	
 		}
 		
 		
 	}
+	
+	public void atualizarBanco(){
+		try {
+			openBd();
+			bdHelper= new BDhelper(context);
+			bdHelper.onUpgrade(bancoDados, versaoBD, versaoBD+1);
+			versaoBD = versaoBD+1;
+			bdHelper.onCreate(bancoDados);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}finally{
+			closeBd();
+		}
+		
+	}
+	public void criarBanco(){
+		try {
+			openBd();
+			bdHelper.onCreate(bancoDados);
+			System.out.println("banco Criado");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}finally{
+			closeBd();
+		}
+	}
+	
 	public Banco openBd(){
 		bdHelper= new BDhelper(context);
 		bancoDados = bdHelper.getWritableDatabase();
@@ -84,13 +124,27 @@ public class Banco{
 		bancoDados.close();
 	}
 	
-	//////////////////////DELETA TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////////////////////////////
+
+//////////////////////DELETA TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////////////////////////////
 	public void deletarEstabelecimento(int idOwner){
 		deletar(tabelaEstabelecimentos,idOwner);
 	}
-	///////////////////DELETA UM ESTABELECIMENTO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
+///////////////////DELETA UM ITEN OU MAIS DA Estabelecimentos\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 
 	public void deletarEstabelecimento(Estabelecimento estabelecimento){
 		deletar(estabelecimento.getId(), tabelaEstabelecimentos);
+	}
+	public void deletarEstabelecimento(Usuario usuarioDono){
+		deletar(tabelaEstabelecimentos, "idOwner",""+ usuarioDono.getIdUnico());
+	}
+///////////////////DELETA UM ITEN OU MAIS DA TABELA MeusEstabelecimentos\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\	
+	public void deletarMeusEstabelecimentos(Estabelecimento estabelecimento){
+		deletar(tabelaMeusEstabelecimentos, "idEstabelecimento", ""+estabelecimento.getId());
+	}
+	public void deletarMeusEstabelecimentos(Estabelecimento estabelecimento,Usuario usuario){
+		deletar(tabelaMeusEstabelecimentos, "idEstabelecimento","idUsuario", ""+estabelecimento.getId(),""+usuario.getIdUnico());
+	}
+	public void deletarMeusEstabelecimentos(Usuario usuario){
+		deletar(tabelaMeusEstabelecimentos, "idUsuario", ""+usuario.getIdUnico());
 	}
 /////////////////Método deletar, deleta linha da tabela...//////// 
 private Boolean deletar(String nomeTabela,int idOwner){
@@ -122,6 +176,40 @@ private Boolean deletar(String nomeTabela,int idOwner){
 			bancoDados.close();			
 		}		
 	}
+	
+	
+/////////////////Método deletar dupla condição, deleta linha da tabela...//////// 
+private Boolean deletar(String nomeTabela, String colunaDaTabela1, String colunaDaTabela2, String valorColuna1,String valorColuna2){
+
+try {
+openBd();
+String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela1+" = '"+valorColuna1+"' AND "+colunaDaTabela2+" = '"+valorColuna2+"'";
+bancoDados.execSQL(sqlExcluir);
+return true;
+} catch (Exception e) {
+System.out.println(e);
+return false;
+}finally{
+closeBd();			
+}		
+}
+	
+/////////////////Método deletar, deleta linha da tabela...//////// 
+private Boolean deletar(String nomeTabela, String colunaDaTabela, String valorColuna ){
+
+	try {
+		openBd();
+		String sqlExcluir ="DELETE FROM "+nomeTabela+" WHERE "+colunaDaTabela+" = '"+valorColuna+"'";
+		bancoDados.execSQL(sqlExcluir);
+		return true;
+	} catch (Exception e) {
+		System.out.println(e);
+		return false;
+	}finally{
+		closeBd();			
+	}		
+}
+	
 /////////////////Método deletar, deleta linha da tabelaMeusEventos...//////// 
 private Boolean deletar(Evento evento, int idUsuario){
 
@@ -194,6 +282,36 @@ private Boolean deletar(Evento evento){
 		return resultado;
 	}	
 	
+public void inserirMeusEstabelecimentos(Estabelecimento estabelecimento, Usuario usuario){
+		
+		ContentValues valores = new ContentValues();
+		
+		valores.put("idEstabelecimento", estabelecimento.getId());
+		valores.put("idUsuario", usuario.getIdUnico());
+		
+		inserirNaTabela(tabelaMeusEstabelecimentos, valores);	
+	}	
+public void inserirEstabelecimento(Estabelecimento estabelecimento){
+	
+	ContentValues valores = new ContentValues();
+	
+	valores.put("nome", estabelecimento.getNome());
+	valores.put("endereco", estabelecimento.getEndereco());
+	valores.put("numero", estabelecimento.getNumero());
+	valores.put("preco", estabelecimento.getPreco());
+	valores.put("data", estabelecimento.getData());
+	valores.put("horaInicio", estabelecimento.getHoraInicio());
+	valores.put("horaTermino", estabelecimento.getHoraTermino());
+	valores.put("telefone", estabelecimento.getTelefone());
+	valores.put("descricao", estabelecimento.getDescricao());
+	valores.put("tipo", estabelecimento.getTipo());
+	valores.put("idOwner", estabelecimento.getIdOwner());
+	valores.put("idImagem", estabelecimento.getImage());
+	valores.put("prioridade", estabelecimento.getPrioridade());
+	valores.put("telefone", estabelecimento.getTelefone());
+	
+	inserirNaTabela(tabelaEstabelecimentos, valores);
+	}
 public void inserirEstabelecimento(int idOwner,String nome, String endereco, String numero, String preco, String data, String horaInicio,String horaTermino, String telefone, String descricao, String tipo, int imagem, int prioridade){
 		
 		ContentValues valores = new ContentValues();
@@ -212,39 +330,37 @@ public void inserirEstabelecimento(int idOwner,String nome, String endereco, Str
 		valores.put("idImagem", imagem);
 		valores.put("prioridade", prioridade);
 		
+		inserirNaTabela(tabelaEstabelecimentos, valores);
+		}
+public void inserirEvento(Evento evento){
+	ContentValues valores = new ContentValues();
+	
+	valores.put("nome", evento.getNome());
+	valores.put("endereco", evento.getEndereco());
+	valores.put("numero", evento.getNumero());
+	valores.put("preco", evento.getPreco());
+	valores.put("data", evento.getData());
+	valores.put("hora", evento.getHora());
+	valores.put("telefone", evento.getTelefone());
+	valores.put("descricao", evento.getDescricao());
+	valores.put("tipo", evento.getTipoDeEvento());
+	valores.put("idOwner", evento.getIdOwner());
+	valores.put("imagem", evento.getImage());
+	valores.put("prioridade", evento.getPrioridade());
+	
+	inserirNaTabela(tabelaEventos, valores);
 
-		try{
+}
+private void inserirNaTabela(String nomeTabela,ContentValues valores ){
+		try {
 			openBd();
-			bancoDados.insert(tabelaEstabelecimentos, null, valores);	
-			
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		finally{
+			bancoDados.insert(nomeTabela, null, valores);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
 			closeBd();
 		}
-		}	
-public void inserirEvento(int idOwner, String nome, String endereco, String numero, String preco, String data, String hora, String telefone, String descricao, String tipo, int imagem, int prioridade){
-		
-		ContentValues valores = new ContentValues();
-		
-		valores.put("nome", nome);
-		valores.put("endereco", endereco);
-		valores.put("numero", numero);
-		valores.put("preco", preco);
-		valores.put("data", data);
-		valores.put("hora", hora);
-		valores.put("telefone", telefone);
-		valores.put("descricao", descricao);
-		valores.put("tipo", tipo);
-		valores.put("idOwner", idOwner);
-		valores.put("imagem", imagem);
-		valores.put("prioridade", prioridade);
-		
-
-		
-		bancoDados.insert(tabelaEventos, null, valores);	
+			
 	}
 	
 	public void inserirUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
@@ -263,7 +379,7 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		valores.put("ranking", 0);
 		
 		
-		bancoDados.insert(tabelaUsuarios, null, valores);	
+		inserirNaTabela(tabelaUsuarios, valores);	
 	}
 ///////////////MÉTODO UPDATE USUÁRIO///////////////
 	public void updateUsuario(Usuario usuario){
@@ -279,6 +395,9 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		
 		
 	}
+	
+	
+	
 /////MÉTODO idUsuário RETORNA O CURSOR COM AS INFORMAÇÕES DO(S) USUÁRIOS COM O EMAIL RECEBIDO COMO PARÂMETRO////////
 	public Integer idUsuario(String email){
 		try {
@@ -420,25 +539,25 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}
 	}
 	
-	public void darSimbora(int id) {
+	public void darSimbora(int idEvento) {
 		try {
 			openBd();
 			
-			String sqlSimboras = "SELECT simboras FROM "+tabelaEventos+" WHERE _id LIKE '"+id+"'";
+			String sqlSimboras = "SELECT simboras FROM "+tabelaEventos+" WHERE _id LIKE '"+idEvento+"'";
 			cursor = bancoDados.rawQuery(sqlSimboras,null);
 			cursor.moveToFirst();
 			
 			int oldSimbora = cursor.getInt(cursor.getColumnIndex("simboras"));
 			int newSimbora = oldSimbora + 1;
 			
-			updateSimboraMeusEventos(id,newSimbora);
+			updateSimboraMeusEventos(idEvento,newSimbora);
 			
-			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+id+"')";
+			String sqlMeusEventos="INSERT INTO "+tabelaMeusEventos+" (idUsuario, idEvento) VALUES ('"+Usuario.getId()+"','"+idEvento+"')";
 			bancoDados.execSQL(sqlMeusEventos);
 
 			System.out.println(Usuario.getId()+" Id antes");
 			
-			Usuario usuarioQueCriou = getUsuario(retornaEvento(id).getIdOwner());
+			Usuario usuarioQueCriou = getUsuario(retornaEvento(idEvento).getIdOwner());
 			System.out.println(usuarioQueCriou.getNome()+" Usuário que criou");
 			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()+5);
 			updateUsuario(usuarioQueCriou);
@@ -457,6 +576,94 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			bancoDados.close();
 		}
 	}
+	
+	public void darSimbora(Estabelecimento estabelecimento,Usuario usuario) {
+		try {
+			
+			
+			estabelecimento.setSimboras(estabelecimento.getSimboras()+1);
+			inserirMeusEstabelecimentos(estabelecimento, usuario);
+			
+
+			System.out.println(Usuario.getId()+" Id antes");
+			
+			Usuario usuarioQueCriou = getUsuario(estabelecimento.getIdOwner());
+			System.out.println(usuarioQueCriou.getNome()+" Usuário que criou");
+			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()+5);
+			updateUsuario(usuarioQueCriou);
+			System.out.println(Usuario.getId()+" depois");
+			
+			
+			usuario.setMascates(usuario.getMascates()+1);
+			System.out.println(usuario.getNome()+" Usuário que curtiu");
+			updateUsuario(usuario);
+			
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}
+	}
+	
+	public void tirarSimbora(Evento evento,Usuario usuario) {
+		try {
+			
+			
+			evento.setSimboras(evento.getSimboras()-1);
+			deletar(evento, usuario.getIdUnico());
+			
+			updateSimbora(evento.getId(), evento.getSimboras());
+			
+			System.out.println(Usuario.getId()+" Id antes");
+			
+			Usuario usuarioQueCriou = getUsuario(evento.getIdOwner());
+			System.out.println(usuarioQueCriou.getNome()+" Usuário que criou");
+			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()-5);
+			
+			updateUsuario(usuarioQueCriou);
+			
+			System.out.println(Usuario.getId()+" depois");
+			usuario.setMascates(usuario.getMascates()-1);
+			System.out.println(usuario.getNome()+" Usuário que curtiu");
+			
+			updateUsuario(usuario);
+			
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}
+	}
+	
+	public void tirarSimbora(Estabelecimento estabelecimento,Usuario usuario) {
+		try {
+			
+			
+			estabelecimento.setSimboras(estabelecimento.getSimboras()-1);
+			deletarMeusEstabelecimentos(estabelecimento, usuario);
+			
+			updateEstabelecimento(estabelecimento);
+			
+			System.out.println(Usuario.getId()+" Id antes");
+			
+			Usuario usuarioQueCriou = getUsuario(estabelecimento.getIdOwner());
+			System.out.println(usuarioQueCriou.getNome()+" Usuário que criou");
+			usuarioQueCriou.setMascates(usuarioQueCriou.getMascates()-5);
+			updateUsuario(usuarioQueCriou);
+			System.out.println(Usuario.getId()+" depois");
+			
+			
+			usuario.setMascates(usuario.getMascates()-1);
+			System.out.println(usuario.getNome()+" Usuário que curtiu");
+			updateUsuario(usuario);
+			
+			
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}
+	}
+	
 ///////////////MÉTODO getUsuario FAZ PESQUISA NO BANCO E RETORNA (OBJETO) DO TIPO (Usuario)////////////////	
 	public Usuario getUsuario(int id){
 		
@@ -513,6 +720,28 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}finally{
 			bancoDados.close();
 		}	
+	}
+	
+	public Estabelecimento retornaEstabelecimento(int idEstabelecimento){
+		try {
+			openBd();
+			String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE _id LIKE '"+idEstabelecimento+"' ";
+			Cursor cursor2 = bancoDados.rawQuery(sql, null);
+			cursor2.moveToFirst();
+			
+			Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+			
+			
+			
+			return estabelecimento;
+			
+		} catch (Exception erro) {
+			System.out.println(erro);
+			
+		}finally{
+			closeBd();
+		}	
+		return null;
 	}
 	
 	public Evento retornaEvento(int idEvento){
@@ -601,25 +830,25 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 			}
 	}
 	
-	///RETORNA UMA LISTA COM TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////
-		public ArrayList<Estabelecimento> getListaEstabelecimentos(int idOwner){
+	///RETORNA UMA LISTA COM OS ESTABELECIMENTOS DE UM USUARIO/////////
+		public ArrayList<Estabelecimento> getListaMeusEstabelecimentos(Usuario usuario){
 			try { 
 				openBd();
-				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE idOwner LIKE '"+idOwner+"' ";
+				String sql = "SELECT * FROM "+tabelaMeusEstabelecimentos+" WHERE idUsuario LIKE '"+usuario.getIdUnico()+"' ";
 				Cursor cursor2 = bancoDados.rawQuery(sql, null);
 				cursor2.moveToFirst();			
-				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+				ArrayList<Estabelecimento> listaMeusEstabelecimentos = new ArrayList<Estabelecimento>();
 				if (cursor2.getCount()!=0){
 					for(int i=0;i<cursor2.getCount();i++){			
 						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
-						listaEstabelecimentos.add(estabelecimento);					
+						listaMeusEstabelecimentos.add(estabelecimento);					
 						if(i!=cursor2.getCount()-1){
 							cursor2.moveToNext();
 						}
 					
 					}
 				}
-				return listaEstabelecimentos;
+				return listaMeusEstabelecimentos;
 			} catch (Exception erro) {
 				erro.printStackTrace();
 				
@@ -802,4 +1031,48 @@ public void inserirEvento(int idOwner, String nome, String endereco, String nume
 		}
 	}
 	
+public boolean curtido(Estabelecimento estabelecimento,Usuario usuario){
+			try {
+				openBd();
+				String sql = "SELECT * FROM "+tabelaMeusEstabelecimentos+" WHERE idEstabelecimento LIKE '"+estabelecimento.getId()+"' AND idUsuario LIKE '"+usuario.getIdUnico()+"'";
+				Cursor cursor3 = bancoDados.rawQuery(sql, null);
+				cursor3.moveToFirst();
+
+				if(cursor3.getCount()!=0){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			} catch (Exception erro) {
+				System.out.println(erro);
+				return false;
+			}finally{
+				closeBd();
+			}
+	}
+
+public boolean curtido(Evento evento,Usuario usuario){
+	try {
+		openBd();
+		String sql = "SELECT * FROM "+tabelaMeusEventos+" WHERE idEvento LIKE '"+evento.getId()+"' AND idUsuario LIKE '"+usuario.getIdUnico()+"'";
+		Cursor cursor3 = bancoDados.rawQuery(sql, null);
+		cursor3.moveToFirst();
+
+		if(cursor3.getCount()!=0){
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	} catch (Exception erro) {
+		System.out.println(erro);
+		return false;
+	}finally{
+		closeBd();
+	}
+}
+
 }

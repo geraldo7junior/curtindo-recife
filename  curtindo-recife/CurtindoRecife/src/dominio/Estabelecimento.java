@@ -26,9 +26,10 @@ public class Estabelecimento {
 		setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
 		setPrioridade(cursor.getInt(cursor.getColumnIndex("prioridade")));
 		setRanking(cursor.getInt(cursor.getColumnIndex("ranking")));
+		setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
 	}
 	
-	public Estabelecimento(int idOwner,String nome, String endereco, String numero, String preco, String data, String horaInicio,String horaTermino, String telefone, String descricao, String tipo, int imagem, int prioridade){
+	public Estabelecimento(int idOwner,String nome, String endereco, String numero, String preco, String data, String horaInicio,String horaTermino, String telefone, String descricao, String tipo, int imagem, int prioridade, String Telefone){
 		setIdOwner(idOwner);
 		setNome(nome);
 		setData(data);
@@ -38,6 +39,7 @@ public class Estabelecimento {
 		setTipo(tipo);
 		setPreco(preco);
 		setNumero(numero);
+		setTelefone(Telefone);
 		setEndereco(endereco);
 		setPrioridade(prioridade);
 		setRanking(0);
@@ -64,12 +66,23 @@ public class Estabelecimento {
 	private int prioridade;
 	private String telefone;
 	private static String atual;
+<<<<<<< .mine
+	private String telefone;
+=======
 	private static ArrayList<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
+>>>>>>> .r200
 	
 	
 	
 	
-	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
 	
 	
 	public static ArrayList<Estabelecimento> getListaEstabelecimento() {
