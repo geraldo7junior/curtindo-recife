@@ -8,7 +8,6 @@ import java.util.Date;
 import bd.Banco;
 
 import com.br.curtindorecife.R.id;
-
 import dominio.Evento;
 import dominio.Mensagem;
 import dominio.Usuario;
@@ -17,11 +16,14 @@ import android.app.Activity;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 
@@ -51,11 +53,9 @@ public class TelaAgenda extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_agenda);
 		calendarView=(CalendarView) findViewById(R.id.calendarView1);
-		calendarView.setHovered(false);
+		View parent=(View) calendarView.getParent();
 		DateFormat format=new SimpleDateFormat("dd/MM/yyyy");
 		Date data=new Date();
-	
-		
 		String dataHoje=format.format(data);
 		System.out.println(dataHoje);
 		Evento.setDia(dataHoje);

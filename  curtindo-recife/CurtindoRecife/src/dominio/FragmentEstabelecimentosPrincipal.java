@@ -131,9 +131,8 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 				startActivity(intent);
 		}
 		if(v.getId() == R.id.btnAgendaEstabelecimento){
-			Evento.setMeusEventosClickados(false);
-			Evento.setAtual("Agenda");
-			Intent intent = new Intent(getActivity(), TelaAgenda.class);
+			
+			Intent intent = new Intent(getActivity(), CalendarView.class);
 			startActivity(intent);
 		}
 		

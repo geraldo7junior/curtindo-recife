@@ -89,6 +89,11 @@
             android:label="@string/title_activity_cadastrar_estabelecimento" 
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="dominio.CalendarView"
+            android:label="Agenda" 
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

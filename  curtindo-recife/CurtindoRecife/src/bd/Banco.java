@@ -943,6 +943,34 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			}return null;
 			
 		}
+		
+		public ArrayList<Evento> ListarEvento(){
+			try { 
+				openBd();
+				String sql = "SELECT * FROM "+tabelaEventos+"";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Evento> listaEventosData = new ArrayList<Evento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						
+						listaEventosData.add(setEvento(cursor2));
+						listaEventosData.get(i).setCurtido(eventoCurtido(listaEventosData.get(i)));
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEventosData;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				closeBd();
+			}return null;
+			
+		}
 	
 	public ArrayList<Evento> ListarEventoPorData(String data){
 		try { 
