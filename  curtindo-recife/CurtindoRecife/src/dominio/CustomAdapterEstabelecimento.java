@@ -43,8 +43,8 @@ public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> 
         //get all object from view
         ImageView image = (ImageView) convertView.findViewById(R.id.image);
         TextView nome = (TextView) convertView.findViewById(R.id.tv1);
-        TextView data = (TextView) convertView.findViewById(R.id.tv2);
-        TextView hora = (TextView) convertView.findViewById(R.id.tv3);
+        TextView endereco = (TextView) convertView.findViewById(R.id.tv2);
+        TextView telefone = (TextView) convertView.findViewById(R.id.tv3);
         TextView tipo= (TextView) convertView.findViewById(R.id.tvTipoEvento);
         TextView simboras=(TextView) convertView.findViewById(R.id.tvSimboras);
         
@@ -54,8 +54,8 @@ public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> 
  
         //fill the view objects according values from Evento object
         nome.setText(estabelecimento.getNome());
-        data.setText(estabelecimento.getData());
-        hora.setText(estabelecimento.getEndereco());
+        endereco.setText(estabelecimento.getEndereco());
+        telefone.setText(estabelecimento.getTelefone());
         image.setBackgroundResource(Evento.associeImagem("Show"));
         /*if(estabelecimento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
@@ -65,7 +65,8 @@ public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> 
         		tipo.setText("Evento Curtido");
         	}
         }
-        simboras.setText(evento.getSimboras()+" curtiram");    */ 
+        */ 
+        simboras.setText(estabelecimento.getSimboras()+" curtiram");    
         
         return convertView;
     }

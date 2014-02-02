@@ -54,7 +54,7 @@ public class Banco{
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
 				db.execSQL(sqlMeusEventos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
-				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data TEXT, horaInicio TEXT, horaTermino TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data_funcionamento TEXT, horaInicio TEXT, horaTermino TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
 				db.execSQL(sqlEstabelecimentos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
 				String sqlMeusEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEstabelecimentos+" (_id INTEGER PRIMARY KEY, idEstabelecimento INTEGER, idUsuario INTEGER)";
@@ -300,7 +300,7 @@ public void inserirEstabelecimento(Estabelecimento estabelecimento){
 	valores.put("endereco", estabelecimento.getEndereco());
 	valores.put("numero", estabelecimento.getNumero());
 	valores.put("preco", estabelecimento.getPreco());
-	valores.put("data", estabelecimento.getData());
+	valores.put("data_funcionamento", estabelecimento.getData());
 	valores.put("horaInicio", estabelecimento.getHoraInicio());
 	valores.put("horaTermino", estabelecimento.getHoraTermino());
 	valores.put("telefone", estabelecimento.getTelefone());
@@ -321,7 +321,7 @@ public void inserirEstabelecimento(int idOwner,String nome, String endereco, Str
 		valores.put("endereco", endereco);
 		valores.put("numero", numero);
 		valores.put("preco", preco);
-		valores.put("data", data);
+		valores.put("data_funcionamento", data);
 		valores.put("horaInicio", horaInicio);
 		valores.put("horaTermino", horaTermino);
 		valores.put("telefone", telefone);
@@ -330,6 +330,8 @@ public void inserirEstabelecimento(int idOwner,String nome, String endereco, Str
 		valores.put("idOwner", idOwner);
 		valores.put("idImagem", imagem);
 		valores.put("prioridade", prioridade);
+		valores.put("simboras", 0);
+		valores.put("ranking", 0);
 		
 		inserirNaTabela(tabelaEstabelecimentos, valores);
 		}
@@ -585,7 +587,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			estabelecimento.setSimboras(estabelecimento.getSimboras()+1);
 			inserirMeusEstabelecimentos(estabelecimento, usuario);
 			
-
+			updateEstabelecimento(estabelecimento);
 			System.out.println(Usuario.getId()+" Id antes");
 			
 			Usuario usuarioQueCriou = getUsuario(estabelecimento.getIdOwner());
@@ -816,7 +818,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		try {
 			openBd();
 			String sql = "UPDATE "+tabelaEstabelecimentos+" SET idOwner = '"+estabelecimento.getIdOwner()+"', idImagem = '"+estabelecimento.getImage()+"'," +
-					"nome = '"+estabelecimento.getNome()+"', data = '"+estabelecimento.getData()+"', horaInicio = '"+estabelecimento.getHoraInicio()+"'," +
+					"nome = '"+estabelecimento.getNome()+"', data_funcionamento = '"+estabelecimento.getData()+"', horaInicio = '"+estabelecimento.getHoraInicio()+"'," +
 					" horaTermino = '"+estabelecimento.getHoraTermino()+"', descricao = '"+estabelecimento.getDescricao()+"'," +
 					" tipo = '"+estabelecimento.getTipo()+"', simboras = '"+estabelecimento.getSimboras()+"'," +
 					" preco = '"+estabelecimento.getPreco()+"', numero = '"+estabelecimento.getNumero()+"', endereco = '"+estabelecimento.getEndereco()+"'," +
@@ -858,6 +860,33 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			}return null;
 			
 		}
+		//RETORNA TODOS OS ESTABELECIMENTOS
+		public ArrayList<Estabelecimento> getListaEstabelecimentos(){
+			try { 
+				openBd();
+				String sql = "SELECT * FROM "+tabelaEstabelecimentos+"";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+						listaEstabelecimentos.add(estabelecimento);					
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEstabelecimentos;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				closeBd();
+			}return null;
+			
+		}
 	
 	///RETORNA UMA LISTA COM TODOS OS ESTABELECIMENTOS DE UM TIPO/////////
 	public ArrayList<Estabelecimento> getListaEstabelecimentos(String tipo){
@@ -891,7 +920,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		public ArrayList<Estabelecimento> getListaEstabelecimentos(String tipo, String data){
 			try { 
 				openBd();
-				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE tipo LIKE '"+tipo+"' AND data LIKE '"+data+"'";
+				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE tipo LIKE '"+tipo+"' AND data_funcionamento LIKE '"+data+"'";
 				Cursor cursor2 = bancoDados.rawQuery(sql, null);
 				cursor2.moveToFirst();			
 				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();

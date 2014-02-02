@@ -1,6 +1,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.database.Cursor;
 
@@ -14,7 +15,7 @@ public class Estabelecimento {
 		setIdOwner(cursor.getInt(cursor.getColumnIndex("idOwner")));
 		setImage(cursor.getInt(cursor.getColumnIndex("idImagem")));
 		setNome(cursor.getString(cursor.getColumnIndex("nome")));
-		setData(cursor.getString(cursor.getColumnIndex("data")));
+		setData(cursor.getString(cursor.getColumnIndex("data_funcionamento")));
 		setHoraInicio(cursor.getString(cursor.getColumnIndex("horaInicio")));
 		setHoraTermino(cursor.getString(cursor.getColumnIndex("horaTermino")));
 		setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
@@ -193,5 +194,28 @@ public class Estabelecimento {
 		this.telefone = telefone;
 	}
 	
-	
+	public static ArrayList<Estabelecimento> ranking(){
+		ArrayList<Integer> listaSimboras=new ArrayList<Integer>();
+		ArrayList<Estabelecimento> listaOrdenada=new ArrayList<Estabelecimento>();
+		for(int k=0;k<listaEstabelecimento.size();k++){
+			listaSimboras.add(listaEstabelecimento.get(k).getSimboras());
+			System.out.println(listaSimboras.get(k));
+		}
+		Collections.sort(listaSimboras);
+		Collections.reverse(listaSimboras);
+		for(int i=0;i<listaSimboras.size();i++){
+			if(i>9){
+				break;
+			}
+			for(int j=0;j<listaEstabelecimento.size();j++){
+				if((listaSimboras.get(i)==listaEstabelecimento.get(j).getSimboras())&&(!listaOrdenada.contains(listaEstabelecimento.get(j)))){
+					 listaOrdenada.add(listaEstabelecimento.get(j));
+					 System.out.println("Adicionando "+listaEstabelecimento.get(j).getNome());
+					 break;
+				}
+			}
+		}
+		
+		return listaOrdenada;
+	}
 }

@@ -147,9 +147,17 @@ public class TelaCategoriaEvento extends Activity {
         }
         else{
         	Banco banco =new Banco(this);
-        	p=banco.getListaEstabelecimentos(Estabelecimento.getAtual());
-        	Estabelecimento.setListaEstabelecimento(banco.getListaEstabelecimentos(Estabelecimento.getAtual()));
+        	//p=banco.getListaEstabelecimentos(Estabelecimento.getAtual());
         	
+        	if(Estabelecimento.getAtual().equals("Top10")){
+        		Estabelecimento.setListaEstabelecimento(banco.getListaEstabelecimentos());
+        		Estabelecimento.setListaEstabelecimento(Estabelecimento.ranking());
+        	}
+        	else{
+        		Estabelecimento.setListaEstabelecimento(banco.getListaEstabelecimentos(Estabelecimento.getAtual()));
+            	
+        	}
+        	p=Estabelecimento.getListaEstabelecimento();
         }
         return p;
     }

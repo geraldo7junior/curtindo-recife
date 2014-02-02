@@ -61,12 +61,13 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		btnEstabelecimento4.setOnClickListener(this);
 		btnNightEstabelecimento=(ImageButton)rootView.findViewById(R.id.btnNightEstabelecimento);
 		btnNightEstabelecimento.setOnClickListener(this);
-		
+		btnTop10Estabelecimento=(ImageButton)rootView.findViewById(R.id.btnTop10Estabelecimento);
+		btnTop10Estabelecimento.setOnClickListener(this);
 		
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
 		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		
-		/*if(Usuario.getId()!=0){*/
+		if(Usuario.getId()!=0){
 			Banco banco = new Banco(getActivity());
 			usuario = banco.getUsuario(Usuario.getId());
 			//Evento.getNomesEventosTelaPrincipal().clear();
@@ -84,7 +85,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			btnEstabelecimento4.setImageResource(imgEstabelecimento4);*/
 			
 			//btnLogin.setText("Perfil");
-		/*}*//*else{
+		}/*else{
 			Evento.getNomesEventosTelaPrincipal().clear();
 			Evento.retorneListaNomesEventos("Show", "Teatro", "Esporte", ar);
 			imgEvento1 = Evento.associeImagem(Evento.getNomesEventosTelaPrincipal().get(0));
@@ -161,8 +162,9 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			}
 		}
 		if(v.getId()== R.id.btnTop10Estabelecimento){
+			Evento.setAtual("");
 			Evento.setMeusEventosClickados(false);
-			Evento.setAtual("Top10");
+			Estabelecimento.setAtual("Top10");
 			Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 			startActivity(intent);
 		}
