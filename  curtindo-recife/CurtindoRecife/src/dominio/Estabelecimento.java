@@ -3,6 +3,8 @@ package dominio;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.br.curtindorecife.R;
+
 import android.database.Cursor;
 
 public class Estabelecimento {
@@ -217,5 +219,23 @@ public class Estabelecimento {
 		}
 		
 		return listaOrdenada;
+	}
+	
+	public static int associeImagem(String tipo){
+		int imagem=R.drawable.logo_recife;
+		
+		if(tipo.equals("Bar")){
+			imagem=R.drawable.botao_bares;
+		}
+		if(tipo.equals("Restaurante")){
+			imagem=R.drawable.botao_restaurantes;
+		}
+		if(tipo.equals("Casa de Show")){
+			imagem=R.drawable.botao_casa_de_show;
+		}
+		if(tipo.equals("Boate")){
+			imagem=R.drawable.botao_boate;
+		}
+		return imagem;
 	}
 }

@@ -56,7 +56,7 @@ public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> 
         nome.setText(estabelecimento.getNome());
         endereco.setText(estabelecimento.getEndereco());
         telefone.setText(estabelecimento.getTelefone());
-        image.setBackgroundResource(Evento.associeImagem("Show"));
+        image.setBackgroundResource(Estabelecimento.associeImagem(estabelecimento.getTipo()));
         /*if(estabelecimento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
         }

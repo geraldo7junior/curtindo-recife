@@ -81,7 +81,13 @@
         </activity>
         <activity
             android:name="com.br.curtindorecife.TelaEventosData"
-            android:label="@string/title_activity_tela_eventos_data" >
+            android:label="@string/title_activity_tela_eventos_data" 
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaCadastroEstabelecimento"
+            android:label="@string/title_activity_cadastrar_estabelecimento" 
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

@@ -121,7 +121,13 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 
 			txtEndereco.setText(this.endereco+", "+this.numero);
 			txtNomeEvento.setText(this.nomeEvento);
-			imgEvento.setBackgroundResource(Evento.associeImagem(this.tipo));
+			if(ehEvento){
+				imgEvento.setBackgroundResource(Evento.associeImagem(this.tipo));
+			}
+			else{
+				imgEvento.setBackgroundResource(Estabelecimento.associeImagem(this.tipo));
+				
+			}
 			txtData.setText(this.data);
 			txtHora.setText(this.hora);
 			txtPreco.setText(this.preco);

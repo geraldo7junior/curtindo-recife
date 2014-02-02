@@ -73,25 +73,25 @@
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/imgshow" />
+                    android:src="@drawable/botao_bares" />
                 <ImageButton
                     android:id="@+id/btnEstabelecimento2"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/imgteatro" />
+                    android:src="@drawable/botao_restaurantes" />
                 <ImageButton
                     android:id="@+id/btnEstabelecimento3"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/imgesportes" />
+                    android:src="@drawable/botao_casa_de_show" />
                 <ImageButton
                     android:id="@+id/btnEstabelecimento4"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:src="@drawable/imgshow" />
+                    android:src="@drawable/botao_boate" />
                 
             </LinearLayout>
         </HorizontalScrollView>
