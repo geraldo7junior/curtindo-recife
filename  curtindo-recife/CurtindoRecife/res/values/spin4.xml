@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorias4">
+        <item>Bar</item>
+        <item >Restaurante</item>
+        <item>Casa de Show</item>
+        <item>Boate</item>
+    </string-array>
+</resources>

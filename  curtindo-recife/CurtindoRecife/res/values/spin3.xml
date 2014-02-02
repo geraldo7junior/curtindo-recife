@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Categorias3">
+        <item>Segunda a Sexta</item>
+        <item >Fins de Semana</item>
+        <item>Diariamente</item>
+    </string-array>
+</resources>

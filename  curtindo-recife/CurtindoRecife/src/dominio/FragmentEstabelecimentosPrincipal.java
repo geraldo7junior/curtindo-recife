@@ -16,6 +16,7 @@ import bd.Banco;
 
 import com.br.curtindorecife.R;
 import com.br.curtindorecife.TelaAgenda;
+import com.br.curtindorecife.TelaCadastroEstabelecimento;
 import com.br.curtindorecife.TelaCadastroEvento;
 import com.br.curtindorecife.TelaCategoriaEvento;
 import com.br.curtindorecife.TelaLogin;
@@ -139,7 +140,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		if(v.getId() == R.id.btnCadastrarEstabelecimento){
 			if(Usuario.getId()!=0){
 				Evento.setMeusEventosClickados(false);
-				Intent intent = new Intent(getActivity(),TelaCadastroEvento.class);
+				Intent intent = new Intent(getActivity(),TelaCadastroEstabelecimento.class);
 				startActivity(intent);
 			}else{
 				DialogInterface.OnClickListener dialogClick = new DialogInterface.OnClickListener() {

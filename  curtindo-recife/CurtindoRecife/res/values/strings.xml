@@ -62,5 +62,8 @@
     <string name="sair">Sair</string>
     <string name="title_activity_tela_mostrar_perfil">TelaMostrarPerfil</string>
     <string name="title_activity_tela_eventos_data">TelaEventosData</string>
+    <string name="title_activity_cadastrar_estabelecimento">CadastrarEstabelecimento</string>
+    <string name="CadastroDeEstabelecimento">Cadastro de Local</string>
+
 
 </resources>
