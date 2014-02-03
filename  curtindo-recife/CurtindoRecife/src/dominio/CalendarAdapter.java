@@ -43,6 +43,7 @@ public class CalendarAdapter extends BaseAdapter {
 	private ArrayList<String> items;
 	public static List<String> dayString;
 	private View previousView;
+	private ArrayList<Evento> listaEvento;
 
 	public CalendarAdapter(Context c, GregorianCalendar monthCalendar) {
 		CalendarAdapter.dayString = new ArrayList<String>();
@@ -65,6 +66,10 @@ public class CalendarAdapter extends BaseAdapter {
 			System.out.println(items.get(i)+ " Itens");
 		}
 		this.items = items;
+	}
+	
+	public void setEventos(ArrayList<Evento> listaCurtidos){
+		this.listaEvento=listaCurtidos;
 	}
 
 	public int getCount() {
@@ -135,7 +140,25 @@ public class CalendarAdapter extends BaseAdapter {
 		
 		System.out.println(date+" data no adapter");
 		if (date.length() > 0 && items != null && items.contains(date)) {
-			iw.setVisibility(View.VISIBLE);
+			for (int i = 0; i < listaEvento.size(); i++) {
+				
+				if(listaEvento.get(i).getData().equals(date)&& listaEvento.get(i).isCurtido()){
+					iw.setBackgroundResource(R.drawable.dot_curtido);
+					dayView.setBackgroundColor(Color.BLUE);
+					dayView.setTextColor(Color.WHITE);
+				}
+				
+				else if(listaEvento.get(i).getData().equals(date)&& listaEvento.get(i).getIdOwner()==Usuario.getId()){
+					iw.setBackgroundResource(R.drawable.dot_criado);
+					dayView.setBackgroundColor(Color.RED);
+					dayView.setTextColor(Color.WHITE);
+				}
+				else{
+					iw.setBackgroundResource(R.drawable.dot);
+					}		
+				
+			}
+			
 		} else {
 			iw.setVisibility(View.INVISIBLE);
 		}

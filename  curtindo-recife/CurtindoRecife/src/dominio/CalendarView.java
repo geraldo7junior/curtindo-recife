@@ -38,7 +38,7 @@ public class CalendarView extends Activity {
 	LinearLayout rLayout;
 	ArrayList<String> date;
 	ArrayList<String> desc;
-
+	ArrayList<Evento> listaEvento=new ArrayList<Evento>();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.calendar);
@@ -184,7 +184,7 @@ public class CalendarView extends Activity {
 		@Override
 		public void run() {
 			items.clear();
-
+			listaEvento.clear();
 			// Print dates of the current week
 			DateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.US);
 			String itemvalue;
@@ -193,12 +193,12 @@ public class CalendarView extends Activity {
 			Log.d("=====Date ARRAY====", Utility.startDates.toString());
 
 			for (int i = 0; i < Utility.startDates.size(); i++) {
-				System.out.println(Utility.startDates.get(i)+ " Datas calendarUpdater");
 				itemvalue = df.format(itemmonth.getTime());
 				itemmonth.add(GregorianCalendar.DATE, 1);
 				items.add(Utility.startDates.get(i).toString());
 			}
 			adapter.setItems(items);
+			adapter.setEventos(Utility.listaEventos);
 			adapter.notifyDataSetChanged();
 		}
 	};
