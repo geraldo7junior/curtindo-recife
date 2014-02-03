@@ -75,7 +75,7 @@ public class Estabelecimento {
 	private static String atual;
 	private static ArrayList<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
 	private static ArrayList<Estabelecimento> listaMeusEstabelecimentos = new ArrayList<Estabelecimento>();
-
+	private static boolean meusEstabelecimentosClickados=false;
 	
 	public static ArrayList<Estabelecimento> getListaMeusEstabelecimentos() {
 		return listaMeusEstabelecimentos;
@@ -251,5 +251,14 @@ public class Estabelecimento {
 			imagem=R.drawable.botao_boate;
 		}
 		return imagem;
+	}
+
+	public static boolean isMeusEstabelecimentosClickados() {
+		return meusEstabelecimentosClickados;
+	}
+
+	public static void setMeusEstabelecimentosClickados(
+			boolean meusEstabelecimentosClickados) {
+		Estabelecimento.meusEstabelecimentosClickados = meusEstabelecimentosClickados;
 	}
 }

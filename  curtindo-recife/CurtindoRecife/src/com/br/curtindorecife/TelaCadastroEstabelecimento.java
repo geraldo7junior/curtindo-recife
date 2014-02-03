@@ -94,7 +94,10 @@ public class TelaCadastroEstabelecimento extends Activity implements OnClickList
 			
 			banco.inserirEstabelecimento(estabelecimento);
 			usuario.setMascates(usuario.getMascates()-custo);
+			banco.inserirMeusEstabelecimentos(usuario);
 			banco.updateUsuario(usuario);
+			//banco.inserirMeusEstabelecimentos(estabelecimento, usuario);
+			
 			
 			
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);

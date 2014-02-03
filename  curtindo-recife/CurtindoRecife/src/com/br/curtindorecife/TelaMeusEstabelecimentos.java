@@ -38,7 +38,7 @@ public class TelaMeusEstabelecimentos extends FragmentActivity {
 					long arg3) {
 				Intent intent = new Intent(TelaMeusEstabelecimentos.this,TelaEventos.class);
 				int position=arg2;
-				Evento.setMeusEventosClickados(true);
+				Estabelecimento.setMeusEstabelecimentosClickados(true);
 				intent.putExtra("position", position);
 				startActivity(intent);
 			}

@@ -43,7 +43,7 @@ public class CalendarAdapter extends BaseAdapter {
 	private ArrayList<String> items;
 	public static List<String> dayString;
 	private View previousView;
-	private ArrayList<Evento> listaEvento;
+	private ArrayList<Evento> listaEvento=new ArrayList<Evento>();
 
 	public CalendarAdapter(Context c, GregorianCalendar monthCalendar) {
 		CalendarAdapter.dayString = new ArrayList<String>();
@@ -150,11 +150,15 @@ public class CalendarAdapter extends BaseAdapter {
 					
 						iw.setBackgroundResource(R.drawable.dot_criado);
 						}
-				}
+				
+			}
+			
 				
 			
-			
 		}
+		/*else{
+			iw.setVisibility(View.INVISIBLE);
+		}*/
 		return v;
 	}
 
@@ -171,6 +175,7 @@ public class CalendarAdapter extends BaseAdapter {
 		// clear items
 		items.clear();
 		dayString.clear();
+		listaEvento.clear();
 		Locale.setDefault(Locale.US);
 		pmonth = (GregorianCalendar) month.clone();
 		System.out.println(pmonth+ " pmonth");

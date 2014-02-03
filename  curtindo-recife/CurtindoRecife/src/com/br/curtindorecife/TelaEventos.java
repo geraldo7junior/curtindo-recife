@@ -106,9 +106,18 @@ public class TelaEventos extends FragmentActivity {
 					}
 				}
 			}else{
-				numEventos = Estabelecimento.getListaEstabelecimento().size();
-				Intent intent=getIntent();
-				posicao=intent.getIntExtra("position", 0);
+				if(Estabelecimento.isMeusEstabelecimentosClickados()){
+					numEventos=Estabelecimento.getListaMeusEstabelecimentos().size();
+					Intent intent=getIntent();
+					posicao=intent.getIntExtra("position", 0);
+				
+				}
+				else{
+					numEventos = Estabelecimento.getListaEstabelecimento().size();
+					Intent intent=getIntent();
+					posicao=intent.getIntExtra("position", 0);
+				
+				}
 			}
 		
 		
@@ -224,7 +233,13 @@ public class TelaEventos extends FragmentActivity {
 						fragment = new FragmentEventos(Evento.getListaEventos().get(position));
 					}
 				}else{
-					fragment = new FragmentEventos(Estabelecimento.getListaEstabelecimento().get(position));
+					if(Estabelecimento.isMeusEstabelecimentosClickados()){
+						fragment=new FragmentEventos(Estabelecimento.getListaMeusEstabelecimentos().get(position));
+					}
+					else{
+						fragment = new FragmentEventos(Estabelecimento.getListaEstabelecimento().get(position));
+						
+					}
 				}
 			}
 			Bundle args = new Bundle();
@@ -258,7 +273,13 @@ public class TelaEventos extends FragmentActivity {
 					return Evento.getListaEventos().get(position).getNome();
 				}
 			}else{
-				return Estabelecimento.getListaEstabelecimento().get(position).getNome();
+				if(Estabelecimento.isMeusEstabelecimentosClickados()){
+					return Estabelecimento.getListaMeusEstabelecimentos().get(position).getNome();
+				}
+				else{
+					return Estabelecimento.getListaEstabelecimento().get(position).getNome();
+					
+				}
 			}
 			}
 		}

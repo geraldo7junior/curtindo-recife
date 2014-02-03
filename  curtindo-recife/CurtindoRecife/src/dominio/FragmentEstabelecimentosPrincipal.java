@@ -123,26 +123,30 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 				//}
 			}*/if(v.getId() == R.id.btnLoginEstabelecimento && Usuario.getId()!=0){
 				//Usuario.setId(0);
+				Evento.setAtual("");
+				Estabelecimento.setMeusEstabelecimentosClickados(false);
 				Intent intent = new Intent(getActivity(), TelaMeusEstabelecimentos.class);
 				startActivity(intent);
 				
 			}
 		
 		if(v.getId()== R.id.btnNightEstabelecimento){
-				Evento.setMeusEventosClickados(false);
-				Evento.setAtual("Night");
+			Estabelecimento.setMeusEstabelecimentosClickados(false);
+				Evento.setAtual("");
 				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
 		}
 		if(v.getId() == R.id.btnAgendaEstabelecimento){
 			Evento.setAtual("Agenda");
+			Estabelecimento.setMeusEstabelecimentosClickados(false);
 			Intent intent = new Intent(getActivity(), CalendarView.class);
 			startActivity(intent);
 		}
 		
 		if(v.getId() == R.id.btnCadastrarEstabelecimento){
 			if(Usuario.getId()!=0){
-				Evento.setMeusEventosClickados(false);
+				Evento.setAtual("");
+				Estabelecimento.setMeusEstabelecimentosClickados(false);
 				Intent intent = new Intent(getActivity(),TelaCadastroEstabelecimento.class);
 				startActivity(intent);
 			}else{
@@ -167,7 +171,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		}
 		if(v.getId()== R.id.btnTop10Estabelecimento){
 			Evento.setAtual("");
-			Evento.setMeusEventosClickados(false);
+			Estabelecimento.setMeusEstabelecimentosClickados(false);
 			Estabelecimento.setAtual("Top10");
 			Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 			startActivity(intent);
@@ -232,7 +236,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 		}*/
 		if(idCorreto){
 			Evento.setAtual("");
-			Evento.setMeusEventosClickados(false);
+			Estabelecimento.setMeusEstabelecimentosClickados(false);
 			Intent intent = new Intent(getActivity(), TelaCategoriaEvento.class);
 			startActivity(intent);
 		}

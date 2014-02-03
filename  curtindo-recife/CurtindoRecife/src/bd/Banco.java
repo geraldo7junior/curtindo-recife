@@ -293,6 +293,20 @@ public void inserirMeusEstabelecimentos(Estabelecimento estabelecimento, Usuario
 		
 		inserirNaTabela(tabelaMeusEstabelecimentos, valores);	
 	}	
+
+public void inserirMeusEstabelecimentos(Usuario usuario){
+	openBd();
+	String ultimoInserido="select * from tabelaEstabelecimentos Where idOwner like '"+usuario.getIdUnico()+"'";
+	Cursor cursor=bancoDados.rawQuery(ultimoInserido, null);
+	cursor.moveToLast();
+	ContentValues valores = new ContentValues();
+	
+	valores.put("idEstabelecimento", cursor.getInt(cursor.getColumnIndex("_id")));
+	valores.put("idUsuario", usuario.getIdUnico());
+	
+	inserirNaTabela(tabelaMeusEstabelecimentos, valores);	
+	closeBd();
+}	
 public void inserirEstabelecimento(Estabelecimento estabelecimento){
 	
 	ContentValues valores = new ContentValues();
