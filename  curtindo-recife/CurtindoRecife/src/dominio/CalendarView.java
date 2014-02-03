@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import bd.Banco;
+
 import com.br.curtindorecife.R;
+import com.br.curtindorecife.TelaAgenda;
+import com.br.curtindorecife.TelaEventos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -86,8 +91,6 @@ public class CalendarView extends Activity {
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-				// removing the previous view if added
-				System.out.println(position+ " posição no onclick");
 				if (((LinearLayout) rLayout).getChildCount() > 0) {
 					((LinearLayout) rLayout).removeAllViews();
 				}
@@ -98,10 +101,7 @@ public class CalendarView extends Activity {
 						.get(position);
 				String[]separedTime=selectedGridDate.split("/");
 				String gridvalueString=separedTime[0].replaceFirst("^0*", "");
-				/*String[] separatedTime = selectedGridDate.split("-");
-				String gridvalueString = separatedTime[2].replaceFirst("^0*",
-						"");// taking last part of date. ie; 2 from 2012-12-02.
-				*/int gridvalue = Integer.parseInt(gridvalueString);
+				int gridvalue = Integer.parseInt(gridvalueString);
 				// navigate to next or previous month on clicking offdays.
 				if ((gridvalue > 10) && (position < 8)) {
 					setPreviousMonth();
@@ -123,7 +123,7 @@ public class CalendarView extends Activity {
 						TextView rowTextView = new TextView(CalendarView.this);
 
 						// set some properties of rowTextView or something
-						rowTextView.setText("Event:" + desc.get(i));
+						rowTextView.setText(desc.get(i));
 						rowTextView.setTextColor(Color.BLACK);
 
 						// add the textview to the linearlayout
@@ -134,12 +134,35 @@ public class CalendarView extends Activity {
 				}
 
 				desc = null;
+				
+				Banco banco = new Banco(CalendarView.this);
+				banco.ListarEventoPorData(selectedGridDate);
+				Intent intent=new Intent(CalendarView.this, TelaEventos.class);
+				intent.putExtra("extra", selectedGridDate);
+				//intent.putExtra("maximoMes", getMaximoDiaDoMes(arg2+1, arg1));
+				Mensagem.dias=getMaximoDiaDoMes(Integer.parseInt(selectedGridDate.substring(3, 5))+1, Integer.parseInt(selectedGridDate.substring(6, 10)));
+				startActivity(intent);
 
 			}
 
 		});
 	}
 
+	public int getMaximoDiaDoMes(int mes, int ano){
+		if(ano%4==0 && mes == 2){
+			return 29;
+		}
+		if(mes==1 || mes==3 || mes==5 || mes==7 || mes==8 || mes==10 || mes==12){
+			return 31;
+		}
+		if(mes==4 || mes==6 || mes==9 || mes==11){
+			return 30;
+		}
+		if(mes== 2 && ano%4!=0){
+			return 28;
+		}
+		return 0;
+	}
 	protected void setNextMonth() {
 		if (month.get(GregorianCalendar.MONTH) == month
 				.getActualMaximum(GregorianCalendar.MONTH)) {

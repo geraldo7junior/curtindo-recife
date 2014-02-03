@@ -62,7 +62,7 @@ public class FragmentListaEventos extends Fragment {
 				if(!spCategoriaData.getSelectedItem().toString().equals(atual)){
 					 position = pos;
 					System.out.println(position+" POSITION no ONITEM");
-					Intent intent = new Intent(getActivity(),TelaAgenda.class);
+					Intent intent = new Intent(getActivity(),CalendarView.class);
 					startActivity(intent);
 				}
 			}

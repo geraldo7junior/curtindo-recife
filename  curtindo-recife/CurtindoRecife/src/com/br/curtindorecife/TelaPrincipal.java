@@ -465,7 +465,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			if(v.getId() == R.id.btnAgenda){
 				Evento.setMeusEventosClickados(false);
 				Evento.setAtual("Agenda");
-				Intent intent = new Intent(getActivity(), TelaAgenda.class);
+				Intent intent = new Intent(getActivity(), CalendarView.class);
 				startActivity(intent);
 			}
 			

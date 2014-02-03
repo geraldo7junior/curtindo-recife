@@ -101,7 +101,6 @@ public class CalendarAdapter extends BaseAdapter {
 		// taking last part of date. ie; 2 from 2012-12-02
 		String gridvalue = separatedTime[0].replaceFirst("^0*", "");
 		// checking whether the day is in current month or not.
-		System.out.println(gridvalue+" gridValue no adapter");
 		if ((Integer.parseInt(gridvalue) > 1) && (position < firstDay)) {
 			// setting offdays to white color.
 			dayView.setTextColor(Color.WHITE);
@@ -140,27 +139,21 @@ public class CalendarAdapter extends BaseAdapter {
 		
 		System.out.println(date+" data no adapter");
 		if (date.length() > 0 && items != null && items.contains(date)) {
+			iw.setBackgroundResource(R.drawable.dot);
 			for (int i = 0; i < listaEvento.size(); i++) {
 				
 				if(listaEvento.get(i).getData().equals(date)&& listaEvento.get(i).isCurtido()){
 					iw.setBackgroundResource(R.drawable.dot_curtido);
-					dayView.setBackgroundColor(Color.BLUE);
-					dayView.setTextColor(Color.WHITE);
 				}
 				
-				else if(listaEvento.get(i).getData().equals(date)&& listaEvento.get(i).getIdOwner()==Usuario.getId()){
-					iw.setBackgroundResource(R.drawable.dot_criado);
-					dayView.setBackgroundColor(Color.RED);
-					dayView.setTextColor(Color.WHITE);
+				if(listaEvento.get(i).getData().equals(date)&& listaEvento.get(i).getIdOwner()==Usuario.getId()){
+					
+						iw.setBackgroundResource(R.drawable.dot_criado);
+						}
 				}
-				else{
-					iw.setBackgroundResource(R.drawable.dot);
-					}		
 				
-			}
 			
-		} else {
-			iw.setVisibility(View.INVISIBLE);
+			
 		}
 		return v;
 	}
