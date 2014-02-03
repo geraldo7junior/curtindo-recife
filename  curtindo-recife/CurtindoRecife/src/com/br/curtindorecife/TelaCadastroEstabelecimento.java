@@ -45,6 +45,7 @@ public class TelaCadastroEstabelecimento extends Activity implements OnClickList
 		txtTelefone=(EditText) findViewById(R.id.txtTelefone);
 		txtTelefone.addTextChangedListener(Mask.insert("(##)####-####", txtTelefone));
 		txtHoraInicio =(EditText) findViewById(R.id.txtHoraInicio);
+		txtHoraInicio.addTextChangedListener(Mask.insert("##:##", txtHoraInicio));
 		txtNumero =(EditText) findViewById(R.id.txtNumero);
 		txtHoraTermino =(EditText) findViewById(R.id.txtHora);
 		txtHoraTermino.addTextChangedListener(Mask.insert("##:##", txtHoraTermino));
