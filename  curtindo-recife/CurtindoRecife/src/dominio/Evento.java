@@ -412,6 +412,33 @@ public class Evento {
 		
 		
 		}
+	
+	
+	public ArrayList<Evento> listarEventos(ArrayList<Evento> listaNaoOrdenada){
+		
+		ArrayList<Evento> listaOrdenada = null;
+		int indice = 4;
+		for (Evento eve: listaNaoOrdenada){
+			
+			if(eve.getPrioridade()==indice){
+				
+				listaOrdenada.add(eve);
+				listaOrdenada.remove(eve);
+				
+			}
+			
+			if(listaNaoOrdenada.get(-1) != eve){
+				
+				indice--;
+				
+			}
+			
+			indice--;
+		}
+		
+		return listaOrdenada;
+		
+	}
 		
 		
 	}
