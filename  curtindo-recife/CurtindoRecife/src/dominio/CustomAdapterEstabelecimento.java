@@ -49,24 +49,24 @@ public class CustomAdapterEstabelecimento extends ArrayAdapter<Estabelecimento> 
         TextView simboras=(TextView) convertView.findViewById(R.id.tvSimboras);
         
         
-        //get the Evento from position
+        //get the Estabelecimento from position
         Estabelecimento estabelecimento = getItem(position);
  
-        //fill the view objects according values from Evento object
+        //fill the view objects according values from Estabelecimento object
         nome.setText(estabelecimento.getNome());
         endereco.setText(estabelecimento.getEndereco());
         telefone.setText(estabelecimento.getTelefone());
         image.setBackgroundResource(Estabelecimento.associeImagem(estabelecimento.getTipo()));
-        /*if(estabelecimento.getIdOwner()==Usuario.getId()){
+        if(estabelecimento.getIdOwner()==Usuario.getId()){
         	tipo.setText("Evento Criado");
         }
-        else{
-        	if(evento.isCurtido()){
+        /*else{
+        	if(estabelecimento.isCurtido()){
         		tipo.setText("Evento Curtido");
         	}
-        }
-        */ 
-        simboras.setText(estabelecimento.getSimboras()+" curtiram");    
+        }*/
+        
+        simboras.setText(estabelecimento.getSimboras()+"  Simboras");    
         
         return convertView;
     }

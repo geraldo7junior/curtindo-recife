@@ -117,11 +117,12 @@ public class Banco{
 	public Banco openBd(){
 		bdHelper= new BDhelper(context);
 		bancoDados = bdHelper.getWritableDatabase();
-		System.out.println(this+" "+"------------Open Bd--------");
+		System.out.println(this+" "+"------------Opened Bd--------");
 		return this;
 	}
 	public void closeBd(){
 		bancoDados.close();
+		System.out.println(this+" "+"------------Closed Bd--------");
 	}
 	
 
@@ -158,7 +159,7 @@ private Boolean deletar(String nomeTabela,int idOwner){
 		System.out.println(e);
 		return false;
 		}finally{
-		bancoDados.close();			
+		closeBd();			
 	}		
 }
 /////////////////Método deletar, deleta linha da tabela...//////// 
@@ -173,7 +174,7 @@ private Boolean deletar(String nomeTabela,int idOwner){
 			System.out.println(e);
 			return false;
 		}finally{
-			bancoDados.close();			
+			closeBd();;			
 		}		
 	}
 	
@@ -224,7 +225,7 @@ private Boolean deletar(Evento evento, int idUsuario){
 			System.out.println(e);
 			return false;
 		}finally{
-			bancoDados.close();			
+			closeBd();			
 	}		
 	}
 private Boolean deletar(Evento evento){
@@ -239,7 +240,7 @@ private Boolean deletar(Evento evento){
 		System.out.println(e);
 		return false;
 	}finally{
-		bancoDados.close();			
+		closeBd();		
 }		
 }
 ////////////////O MÉTODO exclui o Usuario///////////////	
@@ -393,7 +394,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally{
-			bancoDados.close();
+			closeBd();
 		}
 		
 		
@@ -433,7 +434,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
-			bancoDados.close();
+			closeBd();
 		}
 		return null;
 	}
@@ -511,7 +512,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally{
-			bancoDados.close();
+			closeBd();
 		}return null;
 	}
 	public void updateSimbora(int idEvento, int newSimbora) {
@@ -524,7 +525,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			// TODO: handle exception
 			System.out.println(erro);
 		}finally{
-			bancoDados.close();
+			closeBd();
 			}
 	}
 	
@@ -576,7 +577,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			// TODO: handle exception
 			System.out.println(erro);
 		}finally{
-			bancoDados.close();
+			closeBd();
 		}
 	}
 	
@@ -697,7 +698,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			e.printStackTrace();
 		}
 		finally{
-			bancoDados.close();
+			closeBd();
 		}
 		
 		return null;
@@ -721,7 +722,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			System.out.println(erro);
 			
 		}finally{
-			bancoDados.close();
+			closeBd();
 		}	
 	}
 	
@@ -829,7 +830,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			// TODO: handle exception
 			System.out.println(erro);
 		}finally{
-			bancoDados.close();
+			closeBd();
 			}
 	}
 	
@@ -839,24 +840,59 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 				openBd();
 				String sql = "SELECT * FROM "+tabelaMeusEstabelecimentos+" WHERE idUsuario LIKE '"+usuario.getIdUnico()+"' ";
 				Cursor cursor2 = bancoDados.rawQuery(sql, null);
-				cursor2.moveToFirst();			
-				ArrayList<Estabelecimento> listaMeusEstabelecimentos = new ArrayList<Estabelecimento>();
-				if (cursor2.getCount()!=0){
-					for(int i=0;i<cursor2.getCount();i++){			
-						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+				ArrayList<Estabelecimento> listaMeusEstabelecimentos = new ArrayList<Estabelecimento>();			
+				
+				int tamanho = cursor2.getCount();
+				cursor2.moveToFirst();
+				if (tamanho!=0){
+					
+					for(int i=0;i<tamanho;i++){			
+						String sql2 = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE _id LIKE '"+cursor2.getInt(cursor2.getColumnIndex("idEstabelecimento"))+"' ";
+						
+						Cursor cursor3 = bancoDados.rawQuery(sql2, null);
+						cursor3.moveToFirst();
+						Estabelecimento estabelecimento = new Estabelecimento(cursor3);
+						
 						listaMeusEstabelecimentos.add(estabelecimento);					
-						if(i!=cursor2.getCount()-1){
+						if(i!=tamanho-1){
 							cursor2.moveToNext();
 						}
 					
 					}
 				}
+				
 				return listaMeusEstabelecimentos;
 			} catch (Exception erro) {
 				erro.printStackTrace();
 				
 			}finally{
 				closeBd();
+			}return null;
+			
+		}
+		public ArrayList<Estabelecimento> getListaEstabelecimentos(int idEstabelecimento){
+			try { 
+				
+				String sql = "SELECT * FROM "+tabelaEstabelecimentos+" WHERE _id LIKE '"+idEstabelecimento+"'";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Estabelecimento> listaEstabelecimentos = new ArrayList<Estabelecimento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						Estabelecimento estabelecimento = new Estabelecimento(cursor2);
+						listaEstabelecimentos.add(estabelecimento);					
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEstabelecimentos;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				
 			}return null;
 			
 		}

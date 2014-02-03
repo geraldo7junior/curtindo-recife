@@ -65,7 +65,7 @@ public class CustomAdapter extends ArrayAdapter<Evento> {
         		tipo.setText("Evento Curtido");
         	}
         }
-        simboras.setText(evento.getSimboras()+" curtiram");     
+        simboras.setText(evento.getSimboras()+" Simboras");     
         
         return convertView;
     }

@@ -14,7 +14,9 @@ public class Estabelecimento {
 	
 	public Estabelecimento(Cursor cursor){
 		setId(cursor.getInt(cursor.getColumnIndex("_id")));
+		System.out.println("id");
 		setIdOwner(cursor.getInt(cursor.getColumnIndex("idOwner")));
+		System.out.println("idOwner");
 		setImage(cursor.getInt(cursor.getColumnIndex("idImagem")));
 		setNome(cursor.getString(cursor.getColumnIndex("nome")));
 		setData(cursor.getString(cursor.getColumnIndex("data_funcionamento")));
@@ -22,11 +24,13 @@ public class Estabelecimento {
 		setHoraTermino(cursor.getString(cursor.getColumnIndex("horaTermino")));
 		setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
 		setTipo(cursor.getString(cursor.getColumnIndex("tipo")));
+		System.out.println("tipo");
 		setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
 		setSimboras(cursor.getInt(cursor.getColumnIndex("simboras")));
 		setPreco(cursor.getString(cursor.getColumnIndex("preco")));
 		setNumero(cursor.getString(cursor.getColumnIndex("numero")));
 		setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
+		System.out.println("endereco");
 		setPrioridade(cursor.getInt(cursor.getColumnIndex("prioridade")));
 		setRanking(cursor.getInt(cursor.getColumnIndex("ranking")));
 		setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
@@ -70,8 +74,18 @@ public class Estabelecimento {
 	private String telefone;
 	private static String atual;
 	private static ArrayList<Estabelecimento> listaEstabelecimento = new ArrayList<Estabelecimento>();
+	private static ArrayList<Estabelecimento> listaMeusEstabelecimentos = new ArrayList<Estabelecimento>();
+
 	
-	
+	public static ArrayList<Estabelecimento> getListaMeusEstabelecimentos() {
+		return listaMeusEstabelecimentos;
+	}
+
+	public static void setListaMeusEstabelecimentos(
+			ArrayList<Estabelecimento> listaMeusEstabelecimentos) {
+		Estabelecimento.listaMeusEstabelecimentos = listaMeusEstabelecimentos;
+	}
+
 	public static ArrayList<Estabelecimento> getListaEstabelecimento() {
 		return listaEstabelecimento;
 	}

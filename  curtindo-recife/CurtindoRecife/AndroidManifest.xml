@@ -81,18 +81,22 @@
         </activity>
         <activity
             android:name="com.br.curtindorecife.TelaEventosData"
-            android:label="@string/title_activity_tela_eventos_data" 
+            android:label="@string/title_activity_tela_eventos_data"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.br.curtindorecife.TelaCadastroEstabelecimento"
-            android:label="@string/title_activity_cadastrar_estabelecimento" 
+            android:label="@string/title_activity_cadastrar_estabelecimento"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="dominio.CalendarView"
-            android:label="Agenda" 
+            android:label="Agenda"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaMeusEstabelecimentos"
+            android:label="@string/title_activity_tela_meus_estabelecimentos" >
         </activity>
     </application>
 

@@ -20,6 +20,7 @@ import com.br.curtindorecife.TelaCadastroEstabelecimento;
 import com.br.curtindorecife.TelaCadastroEvento;
 import com.br.curtindorecife.TelaCategoriaEvento;
 import com.br.curtindorecife.TelaLogin;
+import com.br.curtindorecife.TelaMeusEstabelecimentos;
 import com.br.curtindorecife.TelaMostrarPerfil;
 
 public class FragmentEstabelecimentosPrincipal extends Fragment implements OnClickListener {
@@ -33,6 +34,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 	ImageButton btnEstabelecimento2;
 	ImageButton btnEstabelecimento3;
 	ImageButton btnEstabelecimento4;
+	ImageButton btnLogin;
 	Usuario usuario;
 	int imgEstabelecimento1, imgEstabelecimento2, imgEstabelecimento3,imgEstabelecimento4;
 	ImageButton btnTop10Estabelecimento;
@@ -48,6 +50,8 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_estabelecimentos_principal,
 				container, false);
+		btnLogin = (ImageButton)rootView.findViewById(R.id.btnLoginEstabelecimento);
+		btnLogin.setOnClickListener(this);
 		btnCadastrarEstabelecimento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEstabelecimento);
 		btnCadastrarEstabelecimento.setOnClickListener(this);
 		btnAgendaEstabelecimento = (ImageButton)rootView.findViewById(R.id.btnAgendaEstabelecimento);
@@ -110,16 +114,16 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 	
 		@Override
 		public void onClick(View v) {
-			if(v.getId() == R.id.btnLogin && Usuario.getId()==0){
-				/*if(btnLogin.getText().equals("Perfil")){
+			/*if(v.getId() == R.id.btnLogin && Usuario.getId()==0){
+				if(btnLogin.getText().equals("Perfil")){
 					Intent intent = new Intent(getActivity(), TelaPerfilUsuario.class);
-				}else{*/
+				}else{
 					Intent intent = new Intent(getActivity(), TelaLogin.class);
 					startActivity(intent);
 				//}
-			}if(v.getId() == R.id.btnLogin && Usuario.getId()!=0){
+			}*/if(v.getId() == R.id.btnLoginEstabelecimento && Usuario.getId()!=0){
 				//Usuario.setId(0);
-				Intent intent = new Intent(getActivity(), TelaMostrarPerfil.class);
+				Intent intent = new Intent(getActivity(), TelaMeusEstabelecimentos.class);
 				startActivity(intent);
 				
 			}
@@ -152,7 +156,7 @@ public class FragmentEstabelecimentosPrincipal extends Fragment implements OnCli
 					}
 				};
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-				builder.setMessage("Para criar um evento é necessário estar cadastrado").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
+				builder.setMessage("Para criar um estabelecimento é necessário estar cadastrado.").setTitle("Não cadastrado").setPositiveButton("OK", dialogClick);
 
 				AlertDialog dialog = builder.create();
 
