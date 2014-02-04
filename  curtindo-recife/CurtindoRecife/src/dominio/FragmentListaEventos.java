@@ -77,8 +77,14 @@ public class FragmentListaEventos extends Fragment {
 		}
 		
 		Banco banco = new Banco(getActivity());
-		if(spCategoriaData.getSelectedItem().toString().equals("Todos")){
+		if(spCategoriaData.getSelectedItem().toString().equals("Top 10")){
 			listaEventosData = banco.ListarEventoPorData(data);
+			Evento.setListaEventos(listaEventosData);
+			listaEventosData = Evento.ranking();
+			
+		}else
+			if(spCategoriaData.getSelectedItem().toString().equals("Todos")){
+				listaEventosData = banco.ListarEventoPorData(data);
 		}
 		else if(spCategoriaData.getSelectedItem().toString().equals(spCategoriaData.getItemAtPosition(position).toString())){
 			listaEventosData = banco.ListarEventoPorData(data,spCategoriaData.getItemAtPosition(position).toString());

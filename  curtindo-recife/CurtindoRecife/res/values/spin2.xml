@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Categorias2">
+        <item >Top 10</item>
         <item>Todos</item>
         <item >Show</item>
         <item>Esporte</item>
