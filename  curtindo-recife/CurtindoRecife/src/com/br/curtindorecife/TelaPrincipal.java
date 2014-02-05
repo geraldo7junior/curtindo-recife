@@ -55,14 +55,19 @@ public class TelaPrincipal extends FragmentActivity implements
 	 */
 	//public static int numEventos=0;
 	
+	private static int numeroTela = 1;// (0,1,2)///
+	
 	SectionsPagerAdapter mSectionsPagerAdapter;
+	
 	
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
 	
-	
+	public TelaPrincipal(){
+		
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,14 +97,21 @@ public class TelaPrincipal extends FragmentActivity implements
 				getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
+		
+		
+		
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
-
+		
+		/*
+		mViewPager.setCurrentItem(numeroTela);
+		*/
+		setNumeroTela(1);
+		
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
 		// a reference to the Tab.
-		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 					@Override
 					public void onPageSelected(int position) {
 						actionBar.setSelectedNavigationItem(position);
@@ -273,6 +285,14 @@ public class TelaPrincipal extends FragmentActivity implements
 	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
+	}
+
+	public static int getNumeroTela() {
+		return numeroTela;
+	}
+
+	public static void setNumeroTela(int numeroTela) {
+		TelaPrincipal.numeroTela = numeroTela;
 	}
 
 	/**

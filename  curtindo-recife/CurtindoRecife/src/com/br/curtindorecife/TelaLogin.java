@@ -1,5 +1,11 @@
 package com.br.curtindorecife;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import dominio.Evento;
 import dominio.Usuario;
 import bd.Banco;
 import persistencia.*;
@@ -63,6 +69,10 @@ public class TelaLogin extends Activity implements OnClickListener{
 	
 	Button btnEsqueciSenha;
 	Button btnSemCadastro;
+
+	private android.content.DialogInterface.OnClickListener dialogNotificacao;
+
+	private android.content.DialogInterface.OnClickListener dialogNotificacao1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +97,12 @@ public class TelaLogin extends Activity implements OnClickListener{
 					public boolean onEditorAction(TextView textView, int id,
 							KeyEvent keyEvent) {
 						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
+							try {
+								attemptLogin();
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							return true;
 						}
 						return false;
@@ -102,7 +117,12 @@ public class TelaLogin extends Activity implements OnClickListener{
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						attemptLogin();
+						try {
+							attemptLogin();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 					}
 				});
@@ -193,7 +213,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 	
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////	
-	public void attemptLogin() {
+	public void attemptLogin() throws ParseException {
 		if (mAuthTask != null) {
 			return;
 		}
@@ -246,8 +266,64 @@ public class TelaLogin extends Activity implements OnClickListener{
 					Usuario.setId(idUsuario(mEmail));
 					/*mAuthTask = new UserLoginTask();
 					mAuthTask.execute((Void) null);*/
-					Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
-					startActivity(intent);
+					Banco bd =new Banco(this);
+					Evento.getMeusEventos().clear();
+					bd.setMeusEventos(Usuario.getId());
+					ArrayList<Evento> listaEventosHoje = new ArrayList<Evento>();
+					
+					
+					
+				
+					for(int i=0;i<Evento.getMeusEventos().size();i++){
+						Date dataHoje = new Date();
+						SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+						
+						String dataEvento = Evento.getMeusEventos().get(i).getData();
+						
+						Date data = new Date(format.parse(dataEvento).getTime());
+						dataHoje.setHours(data.getHours());
+						dataHoje.setMinutes(data.getMinutes());
+						dataHoje.setSeconds(data.getSeconds());
+						/////////////
+						if (data.getDay()==(dataHoje.getDay())){
+							listaEventosHoje.add(Evento.getMeusEventos().get(i));
+						}
+								
+					}
+					
+					
+					int numeroEventos = listaEventosHoje.size();
+					if(numeroEventos>0){
+						AlertDialog.Builder builder = new AlertDialog.Builder(this);
+						if(numeroEventos<1){
+							builder.setMessage("Você tem "+numeroEventos+" eventos para hoje.").setNegativeButton("Continuar", dialogNotificacao);//.setPositiveButton("Conferir", dialogNotificacao1);
+						}else{
+							builder.setMessage("Você tem "+numeroEventos+" evento para hoje.").setNegativeButton("Continuar", dialogNotificacao);//.setPositiveButton("Conferir", dialogNotificacao1);
+						}
+						AlertDialog dialog = builder.create();
+						dialog.show();
+						/*dialogNotificacao1 = new android.content.DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+								TelaPrincipal.setNumeroTela(2);
+								startActivity(intent);
+							}
+						};*/
+						dialogNotificacao = new android.content.DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+								startActivity(intent);
+							}
+						};
+					}else{
+						Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+						startActivity(intent);
+					}
+					
 				}else{
 					mPasswordView.setError("Senha inválida");
 					focusView = mPasswordView;
