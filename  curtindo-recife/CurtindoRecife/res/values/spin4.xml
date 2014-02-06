@@ -6,4 +6,13 @@
         <item>Casa de Show</item>
         <item>Boate</item>
     </string-array>
+    <string-array name="Categorias5">
+        <item>Todos</item>
+        <item >Show</item>
+        <item>Esporte</item>
+        <item>Teatro</item>
+        <item>Palestra</item>
+        <item>Encontro</item>
+        <item>Familia</item>
+    </string-array>
 </resources>

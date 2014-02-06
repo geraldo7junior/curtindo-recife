@@ -1021,6 +1021,34 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			}return null;
 			
 		}
+		
+		public ArrayList<Evento> ListarEventoPorCategoria(String tipo){
+			try { 
+				openBd();
+				String sql = "SELECT * FROM "+tabelaEventos+" Where tipo Like '"+tipo+"'";
+				Cursor cursor2 = bancoDados.rawQuery(sql, null);
+				cursor2.moveToFirst();			
+				ArrayList<Evento> listaEventos = new ArrayList<Evento>();
+				if (cursor2.getCount()!=0){
+					for(int i=0;i<cursor2.getCount();i++){			
+						
+						listaEventos.add(setEvento(cursor2));
+						listaEventos.get(i).setCurtido(eventoCurtido(listaEventos.get(i)));
+						if(i!=cursor2.getCount()-1){
+							cursor2.moveToNext();
+						}
+					
+					}
+				}
+				return listaEventos;
+			} catch (Exception erro) {
+				erro.printStackTrace();
+				
+			}finally{
+				closeBd();
+			}return null;
+			
+		}
 	
 	public ArrayList<Evento> ListarEventoPorData(String data){
 		try { 

@@ -29,6 +29,7 @@ public class Evento {
 	private static boolean meusEventosClickados=false;
 	private static String dia="";
 	private static ArrayList<String> nomesEventosTelaPrincipal=new ArrayList<String>();
+	private static String tipoEventoTop10;
 	
 	public static String getDia() {
 		return dia;
@@ -438,6 +439,14 @@ public class Evento {
 		
 		return listaOrdenada;
 		
+	}
+
+	public static String getTipoEventoTop10() {
+		return tipoEventoTop10;
+	}
+
+	public static void setTipoEventoTop10(String tipoEventoTop10) {
+		Evento.tipoEventoTop10 = tipoEventoTop10;
 	}
 		
 		

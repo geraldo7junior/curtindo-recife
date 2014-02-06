@@ -7,6 +7,7 @@ import bd.Banco;
 
 import com.br.curtindorecife.R.id;
 
+import dominio.CalendarView;
 import dominio.CustomAdapter;
 import dominio.CustomAdapterEstabelecimento;
 import dominio.Estabelecimento;
@@ -23,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -32,23 +34,59 @@ public class TelaCategoriaEvento extends Activity {
 	static int numEventos;
 	TextView txtCategoria;
 	ListView lv;
-	
-	
+	Spinner spTop10;
+	String atual;
+	static int position;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Evento.getListaEventos().clear();
-		setContentView(R.layout.activity_tela_categoria_evento);
+		if(Evento.getAtual().equals("Top10")){
+			setContentView(R.layout.activity_login);
+			ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias5,android.R.layout.simple_list_item_1);
+			ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+			spTop10 =(Spinner) findViewById(R.id.spTop10);
+			spTop10.setAdapter(ar);
+			spTop10.setSelection(position);
+			atual = spTop10.getSelectedItem().toString();
+			txtCategoria = (TextView)findViewById(R.id.txtCategoria);
+			txtCategoria.setText("Top10");
+			
+			if(!atual.equals("Todos")){
+				Banco banco=new Banco(this);
+				Evento.setListaEventos(banco.ListarEventoPorCategoria(atual));
+			}
+			else{
+				getTodasCategorias();
+			}
+			spTop10.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1,
+						int pos, long arg3) {
+					if(!spTop10.getSelectedItem().toString().equals(atual)){
+						Evento.setTipoEventoTop10(spTop10.getSelectedItem().toString());
+						position = pos;
+						Intent intent = new Intent(TelaCategoriaEvento.this,TelaCategoriaEvento.class);
+						startActivity(intent);
+						finish();
+					}
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				
+					
+				}
+			});
+			
+		}
+		else{
+			setContentView(R.layout.activity_tela_categoria_evento);
+			
+		}
 		numEventos=0;
 		txtCategoria = (TextView)findViewById(R.id.txtCategoria);
-		if(Evento.getAtual().equals("Top10")){
-			getTodasCategorias();
-			txtCategoria.setText("Top10");
-			/*for (int i = 0; i < Evento.getListaEventos().size(); i++) {
-				System.out.println("
- da categoria: "+Evento.getListaEventos().get(i).getNome());
-			}*/
-		}
 		if(!Evento.getAtual().equals("")){
 			if(Evento.getAtual().equals("Night")){
 				getTodasCategorias();

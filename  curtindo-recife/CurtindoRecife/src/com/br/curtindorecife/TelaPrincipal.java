@@ -387,9 +387,6 @@ public class TelaPrincipal extends FragmentActivity implements
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
-			txtEvento1 = (TextView)rootView.findViewById(R.id.txtEvento1);
-			txtEvento2 = (TextView)rootView.findViewById(R.id.txtEvento2);
-			txtEvento3 = (TextView)rootView.findViewById(R.id.txtEvento3);
 			btnCadastarEvento = (ImageButton)rootView.findViewById(R.id.btnCadastrarEvento);
 			btnCadastarEvento.setOnClickListener(this);
 			btnLogin = (ImageButton)rootView.findViewById(R.id.btnLogin);
@@ -517,6 +514,7 @@ public class TelaPrincipal extends FragmentActivity implements
 			if(v.getId()== R.id.btnTop10){
 				Evento.setMeusEventosClickados(false);
 				Evento.setAtual("Top10");
+				Evento.setTipoEventoTop10("Todos");
 				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 				startActivity(intent);
 			}
