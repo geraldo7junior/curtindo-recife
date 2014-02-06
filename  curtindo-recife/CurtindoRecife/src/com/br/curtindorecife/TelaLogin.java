@@ -1,9 +1,15 @@
 package com.br.curtindorecife;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.FacebookError;
 
 import dominio.Evento;
 import dominio.Usuario;
@@ -16,8 +22,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +38,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -65,10 +75,31 @@ public class TelaLogin extends Activity implements OnClickListener{
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	
+	/*private static final String APP_ID = "670005079718273";
+
+	private static final String ACCESS_EXPIRES = "access_expires";
+	private static final String ACCESS_TOKEN = "access_token";
+
+	private Facebook facebook;
+	private SharedPreferences prefs;
+
+	private Bitmap fotoTirada;
+	private ImageView imageView1;
+	private File caminhoFoto;
+
+	private Bitmap image;
+
+	String[] salvarimg = new String[0];
+
+	String corpo;
+
+	private int cont = 0;*/
+	
 	android.content.DialogInterface.OnClickListener dialogClick;
 	
 	Button btnEsqueciSenha;
 	Button btnSemCadastro;
+	Button btnEntrarFacebook;
 
 	private android.content.DialogInterface.OnClickListener dialogNotificacao;
 
@@ -79,6 +110,48 @@ public class TelaLogin extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_tela_login);
+		
+		/*facebook = new Facebook(APP_ID);
+		prefs = getPreferences(MODE_PRIVATE);
+		// Carrega a accessToken pra saber se o usuário
+		// já se autenticou.
+		loadAccessToken();
+		
+		if(!facebook.isSessionValid()){
+			
+			facebook.authorize(this, new String[] {"publish_stream"}, new DialogListener(){
+
+				@Override
+				public void onComplete(Bundle values) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onFacebookError(FacebookError e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onError(DialogError e) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onCancel() {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			
+		}
+		btnEntrarFacebook = (Button) findViewById(R.id.entrarFacebook);*/
+		
+		
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
@@ -127,6 +200,17 @@ public class TelaLogin extends Activity implements OnClickListener{
 					}
 				});
 	}
+
+	/*private void loadAccessToken() {
+		String access_token = prefs.getString(ACCESS_TOKEN, null);
+		long expires = prefs.getLong(ACCESS_EXPIRES, 0);
+		if (access_token != null) {
+			facebook.setAccessToken(access_token);
+		}
+		if (expires != 0) {
+			facebook.setAccessExpires(expires);
+		}
+	}*/
 
 	@Override
 	public void onClick(View v) {
@@ -294,31 +378,30 @@ public class TelaLogin extends Activity implements OnClickListener{
 					
 					int numeroEventos = listaEventosHoje.size();
 					if(numeroEventos>0){
+						dialogNotificacao1 = new android.content.DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							if(which==dialog.BUTTON_NEGATIVE){
+								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+								startActivity(intent);
+							}else if(which==dialog.BUTTON_POSITIVE){
+								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
+							TelaPrincipal.setNumeroTela(2);
+							startActivity(intent);
+							}
+							}
+						};
+					
 						AlertDialog.Builder builder = new AlertDialog.Builder(this);
 						if(numeroEventos<1){
-							builder.setMessage("Você tem "+numeroEventos+" eventos para hoje.").setNegativeButton("Continuar", dialogNotificacao);//.setPositiveButton("Conferir", dialogNotificacao1);
+							builder.setMessage("Você tem "+numeroEventos+" eventos para hoje.").setNegativeButton("Continuar", dialogNotificacao1).setPositiveButton("Conferir", dialogNotificacao1);
 						}else{
-							builder.setMessage("Você tem "+numeroEventos+" evento para hoje.").setNegativeButton("Continuar", dialogNotificacao);//.setPositiveButton("Conferir", dialogNotificacao1);
+							builder.setMessage("Você tem "+numeroEventos+" evento para hoje.").setNegativeButton("Continuar", dialogNotificacao1).setPositiveButton("Conferir", dialogNotificacao1);
 						}
 						AlertDialog dialog = builder.create();
 						dialog.show();
-						/*dialogNotificacao1 = new android.content.DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
-								TelaPrincipal.setNumeroTela(2);
-								startActivity(intent);
-							}
-						};*/
-						dialogNotificacao = new android.content.DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
-								startActivity(intent);
-							}
-						};
+						
 					}else{
 						Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
 						startActivity(intent);

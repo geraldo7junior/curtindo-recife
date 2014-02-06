@@ -103,10 +103,8 @@ public class TelaPrincipal extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 		
-		/*
-		mViewPager.setCurrentItem(numeroTela);
-		*/
-		setNumeroTela(1);
+		
+		
 		
 		// When swiping between different sections, select the corresponding
 		// tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -129,7 +127,8 @@ public class TelaPrincipal extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		mViewPager.setCurrentItem(1);
+		mViewPager.setCurrentItem(numeroTela);
+		setNumeroTela(1);
 	}
 
 	@Override
