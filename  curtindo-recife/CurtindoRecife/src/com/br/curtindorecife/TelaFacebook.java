@@ -78,6 +78,8 @@ public class TelaFacebook extends Activity {
 
 	}
 	
+	
+	
 	private void loadAccessToken() {
 		String access_token = prefs.getString(ACCESS_TOKEN, null);
 		long expires = prefs.getLong(ACCESS_EXPIRES, 0);
@@ -89,7 +91,7 @@ public class TelaFacebook extends Activity {
 		}
 	}
 
-	@Override
+		@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.tela_facebook, menu);

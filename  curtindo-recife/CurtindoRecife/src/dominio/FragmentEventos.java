@@ -1,8 +1,16 @@
 package dominio;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.sax.TextElementListener;
@@ -15,10 +23,17 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import bd.Banco;
 import com.br.curtindorecife.R;
 import com.br.curtindorecife.TelaCadastroEvento;
 import com.br.curtindorecife.TelaPrincipal;
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.AsyncFacebookRunner.RequestListener;
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.FacebookError;
+import com.facebook.android.Facebook.DialogListener;
 
 public class FragmentEventos extends Fragment implements OnClickListener {
 		/**
@@ -51,6 +66,23 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public String tipo;
 		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
+		
+		private Facebook facebook;
+		private SharedPreferences prefs;
+		private static final String APP_ID = "670005079718273";
+
+		private static final String ACCESS_EXPIRES = "access_expires";
+		private static final String ACCESS_TOKEN = "access_token";
+
+
+		private Bitmap image;
+
+		String[] salvarimg = new String[0];
+
+		String corpo;
+
+		private int cont = 0;
+		
 		Estabelecimento estabelecimento;
 		public Boolean getEhEvento() {
 			return ehEvento;
@@ -99,6 +131,50 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_tela_eventos_dummy, container, false);
+			
+			
+			//FACEBOOK
+			facebook = new Facebook(APP_ID);
+			prefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
+			// Carrega a accessToken pra saber se o usuário
+			// já se autenticou.
+			loadAccessToken();
+			
+			if(!facebook.isSessionValid()){
+				
+				facebook.authorize(getActivity(), new String[] {"publish_stream"}, new DialogListener(){
+
+					@Override
+					public void onComplete(Bundle values) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onFacebookError(FacebookError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onError(DialogError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onCancel() {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				
+			}
+			
+			
+			
 			//_Relacionamento
 			if(!ehEvento){
 			if (Usuario.getId()!=0){
@@ -151,14 +227,15 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		
 		
 		@Override
-		public void onClick(View v) {
+		public void onClick(final View v) {
 			dialogClick = new android.content.DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+					if(which==dialog.BUTTON_POSITIVE){
+						updateStatusClick(v, txtNomeEvento.getText().toString());
+					}Intent intent=new Intent(getActivity(), TelaPrincipal.class);
 					startActivity(intent);
-					
 				}
 			};
 			
@@ -182,7 +259,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 								AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			
 								// 2. Chain together various setter methods to set the dialog characteristics
-								builder.setMessage("Simbora realizado com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+								builder.setMessage("Simbora realizado com sucesso. Compartilhar?").setTitle("Sucesso!").setPositiveButton("Sim", dialogClick).setNegativeButton("Não", dialogClick);
 			
 								// 3. Get the AlertDialog from create()
 								AlertDialog dialog = builder.create();
@@ -226,7 +303,80 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			}*/
 			// TODO Auto-generated method stub
 			
+			
+			
 		}
+		
+		private void loadAccessToken() {
+			String access_token = prefs.getString(ACCESS_TOKEN, null);
+			long expires = prefs.getLong(ACCESS_EXPIRES, 0);
+			if (access_token != null) {
+				facebook.setAccessToken(access_token);
+			}
+			if (expires != 0) {
+				facebook.setAccessExpires(expires);
+			}
+		}
+		
+		public void updateStatusClick(View v, String nomeEvento){  
+		    updateStatus(nomeEvento);   
+		  }  
+		  @SuppressWarnings("deprecation")
+		private RequestListener requestListener =   
+		    new RequestListener() {  
+		      public void onMalformedURLException(  
+		        MalformedURLException e, Object state) {  
+		        showToast("URL mal formada");  
+		      }  
+		      public void onIOException(  
+		        IOException e, Object state) {  
+		        showToast("Problema de comunicação");  
+		      }  
+		      public void onFileNotFoundException(  
+		        FileNotFoundException e, Object state) {  
+		        showToast("Recurso não existe");  
+		      }  
+		      public void onFacebookError(  
+		        FacebookError e, Object state) {  
+		        showToast("Erro no Facebook: "+   
+		          e.getLocalizedMessage());  
+		      }  
+		      public void onComplete(  
+		        String response, Object state) {  
+		        showToast("Status atualizado");  
+		      }
+			
+		    };  
+		  
+		  // Método que efetivamente atualiza o status  
+		  private void updateStatus(String status) {  
+		    AsyncFacebookRunner runner =   
+		      new AsyncFacebookRunner(facebook);  
+		    
+		    Bundle params = new Bundle();   
+		    params.putString("message", status);  
+		    runner.request("me/feed", params, "POST",   
+		      requestListener, null);  
+		  }  
+		   
+		  private void showToast(final String s){  
+		    final Context ctx = getActivity();  
+		    getActivity().runOnUiThread(new Runnable() {  
+		      public void run() {  
+		        Toast.makeText(ctx, s,   
+		          Toast.LENGTH_SHORT).show();  
+		      }  
+		    });  
+		  }  
+		  
+		  private void saveAccessToken() {  
+		    SharedPreferences.Editor editor = prefs.edit();  
+		    editor.putString(  
+		      ACCESS_TOKEN, facebook.getAccessToken());  
+		    editor.putLong(  
+		      ACCESS_EXPIRES, facebook.getAccessExpires());  
+		    editor.commit();  
+		  }  
 	}
 	
 
