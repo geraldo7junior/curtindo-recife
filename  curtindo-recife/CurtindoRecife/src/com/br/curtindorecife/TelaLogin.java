@@ -1,20 +1,10 @@
 package com.br.curtindorecife;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
-
-import dominio.Evento;
-import dominio.Usuario;
-import bd.Banco;
-import persistencia.*;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -38,8 +28,16 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+import bd.Banco;
+
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.FacebookError;
+
+import dominio.Evento;
+import dominio.Usuario;
 
 
 /**
@@ -75,27 +73,8 @@ public class TelaLogin extends Activity implements OnClickListener{
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	
-	/*private static final String APP_ID = "670005079718273";
-
-	private static final String ACCESS_EXPIRES = "access_expires";
-	private static final String ACCESS_TOKEN = "access_token";
-
-	private Facebook facebook;
-	private SharedPreferences prefs;
-
-	private Bitmap fotoTirada;
-	private ImageView imageView1;
-	private File caminhoFoto;
-
-	private Bitmap image;
-
-	String[] salvarimg = new String[0];
-
-	String corpo;
-
-	private int cont = 0;*/
 	
-	android.content.DialogInterface.OnClickListener dialogClick;
+		android.content.DialogInterface.OnClickListener dialogClick;
 	
 	Button btnEsqueciSenha;
 	Button btnSemCadastro;
@@ -105,52 +84,15 @@ public class TelaLogin extends Activity implements OnClickListener{
 
 	private android.content.DialogInterface.OnClickListener dialogNotificacao1;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_tela_login);
 		
-		/*facebook = new Facebook(APP_ID);
-		prefs = getPreferences(MODE_PRIVATE);
-		// Carrega a accessToken pra saber se o usuário
-		// já se autenticou.
-		loadAccessToken();
-		
-		if(!facebook.isSessionValid()){
-			
-			facebook.authorize(this, new String[] {"publish_stream"}, new DialogListener(){
-
-				@Override
-				public void onComplete(Bundle values) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onFacebookError(FacebookError e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onError(DialogError e) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onCancel() {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
-			this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-			
-		}
-		btnEntrarFacebook = (Button) findViewById(R.id.entrarFacebook);*/
-		
+				btnEntrarFacebook = (Button) findViewById(R.id.entrarFacebook);
+		btnEntrarFacebook.setOnClickListener(this);
 		
 
 		// Set up the login form.
@@ -201,16 +143,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 				});
 	}
 
-	/*private void loadAccessToken() {
-		String access_token = prefs.getString(ACCESS_TOKEN, null);
-		long expires = prefs.getLong(ACCESS_EXPIRES, 0);
-		if (access_token != null) {
-			facebook.setAccessToken(access_token);
-		}
-		if (expires != 0) {
-			facebook.setAccessExpires(expires);
-		}
-	}*/
+	
 
 	@Override
 	public void onClick(View v) {
@@ -219,6 +152,10 @@ public class TelaLogin extends Activity implements OnClickListener{
 			startActivity(intent);
 		}if(v.getId()==R.id.btnSemCadastro){
 			Intent intent = new Intent(TelaLogin.this, TelaCadastroUsuario.class);
+			startActivity(intent);
+		}
+		if(v.getId()==R.id.entrarFacebook){
+			Intent intent = new Intent(TelaLogin.this, TelaFacebook.class);
 			startActivity(intent);
 		}
 	}

@@ -65,5 +65,6 @@
     <string name="title_activity_cadastrar_estabelecimento">CadastrarEstabelecimento</string>
     <string name="CadastroDeEstabelecimento">Cadastro de Local</string>
     <string name="title_activity_tela_meus_estabelecimentos">TelaMeusEstabelecimentos</string>
+    <string name="title_activity_tela_facebook">TelaFacebook</string>
 
 </resources>
