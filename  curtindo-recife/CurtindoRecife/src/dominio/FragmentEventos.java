@@ -35,6 +35,7 @@ import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Facebook.DialogListener;
 
+@SuppressWarnings("deprecation")
 public class FragmentEventos extends Fragment implements OnClickListener {
 		/**
 		 * The fragment argument representing the section number for this
@@ -126,6 +127,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.tipo=estabelecimento.getTipo();
 			setEhEvento(false);
 		}
+		@SuppressWarnings("deprecation")
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -142,7 +144,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			
 			if(!facebook.isSessionValid()){
 				
-				facebook.authorize(getActivity(), new String[] {"publish_stream"}, new DialogListener(){
+				facebook.authorize(getActivity(), new String[] {"publish_stream","read_stream", "offline_access"}, new MyLoginDialogListener(){
 
 					@Override
 					public void onComplete(Bundle values) {
@@ -172,9 +174,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				
 			}
-			
-			
-			
+				
 			//_Relacionamento
 			if(!ehEvento){
 			if (Usuario.getId()!=0){
@@ -233,6 +233,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==dialog.BUTTON_POSITIVE){
+						//facebook.dialog(getActivity(), "stream.publish", new DialogPublishFacebook());
+						
 						updateStatusClick(v, txtNomeEvento.getText().toString());
 					}Intent intent=new Intent(getActivity(), TelaPrincipal.class);
 					startActivity(intent);
@@ -349,7 +351,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		    };  
 		  
 		  // Método que efetivamente atualiza o status  
-		  private void updateStatus(String status) {  
+		  @SuppressWarnings("deprecation")
+		private void updateStatus(String status) {  
 		    AsyncFacebookRunner runner =   
 		      new AsyncFacebookRunner(facebook);  
 		    
@@ -378,6 +381,35 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		    editor.commit();  
 		  }  
 	}
+
+class MyLoginDialogListener implements com.facebook.android
+.Facebook.DialogListener {
+
+public void onComplete(Bundle values) {} // here enable logout
+public void onFacebookError(FacebookError error) {}
+public void onError(DialogError error) {}
+public void onCancel() {}
+}
 	
 
+class DialogPublishFacebook implements com.facebook.android.Facebook.DialogListener {
 
+	    public void onComplete(Bundle values) {
+
+	        final String postId = values.getString("post_id");
+
+	        if (postId != null) {
+
+	            // "Wall post made..."
+
+	        } else {
+	            // "No wall post made..."
+	        }
+
+	    }
+
+	    public void onFacebookError(FacebookError e) {}
+	    public void onError(DialogError e) {}
+	    public void onCancel() {}
+
+	}
