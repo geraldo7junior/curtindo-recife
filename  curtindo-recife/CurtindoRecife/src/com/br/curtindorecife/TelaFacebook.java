@@ -39,6 +39,7 @@ public class TelaFacebook extends Activity {
 
 	Button btnPublicar;
 	private Bitmap image;
+	@SuppressWarnings("deprecation")
 	private AsyncFacebookRunner mAsyncRunner;
 
 	String[] salvarimg = new String[0];
@@ -53,7 +54,6 @@ public class TelaFacebook extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_facebook);
-		
 		facebook = new Facebook(APP_ID);
 		prefs = getPreferences(MODE_PRIVATE);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
@@ -285,13 +285,21 @@ public void onFacebookError(FacebookError e, Object state) {
 }
 	private void loadAccessToken() {
 		String access_token = prefs.getString(ACCESS_TOKEN, null);
-		long expires = prefs.getLong(ACCESS_EXPIRES, 0);
-		if (access_token != null) {
-			facebook.setAccessToken(access_token);
+		long expires=0;
+		if(prefs!=null){
+			expires = prefs.getLong(ACCESS_EXPIRES, 0);
+			if (access_token != null) {
+				facebook.setAccessToken(access_token);
+			}
+			if (expires != 0) {
+				facebook.setAccessExpires(expires);
+			}
 		}
-		if (expires != 0) {
-			facebook.setAccessExpires(expires);
+		else{
+			System.out.println("Sem internet");
 		}
+		
+		
 	}
 
 		@Override
