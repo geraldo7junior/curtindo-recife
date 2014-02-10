@@ -3,8 +3,12 @@ package dominio;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DownloadManager.Request;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +19,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.sax.TextElementListener;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +33,10 @@ import bd.Banco;
 import com.br.curtindorecife.R;
 import com.br.curtindorecife.TelaCadastroEvento;
 import com.br.curtindorecife.TelaPrincipal;
+import com.br.curtindorecife.TelaFacebook.WallPostDialogListener.WallPostRequestListener;
+import com.facebook.HttpMethod;
+import com.facebook.RequestAsyncTask;
+import com.facebook.Session;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -71,10 +80,10 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		private Facebook facebook;
 		private SharedPreferences prefs;
 		private static final String APP_ID = "670005079718273";
-
+		private AsyncFacebookRunner mAsyncRunner;
 		private static final String ACCESS_EXPIRES = "access_expires";
 		private static final String ACCESS_TOKEN = "access_token";
-
+		
 
 		private Bitmap image;
 
@@ -133,47 +142,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(
 					R.layout.fragment_tela_eventos_dummy, container, false);
-			
-			
-			//FACEBOOK
 			facebook = new Facebook(APP_ID);
-			prefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
-			// Carrega a accessToken pra saber se o usuário
-			// já se autenticou.
-			loadAccessToken();
-			
-			if(!facebook.isSessionValid()){
-				
-				facebook.authorize(getActivity(), new String[] {"publish_stream","read_stream", "offline_access"}, new MyLoginDialogListener(){
-
-					@Override
-					public void onComplete(Bundle values) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onFacebookError(FacebookError e) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onError(DialogError e) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					@Override
-					public void onCancel() {
-						// TODO Auto-generated method stub
-						
-					}
-					
-				});
-				getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				
-			}
+			mAsyncRunner = new AsyncFacebookRunner(facebook);
+			getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				
 			//_Relacionamento
 			if(!ehEvento){
@@ -224,20 +195,71 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			return rootView;
 		}
 		
+		public void chamarFacebook(){
+			//FACEBOOK
+			
+			prefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
+			// Carrega a accessToken pra saber se o usuário
+			// já se autenticou.
+			loadAccessToken();
+			
+			if(!facebook.isSessionValid()){
+				
+				facebook.authorize(getActivity(), new String[] {"publish_stream","read_stream", "offline_access"}, new MyLoginDialogListener(){
+
+					@Override
+					public void onComplete(Bundle values) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onFacebookError(FacebookError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onError(DialogError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onCancel() {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				
+				
+			}
+		}
 		
+		public void onActivityResult(  
+			    int requestCode, int resultCode, Intent data) {  
+			    super.onActivityResult(  
+			      requestCode, resultCode, data);  
+			    // A API do Facebook exige essa chamada para   
+			    // concluir o processo de login.  
+			    facebook.authorizeCallback(  
+			      requestCode, resultCode, data);  
+			  }  
 		
 		@Override
 		public void onClick(final View v) {
 			dialogClick = new android.content.DialogInterface.OnClickListener() {
-				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==dialog.BUTTON_POSITIVE){
 						//facebook.dialog(getActivity(), "stream.publish", new DialogPublishFacebook());
-						
-						updateStatusClick(v, txtNomeEvento.getText().toString());
-					}Intent intent=new Intent(getActivity(), TelaPrincipal.class);
-					startActivity(intent);
+						chamarFacebook();
+						facebook.dialog(getActivity(), "stream.publish", new WallPostDialogListener());
+						//updateStatusClick(v, txtNomeEvento.getText().toString());
+					}
+					
+					
 				}
 			};
 			
@@ -356,7 +378,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		    AsyncFacebookRunner runner =   
 		      new AsyncFacebookRunner(facebook);  
 		    
-		    Bundle params = new Bundle();   
+		    Bundle params = new Bundle(); 
 		    params.putString("message", status);  
 		    runner.request("me/feed", params, "POST",   
 		      requestListener, null);  
@@ -379,7 +401,98 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		    editor.putLong(  
 		      ACCESS_EXPIRES, facebook.getAccessExpires());  
 		    editor.commit();  
-		  }  
+		  } 
+		  
+		  public class WallPostDialogListener implements
+		    com.facebook.android.Facebook.DialogListener {
+
+		/**
+		 * Called when the dialog has completed successfully
+		 */
+		public void onComplete(Bundle values) {
+		    final String postId = values.getString("post_id");
+		    if (postId != null) {
+		        Log.d("FB Sample App", "Dialog Success! post_id=" + postId);
+		        mAsyncRunner.request(postId, new WallPostRequestListener());
+		    } else {
+		        Log.d("FB Sample App", "No wall post made");
+		    }
+		    
+		    Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+			startActivity(intent);
+		}
+
+		@Override
+		public void onCancel() {
+		    // No special processing if dialog has been canceled
+		}
+
+		@Override
+		public void onError(DialogError e) {
+		    // No special processing if dialog has been canceled
+		}
+
+		@Override
+		public void onFacebookError(FacebookError e) {
+		    // No special processing if dialog has been canceled
+		}
+
+		public class WallPostRequestListener implements
+		com.facebook.android.AsyncFacebookRunner.RequestListener {
+
+		/**
+		* Called when the wall post request has completed
+		*/
+		public void onComplete(final String response) {
+		Log.d("Facebook-Example", "Got response: " + response);
+		}
+
+		public void onFacebookError(FacebookError e) {
+		// Ignore Facebook errors
+		}
+
+		public void onFileNotFoundException(FileNotFoundException e) {
+		// Ignore File not found errors
+		}
+
+		public void onIOException(IOException e) {
+		// Ignore IO Facebook errors
+		}
+
+		@Override
+		public void onComplete(String response, Object state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onIOException(IOException e, Object state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onFileNotFoundException(FileNotFoundException e, Object state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onMalformedURLException(MalformedURLException e, Object state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onFacebookError(FacebookError e, Object state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		}
+
+
 	}
 
 class MyLoginDialogListener implements com.facebook.android
@@ -413,3 +526,72 @@ class DialogPublishFacebook implements com.facebook.android.Facebook.DialogListe
 	    public void onCancel() {}
 
 	}
+}
+/*
+private void publishStory() {
+Session session = Session.getActiveSession();
+boolean pendingPublishReauthorization;
+if (session != null){
+
+    // Check for publish permissions    
+    List<String> permissions = session.getPermissions();
+    if (!isSubsetOf(PERMISSIONS, permissions)) {
+        pendingPublishReauthorization = true;
+        Session.NewPermissionsRequest newPermissionsRequest = new Session
+                .NewPermissionsRequest(this, PERMISSIONS);
+    session.requestNewPublishPermissions(newPermissionsRequest);
+        return;
+    }
+
+    Bundle postParams = new Bundle();
+    postParams.putString("name", "Facebook SDK for Android");
+    postParams.putString("caption", "Build great social apps and get more installs.");
+    postParams.putString("description", "The Facebook SDK for Android makes it easier and faster to develop Facebook integrated Android apps.");
+    postParams.putString("link", "https://developers.facebook.com/android");
+    postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
+
+    Request.Callback callback= new Request.Callback() {
+        public void onCompleted(Response response) {
+            JSONObject graphResponse = response
+                                       .getGraphObject()
+                                       .getInnerJSONObject();
+            String postId = null;
+            try {
+                postId = graphResponse.getString("id");
+            } catch (JSONException e) {
+                Log.i(TAG,
+                    "JSON error "+ e.getMessage());
+            }
+            FacebookRequestError error = response.getError();
+            if (error != null) {
+                Toast.makeText(getActivity()
+                     .getApplicationContext(),
+                     error.getErrorMessage(),
+                     Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity()
+                         .getApplicationContext(), 
+                         postId,
+                         Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+
+    Request request = new Request(session, "me/feed", postParams, 
+                          HttpMethod.POST, callback);
+
+    Request r=new Request(null);
+    RequestAsyncTask task = new RequestAsyncTask(request);
+    task.execute();
+}
+
+
+private boolean isSubsetOf(Collection<String> subset, Collection<String> superset) {
+    for (String string : subset) {
+        if (!superset.contains(string)) {
+            return false;
+        }
+    }
+    return true;
+}*/
+
