@@ -420,7 +420,24 @@ public class Evento {
 	
 		for (int i = 0; i < Evento.getListaEventos().size(); i++) {
 			if(!Evento.getListaEventos().get(i).getData().equals("") && Evento.getListaEventos().get(i).getData().equals(dataConvertida) ){
+				int hora = 99;
+				int minuto = 99;
+				int minutoConvertido = 99;
+				int horaConvertida2 = 99;
+				if(!Evento.getListaEventos().get(i).getHora().equals("")){
+					hora=Integer.parseInt(listaEventos.get(i).getHora().substring(0, 2));
+					minuto = Integer.parseInt(listaEventos.get(i).getHora().substring(3,5));
+					System.out.println(hora+ " Evento: "+listaEventos.get(i).getNome());
+					horaConvertida2 = Integer.parseInt(horaConvertida.substring(0,2));
+					minutoConvertido = Integer.parseInt(horaConvertida.substring(3,5));
+				}else{
+					continue;
+				}	
+				System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
+				if((hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
+					System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
 					listaRolandoAGora.add(Evento.getListaEventos().get(i));
+				}	
 				
 			}	
 			

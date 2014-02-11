@@ -156,6 +156,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			}
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
+		
 			
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
@@ -191,6 +192,14 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				btnSimbora.setText("Desistir");
 				btnSimbora.setBackgroundColor(Color.BLUE);
 				btnSimbora.setEnabled(false);
+			}
+			else{
+				if(Evento.getAtual().equals("Rolando Agora")){
+					btnSimbora.setText("Curtindo");
+					btnSimbora.setBackgroundColor(Color.BLUE);
+					
+					
+				}
 			}
 			return rootView;
 		}
@@ -263,7 +272,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				}
 			};
 			
-			if(v.getId()==R.id.btnSimbora){
+			if(v.getId()==R.id.btnSimbora && !btnSimbora.getText().equals("Curtindo") ){
 				
 					if(Usuario.getId()==0){
 						
@@ -301,6 +310,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 								}
 							
 						}
+				
+			}if(v.getId() == R.id.btnSimbora && btnSimbora.getText().equals("Curtindo")){
 				
 			}
 			/*if(v.getId()==R.id.btnSimbora & btnSimbora.getText().equals("Desistir")){

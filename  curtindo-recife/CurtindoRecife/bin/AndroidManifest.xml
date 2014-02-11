@@ -104,6 +104,10 @@
             android:name="com.br.curtindorecife.TelaFacebook"
             android:label="@string/title_activity_tela_facebook" >
         </activity>
+        <activity
+            android:name="com.br.curtindorecife.TelaEventosAcontecendo"
+            android:label="@string/title_activity_tela_eventos_acontecendo" >
+        </activity>
     </application>
 
 </manifest>

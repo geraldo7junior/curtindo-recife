@@ -507,22 +507,23 @@ containing a value of this type.
         public static final int tela_esqueci_senha=0x7f0a0009;
         public static final int tela_eventos=0x7f0a000a;
         public static final int tela_eventos2=0x7f0a000b;
-        public static final int tela_eventos_data=0x7f0a000c;
-        public static final int tela_facebook=0x7f0a000d;
-        public static final int tela_login=0x7f0a000e;
-        public static final int tela_meus_estabelecimentos=0x7f0a000f;
-        public static final int tela_mostrar_perfil=0x7f0a0010;
-        public static final int tela_perfil_usuario=0x7f0a0011;
-        public static final int tela_prrincipal=0x7f0a0012;
-        public static final int teste2=0x7f0a0013;
+        public static final int tela_eventos_acontecendo=0x7f0a000c;
+        public static final int tela_eventos_data=0x7f0a000d;
+        public static final int tela_facebook=0x7f0a000e;
+        public static final int tela_login=0x7f0a000f;
+        public static final int tela_meus_estabelecimentos=0x7f0a0010;
+        public static final int tela_mostrar_perfil=0x7f0a0011;
+        public static final int tela_perfil_usuario=0x7f0a0012;
+        public static final int tela_prrincipal=0x7f0a0013;
+        public static final int teste2=0x7f0a0014;
     }
     public static final class string {
         public static final int CadastroDeEstabelecimento=0x7f070057;
         public static final int CadastroDeEvento=0x7f07002a;
-        public static final int action_forgot_password=0x7f07005f;
+        public static final int action_forgot_password=0x7f070060;
         public static final int action_settings=0x7f07001a;
-        public static final int action_sign_in_register=0x7f07005d;
-        public static final int action_sign_in_short=0x7f07005e;
+        public static final int action_sign_in_register=0x7f07005e;
+        public static final int action_sign_in_short=0x7f07005f;
         public static final int app_name=0x7f070019;
         public static final int btData=0x7f070043;
         public static final int cadastrar=0x7f070041;
@@ -562,10 +563,10 @@ containing a value of this type.
         public static final int endereco=0x7f07002b;
         public static final int entrar=0x7f070021;
         public static final int entrarFacebook=0x7f070034;
-        public static final int error_field_required=0x7f070064;
-        public static final int error_incorrect_password=0x7f070063;
-        public static final int error_invalid_email=0x7f070061;
-        public static final int error_invalid_password=0x7f070062;
+        public static final int error_field_required=0x7f070065;
+        public static final int error_incorrect_password=0x7f070064;
+        public static final int error_invalid_email=0x7f070062;
+        public static final int error_invalid_password=0x7f070063;
         public static final int esqueciSenha=0x7f070038;
         public static final int evento=0x7f07004b;
         public static final int eventoFavorito=0x7f07004a;
@@ -573,7 +574,7 @@ containing a value of this type.
         public static final int homem=0x7f07003f;
         public static final int hora=0x7f07002e;
         public static final int informeEmailCadastrado=0x7f07003a;
-        public static final int login_progress_signing_in=0x7f070060;
+        public static final int login_progress_signing_in=0x7f070061;
         public static final int mapa=0x7f070026;
         public static final int menu_delete=0x7f070035;
         public static final int meus_eventos=0x7f070042;
@@ -585,8 +586,8 @@ containing a value of this type.
         public static final int novoEmail=0x7f070051;
         /**  Strings related to login 
          */
-        public static final int prompt_email=0x7f07005b;
-        public static final int prompt_password=0x7f07005c;
+        public static final int prompt_email=0x7f07005c;
+        public static final int prompt_password=0x7f07005d;
         public static final int recuperarSenha=0x7f07003b;
         public static final int sair=0x7f070053;
         public static final int semCadastro=0x7f070033;
@@ -603,10 +604,11 @@ containing a value of this type.
         public static final int title_activity_tela_esqueci_senha=0x7f070039;
         public static final int title_activity_tela_eventos=0x7f07001d;
         public static final int title_activity_tela_eventos2=0x7f070030;
+        public static final int title_activity_tela_eventos_acontecendo=0x7f07005a;
         public static final int title_activity_tela_eventos_data=0x7f070055;
         public static final int title_activity_tela_facebook=0x7f070059;
         public static final int title_activity_tela_home=0x7f070036;
-        public static final int title_activity_tela_login=0x7f07005a;
+        public static final int title_activity_tela_login=0x7f07005b;
         public static final int title_activity_tela_meus_estabelecimentos=0x7f070058;
         public static final int title_activity_tela_mostrar_perfil=0x7f070054;
         public static final int title_activity_tela_perfil_usuario=0x7f070049;
