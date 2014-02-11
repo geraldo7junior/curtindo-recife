@@ -92,6 +92,11 @@ public class TelaCategoriaEvento extends Activity {
 				getTodasCategorias();
 				txtCategoria.setText("Night");
 			}
+			if(Evento.getAtual().equals("Rolando Agora")){
+				getTodasCategorias();
+				txtCategoria.setText("Rolando Agora");
+				
+			}
 			else{
 				getCategoriasEventos(Evento.getAtual());
 				txtCategoria.setText(Evento.getAtual());
@@ -176,6 +181,11 @@ public class TelaCategoriaEvento extends Activity {
 	        if(Evento.getAtual().equals("Night")){
 	        	Evento.setListaEventos(Evento.listaNight());   
 	        	p=Evento.getListaEventos();
+	        }
+	        if(Evento.getAtual().equals("Rolando Agora")){
+	        	Evento.setListaEventos(Evento.listaRolandoAgora());
+	        	p=Evento.getListaEventos();
+	        	
 	        }
 	        else{
 	        	

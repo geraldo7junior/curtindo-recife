@@ -375,6 +375,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		TextView txtEvento1, txtEvento2, txtEvento3;
 		ImageButton btnTop10;
 		ImageButton btnNight;
+		ImageButton btnRolandoAgora;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public DummySectionFragment() {
@@ -408,6 +409,8 @@ public class TelaPrincipal extends FragmentActivity implements
 			btnTop10.setOnClickListener(this);
 			btnNight=(ImageButton)rootView.findViewById(R.id.btnNight);
 			btnNight.setOnClickListener(this);
+			btnRolandoAgora = (ImageButton)rootView.findViewById(R.id.btnRolandoAgora);
+			btnRolandoAgora.setOnClickListener(this);
 			
 			
 			ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(getActivity(),R.array.Categorias,android.R.layout.simple_list_item_1);
@@ -477,6 +480,13 @@ public class TelaPrincipal extends FragmentActivity implements
 					Evento.setAtual("Night");
 					Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
 					startActivity(intent);
+			}
+			if(v.getId() == R.id.btnRolandoAgora){
+				Evento.setMeusEventosClickados(false);
+				Evento.setAtual("Rolando Agora");
+				Intent intent = new Intent(getActivity(),TelaCategoriaEvento.class);
+				startActivity(intent);
+				
 			}
 			if(v.getId() == R.id.btnAgenda){
 				Evento.setMeusEventosClickados(false);

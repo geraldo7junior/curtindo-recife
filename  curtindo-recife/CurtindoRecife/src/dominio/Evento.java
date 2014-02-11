@@ -400,6 +400,35 @@ public class Evento {
 		
 	}
 	
+	public static ArrayList<Evento> listaRolandoAgora(){
+	
+		Calendar calendar=Calendar.getInstance();
+		Date date=new Date();
+	    DateFormat formato = new SimpleDateFormat("HH:mm");  
+	    String horaConvertida = formato.format(date); 
+	    DateFormat formatoData=new SimpleDateFormat("dd/MM/yyyy");
+	    String dataConvertida=formatoData.format(date);
+	    System.out.println(horaConvertida+" Hora");
+	    System.out.println(dataConvertida+" Data");
+	    try {
+			calendar.setTime(formatoData.parse(dataConvertida));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		ArrayList<Evento> listaRolandoAGora = new ArrayList<Evento>();
+	
+		for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+			if(!Evento.getListaEventos().get(i).getData().equals("") && Evento.getListaEventos().get(i).getData().equals(dataConvertida) ){
+					listaRolandoAGora.add(Evento.getListaEventos().get(i));
+				
+			}	
+			
+		}
+		return listaRolandoAGora;
+		
+	}
+	
 	public static void retorneListaNomesEventos(String eventoFavorito1,String eventoFavorito2,String eventoFavorito3, ArrayAdapter<CharSequence> ar){
 		nomesEventosTelaPrincipal.add(eventoFavorito1);
 		nomesEventosTelaPrincipal.add(eventoFavorito2);

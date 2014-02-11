@@ -34,9 +34,10 @@
         </LinearLayout>
         
      <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" >
+         android:id="@+id/layout1"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:gravity="center" >
     
     <ImageButton
         android:id="@+id/btnTop10"
@@ -46,6 +47,12 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/btntop10" />
+
+    <ImageButton
+        android:id="@+id/btnRolandoAgora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/teste" />
     
     <ImageButton
         android:id="@+id/btnNight"
