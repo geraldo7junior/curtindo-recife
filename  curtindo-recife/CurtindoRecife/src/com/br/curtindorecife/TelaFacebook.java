@@ -162,6 +162,17 @@ public class TelaFacebook extends Activity {
 			}
 		});
 		chamarFacebook();
+		
+		try {
+ 	        openActiveSession(TelaFacebook.this, true, fbStatusCallback, Arrays.asList(
+ 	                new String[] { "publish_stream", "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions" }),savedInstanceState );
+ 	    }
+ 	    catch (Exception e) {
+ 	        e.printStackTrace();
+ 	    }
+ 
+		
+	
 	}
 	private class FacebookSessionStatusCallback implements Session.StatusCallback {
 	    @Override
@@ -174,19 +185,9 @@ public class TelaFacebook extends Activity {
     super.onActivityResult(requestCode, resultCode, data);
     Log.d("FB Sample App", "onActivityResult(): " + requestCode);
     facebook.authorizeCallback(requestCode, resultCode, data);
-    if(Session.getActiveSession()!=null){
-    	 Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-    	  
-    }
-   }
-		/*try {
-	        openActiveSession(this, true, fbStatusCallback, Arrays.asList(
-	                new String[] { "publish_stream", "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions" }),savedInstanceState );
-	    }
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+    Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+   } 
+		
 	
 		private  Session openActiveSession(Activity activity, boolean allowLoginUI, StatusCallback callback, List<String> permissions, Bundle savedInstanceState) {
 	    OpenRequest openRequest = new OpenRequest(activity).
@@ -214,7 +215,7 @@ public class TelaFacebook extends Activity {
 	    return null;
 	  }
 	
-	  */
+	  
 	/*@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);

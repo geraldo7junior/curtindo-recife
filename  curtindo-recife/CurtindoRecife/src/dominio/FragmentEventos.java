@@ -24,8 +24,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.WebView.FindListener;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,7 +159,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
 		
-			
+			Button btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
@@ -188,16 +190,23 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				btnSimbora.setBackgroundColor(Color.BLUE);
 				btnSimbora.setEnabled(false);
 			}
-			if(this.curtido==true){
+			if(this.curtido==true & !Evento.getAtual().equals("Rolando Agora")){
 				btnSimbora.setText("Desistir");
 				btnSimbora.setBackgroundColor(Color.BLUE);
 				btnSimbora.setEnabled(false);
+				
+			}else if(this.curtido==true & Evento.getAtual().equals("Rolando Agora")){
+				btnSimbora.setText("Curtindo");
+				btnSimbora.setBackgroundColor(Color.MAGENTA);
+				btnSimbora.setEnabled(true);
+				btnMapa.setBackgroundResource(R.drawable.morgado);
+				btnMapa.setEnabled(true);
 			}
 			else{
 				if(Evento.getAtual().equals("Rolando Agora")){
-					btnSimbora.setText("Curtindo");
-					btnSimbora.setBackgroundColor(Color.BLUE);
-					
+					btnSimbora.setText("");
+					btnSimbora.setBackgroundColor(Color.TRANSPARENT);
+					btnSimbora.setEnabled(false);
 					
 				}
 			}

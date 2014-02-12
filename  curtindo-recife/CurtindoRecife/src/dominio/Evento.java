@@ -30,7 +30,16 @@ public class Evento {
 	private static String dia="";
 	private static ArrayList<String> nomesEventosTelaPrincipal=new ArrayList<String>();
 	private static String tipoEventoTop10;
+	private int ranking;
 	
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
+	}
+
 	public static String getDia() {
 		return dia;
 	}
@@ -92,8 +101,25 @@ public class Evento {
 	private String endereco;
 	private boolean curtido=false;
 	private int prioridade;
+	private int curtidas;
+	private int morgadas;
 	
-	
+	public int getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
+
+	public int getMorgadas() {
+		return morgadas;
+	}
+
+	public void setMorgadas(int morgadas) {
+		this.morgadas = morgadas;
+	}
+
 	public int getPrioridade() {
 		return prioridade;
 	}

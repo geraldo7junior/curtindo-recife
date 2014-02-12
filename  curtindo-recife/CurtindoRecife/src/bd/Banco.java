@@ -26,7 +26,7 @@ public class Banco{
 	private final String tabelaEventos ="tabelaEventos";
 	private final String tabelaMeusEventos ="tabelaMeusEventos";
 	private final String nomeBanco = "CurtindoRecifeDB";
-	private static int versaoBD = 1;
+	private static int versaoBD =1;
 	private final Context context;
 	private BDhelper bdHelper;
 	private SQLiteDatabase bancoDados;
@@ -48,7 +48,7 @@ public class Banco{
 				String sql = "CREATE TABLE IF NOT EXISTS "+tabelaUsuarios+" (_id INTEGER PRIMARY KEY, nome TEXT, dataNascimento TEXT, email TEXT, senha TEXT, sexo TEXT, eventoFavorito1 TEXT, eventoFavorito2 TEXT, eventoFavorito3 TEXT, mascates INTEGER, ranking INTEGER)";
 				db.execSQL(sql);
 				//TABELA DE EVENTOS (tabelaEventos)
-				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
+				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER, curtidas INTEGER, morgadas INTEGER)";
 				db.execSQL(sqlEvento);
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
 				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
@@ -543,6 +543,26 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			}
 	}
 	
+	public void updateCurtidasAndMorgadas(int idEvento, Integer newCurtidas, Integer newMorgadas) {
+		try {
+			if(newMorgadas != null & newCurtidas != null){
+				String sql2 = "UPDATE "+tabelaEventos+" SET curtidas = '"+newCurtidas+"', morgadas = '"+newMorgadas+"' WHERE _id LIKE '"+idEvento+"'";
+				bancoDados.execSQL(sql2);
+			}else if(newMorgadas==null){
+				String sql1 = "UPDATE "+tabelaEventos+" SET curtidas = '"+newCurtidas+"' WHERE _id LIKE '"+idEvento+"'";
+				bancoDados.execSQL(sql1);	
+			}else if(newCurtidas==null){
+				String sql3 = "UPDATE "+tabelaEventos+" SET morgadas = '"+newMorgadas+"' WHERE _id LIKE '"+idEvento+"'";
+				bancoDados.execSQL(sql3);
+			}
+			} catch (Exception erro) {
+				// TODO: handle exception
+				System.out.println(erro);
+			}finally{
+			
+			}
+		}
+	
 	private void updateSimboraMeusEventos(int idEvento, int newSimbora) {
 		try {
 			
@@ -783,6 +803,9 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			evento.setTelefone(cursor2.getString(cursor2.getColumnIndex("telefone")));
 			evento.setTipoDeEvento(cursor2.getString(cursor2.getColumnIndex("tipo")));
 			evento.setPrioridade(cursor2.getInt(cursor2.getColumnIndex("prioridade")));
+			evento.setRanking(cursor2.getInt(cursor2.getColumnIndex("ranking")));
+			evento.setCurtidas(cursor2.getInt(cursor2.getColumnIndex("curtidas")));
+			evento.setMorgadas(cursor2.getInt(cursor2.getColumnIndex("morgadas")));
 			
 			if(Usuario.getId()!=0){
 				try{
