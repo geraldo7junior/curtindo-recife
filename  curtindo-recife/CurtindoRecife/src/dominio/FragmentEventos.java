@@ -52,7 +52,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
-		Button btnSimbora;
+		Button btnSimbora, btnMapa;
 		TextView txtNomeEvento;
 		TextView txtEndereco;
 		TextView txtData;
@@ -156,10 +156,12 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					this.curtido = banco.curtido(estabelecimento, usuario);
 				}
 			}
+			
 			btnSimbora = (Button) rootView.findViewById(R.id.btnSimbora);
 			btnSimbora.setOnClickListener(this);
+			
 		
-			Button btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
+			 btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
@@ -321,7 +323,24 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 						}
 				
 			}if(v.getId() == R.id.btnSimbora && btnSimbora.getText().equals("Curtindo")){
+				Banco banco = new Banco(getActivity());
+				banco.updateCurtidasAndMorgadas(id, 1, null);
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage("Curtida realizada com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				Intent intent = new Intent(getActivity(), TelaPrincipal.class);
+				startActivity(intent);
 				
+			}if(v.getId() == R.id.btnMapa && btnMapa.getText().equals("Morgado") ){
+				Banco banco = new Banco(getActivity());
+				banco.updateCurtidasAndMorgadas(id, null, 1);
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setMessage("Evento Morgado.").setTitle("Morgado").setPositiveButton("OK", dialogClick);
+				AlertDialog dialog = builder.create();
+				dialog.show();
+				Intent intent = new Intent(getActivity(), TelaPrincipal.class);
+				startActivity(intent);
 			}
 			
 			
