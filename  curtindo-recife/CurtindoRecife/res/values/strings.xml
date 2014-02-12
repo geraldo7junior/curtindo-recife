@@ -66,6 +66,10 @@
     <string name="CadastroDeEstabelecimento">Cadastro de Local</string>
     <string name="title_activity_tela_meus_estabelecimentos">TelaMeusEstabelecimentos</string>
     <string name="title_activity_tela_facebook">TelaFacebook</string>
+<<<<<<< .mine
+    <string name="app_id">670005079718273</string>
+=======
     <string name="title_activity_tela_eventos_acontecendo">TelaEventosAcontecendo</string>
+>>>>>>> .r230
 
 </resources>

@@ -293,7 +293,7 @@ public class TelaLogin extends Activity implements OnClickListener{
 					ArrayList<Evento> listaEventosHoje = new ArrayList<Evento>();
 					
 					
-					
+					listaEventosHoje.clear();
 				
 					for(int i=0;i<Evento.getMeusEventos().size();i++){
 						Date dataHoje = new Date();
@@ -313,13 +313,14 @@ public class TelaLogin extends Activity implements OnClickListener{
 					}
 					
 					
-					int numeroEventos = listaEventosHoje.size();
+					 int numeroEventos = listaEventosHoje.size();
 					if(numeroEventos>0){
 						dialogNotificacao1 = new android.content.DialogInterface.OnClickListener() {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 							if(which==dialog.BUTTON_NEGATIVE){
+								
 								Intent intent=new Intent(TelaLogin.this, TelaPrincipal.class);
 								startActivity(intent);
 							}else if(which==dialog.BUTTON_POSITIVE){

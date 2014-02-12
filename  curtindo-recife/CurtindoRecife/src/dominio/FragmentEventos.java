@@ -314,29 +314,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			}if(v.getId() == R.id.btnSimbora && btnSimbora.getText().equals("Curtindo")){
 				
 			}
-			/*if(v.getId()==R.id.btnSimbora & btnSimbora.getText().equals("Desistir")){
-				Banco banco = new Banco(getActivity());
-				Usuario usuario = banco.getUsuario(Usuario.getId());
-				if(getEhEvento()){
-					Evento evento = banco.retornaEvento(this.id);
-					banco.tirarSimbora(evento, usuario);
-					
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Você desistiu de ir ao evento").setTitle("Desistência").setPositiveButton("OK", dialogClick);
-					AlertDialog dialog = builder.create();
-					dialog.show();
-				}else{
-					Estabelecimento estabelecimento = banco.retornaEstabelecimento(this.id);
-					banco.tirarSimbora(estabelecimento, usuario);
-					
-					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-					builder.setMessage("Você desistiu de ir ao Estabelecimento").setTitle("Desistência").setPositiveButton("OK", dialogClick);
-					AlertDialog dialog = builder.create();
-					dialog.show();
-				}
-				
-			}*/
-			// TODO Auto-generated method stub
+			
 			
 			
 			

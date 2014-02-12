@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.facebook.Request;
+import com.facebook.RequestBatch;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.Session.OpenRequest;
@@ -24,6 +25,7 @@ import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.Util;
+import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
 
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 public class TelaFacebook extends Activity {
 
 	private Facebook facebook;
@@ -52,7 +55,7 @@ public class TelaFacebook extends Activity {
 	private Handler mHandler = new Handler();
 	private static Bundle saveInstance;
 	
-	
+	Button btnDados;
 	public static Bundle getSaveInstance() {
 		return saveInstance;
 	}
@@ -61,7 +64,7 @@ public class TelaFacebook extends Activity {
 	}
 
 	private static final String[] PERMISSIONS = new String[] {"publish_stream", 
-        "read_stream", "offline_access"};
+        "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions"};
 
 	Button btnPublicar;
 	private Bitmap image;
@@ -75,6 +78,47 @@ public class TelaFacebook extends Activity {
 	private int cont = 0;
 
 
+	String get_id, get_name, get_gender, get_email, get_birthday, get_locale, get_location;
+
+	private Session.StatusCallback fbStatusCallback = new Session.StatusCallback() {
+	    @SuppressWarnings("deprecation")
+		public void call(Session session, SessionState state, Exception exception) {
+	        if (state.isOpened()) {
+	        	
+	            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+	                public void onCompleted(GraphUser user, Response response) {
+	                    if (response != null) {
+	                        // do something with <response> now
+	                        try{
+	                            get_id = user.getId();
+	                            get_name = user.getName();
+	                            get_gender = (String) user.getProperty("gender");
+	                            get_email = (String) user.getProperty("email");
+	                            get_birthday = user.getBirthday();
+	                            get_locale = (String) user.getProperty("locale");
+	                            get_location = user.getLocation().toString();   
+
+	                        Log.d("Usuario", user.getId() + "; " +  
+	                            user.getName() + "; " +
+	                            (String) user.getProperty("gender") + "; " +        
+	                            (String) user.getProperty("email") + "; " +
+	                            user.getBirthday()+ "; " +
+	                            (String) user.getProperty("locale") + "; " +
+	                            user.getLocation());
+	                        } catch(Exception e) {
+	                             e.printStackTrace();
+	                             Log.d("Exceção", "Exception e");
+	                         }
+
+	                    }
+	                }
+
+	            });
+	        }
+	    }
+
+	};
+	private Button btnLogout;
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +128,16 @@ public class TelaFacebook extends Activity {
 		prefs = getPreferences(MODE_PRIVATE);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
 		
+		btnLogout = (Button) findViewById(R.id.btnLogout);
+		btnLogout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(facebook);
+                asyncRunner.logout(TelaFacebook.this.getBaseContext(), new LogoutRequestListener());
+			}
+		});
 		btnPublicar=(Button) findViewById(R.id.btnPublicar);
 		btnPublicar.setOnClickListener(new OnClickListener() {
 			
@@ -93,19 +147,48 @@ public class TelaFacebook extends Activity {
 				
 			}
 		});
+		btnDados= (Button) findViewById(R.id.btnPegarDados);
+		btnDados.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				 Session session = new Session(getApplicationContext());
+		         Session.setActiveSession(session);
+		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
+		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
+		        
+				pegarUsuario();
+				
+			}
+		});
 		chamarFacebook();
-		
-		
+	}
+	private class FacebookSessionStatusCallback implements Session.StatusCallback {
+	    @Override
+	    public void call(Session session, SessionState state, Exception exception) {
+	            String s=session.getAccessToken();
+	    }
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    Log.d("FB Sample App", "onActivityResult(): " + requestCode);
+    facebook.authorizeCallback(requestCode, resultCode, data);
+    if(Session.getActiveSession()!=null){
+    	 Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    	  
+    }
+   }
 		/*try {
 	        openActiveSession(this, true, fbStatusCallback, Arrays.asList(
-	                new String[] { "email",  "user_location", "user_birthday", "user_likes", "publish_actions" }),savedInstanceState );
+	                new String[] { "publish_stream", "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions" }),savedInstanceState );
 	    }
 	    catch (Exception e) {
 	        e.printStackTrace();
-	    }*/
+	    }
 	}
 	
-		/*private  Session openActiveSession(Activity activity, boolean allowLoginUI, StatusCallback callback, List<String> permissions, Bundle savedInstanceState) {
+		private  Session openActiveSession(Activity activity, boolean allowLoginUI, StatusCallback callback, List<String> permissions, Bundle savedInstanceState) {
 	    OpenRequest openRequest = new OpenRequest(activity).
 	setPermissions(permissions).setLoginBehavior(SessionLoginBehavior.
 	SSO_WITH_FALLBACK).setCallback(callback).
@@ -119,7 +202,8 @@ public class TelaFacebook extends Activity {
 	            session = Session.restoreSession(this, null, fbStatusCallback, savedInstanceState);
 	        }
 	        if (session == null) {
-	            session = new Session(this);
+	            session = new Session(TelaFacebook.this);
+	            
 	        }
 	        Session.setActiveSession(session);
 	        if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED) || allowLoginUI) {
@@ -130,8 +214,8 @@ public class TelaFacebook extends Activity {
 	    return null;
 	  }
 	
-	  
-	@Override
+	  */
+	/*@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
@@ -171,13 +255,13 @@ public class TelaFacebook extends Activity {
 		
 		if(!facebook.isSessionValid()){
 			
-			facebook.authorize(this, new String[] {"publish_stream","read_stream", "offline_access"}, new LoginDialogListener(){
+			facebook.authorize(this, PERMISSIONS, new LoginDialogListener(){
 
 				@Override
 				public void onComplete(Bundle values) {
 					// TODO Auto-generated method stub
 					saveAccessToken();
-					getProfileInformation();
+					//getProfileInformation();
 				}
 
 				@Override
@@ -202,15 +286,12 @@ public class TelaFacebook extends Activity {
 			
 			
 		}else{
-			getProfileInformation();
+			//pegarUsuario();
+			//getProfileInformation();
 		}
 	}
 	
-	public void onActivityResult(int requestCode, int resultCode, Intent data, String face) {
-	      super.onActivityResult(requestCode, resultCode, data);
-	      Log.d("FB Sample App", "onActivityResult(): " + requestCode);
-	      facebook.authorizeCallback(requestCode, resultCode, data);
-	    }
+	
 	private class LoginDialogListener implements
 	com.facebook.android.Facebook.DialogListener {
 
@@ -221,7 +302,7 @@ public class TelaFacebook extends Activity {
 	// Process onComplete
 		try {
 
-            getProfileInformation();
+            //getProfileInformation();
 
         } catch (Exception error) {
             Toast.makeText(TelaFacebook.this, error.toString(),
@@ -347,74 +428,58 @@ public void onFacebookError(FacebookError e, Object state) {
 
 }
 
-
+}
 
 /**
 * Listener for logout status message
 */
-@SuppressWarnings("unused")
-private class LogoutRequestListener implements RequestListener {
+public class LogoutRequestListener implements RequestListener {
 
-/** Called when the request completes w/o error */
-public void onComplete(String response) {
-
-// Only the original owner thread can touch its views
-TelaFacebook.this.runOnUiThread(new Runnable() {
-    public void run() {
-    }
-});
-
-// Dispatch on its own thread
-mHandler.post(new Runnable() {
-    public void run() {
-    }
-});
-}
-public void onFileNotFoundException(FileNotFoundException e) {
-// Process Exception
-}
-
-public void onIOException(IOException e) {
-// Process Exception
-}
-
-public void onMalformedURLException(MalformedURLException e) {
-// Process Exception
-}
-
-@Override
-public void onComplete(String response, Object state) {
-	// TODO Auto-generated method stub
+	/** Called when the request completes w/o error */
+	public void onComplete(String response) {
 	
-}
-
-@Override
-public void onIOException(IOException e, Object state) {
-	// TODO Auto-generated method stub
+	// Only the original owner thread can touch its views
+	TelaFacebook.this.runOnUiThread(new Runnable() {
+	    public void run() {
+	    }
+	});
 	
+	// Dispatch on its own thread
+	mHandler.post(new Runnable() {
+	    public void run() {
+	    }
+	});
+	}
+
+	@Override
+	public void onComplete(String response, Object state) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onIOException(IOException e, Object state) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onFileNotFoundException(FileNotFoundException e, Object state) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onMalformedURLException(MalformedURLException e, Object state) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onFacebookError(FacebookError e, Object state) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
-@Override
-public void onFileNotFoundException(FileNotFoundException e, Object state) {
-	// TODO Auto-generated method stub
-	
-}
 
-@Override
-public void onMalformedURLException(MalformedURLException e, Object state) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void onFacebookError(FacebookError e, Object state) {
-	// TODO Auto-generated method stub
-	
-}
-
-}
-
-}
 	private void loadAccessToken() {
 		String access_token = prefs.getString(ACCESS_TOKEN, null);
 		long expires=0;
@@ -422,6 +487,13 @@ public void onFacebookError(FacebookError e, Object state) {
 			expires = prefs.getLong(ACCESS_EXPIRES, 0);
 			if (access_token != null) {
 				facebook.setAccessToken(access_token);
+				 Session session = new Session(getApplicationContext());
+		         Session.setActiveSession(session);
+		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
+		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
+		        
+				pegarUsuario();
+				
 			}
 			if (expires != 0) {
 				facebook.setAccessExpires(expires);
@@ -442,46 +514,7 @@ public void onFacebookError(FacebookError e, Object state) {
 		return true;
 	}
 		
-		String get_id, get_name, get_gender, get_email, get_birthday, get_locale, get_location;
-
-		private Session.StatusCallback fbStatusCallback = new Session.StatusCallback() {
-		    @SuppressWarnings("deprecation")
-			public void call(Session session, SessionState state, Exception exception) {
-		        if (state.isOpened()) {
-		        	
-		            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-		                public void onCompleted(GraphUser user, Response response) {
-		                    if (response != null) {
-		                        // do something with <response> now
-		                        try{
-		                            get_id = user.getId();
-		                            get_name = user.getName();
-		                            get_gender = (String) user.getProperty("gender");
-		                            get_email = (String) user.getProperty("email");
-		                            get_birthday = user.getBirthday();
-		                            get_locale = (String) user.getProperty("locale");
-		                            get_location = user.getLocation().toString();   
-
-		                        Log.d("Usuario", user.getId() + "; " +  
-		                            user.getName() + "; " +
-		                            (String) user.getProperty("gender") + "; " +        
-		                            (String) user.getProperty("email") + "; " +
-		                            user.getBirthday()+ "; " +
-		                            (String) user.getProperty("locale") + "; " +
-		                            user.getLocation());
-		                        } catch(Exception e) {
-		                             e.printStackTrace();
-		                             Log.d("Exceção", "Exception e");
-		                         }
-
-		                    }
-		                }
-
-		            });
-		        }
-		    }
-
-		};
+		
 		private String mUserId;
 		private String mUserToken;
 		private String mUserName;
@@ -538,7 +571,36 @@ public void onFacebookError(FacebookError e, Object state) {
 			    editor.putLong(  
 			      ACCESS_EXPIRES, facebook.getAccessExpires());  
 			    editor.commit();  
-			  }  
+			  }
+		 
+		 static String nome;
+		 static String email;
+		 static String aniversario;
+		 private void pegarUsuario() {
+
+		     String usuario="me";
+		     System.out.println("Entrou no pegar Usuario");
+		     RequestBatch requestBatch = new RequestBatch();
+		    
+		     System.out.println(Session.getActiveSession());
+		         requestBatch.add(new Request(Session.getActiveSession(),usuario, null, null, new Request.Callback() {
+		             public void onCompleted(Response response) {
+		                 GraphObject graphObject = response.getGraphObject();
+		                 System.out.println("Entrou no oncompleted do PegarUsuario");
+		                 if (graphObject != null) {
+		                	 System.out.println("Entrou no if do graphObject");
+		                     if (graphObject.getProperty("id") != null) {
+		                                 TelaFacebook.nome=(String)graphObject.getProperty("name");
+		                                 TelaFacebook.email=(String)graphObject.getProperty("email");
+		                                 TelaFacebook.aniversario=(String) graphObject.getProperty("birthday");
+		                                 System.out.println("Nome Usuário : "+ nome+" Email: "+ email+ " Aniversário: "+ aniversario);
+		                     }
+		                 }
+		             }
+		         
+		     }));
+		     requestBatch.executeAsync();
+		 }
 }
 
 

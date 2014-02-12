@@ -85,7 +85,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		if(Usuario.getId()!=0){
 			banco.setMeusEventos(Usuario.getId());
 		}
-		
+		Evento.setAtual("");
 		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
