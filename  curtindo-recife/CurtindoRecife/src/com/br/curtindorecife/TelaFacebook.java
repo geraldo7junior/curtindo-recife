@@ -9,6 +9,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import bd.Banco;
+
 import com.facebook.Request;
 import com.facebook.RequestBatch;
 import com.facebook.Response;
@@ -27,6 +29,8 @@ import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.Util;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
+
+import dominio.Usuario;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -78,46 +82,7 @@ public class TelaFacebook extends Activity {
 	private int cont = 0;
 
 
-	String get_id, get_name, get_gender, get_email, get_birthday, get_locale, get_location;
-
-	private Session.StatusCallback fbStatusCallback = new Session.StatusCallback() {
-	    @SuppressWarnings("deprecation")
-		public void call(Session session, SessionState state, Exception exception) {
-	        if (state.isOpened()) {
-	        	
-	            Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-	                public void onCompleted(GraphUser user, Response response) {
-	                    if (response != null) {
-	                        // do something with <response> now
-	                        try{
-	                            get_id = user.getId();
-	                            get_name = user.getName();
-	                            get_gender = (String) user.getProperty("gender");
-	                            get_email = (String) user.getProperty("email");
-	                            get_birthday = user.getBirthday();
-	                            get_locale = (String) user.getProperty("locale");
-	                            get_location = user.getLocation().toString();   
-
-	                        Log.d("Usuario", user.getId() + "; " +  
-	                            user.getName() + "; " +
-	                            (String) user.getProperty("gender") + "; " +        
-	                            (String) user.getProperty("email") + "; " +
-	                            user.getBirthday()+ "; " +
-	                            (String) user.getProperty("locale") + "; " +
-	                            user.getLocation());
-	                        } catch(Exception e) {
-	                             e.printStackTrace();
-	                             Log.d("Exceção", "Exception e");
-	                         }
-
-	                    }
-	                }
-
-	            });
-	        }
-	    }
-
-	};
+	
 	private Button btnLogout;
 	@SuppressWarnings("deprecation")
 	@Override
@@ -136,6 +101,11 @@ public class TelaFacebook extends Activity {
 				
 				AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(facebook);
                 asyncRunner.logout(TelaFacebook.this.getBaseContext(), new LogoutRequestListener());
+                if (Session.getActiveSession() != null) {
+                    Session.getActiveSession().closeAndClearTokenInformation();
+                }
+
+                Session.setActiveSession(null);
 			}
 		});
 		btnPublicar=(Button) findViewById(R.id.btnPublicar);
@@ -163,14 +133,6 @@ public class TelaFacebook extends Activity {
 		});
 		chamarFacebook();
 		
-		try {
- 	        openActiveSession(TelaFacebook.this, true, fbStatusCallback, Arrays.asList(
- 	                new String[] { "publish_stream", "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions" }),savedInstanceState );
- 	    }
- 	    catch (Exception e) {
- 	        e.printStackTrace();
- 	    }
- 
 		
 	
 	}
@@ -188,67 +150,6 @@ public class TelaFacebook extends Activity {
     Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
    } 
 		
-	
-		private  Session openActiveSession(Activity activity, boolean allowLoginUI, StatusCallback callback, List<String> permissions, Bundle savedInstanceState) {
-	    OpenRequest openRequest = new OpenRequest(activity).
-	setPermissions(permissions).setLoginBehavior(SessionLoginBehavior.
-	SSO_WITH_FALLBACK).setCallback(callback).
-	setDefaultAudience(SessionDefaultAudience.FRIENDS);
-
-	    Session session = Session.getActiveSession();
-	    Log.d("Sessâo", "" + session);
-	    if (session == null) {
-	        Log.d("Sessâo", "" + savedInstanceState);
-	        if (savedInstanceState != null) {
-	            session = Session.restoreSession(this, null, fbStatusCallback, savedInstanceState);
-	        }
-	        if (session == null) {
-	            session = new Session(TelaFacebook.this);
-	            
-	        }
-	        Session.setActiveSession(session);
-	        if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED) || allowLoginUI) {
-	            session.openForRead(openRequest);
-	            return session;
-	        }
-	    }
-	    return null;
-	  }
-	
-	  
-	/*@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-	    Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-	}*/
-	
-		
-		
-	/*	// Carrega a accessToken pra saber se o usuário
-		// já se autenticou.
-		loadAccessToken();
-		
-		if(!facebook.isSessionValid()){
-			
-			facebook.authorize(this, PERMISSIONS, new LoginDialogListener());
-			this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-			
-		}
-		//facebook.dialog(TelaFacebook.this, "stream.publish", new WallPostDialogListener());
-		
-		
-		btnPublicar=(Button) findViewById(R.id.btnPublicar);
-		btnPublicar.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				facebook.dialog(TelaFacebook.this, "stream.publish", new WallPostDialogListener());
-				
-			}
-		});
-
-	}
-	*/
 	public void chamarFacebook(){
 		// Carrega a accessToken pra saber se o usuário
 		// já se autenticou.
@@ -286,9 +187,6 @@ public class TelaFacebook extends Activity {
 			});
 			
 			
-		}else{
-			//pegarUsuario();
-			//getProfileInformation();
 		}
 	}
 	
@@ -516,55 +414,6 @@ public class LogoutRequestListener implements RequestListener {
 	}
 		
 		
-		private String mUserId;
-		private String mUserToken;
-		private String mUserName;
-		private String mUserEmail;
-		public void getProfileInformation() {
-
-
-		    try {
-
-		        JSONObject profile = Util.parseJson(facebook.request("me"));
-		        Log.e("Profile", "" + profile);
-
-		        mUserId = profile.getString("id");
-		        mUserToken = facebook.getAccessToken();
-		        mUserName = profile.getString("name");
-		        mUserEmail = profile.getString("email");
-
-		        runOnUiThread(new Runnable() {
-
-		            public void run() {
-
-		                Log.e("FaceBook_Profile",""+mUserId+"\n"+mUserToken+"\n"+mUserName+"\n"+mUserEmail);
-
-		                Toast.makeText(getApplicationContext(),
-		                        "Name: " + mUserName + "\nEmail: " + mUserEmail,
-		                        Toast.LENGTH_LONG).show();
-
-
-
-		            }
-
-		        });
-
-		    } catch (FacebookError e) {
-
-		        e.printStackTrace();
-		    } catch (MalformedURLException e) {
-
-		        e.printStackTrace();
-		    } catch (JSONException e) {
-
-		        e.printStackTrace();
-		    } catch (IOException e) {
-
-		        e.printStackTrace();
-		    }
-
-		}
-		
 		 private void saveAccessToken() {  
 			    SharedPreferences.Editor editor = prefs.edit();  
 			    editor.putString(  
@@ -577,6 +426,7 @@ public class LogoutRequestListener implements RequestListener {
 		 static String nome;
 		 static String email;
 		 static String aniversario;
+		 
 		 private void pegarUsuario() {
 
 		     String usuario="me";
@@ -591,10 +441,17 @@ public class LogoutRequestListener implements RequestListener {
 		                 if (graphObject != null) {
 		                	 System.out.println("Entrou no if do graphObject");
 		                     if (graphObject.getProperty("id") != null) {
-		                                 TelaFacebook.nome=(String)graphObject.getProperty("name");
-		                                 TelaFacebook.email=(String)graphObject.getProperty("email");
-		                                 TelaFacebook.aniversario=(String) graphObject.getProperty("birthday");
-		                                 System.out.println("Nome Usuário : "+ nome+" Email: "+ email+ " Aniversário: "+ aniversario);
+		                    	 Banco banco=new Banco(TelaFacebook.this);
+		                    	     TelaFacebook.nome=(String)graphObject.getProperty("name");
+		                             TelaFacebook.email=(String)graphObject.getProperty("email");
+		                             TelaFacebook.aniversario=(String) graphObject.getProperty("birthday");
+		                             System.out.println("Nome Usuário : "+ nome+" Email: "+ email+ " Aniversário: "+ aniversario);
+		                             if(!banco.usuarioCadastrado(email)){
+		                            	 banco.cadastrarUsuario(nome, aniversario, email, "12345", "Homem", "Show", "Esporte", "Teatro");
+		                             }
+		                            	 Usuario.setId(banco.idUsuario(email));
+		                             
+		                                
 		                     }
 		                 }
 		             }

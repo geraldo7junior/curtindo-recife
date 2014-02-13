@@ -125,7 +125,23 @@ public class Banco{
 		System.out.println(this+" "+"------------Closed Bd--------");
 	}
 	
+	public boolean usuarioCadastrado (String email){
+		Cursor cursor;
+		try {
+			openBd();
+			String sql="SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"'";
+			cursor=bancoDados.rawQuery(sql, null);
+			if(cursor==null){
+				return true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
+	
 //////////////////////DELETA TODOS OS ESTABELECIMENTOS DE UM USUARIO/////////////////////////////////
 	public void deletarEstabelecimento(int idOwner){
 		deletar(tabelaEstabelecimentos,idOwner);
@@ -178,6 +194,20 @@ private Boolean deletar(String nomeTabela,int idOwner){
 		}		
 	}
 	
+	public void cadastrarUsuario(String nome, String dataDeNascimento, String email, String senha, String sexo, String eventoFavorito1, String eventoFavorito2, String eventoFavorito3){
+		//Cadastra Usuário
+		//o formato da data é (YYYY-MM-DD)
+		try {
+			openBd();
+			String sql = "INSERT INTO tabelaUsuarios (nome, dataNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2, eventoFavorito3, mascates, ranking) VALUES ('"+nome+"','"+dataDeNascimento+"','"+email+"','"+senha+"','"+sexo+"','"+eventoFavorito1+"','"+eventoFavorito2+"','"+eventoFavorito3+"', '150','0')";
+			bancoDados.execSQL(sql);
+		} catch (Exception erro) {
+			// TODO: handle exception
+			System.out.println(erro);
+		}finally{
+			closeBd();
+		}
+	}
 	
 /////////////////Método deletar dupla condição, deleta linha da tabela...//////// 
 private Boolean deletar(String nomeTabela, String colunaDaTabela1, String colunaDaTabela2, String valorColuna1,String valorColuna2){
