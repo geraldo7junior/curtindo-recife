@@ -51,7 +51,7 @@ public class Banco{
 				String sqlEvento = "CREATE TABLE IF NOT EXISTS "+tabelaEventos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT, numero TEXT, preco TEXT,data TEXT, hora TEXT, telefone TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER, curtidas INTEGER, morgadas INTEGER)";
 				db.execSQL(sqlEvento);
 				//TABELA DOS EVENTOS CRIADOS E QUE O USUÁRIO DEU SIMBORA (tabelMeusEventos)
-				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER)";
+				String sqlMeusEventos = "CREATE TABLE IF NOT EXISTS "+tabelaMeusEventos+" (_id INTEGER PRIMARY KEY, idUsuario INTEGER, idEvento INTEGER, votou BOOLEAN)";
 				db.execSQL(sqlMeusEventos);
 				////TABELA DE ESTABELECIMENTOS (tabelaEstabelecimentos)
 				String sqlEstabelecimentos = "CREATE TABLE IF NOT EXISTS "+tabelaEstabelecimentos+" (_id INTEGER PRIMARY KEY, nome TEXT, endereco TEXT,telefone TEXT, numero TEXT, preco TEXT,data_funcionamento TEXT, horaInicio TEXT, horaTermino TEXT, descricao TEXT, tipo TEXT, idOwner INTEGER, simboras INTEGER, idImagem INTEGER, prioridade INTEGER, ranking INTEGER)";
@@ -129,7 +129,7 @@ public class Banco{
 		Cursor cursor;
 		try {
 			openBd();
-			String sql="SELECT _id FROM tabelaUsuarios WHERE email LIKE '"+email+"'";
+			String sql="SELECT id FROM tabelaUsuarios WHERE email LIKE '"+email+"'";
 			cursor=bancoDados.rawQuery(sql, null);
 			if(cursor==null){
 				return true;
@@ -442,6 +442,18 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 		}
 		
 		
+	}
+	
+	public void updateVotou(int idUsuario, int idEvento){
+		try {
+			openBd();
+			String sqlUpdate = "UPDATE "+tabelaMeusEventos+" SET votou = '"+true+"' WHERE idUsuario LIKE '"+idUsuario+"' AND idEvento Like '"+idEvento+"'";
+			bancoDados.execSQL(sqlUpdate);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally{
+			closeBd();
+		}
 	}
 	
 	

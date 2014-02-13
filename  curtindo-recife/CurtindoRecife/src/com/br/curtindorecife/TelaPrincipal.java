@@ -75,6 +75,7 @@ public class TelaPrincipal extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		Banco banco = new Banco(this);
 		banco.criarBanco();
+		System.out.println(banco.usuarioCadastrado("demismg72@gmail.com"));
 		Cadastrar("Admin", "12/12/1903", "admin@curtindorecife.br", "ADMIN", "indefinido", "Show", "Teatro", "Esporte");
 		Evento.getListaEventos().clear();
 		//numEventos=0;

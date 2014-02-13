@@ -81,8 +81,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		
-		private Facebook facebook;
-		private SharedPreferences prefs;
+		private static Facebook facebook;
+		private static SharedPreferences prefs;
 		private static final String APP_ID = "670005079718273";
 		private AsyncFacebookRunner mAsyncRunner;
 		private static final String ACCESS_EXPIRES = "access_expires";
@@ -333,8 +333,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				
 			}if(v.getId() == R.id.btnSimbora && btnSimbora.getText().equals("Curtindo")){
 				Banco banco = new Banco(getActivity());
-				
 				banco.updateCurtidasAndMorgadas(id, curtidas+1, null);
+				banco.updateVotou(Usuario.getId(), id);
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setMessage("Curtida realizada com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
 				AlertDialog dialog = builder.create();
@@ -421,10 +421,10 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		    });  
 		  }  
 		  
-		  private void saveAccessToken() {  
+		  public static void saveAccessToken() {  
 		    SharedPreferences.Editor editor = prefs.edit();  
 		    editor.putString(  
-		      ACCESS_TOKEN, facebook.getAccessToken());  
+		      ACCESS_TOKEN, FragmentEventos.facebook.getAccessToken());  
 		    editor.putLong(  
 		      ACCESS_EXPIRES, facebook.getAccessExpires());  
 		    editor.commit();  

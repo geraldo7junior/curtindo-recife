@@ -30,6 +30,7 @@ import com.facebook.android.Util;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphUser;
 
+import dominio.FragmentEventos;
 import dominio.Usuario;
 
 import android.os.Bundle;
@@ -163,6 +164,8 @@ public class TelaFacebook extends Activity {
 				public void onComplete(Bundle values) {
 					// TODO Auto-generated method stub
 					saveAccessToken();
+					FragmentEventos.saveAccessToken();
+					pegarUsuario();
 					//getProfileInformation();
 				}
 
@@ -446,10 +449,17 @@ public class LogoutRequestListener implements RequestListener {
 		                             TelaFacebook.email=(String)graphObject.getProperty("email");
 		                             TelaFacebook.aniversario=(String) graphObject.getProperty("birthday");
 		                             System.out.println("Nome Usuário : "+ nome+" Email: "+ email+ " Aniversário: "+ aniversario);
+		                             if(email==null){
+		                            	 email=((String) graphObject.getProperty("first_name"))+"@";
+		                             }
+		                             if(aniversario==null){
+		                            	 aniversario="01/01/2014";
+		                             }
 		                             if(!banco.usuarioCadastrado(email)){
 		                            	 banco.cadastrarUsuario(nome, aniversario, email, "12345", "Homem", "Show", "Esporte", "Teatro");
 		                             }
 		                            	 Usuario.setId(banco.idUsuario(email));
+		                            	 System.out.println("Logado");
 		                             
 		                                
 		                     }
