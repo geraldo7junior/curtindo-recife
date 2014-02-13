@@ -166,7 +166,7 @@ public class Evento {
 		 
 	 }
 	 
-	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, String numero, String endereco, boolean curtido) {
+	public Evento(String nome, String data, String hora, int image,int idEvento, int idOwner, String descricao, String tipo, String telefone, int simboras, String preco, String numero, String endereco, boolean curtido, int curtidas, int morgadas) {
 	     this.data = data;
 	     this.hora = hora;
 	     this.nome = nome;
@@ -181,6 +181,8 @@ public class Evento {
 	     this.descricao = descricao;
 	     this.curtido=curtido;
 	     this.tipoDeEvento=tipo;
+	     this.morgadas=morgadas;
+	     this.curtidas=curtidas;
 	}
 	
 	public int getId() {

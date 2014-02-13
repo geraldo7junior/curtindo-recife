@@ -575,6 +575,7 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 	
 	public void updateCurtidasAndMorgadas(int idEvento, Integer newCurtidas, Integer newMorgadas) {
 		try {
+			openBd();
 			if(newMorgadas != null & newCurtidas != null){
 				String sql2 = "UPDATE "+tabelaEventos+" SET curtidas = '"+newCurtidas+"', morgadas = '"+newMorgadas+"' WHERE _id LIKE '"+idEvento+"'";
 				bancoDados.execSQL(sql2);
@@ -587,9 +588,9 @@ private void inserirNaTabela(String nomeTabela,ContentValues valores ){
 			}
 			} catch (Exception erro) {
 				// TODO: handle exception
-				System.out.println(erro);
+				erro.printStackTrace();
 			}finally{
-			
+				closeBd();
 			}
 		}
 	

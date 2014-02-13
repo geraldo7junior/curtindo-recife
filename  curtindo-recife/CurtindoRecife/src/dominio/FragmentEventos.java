@@ -76,6 +76,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		public int idOwner;
 		public boolean curtido;
 		public String tipo;
+		public int curtidas;
+		public int morgadas;
 		DialogInterface.OnClickListener dialogClick;
 		public static final String ARG_SECTION_NUMBER = "section_number";
 		
@@ -121,6 +123,10 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			this.idOwner=evento.getIdOwner();
 			this.curtido=evento.isCurtido();
 			this.tipo=evento.getTipoDeEvento();
+			System.out.println(evento.getCurtidas()+" Curtidas");
+			this.curtidas=evento.getCurtidas();
+			System.out.println(evento.getMorgadas()+" Morgadas");
+			this.morgadas=evento.getMorgadas();
 			setEhEvento(true);
 		}
 		public FragmentEventos(Estabelecimento estabelecimento){
@@ -162,6 +168,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			
 		
 			 btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
+			 btnMapa.setOnClickListener(this);
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
@@ -201,7 +208,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				btnSimbora.setText("Curtindo");
 				btnSimbora.setBackgroundColor(Color.MAGENTA);
 				btnSimbora.setEnabled(true);
-				btnMapa.setBackgroundResource(R.drawable.morgado);
+				btnMapa.setBackgroundColor(Color.LTGRAY);
+				//btnMapa.setBackgroundResource(R.drawable.morgado);
+				btnMapa.setText("Morgado");
 				btnMapa.setEnabled(true);
 			}
 			else{
@@ -324,7 +333,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				
 			}if(v.getId() == R.id.btnSimbora && btnSimbora.getText().equals("Curtindo")){
 				Banco banco = new Banco(getActivity());
-				banco.updateCurtidasAndMorgadas(id, 1, null);
+				
+				banco.updateCurtidasAndMorgadas(id, curtidas+1, null);
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setMessage("Curtida realizada com sucesso.").setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
 				AlertDialog dialog = builder.create();
@@ -334,7 +344,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				
 			}if(v.getId() == R.id.btnMapa && btnMapa.getText().equals("Morgado") ){
 				Banco banco = new Banco(getActivity());
-				banco.updateCurtidasAndMorgadas(id, null, 1);
+				banco.updateCurtidasAndMorgadas(id, null, morgadas+1);
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setMessage("Evento Morgado.").setTitle("Morgado").setPositiveButton("OK", dialogClick);
 				AlertDialog dialog = builder.create();
@@ -544,71 +554,3 @@ class DialogPublishFacebook implements com.facebook.android.Facebook.DialogListe
 
 	}
 }
-/*
-private void publishStory() {
-Session session = Session.getActiveSession();
-boolean pendingPublishReauthorization;
-if (session != null){
-
-    // Check for publish permissions    
-    List<String> permissions = session.getPermissions();
-    if (!isSubsetOf(PERMISSIONS, permissions)) {
-        pendingPublishReauthorization = true;
-        Session.NewPermissionsRequest newPermissionsRequest = new Session
-                .NewPermissionsRequest(this, PERMISSIONS);
-    session.requestNewPublishPermissions(newPermissionsRequest);
-        return;
-    }
-
-    Bundle postParams = new Bundle();
-    postParams.putString("name", "Facebook SDK for Android");
-    postParams.putString("caption", "Build great social apps and get more installs.");
-    postParams.putString("description", "The Facebook SDK for Android makes it easier and faster to develop Facebook integrated Android apps.");
-    postParams.putString("link", "https://developers.facebook.com/android");
-    postParams.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
-
-    Request.Callback callback= new Request.Callback() {
-        public void onCompleted(Response response) {
-            JSONObject graphResponse = response
-                                       .getGraphObject()
-                                       .getInnerJSONObject();
-            String postId = null;
-            try {
-                postId = graphResponse.getString("id");
-            } catch (JSONException e) {
-                Log.i(TAG,
-                    "JSON error "+ e.getMessage());
-            }
-            FacebookRequestError error = response.getError();
-            if (error != null) {
-                Toast.makeText(getActivity()
-                     .getApplicationContext(),
-                     error.getErrorMessage(),
-                     Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity()
-                         .getApplicationContext(), 
-                         postId,
-                         Toast.LENGTH_LONG).show();
-            }
-        }
-    };
-
-    Request request = new Request(session, "me/feed", postParams, 
-                          HttpMethod.POST, callback);
-
-    Request r=new Request(null);
-    RequestAsyncTask task = new RequestAsyncTask(request);
-    task.execute();
-}
-
-
-private boolean isSubsetOf(Collection<String> subset, Collection<String> superset) {
-    for (String string : subset) {
-        if (!superset.contains(string)) {
-            return false;
-        }
-    }
-    return true;
-}*/
-
