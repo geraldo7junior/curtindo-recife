@@ -175,11 +175,13 @@ public class TelaCategoriaEvento extends Activity {
         List p;
         if(!Evento.getAtual().equals("")){
 	        if(Evento.getAtual().equals("Top10")){       	
-	        	Evento.setListaEventos(Evento.ranking());   
+	        	Evento.setListaEventos(Evento.ranking());  
+	        	Evento.setListaEventos(Evento.listaEventosMarcados());
 	        	p=Evento.getListaEventos();
 	        }
 	        if(Evento.getAtual().equals("Night")){
-	        	Evento.setListaEventos(Evento.listaNight());   
+	        	Evento.setListaEventos(Evento.listaNight());  
+	        	Evento.setListaEventos(Evento.listaEventosMarcados());
 	        	p=Evento.getListaEventos();
 	        }
 	        if(Evento.getAtual().equals("Rolando Agora")){
@@ -188,7 +190,7 @@ public class TelaCategoriaEvento extends Activity {
 	        	
 	        }
 	        else{
-	        	
+	        	Evento.setListaEventos(Evento.listaEventosMarcados());
 	        	p=Evento.getListaEventos();  
 	            
 	        }

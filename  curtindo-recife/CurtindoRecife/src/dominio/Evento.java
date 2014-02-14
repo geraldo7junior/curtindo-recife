@@ -474,6 +474,55 @@ public class Evento {
 		
 	}
 	
+	public static ArrayList<Evento> listaEventosMarcados(){
+		
+		Calendar calendar=Calendar.getInstance();
+		Date date=new Date();
+	    DateFormat formato = new SimpleDateFormat("HH:mm");  
+	    String horaConvertida = formato.format(date); 
+	    DateFormat formatoData=new SimpleDateFormat("dd/MM/yyyy");
+	    String dataConvertida=formatoData.format(date);
+	    System.out.println(horaConvertida+" Hora");
+	    System.out.println(dataConvertida+" Data");
+	    try {
+			calendar.setTime(formatoData.parse(dataConvertida));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		ArrayList<Evento> listaEventosMarcados = new ArrayList<Evento>();
+	
+		for (int i = 0; i < Evento.getListaEventos().size(); i++) {
+			if(!Evento.getListaEventos().get(i).getData().equals("")){
+				int hora = 99;
+				int minuto = 99;
+				int minutoConvertido = 99;
+				int horaConvertida2 = 99;
+				if(!Evento.getListaEventos().get(i).getHora().equals("")){
+					hora=Integer.parseInt(listaEventos.get(i).getHora().substring(0, 2));
+					minuto = Integer.parseInt(listaEventos.get(i).getHora().substring(3,5));
+					System.out.println(hora+ " Evento: "+listaEventos.get(i).getNome());
+					horaConvertida2 = Integer.parseInt(horaConvertida.substring(0,2));
+					minutoConvertido = Integer.parseInt(horaConvertida.substring(3,5));
+				}else{
+					continue;
+				}	
+				System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
+				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
+					continue;
+				}else{
+					listaEventosMarcados.add(Evento.getListaEventos().get(i));
+				}
+				
+			}	
+			
+		}
+		return listaEventosMarcados;
+		
+	}
+	
+	
+	
 	public static void retorneListaNomesEventos(String eventoFavorito1,String eventoFavorito2,String eventoFavorito3, ArrayAdapter<CharSequence> ar){
 		nomesEventosTelaPrincipal.add(eventoFavorito1);
 		nomesEventosTelaPrincipal.add(eventoFavorito2);
