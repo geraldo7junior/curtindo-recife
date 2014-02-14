@@ -118,7 +118,32 @@
      </LinearLayout>
 
     
-         </LinearLayout>
+     <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" 
+        >
+         
+         <TextView  android:id="@+id/txtMorgadas"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:text="320"
+        android:textSize="16sp" 
+        android:gravity="center">
+             
+         </TextView>
+         
+         <TextView  android:id="@+id/txtCurtidas"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:text="280"
+        android:textSize="16sp"
+        android:gravity="center" ></TextView>
+     </LinearLayout>
+     
+   </LinearLayout>
+         
      </ScrollView>
+
+     
 
 </LinearLayout>

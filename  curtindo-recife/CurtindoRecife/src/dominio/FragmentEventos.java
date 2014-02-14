@@ -205,13 +205,23 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				btnSimbora.setEnabled(false);
 				
 			}else if(this.curtido==true & Evento.getAtual().equals("Rolando Agora")){
-				btnSimbora.setText("Curtindo");
-				btnSimbora.setBackgroundColor(Color.MAGENTA);
-				btnSimbora.setEnabled(true);
-				btnMapa.setBackgroundColor(Color.LTGRAY);
-				//btnMapa.setBackgroundResource(R.drawable.morgado);
-				btnMapa.setText("Morgado");
-				btnMapa.setEnabled(true);
+				Banco banco=new Banco(getActivity());
+				if(!banco.jaVotou(Usuario.getId(), id)){
+					btnSimbora.setText("Curtindo");
+					btnSimbora.setBackgroundColor(Color.MAGENTA);
+					btnSimbora.setEnabled(true);
+					btnMapa.setBackgroundColor(Color.LTGRAY);
+					//btnMapa.setBackgroundResource(R.drawable.morgado);
+					btnMapa.setText("Morgado");
+					btnMapa.setEnabled(true);
+				}
+				else{
+					btnSimbora.setBackgroundColor(Color.TRANSPARENT);
+					btnSimbora.setText("Curtidas");
+					btnMapa.setBackgroundColor(Color.TRANSPARENT);
+					btnMapa.setText("Morgadas");
+				}
+				
 			}
 			else{
 				if(Evento.getAtual().equals("Rolando Agora")){

@@ -455,7 +455,7 @@ public class LogoutRequestListener implements RequestListener {
 		                             if(aniversario==null){
 		                            	 aniversario="01/01/2014";
 		                             }
-		                             if(!banco.usuarioCadastrado(email)){
+		                             if(banco.idUsuario(email)==null){
 		                            	 banco.cadastrarUsuario(nome, aniversario, email, "12345", "Homem", "Show", "Esporte", "Teatro");
 		                             }
 		                            	 Usuario.setId(banco.idUsuario(email));

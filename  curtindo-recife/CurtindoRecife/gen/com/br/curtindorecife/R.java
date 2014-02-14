@@ -292,9 +292,9 @@ containing a value of this type.
     }
     public static final class id {
         public static final int AbsoluteLayout1=0x7f040073;
-        public static final int Cadastrar=0x7f04009d;
-        public static final int action_forgot_password=0x7f0400a1;
-        public static final int action_settings=0x7f04009c;
+        public static final int Cadastrar=0x7f04009f;
+        public static final int action_forgot_password=0x7f0400a3;
+        public static final int action_settings=0x7f04009e;
         public static final int btnAgenda=0x7f040081;
         public static final int btnAgendaEstabelecimento=0x7f040075;
         public static final int btnCadastrar=0x7f040021;
@@ -362,7 +362,7 @@ containing a value of this type.
         public static final int gridview=0x7f04005a;
         public static final int header=0x7f040056;
         public static final int horizontalScrollView1=0x7f040078;
-        public static final int image=0x7f040096;
+        public static final int image=0x7f040098;
         public static final int imageView1=0x7f04003d;
         public static final int imgEvento=0x7f040090;
         public static final int imgEvento1=0x7f04003a;
@@ -379,8 +379,8 @@ containing a value of this type.
         public static final int login_form=0x7f04002d;
         public static final int login_status=0x7f04002b;
         public static final int login_status_message=0x7f04002c;
-        public static final int menu_delete=0x7f04009f;
-        public static final int menu_edit=0x7f0400a0;
+        public static final int menu_delete=0x7f0400a1;
+        public static final int menu_edit=0x7f0400a2;
         public static final int next=0x7f040059;
         public static final int normal=0x7f040001;
         public static final int pager=0x7f040012;
@@ -396,7 +396,7 @@ containing a value of this type.
         public static final int rbMulher=0x7f040051;
         public static final int rdbHomem=0x7f04001c;
         public static final int rdbMulher=0x7f04001b;
-        public static final int sairPontinhos=0x7f04009e;
+        public static final int sairPontinhos=0x7f0400a0;
         public static final int scrollView1=0x7f040042;
         public static final int section_label=0x7f04008e;
         public static final int small=0x7f040000;
@@ -416,13 +416,14 @@ containing a value of this type.
         public static final int textView1=0x7f040014;
         public static final int textView9=0x7f04003f;
         public static final int title=0x7f040058;
-        public static final int tv1=0x7f040097;
-        public static final int tv2=0x7f040098;
-        public static final int tv3=0x7f040099;
-        public static final int tvSimboras=0x7f04009b;
-        public static final int tvTipoEvento=0x7f04009a;
+        public static final int tv1=0x7f040099;
+        public static final int tv2=0x7f04009a;
+        public static final int tv3=0x7f04009b;
+        public static final int tvSimboras=0x7f04009d;
+        public static final int tvTipoEvento=0x7f04009c;
         public static final int txtCadastroData=0x7f04000b;
         public static final int txtCategoria=0x7f04000f;
+        public static final int txtCurtidas=0x7f040097;
         public static final int txtData=0x7f040039;
         public static final int txtDataConfirmada=0x7f040024;
         public static final int txtDataPerfil=0x7f040038;
@@ -436,6 +437,7 @@ containing a value of this type.
         public static final int txtMascate=0x7f04003e;
         public static final int txtMeusEstabelecimentos=0x7f040033;
         public static final int txtMeusEventos=0x7f04008d;
+        public static final int txtMorgadas=0x7f040096;
         public static final int txtMudarEmail=0x7f040047;
         public static final int txtNome=0x7f040003;
         public static final int txtNomePerfil=0x7f040036;
