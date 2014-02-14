@@ -99,7 +99,7 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 			cursor = BancoDados.rawQuery(sqlPesquisaMeusEventos, null);
 			cursor.moveToFirst();
 			Evento.setIdEvento(cursor.getInt(cursor.getPosition()));
-			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento, votou) VALUES ('"+Usuario.getId()+"','"+Evento.getIdEvento()+"','"+true+"')";
+			String sqlMeusEventos="INSERT INTO tabelaMeusEventos (idUsuario, idEvento, votou) VALUES ('"+Usuario.getId()+"','"+Evento.getIdEvento()+"','"+1+"')";
 			BancoDados.execSQL(sqlMeusEventos);
 		} catch (Exception erro) {
 			System.out.println(erro);

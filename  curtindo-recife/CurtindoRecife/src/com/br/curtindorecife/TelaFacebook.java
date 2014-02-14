@@ -69,7 +69,7 @@ public class TelaFacebook extends Activity {
 	}
 
 	private static final String[] PERMISSIONS = new String[] {"publish_stream", 
-        "read_stream", "offline_access", "email",  "user_location", "user_birthday", "user_likes", "publish_actions"};
+        "read_stream", "offline_access"};
 
 	Button btnPublicar;
 	private Bitmap image;
@@ -114,6 +114,7 @@ public class TelaFacebook extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				chamarFacebook();
 				facebook.dialog(TelaFacebook.this, "stream.publish", new WallPostDialogListener());
 				
 			}
@@ -164,8 +165,6 @@ public class TelaFacebook extends Activity {
 				public void onComplete(Bundle values) {
 					// TODO Auto-generated method stub
 					saveAccessToken();
-					FragmentEventos.saveAccessToken();
-					pegarUsuario();
 					//getProfileInformation();
 				}
 
@@ -393,7 +392,7 @@ public class LogoutRequestListener implements RequestListener {
 		         Session.setActiveSession(session);
 		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
 		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
-		        
+		         FragmentEventos.saveAccessToken();
 				pegarUsuario();
 				
 			}
@@ -423,7 +422,9 @@ public class LogoutRequestListener implements RequestListener {
 			      ACCESS_TOKEN, facebook.getAccessToken());  
 			    editor.putLong(  
 			      ACCESS_EXPIRES, facebook.getAccessExpires());  
+			    FragmentEventos.saveAccessToken();
 			    editor.commit();  
+			    
 			  }
 		 
 		 static String nome;

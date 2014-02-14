@@ -284,6 +284,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			    // concluir o processo de login.  
 			    facebook.authorizeCallback(  
 			      requestCode, resultCode, data);  
+			    Session.getActiveSession().onActivityResult(getActivity(), requestCode, resultCode, data);
 			  }  
 		
 		@Override
@@ -432,7 +433,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		  }  
 		  
 		  public static void saveAccessToken() {  
+			 
 		    SharedPreferences.Editor editor = prefs.edit();  
+		    System.out.println("Entrou no save acess token");
 		    editor.putString(  
 		      ACCESS_TOKEN, FragmentEventos.facebook.getAccessToken());  
 		    editor.putLong(  
