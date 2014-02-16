@@ -37,6 +37,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -60,6 +61,7 @@ public class TelaFacebook extends Activity {
 	private Handler mHandler = new Handler();
 	private static Bundle saveInstance;
 	
+	public static Session sessaoIniciada; 
 	Button btnDados;
 	public static Bundle getSaveInstance() {
 		return saveInstance;
@@ -68,6 +70,14 @@ public class TelaFacebook extends Activity {
 		TelaFacebook.saveInstance = saveInstance;
 	}
 
+	/*public static void openSession(Activity activity){
+		Session session=new Session(activity);
+        Session.setActiveSession(session);
+        sessaoIniciada=session;
+        FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
+        session.openForRead(new Session.OpenRequest(activity).setCallback(statusCallback));
+	}
+	*/
 	private static final String[] PERMISSIONS = new String[] {"publish_stream", 
         "read_stream", "offline_access"};
 
@@ -126,6 +136,7 @@ public class TelaFacebook extends Activity {
 			public void onClick(View arg0) {
 				 Session session = new Session(getApplicationContext());
 		         Session.setActiveSession(session);
+		         sessaoIniciada=session;
 		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
 		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
 		        
@@ -138,7 +149,7 @@ public class TelaFacebook extends Activity {
 		
 	
 	}
-	private class FacebookSessionStatusCallback implements Session.StatusCallback {
+	public class FacebookSessionStatusCallback implements Session.StatusCallback {
 	    @Override
 	    public void call(Session session, SessionState state, Exception exception) {
 	            String s=session.getAccessToken();
@@ -148,8 +159,10 @@ public class TelaFacebook extends Activity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     Log.d("FB Sample App", "onActivityResult(): " + requestCode);
+    System.out.println("Pegar usuario do Onactivity"); 
     facebook.authorizeCallback(requestCode, resultCode, data);
     Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    pegarUsuario();
    } 
 		
 	public void chamarFacebook(){
@@ -202,7 +215,8 @@ public class TelaFacebook extends Activity {
 	public void onComplete(Bundle values) {
 	// Process onComplete
 		try {
-
+			System.out.println("Pegar Usuario do on completed");
+			pegarUsuario();
             //getProfileInformation();
 
         } catch (Exception error) {
@@ -392,7 +406,6 @@ public class LogoutRequestListener implements RequestListener {
 		         Session.setActiveSession(session);
 		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
 		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
-		         FragmentEventos.saveAccessToken();
 				pegarUsuario();
 				
 			}
@@ -402,8 +415,7 @@ public class LogoutRequestListener implements RequestListener {
 		}
 		else{
 			System.out.println("Sem internet");
-		}
-		
+		}	
 		
 	}
 	
@@ -417,6 +429,7 @@ public class LogoutRequestListener implements RequestListener {
 		
 		
 		 private void saveAccessToken() {  
+			 System.out.println("Entrou no saveAcessToken");
 			    SharedPreferences.Editor editor = prefs.edit();  
 			    editor.putString(  
 			      ACCESS_TOKEN, facebook.getAccessToken());  

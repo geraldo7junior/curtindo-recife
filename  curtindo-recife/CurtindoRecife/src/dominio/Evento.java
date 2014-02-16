@@ -132,6 +132,7 @@ public class Evento {
 		return numero;
 	}
 
+	
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
@@ -508,10 +509,29 @@ public class Evento {
 					continue;
 				}	
 				System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
-				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
-					continue;
-				}else{
-					listaEventosMarcados.add(Evento.getListaEventos().get(i));
+				try {
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
+					Date dataHoje=new Date();
+					Date data = new Date(format.parse(Evento.getListaEventos().get(i).getData()).getTime());
+					dataHoje.setHours(data.getHours());
+					dataHoje.setMinutes(data.getMinutes());
+					dataHoje.setSeconds(data.getSeconds());
+					System.out.println(data+ " "+ dataHoje);
+					System.out.println(data+" data");
+					System.out.println(dataHoje+" datahoje");
+					if(!Evento.getListaEventos().get(i).getData().equals(dataConvertida)&& (data.after(dataHoje))){
+						//(date.after(formatoData.parse(Evento.getListaEventos().get(i).getData())))){
+						continue;
+					}
+					if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
+						continue;
+					}else{
+						listaEventosMarcados.add(Evento.getListaEventos().get(i));
+					
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 			}	

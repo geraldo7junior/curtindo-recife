@@ -34,11 +34,14 @@ import android.widget.Toast;
 import bd.Banco;
 import com.br.curtindorecife.R;
 import com.br.curtindorecife.TelaCadastroEvento;
+import com.br.curtindorecife.TelaFacebook;
 import com.br.curtindorecife.TelaPrincipal;
+import com.br.curtindorecife.TelaFacebook.FacebookSessionStatusCallback;
 import com.br.curtindorecife.TelaFacebook.WallPostDialogListener.WallPostRequestListener;
 import com.facebook.HttpMethod;
 import com.facebook.RequestAsyncTask;
 import com.facebook.Session;
+import com.facebook.SessionState;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -155,6 +158,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					R.layout.fragment_tela_eventos_dummy, container, false);
 			facebook = new Facebook(APP_ID);
 			mAsyncRunner = new AsyncFacebookRunner(facebook);
+			Session.openActiveSessionFromCache(getActivity());
+			
+			System.out.println(Session.getActiveSession());
 			getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 				
 			//_Relacionamento
@@ -242,7 +248,12 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			
 			return rootView;
 		}
-		
+		private class FacebookSessionStatusCallback implements Session.StatusCallback {
+		    @Override
+		    public void call(Session session, SessionState state, Exception exception) {
+		            String s=session.getAccessToken();
+		    }
+		}
 		public void chamarFacebook(){
 			//FACEBOOK
 			
@@ -303,12 +314,15 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				public void onClick(DialogInterface dialog, int which) {
 					if(which==dialog.BUTTON_POSITIVE){
 						//facebook.dialog(getActivity(), "stream.publish", new DialogPublishFacebook());
-						chamarFacebook();
+						//chamarFacebook();		
+				         
+				        
 						facebook.dialog(getActivity(), "stream.publish", new WallPostDialogListener());
 						//updateStatusClick(v, txtNomeEvento.getText().toString());
 					}
-					
-					
+					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+					startActivity(intent);
+
 				}
 			};
 			
@@ -555,25 +569,5 @@ public void onCancel() {}
 }
 	
 
-class DialogPublishFacebook implements com.facebook.android.Facebook.DialogListener {
 
-	    public void onComplete(Bundle values) {
-
-	        final String postId = values.getString("post_id");
-
-	        if (postId != null) {
-
-	            // "Wall post made..."
-
-	        } else {
-	            // "No wall post made..."
-	        }
-
-	    }
-
-	    public void onFacebookError(FacebookError e) {}
-	    public void onError(DialogError e) {}
-	    public void onCancel() {}
-
-	}
 }
