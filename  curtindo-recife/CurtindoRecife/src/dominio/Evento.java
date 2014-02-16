@@ -509,7 +509,9 @@ public class Evento {
 					continue;
 				}	
 				System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
-				try {
+				//MÉTODOS QUE TENTEI
+				
+				/*try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
 					Date dataHoje=new Date();
 					Date data = new Date(format.parse(Evento.getListaEventos().get(i).getData()).getTime());
@@ -523,17 +525,20 @@ public class Evento {
 						//(date.after(formatoData.parse(Evento.getListaEventos().get(i).getData())))){
 						continue;
 					}
-					if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
-						continue;
-					}else{
-						listaEventosMarcados.add(Evento.getListaEventos().get(i));
+					
 					
 					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 				
+				// MÉTODO CHRISTIANIANO
+				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){
+					continue;
+				}else{
+					listaEventosMarcados.add(Evento.getListaEventos().get(i));
+				}
 			}	
 			
 		}

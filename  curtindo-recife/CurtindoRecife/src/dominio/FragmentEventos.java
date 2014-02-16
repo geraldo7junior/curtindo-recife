@@ -320,8 +320,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 						facebook.dialog(getActivity(), "stream.publish", new WallPostDialogListener());
 						//updateStatusClick(v, txtNomeEvento.getText().toString());
 					}
-					Intent intent=new Intent(getActivity(), TelaPrincipal.class);
-					startActivity(intent);
+					
 
 				}
 			};
@@ -508,6 +507,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		* Called when the wall post request has completed
 		*/
 		public void onComplete(final String response) {
+			Intent intent=new Intent(getActivity(), TelaPrincipal.class);
+			startActivity(intent);
 		Log.d("Facebook-Example", "Got response: " + response);
 		}
 

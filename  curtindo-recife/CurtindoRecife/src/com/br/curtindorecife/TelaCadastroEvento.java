@@ -1,13 +1,25 @@
 package com.br.curtindorecife;
 
 import bd.Banco;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.facebook.Session;
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.FacebookError;
+
 import persistencia.LoginBS;
 import dominio.*;
+import dominio.FragmentEventos.WallPostDialogListener;
+import dominio.FragmentEventos.WallPostDialogListener.WallPostRequestListener;
 import android.os.Bundle;
 import android.os.Message;
 import android.annotation.SuppressLint;
@@ -15,8 +27,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,16 +56,24 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	Spinner spCadastroEvento;
 	DialogInterface dialog;
 	android.content.DialogInterface.OnClickListener dialogClick;
+	android.content.DialogInterface.OnClickListener facebookClick;
+	private static Facebook facebook;
+	private static SharedPreferences prefs;
+	private static final String APP_ID = "670005079718273";
+	private AsyncFacebookRunner mAsyncRunner;
+	private static final String ACCESS_EXPIRES = "access_expires";
+	private static final String ACCESS_TOKEN = "access_token";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tela_cadastro_evento);
+		facebook = new Facebook(APP_ID);
 		ArrayAdapter<CharSequence> ar = ArrayAdapter.createFromResource(this,R.array.Categorias,android.R.layout.simple_list_item_1);
 		ar.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		spCadastroEvento =(Spinner) findViewById(R.id.spCadastroEvento);
 		spCadastroEvento.setAdapter(ar);
-		
+		Session.openActiveSessionFromCache(TelaCadastroEvento.this);
 		navegacao();
 	}
 		
@@ -143,6 +165,26 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
+		
+		facebookClick = new android.content.DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if(which==dialog.BUTTON_POSITIVE){
+					//facebook.dialog(getActivity(), "stream.publish", new DialogPublishFacebook());
+					//chamarFacebook();		
+			         
+			        
+					facebook.dialog(TelaCadastroEvento.this, "stream.publish", new WallPostDialogListener());
+					//updateStatusClick(v, txtNomeEvento.getText().toString());
+				}
+				if(which==dialog.BUTTON_NEGATIVE){
+					Intent intent=new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+					startActivity(intent);
+			
+				}
+			}
+
+			};
 		if(v.getId() == R.id.btnCriar){
 			
 		
@@ -159,8 +201,8 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 										
 										@Override
 										public void onClick(DialogInterface arg0, int arg1) {
-											Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
-											startActivity(intent);
+												Intent intent = new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+												startActivity(intent);
 										}
 									};
 									
@@ -173,11 +215,12 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 										banco.updateUsuario(usuario);
 										
 										AlertDialog.Builder builder = new AlertDialog.Builder(this);
-										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-										       .setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento! Compartilhar?")
+										       .setTitle("Sucesso!").setPositiveButton("Sim", facebookClick).setNegativeButton("Não", facebookClick);
 							
 										AlertDialog dialog = builder.create();
 										dialog.show();
+										
 										
 									}else{
 										dialogClick =new DialogInterface.OnClickListener() {
@@ -197,8 +240,8 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 									}else{
 										cadastrarEvento();
 										AlertDialog.Builder builder = new AlertDialog.Builder(this);
-										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento!")
-										       .setTitle("Sucesso!").setPositiveButton("OK", dialogClick);
+										builder.setMessage("Parabéns "+nomeUsuario(Usuario.getId())+" , você criou um evento! Compartilhar?")
+										       .setTitle("Sucesso!").setPositiveButton("Sim", facebookClick).setNegativeButton("Não", facebookClick);
 							
 										AlertDialog dialog = builder.create();
 										dialog.show();
@@ -347,10 +390,99 @@ public boolean validaTodosCampos() throws ParseException{
 
 
 	
+public class WallPostDialogListener implements
+com.facebook.android.Facebook.DialogListener {
+
+/**
+* Called when the dialog has completed successfully
+*/
+@SuppressWarnings("deprecation")
+public void onComplete(Bundle values) {
+final String postId = values.getString("post_id");
+if (postId != null) {
+    Log.d("FB Sample App", "Dialog Success! post_id=" + postId);
+    mAsyncRunner.request(postId, new WallPostRequestListener());
+} else {
+    Log.d("FB Sample App", "No wall post made");
+}
+
+Intent intent=new Intent(TelaCadastroEvento.this, TelaPrincipal.class);
+startActivity(intent);
+}
+
+@Override
+public void onCancel() {
+// No special processing if dialog has been canceled
+}
+
+@Override
+public void onError(DialogError e) {
+// No special processing if dialog has been canceled
+}
+
+@Override
+public void onFacebookError(FacebookError e) {
+// No special processing if dialog has been canceled
+}
+
+public class WallPostRequestListener implements
+com.facebook.android.AsyncFacebookRunner.RequestListener {
+
+/**
+* Called when the wall post request has completed
+*/
+public void onComplete(final String response) {
+Log.d("Facebook-Example", "Got response: " + response);
+}
+
+public void onFacebookError(FacebookError e) {
+// Ignore Facebook errors
+}
+
+public void onFileNotFoundException(FileNotFoundException e) {
+// Ignore File not found errors
+}
+
+public void onIOException(IOException e) {
+// Ignore IO Facebook errors
+}
+
+@Override
+public void onComplete(String response, Object state) {
+// TODO Auto-generated method stub
+
+}
+
+@Override
+public void onIOException(IOException e, Object state) {
+// TODO Auto-generated method stub
+
+}
+
+@Override
+public void onFileNotFoundException(FileNotFoundException e, Object state) {
+// TODO Auto-generated method stub
+
+}
+
+@Override
+public void onMalformedURLException(MalformedURLException e, Object state) {
+// TODO Auto-generated method stub
+
+}
+
+@Override
+public void onFacebookError(FacebookError e, Object state) {
+// TODO Auto-generated method stub
+
+}
+
+
+}
+
 	
 	
-	
-	
+}	
 	
 	
 	

@@ -474,6 +474,10 @@ public class LogoutRequestListener implements RequestListener {
 		                             }
 		                            	 Usuario.setId(banco.idUsuario(email));
 		                            	 System.out.println("Logado");
+		                            	
+		                            	 Toast.makeText(TelaFacebook.this, "Usuário Logado", Toast.LENGTH_SHORT).show();
+		                            	 Intent intent=new Intent(TelaFacebook.this, TelaPrincipal.class);
+		                            	 startActivity(intent);
 		                             
 		                                
 		                     }
