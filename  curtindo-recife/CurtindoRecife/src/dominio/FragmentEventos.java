@@ -61,6 +61,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 		TextView txtDescricao;
 		ImageView imgEvento;
 		TextView txtPreco;
+		TextView txtMorgadas;
+		TextView txtCurtidas;
+		
 		
 		private Boolean ehEvento;
 		public String nomeEvento;
@@ -167,8 +170,8 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			btnSimbora.setOnClickListener(this);
 			
 		
-			 btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
-			 btnMapa.setOnClickListener(this);
+			btnMapa = (Button) rootView.findViewById(R.id.btnMapa);
+			btnMapa.setOnClickListener(this);
 			txtNomeEvento = (TextView) rootView.findViewById(R.id.txtTituloEvento);
 			txtDescricao = (TextView) rootView.findViewById(R.id.txtCategoria);
 			txtEndereco = (TextView) rootView.findViewById(R.id.txtEndereco);
@@ -176,8 +179,9 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			txtPreco = (TextView) rootView.findViewById(R.id.txtPreco);
 			imgEvento = (ImageView)rootView.findViewById(R.id.imgEvento);
 			txtData = (TextView) rootView.findViewById(R.id.txtCadastroData);
+			txtMorgadas = (TextView) rootView.findViewById(R.id.txtMorgadas);
+			txtCurtidas = (TextView) rootView.findViewById(R.id.txtCurtidas);
 			
-
 			txtEndereco.setText(this.endereco+", "+this.numero);
 			txtNomeEvento.setText(this.nomeEvento);
 			if(ehEvento){
@@ -187,13 +191,28 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 				imgEvento.setBackgroundResource(Estabelecimento.associeImagem(this.tipo));
 				
 			}
+			
+			
+			
 			txtData.setText(this.data);
 			txtHora.setText(this.hora);
 			txtPreco.setText(this.preco);
 			txtDescricao.setText(this.descricao);
 			
+			if(Evento.getAtual().equals("Rolando Agora")){
+				txtMorgadas.setText(Integer.toString(this.morgadas));
+				txtCurtidas.setText(Integer.toString(this.curtidas));
+				btnSimbora.setBackgroundColor(Color.TRANSPARENT);
+				btnSimbora.setText("Curtidas");
+				btnSimbora.setTextColor(Color.MAGENTA);
+				btnMapa.setBackgroundColor(Color.TRANSPARENT);
+				btnMapa.setText("Morgadas");
+				btnMapa.setTextColor(Color.LTGRAY);
 			
-			
+				btnMapa.setEnabled(false);
+				btnSimbora.setEnabled(false);
+				
+			}//
 			if(this.idOwner==Usuario.getId()){
 				btnSimbora.setText("Evento Criado");
 				btnSimbora.setBackgroundColor(Color.BLUE);
@@ -214,23 +233,13 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 					//btnMapa.setBackgroundResource(R.drawable.morgado);
 					btnMapa.setText("Morgado");
 					btnMapa.setEnabled(true);
-				}
-				else{
-					btnSimbora.setBackgroundColor(Color.TRANSPARENT);
-					btnSimbora.setText("Curtidas");
-					btnMapa.setBackgroundColor(Color.TRANSPARENT);
-					btnMapa.setText("Morgadas");
+					btnMapa.setTextColor(Color.BLACK);
+					btnSimbora.setTextColor(Color.BLACK);
 				}
 				
+				
 			}
-			else{
-				if(Evento.getAtual().equals("Rolando Agora")){
-					btnSimbora.setText("");
-					btnSimbora.setBackgroundColor(Color.TRANSPARENT);
-					btnSimbora.setEnabled(false);
-					
-				}
-			}
+			
 			return rootView;
 		}
 		
@@ -356,6 +365,7 @@ public class FragmentEventos extends Fragment implements OnClickListener {
 			}if(v.getId() == R.id.btnMapa && btnMapa.getText().equals("Morgado") ){
 				Banco banco = new Banco(getActivity());
 				banco.updateCurtidasAndMorgadas(id, null, morgadas+1);
+				banco.updateVotou(Usuario.getId(), id);
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 				builder.setMessage("Evento Morgado.").setTitle("Morgado").setPositiveButton("OK", dialogClick);
 				AlertDialog dialog = builder.create();

@@ -111,6 +111,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/simboraback"
+        android:textSize="16sp"
         android:padding="3dp" />
 
    
@@ -126,7 +127,7 @@
          <TextView  android:id="@+id/txtMorgadas"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:text="320"
+        android:text=""
         android:textSize="16sp" 
         android:gravity="center">
              
@@ -135,7 +136,7 @@
          <TextView  android:id="@+id/txtCurtidas"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:text="280"
+        android:text=""
         android:textSize="16sp"
         android:gravity="center" ></TextView>
      </LinearLayout>
