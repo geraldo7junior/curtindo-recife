@@ -62,7 +62,7 @@ public class TelaFacebook extends Activity {
 	private static Bundle saveInstance;
 	
 	public static Session sessaoIniciada; 
-	Button btnDados;
+	
 	public static Bundle getSaveInstance() {
 		return saveInstance;
 	}
@@ -81,7 +81,7 @@ public class TelaFacebook extends Activity {
 	private static final String[] PERMISSIONS = new String[] {"publish_stream", 
         "read_stream", "offline_access"};
 
-	Button btnPublicar;
+	
 	private Bitmap image;
 	@SuppressWarnings("deprecation")
 	private AsyncFacebookRunner mAsyncRunner;
@@ -94,7 +94,7 @@ public class TelaFacebook extends Activity {
 
 
 	
-	private Button btnLogout;
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,58 +103,15 @@ public class TelaFacebook extends Activity {
 		facebook = new Facebook(APP_ID);
 		prefs = getPreferences(MODE_PRIVATE);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
-		
-		btnLogout = (Button) findViewById(R.id.btnLogout);
-		btnLogout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(facebook);
-                asyncRunner.logout(TelaFacebook.this.getBaseContext(), new LogoutRequestListener());
-                if (Session.getActiveSession() != null) {
-                    Session.getActiveSession().closeAndClearTokenInformation();
-                }
-
-                Session.setActiveSession(null);
-			}
-		});
-		btnPublicar=(Button) findViewById(R.id.btnPublicar);
-		btnPublicar.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				chamarFacebook();
-				facebook.dialog(TelaFacebook.this, "stream.publish", new WallPostDialogListener());
-				
-			}
-		});
-		btnDados= (Button) findViewById(R.id.btnPegarDados);
-		btnDados.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				 Session session = new Session(getApplicationContext());
-		         Session.setActiveSession(session);
-		         sessaoIniciada=session;
-		         FacebookSessionStatusCallback statusCallback = new FacebookSessionStatusCallback();
-		         session.openForRead(new Session.OpenRequest(TelaFacebook.this).setCallback(statusCallback));
-		        
-				pegarUsuario();
-				
-			}
-		});
-		chamarFacebook();
-		
-		
-	
 	}
+	
 	public class FacebookSessionStatusCallback implements Session.StatusCallback {
 	    @Override
 	    public void call(Session session, SessionState state, Exception exception) {
 	            String s=session.getAccessToken();
 	    }
 	}
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
