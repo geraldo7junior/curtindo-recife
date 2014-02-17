@@ -5,6 +5,7 @@ import bd.Banco;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -366,12 +367,27 @@ public class TelaCadastroEvento extends Activity implements OnClickListener {
 	
 	public boolean validaHora(){
 		
+	    DateFormat formato = new SimpleDateFormat("HH:mm");  
+	    String horaConvertida = txtHora.getText().toString(); 
+	    int horaConvertida2;
+	    int minuto;
+	    horaConvertida2 = Integer.parseInt(horaConvertida.substring(0,2));
+	    minuto = Integer.parseInt(horaConvertida.substring(3,5));
 
 		if(txtHora.getText().toString().length()<5){		
 			txtHora.setError("Digite o horário.");
 			return false;
 		}
-		else{return true;}
+		else{
+			if((horaConvertida2>=0 && horaConvertida2<=23) && (minuto>0 && minuto<=59)){
+				return true;
+			}else{
+				txtHora.setError("Digite o horário.");
+				return false;
+			}
+			
+		}
+		
 		
 		
 	}

@@ -29,14 +29,14 @@
     <string name="title_activity_legal">Legal</string>
     <string name="semCadastro">Ainda não é cadastrado?</string>
     <string name="entrarFacebook">Entrar com Facebook</string>
-    <string name="menu_delete">Manepah</string>
+    <string name="menu_delete">Delete</string>
     <string name="title_activity_tela_home">TelaHome</string>
     <string name="title_activity_teste2">Teste2</string>
     <string name="esqueciSenha">Esqueci minha senha</string>
-    <string name="title_activity_tela_esqueci_senha">TelaEsqueciSenha</string>
+    <string name="title_activity_tela_esqueci_senha">Esqueci a Senha</string>
     <string name="informeEmailCadastrado">Por favor informe o email do seu CurtindoRecife</string>
     <string name="recuperarSenha">Recuperar Senha</string>
-    <string name="title_activity_tela_cadastro_usuario">TelaCadastroUsuario</string>
+    <string name="title_activity_tela_cadastro_usuario">Cadastro de Usuário</string>
     <string name="cadastro">Cadastro</string>
     <string name="dataNascimento">Data de nascimento</string>
     <string name="homem">Homem</string>
@@ -48,8 +48,8 @@
     <string name="txtTelefone">Telefone</string>
     <string name="txtNumero">Nº</string>
     <string name="txtPreco">Preço</string>
-    <string name="title_activity_tela_categoria_evento">TelaCategoriaEvento</string>
-    <string name="title_activity_tela_perfil_usuario">TelaPerfilUsuario</string>
+    <string name="title_activity_tela_categoria_evento">Curtindo Recife</string>
+    <string name="title_activity_tela_perfil_usuario">Perfil</string>
     <string name="eventoFavorito">Eventos Favoritos:</string>
     <string name="evento">Evento</string>
     <string name="mudarSenha">Mudar senha</string>
@@ -60,12 +60,12 @@
     <string name="novoEmail">Novo e-mail</string>
     <string name="editar">Editar</string>
     <string name="sair">Sair</string>
-    <string name="title_activity_tela_mostrar_perfil">TelaMostrarPerfil</string>
-    <string name="title_activity_tela_eventos_data">TelaEventosData</string>
-    <string name="title_activity_cadastrar_estabelecimento">CadastrarEstabelecimento</string>
+    <string name="title_activity_tela_mostrar_perfil">Perfil</string>
+    <string name="title_activity_tela_eventos_data">Eventos</string>
+    <string name="title_activity_cadastrar_estabelecimento">Cadastrar Estabelecimento</string>
     <string name="CadastroDeEstabelecimento">Cadastro de Local</string>
-    <string name="title_activity_tela_meus_estabelecimentos">TelaMeusEstabelecimentos</string>
-    <string name="title_activity_tela_facebook">TelaFacebook</string>
+    <string name="title_activity_tela_meus_estabelecimentos">Meus Estabelecimentos</string>
+    <string name="title_activity_tela_facebook">Facebook</string>
     <string name="app_id">670005079718273</string>
-    <string name="title_activity_tela_eventos_acontecendo">TelaEventosAcontecendo</string>
+    <string name="title_activity_tela_eventos_acontecendo">Rolando Agora</string>
 </resources>

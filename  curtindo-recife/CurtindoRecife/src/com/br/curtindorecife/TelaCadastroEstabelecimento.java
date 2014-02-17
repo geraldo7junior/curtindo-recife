@@ -3,6 +3,11 @@ package com.br.curtindorecife;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.br.curtindorecife.TelaCadastroEvento.WallPostDialogListener;
 import com.br.curtindorecife.TelaCadastroEvento.WallPostDialogListener.WallPostRequestListener;
@@ -133,37 +138,81 @@ public class TelaCadastroEstabelecimento extends Activity implements OnClickList
 					startActivity(intent);
 				}
 			};
-			if(usuario.getMascates() >= custo){
-			
-			Estabelecimento estabelecimento = new Estabelecimento(idOwner, nome, endereco, numero, null, dataFuncionamento, horaInicio, horaTermino, telefone, descricao, tipo, 456, prioridade, telefone);
-			
-			banco.inserirEstabelecimento(estabelecimento);
-			usuario.setMascates(usuario.getMascates()-custo);
-			banco.inserirMeusEstabelecimentos(usuario);
-			banco.updateUsuario(usuario);
-			//banco.inserirMeusEstabelecimentos(estabelecimento, usuario);
-			
-			
-			
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Estabelecimento criado com sucesso. Compartilhar?")
-			       .setTitle("Criação de Estabelecimentos").setPositiveButton("Sim", facebookClick).setNegativeButton("Não", facebookClick);
-			AlertDialog dialog = builder.create();
-			dialog.show();
-		}
-			else{
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
-				       .setTitle("Falha na criação do estabelecimento").setPositiveButton("OK", dialogClick);
-				AlertDialog dialog = builder.create();
-				dialog.show();
+			try {
+				if(validaTodosCampos()){
+						if(usuario.getMascates() >= custo){
+						
+						Estabelecimento estabelecimento = new Estabelecimento(idOwner, nome, endereco, numero, null, dataFuncionamento, horaInicio, horaTermino, telefone, descricao, tipo, 456, prioridade, telefone);
+						
+						banco.inserirEstabelecimento(estabelecimento);
+						usuario.setMascates(usuario.getMascates()-custo);
+						banco.inserirMeusEstabelecimentos(usuario);
+						banco.updateUsuario(usuario);
+						//banco.inserirMeusEstabelecimentos(estabelecimento, usuario);
+						
+						
+						
+						AlertDialog.Builder builder = new AlertDialog.Builder(this);
+						builder.setMessage("Estabelecimento criado com sucesso. Compartilhar?")
+						       .setTitle("Criação de Estabelecimentos").setPositiveButton("Sim", facebookClick).setNegativeButton("Não", facebookClick);
+						AlertDialog dialog = builder.create();
+						dialog.show();
+					}
+						else{
+							AlertDialog.Builder builder = new AlertDialog.Builder(this);
+							builder.setMessage("Saldo insuficiente, você possui "+banco.getUsuario(Usuario.getId()).getMascates()+" mascates. Compre mais na nossa loja ou dê mais simboras! ")
+							       .setTitle("Falha na criação do estabelecimento").setPositiveButton("OK", dialogClick);
+							AlertDialog dialog = builder.create();
+							dialog.show();
+						}
+				  }
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	  }
+		}
 		
 	}
 	
 	
+public boolean validaTodosCampos() throws ParseException{
+		
+		if(validaHora(txtHoraInicio)&&validaHora(txtHoraTermino)){			
+			
+			return true;			
+		}else{
+			return false;
+		}
+		
+	}
+
+public boolean validaHora(EditText txtHora){
+	DateFormat formato = new SimpleDateFormat("HH:mm");  
+    String horaConvertida = txtHora.getText().toString(); 
+    int horaConvertida2;
+    int minuto;
+    horaConvertida2 = Integer.parseInt(horaConvertida.substring(0,2));
+    minuto = Integer.parseInt(horaConvertida.substring(3,5));
+
+	if(txtHora.getText().toString().length()<5){		
+		txtHora.setError("Digite o horário.");
+		return false;
+	}
+	else{
+		if((horaConvertida2>=0 && horaConvertida2<=23) && (minuto>0 && minuto<=59)){
+			return true;
+		}
+		else{
+			txtHora.setError("Digite o horário.");
+			return false;
+		}
+	}
 	
+	
+	
+	
+
+}
 	public class WallPostDialogListener implements
 	com.facebook.android.Facebook.DialogListener {
 

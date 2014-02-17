@@ -511,27 +511,30 @@ public class Evento {
 				System.out.println("Hora evento: "+hora+" Hora Convertida: "+horaConvertida2);
 				//MÉTODOS QUE TENTEI
 				
-				/*try {
+				try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");  
 					Date dataHoje=new Date();
 					Date data = new Date(format.parse(Evento.getListaEventos().get(i).getData()).getTime());
-					dataHoje.setHours(data.getHours());
+					/*dataHoje.setHours(data.getHours());
 					dataHoje.setMinutes(data.getMinutes());
-					dataHoje.setSeconds(data.getSeconds());
+					dataHoje.setSeconds(data.getSeconds());*/
+					data.setHours(hora);
+					data.setMinutes(minuto);
 					System.out.println(data+ " "+ dataHoje);
 					System.out.println(data+" data");
 					System.out.println(dataHoje+" datahoje");
-					if(!Evento.getListaEventos().get(i).getData().equals(dataConvertida)&& (data.after(dataHoje))){
+					System.out.println((data.before(dataHoje)));
+					if(data.before(dataHoje)){
 						//(date.after(formatoData.parse(Evento.getListaEventos().get(i).getData())))){
 						continue;
 					}
 					
 					
-					}
+					
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}*/
+				}
 				
 				// MÉTODO CHRISTIANIANO
 				if(Evento.getListaEventos().get(i).getData().equals(dataConvertida) && (hora < horaConvertida2) || (hora == horaConvertida2 && minuto < minutoConvertido)){

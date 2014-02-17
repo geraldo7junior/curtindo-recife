@@ -11,6 +11,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -115,6 +119,8 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 			
 			
 		}
+		DateFormat formatoData=new SimpleDateFormat("dd/MM/yyyy");
+		
 		
 		
 		Usuario usuario= new Usuario(nome, email, senha, dataDeNascimento, null, null, null, null);
@@ -133,6 +139,36 @@ public class TelaCadastroUsuario extends Activity implements OnClickListener {
 		if(usuario.getDataDeNascimento().equals("")){
 			txtDataDeNascimento.setError("Campo obrigatório");
 		}
+		
+			//datas válidas
+			try {
+				Date date=new Date();
+				formatoData.parse(usuario.getDataDeNascimento());
+				String dia=usuario.getDataDeNascimento().substring(0, 2);
+				String mes=usuario.getDataDeNascimento().substring(3, 5);
+				String ano=usuario.getDataDeNascimento().substring(6, 10);
+				String anoHoje= formatoData.format(date);
+				
+				int diaConvertido=Integer.parseInt(dia);
+				int mesConvertido=Integer.parseInt(mes);
+				int anoConvertido=Integer.parseInt(ano);
+				int anoHojeConvertido=Integer.parseInt(anoHoje.substring(6, 10));
+				
+				int anoparametro1=anoHojeConvertido-100;
+				int anoparametro2=anoHojeConvertido-2;
+				
+				if(((diaConvertido<=0) || (diaConvertido>31))||((mesConvertido<=0)||(mesConvertido>12))||((anoConvertido<anoparametro1)||(anoConvertido>anoparametro2))){
+					validar=false;
+					txtDataDeNascimento.setError("Data inválida");
+				}
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				validar=false;
+				txtDataDeNascimento.setError("Data inválida");
+			}
+		
 		if(validar){
 		Cadastrar(nome, dataDeNascimento, email, senha, sexo, eventoFavorito1, eventoFavorito2,eventoFavorito3);
 		System.out.println(eventoFavorito1);
