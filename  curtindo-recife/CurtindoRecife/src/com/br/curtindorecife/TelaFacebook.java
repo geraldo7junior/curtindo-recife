@@ -103,6 +103,7 @@ public class TelaFacebook extends Activity {
 		facebook = new Facebook(APP_ID);
 		prefs = getPreferences(MODE_PRIVATE);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
+		chamarFacebook();
 	}
 	
 	public class FacebookSessionStatusCallback implements Session.StatusCallback {

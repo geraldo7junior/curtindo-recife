@@ -1,6 +1,7 @@
 package com.br.curtindorecife;
 
 import com.br.curtindorecife.R.id;
+import com.facebook.Session;
 
 import bd.Banco;
 import dominio.Evento;
@@ -90,6 +91,10 @@ public class TelaMostrarPerfil extends Activity implements OnClickListener {
 	  {     
 	   case id.sairPontinhos:
 		   Usuario.setId(0);
+		   Session.openActiveSessionFromCache(getApplicationContext());
+		   if(Session.getActiveSession()!=null){
+			   Session.getActiveSession().closeAndClearTokenInformation();
+		   }
 		   Intent intent = new Intent(TelaMostrarPerfil.this, TelaPrincipal.class);
 		   startActivity(intent);;
 	   break;

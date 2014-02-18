@@ -8,31 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TelaFacebook" >
 
-    <Button
-        android:id="@+id/btnPublicar"
+    <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp"
-        android:text="Publicar" />
-
-    <Button
-        android:id="@+id/btnPegarDados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnPublicar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="68dp"
-        android:text="Dados" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnPegarDados"
-        android:layout_below="@+id/btnPegarDados"
-        android:layout_marginTop="54dp"
-        android:text="Button" />
+        android:layout_marginTop="151dp"
+        android:text="Entrando..."
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
